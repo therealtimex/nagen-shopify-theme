@@ -186,7 +186,7 @@
             "block_padding_tablet": "",
             "block_padding_mobile": "",
             "block_rounded": 20,
-            "block_background": "#005350",
+            "block_background": "#21395D",
             "title_content": "Our Services",
             "title_font_size": 24,
             "title_line_height": 32,
@@ -238,9 +238,9 @@
             "button_content": "Contact Us Now",
             "button_url": "shopify://pages/contact",
             "button_color": "#ffffff",
-            "button_bg_color": "#ea7f4a",
+            "button_bg_color": "#EB1C25",
             "button_color_hover": "#ffffff",
-            "button_bg_color_hover": "#005350",
+            "button_bg_color_hover": "#21395D",
             "button_style": "btn-primary"
           }
         },
@@ -261,7 +261,7 @@
             "title_font_size": 14,
             "title_line_height": 1.6,
             "title_font_weight": 500,
-            "title_color": "#ea7f4a",
+            "title_color": "#EB1C25",
             "title_space": 4,
             "heading_content": "Download Brochure",
             "heading_font_size": 36,
@@ -278,9 +278,9 @@
             "button_content": "Download Now",
             "button_url": "#",
             "button_color": "#ffffff",
-            "button_bg_color": "#ea7f4a",
+            "button_bg_color": "#EB1C25",
             "button_color_hover": "#ffffff",
-            "button_bg_color_hover": "#005350",
+            "button_bg_color_hover": "#21395D",
             "button_style": "btn-primary"
           }
         }

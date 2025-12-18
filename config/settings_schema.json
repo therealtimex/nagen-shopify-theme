@@ -17,25 +17,25 @@
       {
         "type": "color",
         "id": "color_primary",
-        "default": "#F4A51C",
+        "default": "#21395D",
         "label": "t:settings_schema.colors.settings.color_primary.label"
       },
       {
         "type": "color",
         "id": "color_primary_2",
-        "default": "#807667",
+        "default": "#EB1C25",
         "label": "Color primary 2"
       },
       {
         "type": "color",
         "id": "color_primary_hover",
-        "default": "#F4A51C",
+        "default": "#EB1C25",
         "label": "t:settings_schema.colors.settings.color_primary_hover.label"
       },
       {
         "type": "color",
         "id": "sub_heading_color",
-        "default": "#afb5bb",
+        "default": "#21395D",
         "label": "Sub heading color"
       },
       {
@@ -47,13 +47,13 @@
       {
         "type": "color",
         "id": "heading_color",
-        "default": "#282828",
+        "default": "#21395D",
         "label": "t:settings_schema.colors.settings.heading_color.label"
       },
       {
         "type": "color",
         "id": "text_color",
-        "default": "#282828",
+        "default": "#000000",
         "label": "t:settings_schema.colors.settings.text_color.label"
       },
       {
