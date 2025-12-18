@@ -65,10 +65,12 @@
         "slide_7jHxke": {
           "type": "slide",
           "settings": {
+            "image_1": "shopify://shop_images/home_slide1_item1.webp",
             "image1_width": 50,
             "image1_width_tablet": 60,
             "image1_width_mobile": 100,
             "image1_rounded": 20,
+            "image_2": "shopify://shop_images/home4_banner_6.webp",
             "image2_width": 50,
             "image2_width_tablet": 40,
             "image2_width_mobile": 0,
