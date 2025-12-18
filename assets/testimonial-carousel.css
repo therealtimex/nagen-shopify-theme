@@ -1,0 +1,131 @@
+.quote-rating {
+  display: flex;
+  gap: 3px;
+  margin: 0;
+}
+.quote-rating svg {
+  width: 14px;
+  height: 14px;
+}
+.testimonial-carousel-infor {
+  position: relative;
+  flex: 1 1 110px;
+  padding: 20px;
+}
+.testimonial-img {
+  flex: 1;
+}
+.testimonial-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.testimonial__author {
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+.testimonial__job {
+  font-size: 13px;
+  line-height: 22px;
+}
+.testimonial__rating {
+  line-height: 1;
+}
+.rated path {
+  fill: var(--color-icon);
+}
+.testimonial__time {
+  font-size: 14px;
+  line-height: 24px;
+  color: var(--color-time);
+}
+.testimonial-carousel-author {
+  display: flex;
+  gap: 20px;
+  flex-direction: row;
+  margin-bottom: 0;
+  align-items: center;
+}
+.testimonial-carousel-author img {
+  width: 67px;
+  height: 67px;
+}
+.testimonial-carousel .section__header {
+  margin-bottom: 57px;
+}
+.testimonial-carousel .heading-description b {
+  font-size: 16px;
+}
+.testimonial-carousel .heading-description {
+  font-size: 14px;
+  line-height: 20px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.testimonial-carousel-item {
+  padding: 30px;
+  border: 1px solid #e2e2e2;
+  transition: all 0.4s;
+}
+.quote-icon svg {
+  width: 28px;
+  height: 22px;
+}
+.quote-content-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 0 14px;
+  line-height: 18px;
+}
+.text-center .quote-content-top,
+.text-center .testimonial-carousel-author {
+  justify-content: center;
+}
+.text-right .quote-content-top,
+.text-right .testimonial-carousel-author {
+  justify-content: end;
+}
+
+@media (max-width: 1199px) {
+  .testimonial-carousel-content {
+    width: 100%;
+  }
+}
+
+.testimonial-carousel-box {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px 20px;
+}
+
+.testimonial-carousel-box > div {
+  width: 100%;
+}
+
+.testimonial-carousel-box .testimonial__img {
+  width: 60px;
+  order: 9;
+}
+
+.testimonial-carousel-box .testimonial__author--info {
+  flex: 1;
+  order: 10;
+}
+
+@media (max-width: 991px) and (min-width: 768px) {
+  .testimonial-carousel-item {
+    padding: 20px;
+  }
+}
+@media (max-width: 575px) and (min-width: 480px) {
+  .testimonial-carousel-item {
+    padding: 20px;
+  }
+}

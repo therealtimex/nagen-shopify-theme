@@ -1,0 +1,132 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "breadcrumb_blog_eYqJJw": {
+      "type": "breadcrumb-blog",
+      "disabled": true,
+      "settings": {
+        "setwidthout": "full",
+        "padding_top": 110,
+        "padding_bottom": 0,
+        "height": 550,
+        "height_tablet": 400,
+        "height_mobile": 250,
+        "margin_desktop": "0 0 80px",
+        "bg_img": "shopify://shop_images/breadcrumb.jpg",
+        "background_gradient": "linear-gradient(180deg, rgba(234, 245, 255, 1), rgba(255, 255, 255, 0) 100%)",
+        "background_color": "#ffffff",
+        "color_title": "#ffffff",
+        "color_breadcrumb": "#ffffff"
+      }
+    },
+    "main_page_jGQkJV": {
+      "type": "main-page",
+      "name": "Breadcrumb",
+      "settings": {
+        "setwidthout": "full",
+        "enable_title": true,
+        "padding_top": 30,
+        "padding_bottom": 30,
+        "height": 200,
+        "height_tablet": 200,
+        "height_mobile": 200,
+        "margin_desktop": "0 20px 100px",
+        "margin_tablet": "0 20px 80px",
+        "margin_mobile": "0 0 60px",
+        "bg_img": "shopify://shop_images/breadcrumb_3.jpg",
+        "background_gradient": "",
+        "background_color": "#282828",
+        "color_title": "#ffffff",
+        "color_breadcrumb": "#ffffff",
+        "breadcrumb_rounded": 20
+      }
+    },
+    "main": {
+      "type": "main-article",
+      "blocks": {
+        "search_dNnzFY": {
+          "type": "search",
+          "settings": {}
+        },
+        "blog_aboutus_K7RgMX": {
+          "type": "blog-aboutus",
+          "disabled": true,
+          "settings": {
+            "description": "To be the industry leader, globally recognized for effective & efficient solutions. To provide innovative solutions delivering quality, excellence and speed."
+          }
+        },
+        "47f23791-91b9-4285-82d6-1f2f15225b9c": {
+          "type": "categories",
+          "settings": {
+            "article_link": "mind-mood",
+            "article_link_2": "nutrition",
+            "article_link_3": "staying-healthy",
+            "article_link_4": "",
+            "article_link_5": ""
+          }
+        },
+        "blog_list_9nq4tU": {
+          "type": "blog-list",
+          "settings": {}
+        },
+        "96ce13c5-3720-4f03-9e42-5f492870f98b": {
+          "type": "banner",
+          "settings": {
+            "featured_image": "shopify://shop_images/blog_page_banner.jpg",
+            "title": "Our Newsletter",
+            "color_title": "#ffffff",
+            "heading": "Sign Up Now!",
+            "color_heading": "#ffffff",
+            "description": "Ready to start learn ?",
+            "color_description": "#ffffff",
+            "button1_label": "Contact Us",
+            "link1": "shopify://pages/contact"
+          }
+        },
+        "d887c308-5061-4f24-9e3b-6922c8f5aa06": {
+          "type": "tags",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "search_dNnzFY",
+        "blog_aboutus_K7RgMX",
+        "47f23791-91b9-4285-82d6-1f2f15225b9c",
+        "blog_list_9nq4tU",
+        "96ce13c5-3720-4f03-9e42-5f492870f98b",
+        "d887c308-5061-4f24-9e3b-6922c8f5aa06"
+      ],
+      "custom_css": [
+        ".article-banner-title {font-size: 14px; line-height: 22px; margin-bottom: 10px;}",
+        ".article-banner-heading {font-size: 36px; line-height: 44px; margin-bottom: 10px;}",
+        ".article-banner-description {font-size: 20px; line-height: 28px; margin-bottom: 40px;}",
+        ".article-banner-text a {--btn-bg: var(--primary); --btn-color: #fff;}",
+        ".article-banner-text a:hover {--btn-color-hover: #fff; --btn-bg-hover: var(--primary-2);}"
+      ],
+      "settings": {
+        "blog_show_tags": true,
+        "blog_show_date": true,
+        "blog_show_author": true,
+        "blog_show_share": false,
+        "share_label": "Share",
+        "blog_show_comment": true,
+        "show_mail": false,
+        "heading": "Join Us",
+        "description": "A short sentence describing what someone will receive by subscribing"
+      }
+    }
+  },
+  "order": [
+    "breadcrumb_blog_eYqJJw",
+    "main_page_jGQkJV",
+    "main"
+  ]
+}

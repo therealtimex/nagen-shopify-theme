@@ -1,0 +1,82 @@
+
+
+<nav aria-label="Breadcrumb" class="breadcrumb text--xsmall">
+    <ol class="breadcrumb__list" role="list">
+        <li class="breadcrumb__item">
+            <a class="breadcrumb__link" href="/">
+                
+                Home
+            </a>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12.1727 11.9998L9.34375 9.17184L10.7577 7.75684L15.0007 11.9998L10.7577 16.2428L9.34375 14.8278L12.1727 11.9998Z" fill="currentColor"/>
+                </svg>
+        </li>
+        {% if template contains 'page' %}
+            <li class="breadcrumb__item">
+                {% comment %} <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12.1727 11.9998L9.34375 9.17184L10.7577 7.75684L15.0007 11.9998L10.7577 16.2428L9.34375 14.8278L12.1727 11.9998Z" fill="currentColor"/>
+                </svg> {% endcomment %}
+
+                <span class="breadcrumb__link" ap-currentaria="page">{{ page.title }}</span>
+            </li>
+        {% elsif template contains 'product' %}
+            {% if collection %}
+                <li class="breadcrumb__item">
+                    
+                    <a class="breadcrumb__link" href="/collections/{{ collection.handle }}" title="{{ collection.title }}">{{ collection.title }}</a>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12.1727 11.9998L9.34375 9.17184L10.7577 7.75684L15.0007 11.9998L10.7577 16.2428L9.34375 14.8278L12.1727 11.9998Z" fill="currentColor"/>
+                </svg>
+                </li>
+            {% endif %}
+            <li class="breadcrumb__item">
+                {% comment %} <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12.1727 11.9998L9.34375 9.17184L10.7577 7.75684L15.0007 11.9998L10.7577 16.2428L9.34375 14.8278L12.1727 11.9998Z" fill="currentColor"/>
+                </svg> {% endcomment %}
+                <span class="breadcrumb__link" ap-currentaria="page">{{ product.title }}</span>
+            </li>
+        {% elsif template contains 'collection' %}
+            <li class="breadcrumb__item">
+                {% comment %} <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12.1727 11.9998L9.34375 9.17184L10.7577 7.75684L15.0007 11.9998L10.7577 16.2428L9.34375 14.8278L12.1727 11.9998Z" fill="currentColor"/>
+                </svg> {% endcomment %}
+                <span class="breadcrumb__link" ap-currentaria="page">
+                    {% if collection.title != blank %}
+                        {{ collection.title }}
+                    {% else %}
+                        Collection all
+                    {% endif %}
+                    </span>
+            </li>
+        {% elsif template contains 'blog' %}
+            <li class="breadcrumb__item">
+                {% comment %} <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12.1727 11.9998L9.34375 9.17184L10.7577 7.75684L15.0007 11.9998L10.7577 16.2428L9.34375 14.8278L12.1727 11.9998Z" fill="currentColor"/>
+                </svg> {% endcomment %}
+                <span class="breadcrumb__link" ap-currentaria="page">{{ blog.title }}</span>
+            </li>
+        {% elsif template contains 'article' %}
+            <li class="breadcrumb__item">
+                
+                <a class="breadcrumb__link" href="{{ blog.url }}" title="{{ blog.title }}">{{ blog.title }}</a>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12.1727 11.9998L9.34375 9.17184L10.7577 7.75684L15.0007 11.9998L10.7577 16.2428L9.34375 14.8278L12.1727 11.9998Z" fill="currentColor"/>
+                </svg>
+            </li>
+            <li class="breadcrumb__item">
+                {% comment %} <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12.1727 11.9998L9.34375 9.17184L10.7577 7.75684L15.0007 11.9998L10.7577 16.2428L9.34375 14.8278L12.1727 11.9998Z" fill="currentColor"/>
+                </svg> {% endcomment %}
+                <span class="breadcrumb__link" ap-currentaria="page">{{ article.title }}</span>
+            </li>
+        {% else %}
+        <li class="breadcrumb__item">
+            {% comment %} <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12.1727 11.9998L9.34375 9.17184L10.7577 7.75684L15.0007 11.9998L10.7577 16.2428L9.34375 14.8278L12.1727 11.9998Z" fill="currentColor"/>
+                </svg> {% endcomment %}
+            <span class="breadcrumb__link">{{ page_title }}</span>
+        </li>
+        {% endif %}
+    </ol>
+</nav>
+

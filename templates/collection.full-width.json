@@ -1,0 +1,147 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main_page_Q33x4A": {
+      "type": "main-page",
+      "settings": {
+        "setwidthout": "full",
+        "enable_title": true,
+        "padding_top": 30,
+        "padding_bottom": 30,
+        "height": 360,
+        "height_tablet": 300,
+        "height_mobile": 200,
+        "margin_desktop": "0 20px 80px",
+        "margin_tablet": "0 20px 70px",
+        "margin_mobile": "0 0 60px",
+        "bg_img": "shopify://shop_images/breadcrumb.jpg",
+        "background_gradient": "",
+        "background_color": "#282828",
+        "color_title": "#ffffff",
+        "color_breadcrumb": "#ffffff",
+        "breadcrumb_rounded": 20
+      }
+    },
+    "product-grid": {
+      "type": "main-collection-product-grid",
+      "blocks": {
+        "2e93ff46-735e-43a7-b638-b10c8eab5a73": {
+          "type": "banner",
+          "disabled": true,
+          "settings": {
+            "title_description": "Karpart is your one-stop-shop for all things automotive. Be it brakes or exhaust systems, seat covers or trailer hitches, ball bearings, or air/fuel filters, you can trust us for all your automotive needs.",
+            "color_title_top": "#194a33",
+            "sub_title": "Get Up To\n<br>\n<span class=\"primary\">\n20% off\n<span>",
+            "color_subtitle": "#ffffff",
+            "title": "Brakes and \n<br>\nRotors for Sale",
+            "color_title": "#ffffff",
+            "description": "",
+            "color_description": "#ffffff",
+            "button1_label": "shop now",
+            "link1": "",
+            "color_btn": "#000000",
+            "bg_btn": "#ffffff",
+            "color_btn_hover": "#ffffff",
+            "bg_btn_hover": "#000000"
+          }
+        }
+      },
+      "block_order": [
+        "2e93ff46-735e-43a7-b638-b10c8eab5a73"
+      ],
+      "settings": {
+        "type_collection": "collection-top",
+        "setwidthout": "container-fluid",
+        "margin_desktop": "",
+        "margin_tablet": "",
+        "margin_mobile": "",
+        "padding_desktop": "0",
+        "padding_tablet": "",
+        "padding_mobile": "",
+        "title_categories": "Categories",
+        "collection": "frontpage",
+        "collection2": "covid-essentials",
+        "collection3": "health-condition",
+        "collection4": "fitness-supplements",
+        "collection5": "healthcare-devices",
+        "collection6": "infrared-thermometer",
+        "products_per_page": 10,
+        "columns_desktop": 5,
+        "columns_tablet": 3,
+        "columns_mobile": 2,
+        "product_space": 30
+      }
+    },
+    "3cf928a0-4ae7-4dbd-b666-3715ab87ee96": {
+      "type": "recently-viewed-products",
+      "settings": {
+        "full_width": false,
+        "container_type": "container-fluid",
+        "heading": "Recently viewed products",
+        "heading_size": 4,
+        "tab_description": "",
+        "text_align": "center",
+        "limit": 11,
+        "desktop_big_item": 5,
+        "desktop_item": 5,
+        "tablet_item": 3,
+        "tablet_small_item": 2,
+        "mobile_item": 1,
+        "loop": false,
+        "navigation": true,
+        "pagination": true,
+        "direction": "horizontal",
+        "rows": 1,
+        "space": "20",
+        "space_desktop": "30",
+        "time": "5000",
+        "margin_desktop": "0 0 80px",
+        "margin_mobile": "0 0 60px",
+        "padding_desktop": "",
+        "padding_mobile": ""
+      }
+    },
+    "product_recommendations_TrKKaT": {
+      "type": "product-recommendations",
+      "settings": {
+        "setwidthout": "container-fluid",
+        "heading": "You may also like",
+        "heading_size": 4,
+        "tab_description": "",
+        "text_align": "center",
+        "limit": 11,
+        "desktop_big_item": 5,
+        "desktop_item": 5,
+        "tablet_item": 3,
+        "tablet_small_item": 2,
+        "mobile_item": 1,
+        "loop": false,
+        "navigation": true,
+        "pagination": true,
+        "direction": "horizontal",
+        "rows": 1,
+        "space": "20",
+        "space_desktop": "30",
+        "time": "0",
+        "margin_desktop": "0 0 80px",
+        "margin_mobile": "0 0 60px",
+        "padding_desktop": "",
+        "padding_mobile": ""
+      }
+    }
+  },
+  "order": [
+    "main_page_Q33x4A",
+    "product-grid",
+    "3cf928a0-4ae7-4dbd-b666-3715ab87ee96",
+    "product_recommendations_TrKKaT"
+  ]
+}

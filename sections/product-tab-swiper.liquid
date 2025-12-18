@@ -1,0 +1,428 @@
+{% render 'section-style' %}
+
+<style>
+
+.product-tab-swiper__nav {
+    max-width: 265px;
+    flex: 1;
+}
+.product-tab-swiper__listitem {
+    width: 75%;
+    flex: 1;
+}
+.section-{{ section.id }} .ap-navtabs__item {
+    text-align: left;
+}
+.section-{{ section.id }} .ap-navtabs__position {
+    display: none !important;
+}
+.product-tab-swiper__nav .ap-navtabs {
+    margin: 0;
+    padding: 30px;
+    height: 100%;
+    border: 2px solid var(--primary);
+    border-radius: 20px;
+}
+.product-tab-swiper__nav .ap-navtabs__item {
+    padding: 0 0 10px;
+    font-size: var(--base-font-size);
+    line-height: 26px;
+    text-transform: capitalize;
+    font-weight: 700;
+    border-bottom: 1px solid rgb(var(--border-color));
+    margin: 0 0 10px;
+}
+.product-tab-swiper__nav .ap-navtabs__item svg {
+    color: var(--color-accent-3);
+    margin-right: 7px;
+}
+.section-{{ section.id }} .ap-navtabs__item[ap-expanded-aria=true], 
+.section-{{ section.id }} .ap-navtabs__item[ap-expanded-aria=true] svg ,
+.section-{{ section.id }} .ap-navtabs__item:hover {
+    color: var(--primary);
+}
+.section-{{ section.id }} .ap-navtabs__item-list {
+    gap: 0;
+}
+
+@media (max-width: 991px) {
+  .product-tab-swiper__nav ,
+  .product-tab-swiper__listitem {
+    width: 100%;
+    max-width: 100%;
+    flex: auto;
+  }
+}
+</style>
+
+<section class="section-{{ section.id }} product-tab-swiper">
+    <div class="{{ section.settings.setwidthout }}">
+        <div {% if section.settings.arrow_heading %}style="gap: 15px 0;"{% endif %} class="{% if section.settings.arrow_heading %}d-flex flex-wrap flex-md-row flex-column align-items-center mb-5 {% else %} section__header-wp{% endif %}">
+                
+            {% render 'section-heading' %}
+    
+            {% if section.settings.arrow_heading %}
+            <div style="10px;" class="d-flex position-relative justify-content-md-end justify-content-center arrow-heading">
+              <button class="swiper-button-prev" data-swiper-id="{{ section.id }}-prev">
+                {% render 'icon-arrow-prev' %}
+              </button>
+              <button class="swiper-button-next" data-swiper-id="{{ section.id }}-next">
+                {% render 'icon-arrow-next' %}
+              </button>
+            </div>
+            {% endif %}
+        
+        </div>
+
+        <div class="row">
+            <div class="product-tab-swiper__nav mb-lg-0 mb-4">
+                <ap-navtabs class="ap-navtabs ap-navtabs--center ap-navtabs--edge2edge">
+                    <ap-scrollablecontent class="ap-navtabs__scroller">
+                    <div class="ap-navtabs__scroller-inner">
+                        <div class="ap-navtabs__item-list flex-column">
+                        {% for block in section.blocks %}
+                            <button type="button" class="ap-navtabs__item" ap-expanded-aria="{% if forloop.index == 1 %}true{% else %}false{% endif %}" ap-controlsaria="block-{{ block.id }}">{{ block.settings.tab_name }}</button>
+                        {% endfor %}
+                        </div>
+                        <span class="ap-navtabs__position is-initialized"></span>
+                    </div>
+                    </ap-scrollablecontent>
+                </ap-navtabs>
+            </div>
+
+            <div class="product-tab-swiper__listitem">
+
+                {% for block in section.blocks %}  
+                    {% case block.type %}
+                    {% when 'product_tab' %}
+                        <div stagger-apparition="" id="block-{{ block.id }}" class="product-tab-swiper__item {% if forloop.index == 1 %}ap-object-loaded{% endif %}" {% if forloop.index == 1 %}style="opacity: 1;"{% endif %} {% if forloop.index != 1 %}hidden=""{% endif %}>
+                            <!-- Swiper -->
+                            <div data-swiper-id="{{ section.id }}" class="ap-swiper mySwiper swiper-container" data-swiper='{
+                                "spaceBetween": 15,
+                                "slidesPerView": 1,
+                                    "breakpoints":{
+                                        "576": {
+                                            "slidesPerView": 2,
+                                            "spaceBetween": 15
+                                        },
+                                        "768":{
+                                            "slidesPerView": 2,
+                                            "spaceBetween": {{ section.settings.spaceBetween }}
+                                        },
+                                        "1200":{
+                                            "slidesPerView": 3,
+                                            "spaceBetween": {{ section.settings.spaceBetween }}
+                                        },
+                                        "1500":{
+                                            "slidesPerView": {{ section.settings.perviewDesktop }},
+                                            "spaceBetween": {{ section.settings.spaceBetween }}
+                                        }
+                                    }
+                                }'>
+                                <div class="swiper-wrapper">
+                                    <!-- Generating 10 cards with different content -->
+                                    {% liquid
+                                        if block.settings.collection != blank
+                                            assign limit = section.settings.limit
+                                            for product in block.settings.collection.products limit: limit
+                                                echo '<div class="swiper-slide">'
+                                                    render 'product-grid-2', product: product
+                                                echo '</div>'
+                                            endfor
+                                        else
+                                            if block.settings.collection == blank
+                                                for i in (1..6)
+                                                    echo '<div class="swiper-slide">'
+                                                        capture current
+                                                        cycle 1, 2, 3, 4, 5, 6
+                                                        endcapture
+                                                        assign img = 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg'
+                                                        echo img
+                                                    echo '</div>'
+                                                endfor
+                                            endif
+                                        endif
+                                    %}
+                                </div>
+    
+                                <!-- Pagination and Navigation -->
+                                {% if section.settings.dots %}
+                                <div class="swiper-pagination"></div>
+                                {% endif %}
+    
+                                {% if section.settings.arrow_heading != true %}
+                                {% if section.settings.arrows %}
+                                  <button class="swiper-button-prev" data-swiper-id="{{ section.id }}-prev">
+                                    {% render 'icon-arrow-prev' %}
+                                  </button>
+                                  <button class="swiper-button-next" data-swiper-id="{{ section.id }}-next">
+                                    {% render 'icon-arrow-next' %}
+                                  </button>
+                                {% endif %}
+                                {% endif %}
+    
+                            </div>
+                        </div>     
+
+                        
+                        
+                    {% endcase %}
+                {% endfor %} 
+
+            </div>
+        </div>
+    </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product tab Swiper",
+  "class": "index-section",
+  "max_blocks": 7,
+  "settings": [
+    {
+      "type": "select",
+      "id": "setwidthout",
+      "label": "Set Width",
+      "default": "full",
+      "options": [
+        {
+          "value": "container",
+          "label": "Box"
+        },
+        {
+          "value": "container-fluid",
+          "label": "Container Fluid"
+        },
+        {
+          "value": "full",
+          "label": "Full"
+        }
+      ]
+    },
+    {
+      "type": "color",
+      "id": "background-color",
+      "default": "#ffffff",
+      "label": "t:sections.all.background-color.label"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "t:sections.all.background_image.label"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "default": "#282828",
+      "label": "t:sections.advanced-content.settings.heading_color.label"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "default": "#282828",
+      "label": "t:sections.advanced-content.settings.text_color.label"
+    },
+    {
+      "type": "liquid",
+      "id": "sub_heading",
+      "default": "Sub heading",
+      "label": "Sub Heading"
+    },
+    {
+      "type": "liquid",
+      "id": "tab_heading",
+      "default": "Welcome to our store",
+      "label": "t:sections.advanced-content.settings.tab_heading.label"
+    },
+    {
+      "type": "range",
+      "id": "tab_heading_size",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 2,
+      "label": "t:sections.advanced-content.settings.tab_heading_size.label"
+    },
+    {
+      "type": "text",
+      "id": "tab_description",
+      "label": "t:sections.advanced-content.settings.tab_description.label"
+    },
+    {
+      "type": "text",
+      "id": "btn_text",
+      "label": "Button Text"
+    },
+    {
+      "type": "url",
+      "id": "btn_link",
+      "label": "Link"
+    },
+    {
+      "type": "select",
+      "id": "style_btn",
+      "label": "Style Button",
+      "default": "btn-base",
+      "options": [
+        {
+          "value": "btn-base",
+          "label": "Button Base"
+        },
+        {
+          "value": "btn-outline",
+          "label": "Button Out Line"
+        },
+        {
+          "value": "btn-line",
+          "label": "Button Line"
+        },
+        {
+          "value": "btn-line-black",
+          "label": "Button Line Black"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left",
+      "label": "Text align"
+    },
+    {
+      "type": "header",
+      "content": "Settings item"
+    },
+    {
+      "type": "range",
+      "id": "limit",
+      "min": 3,
+      "max": 30,
+      "step": 1,
+      "label": "Limit items",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "perviewDesktop",
+      "label": "Per View Desktop",
+      "max": 6,
+      "min": 1,
+      "step": 1,
+      "unit": " c",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "spaceBetween",
+      "label": "Space Between",
+      "max": 40,
+      "min": 0,
+      "step": 1,
+      "unit": " sp",
+      "default": 30
+    },
+    {
+      "type": "checkbox",
+      "id": "arrows",
+      "label": "Arrows",
+      "default": true
+    },
+    {
+      "label": "Arrow heading",
+      "id": "arrow_heading",
+      "type": "checkbox",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "dots",
+      "label": "Dots",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Margin & Padding"
+    },
+    {
+      "type": "text",
+      "id": "margin_desktop",
+      "label": "t:sections.all.margin_desktop.label",
+      "info": "t:sections.all.margin_desktop.info"
+    },
+    {
+      "type": "text",
+      "id": "margin_tablet",
+      "label": "t:sections.all.margin_tablet.label",
+      "info": "t:sections.all.margin_tablet.info"
+    },
+    {
+      "type": "text",
+      "id": "margin_mobile",
+      "label": "t:sections.all.margin_mobile.label",
+      "info": "t:sections.all.margin_mobile.info"
+    },
+    {
+      "type": "text",
+      "id": "padding_desktop",
+      "label": "t:sections.all.padding_desktop.label",
+      "info": "t:sections.all.padding_desktop.info"
+    },
+    {
+      "type": "text",
+      "id": "padding_mobile",
+      "label": "t:sections.all.padding_mobile.label",
+      "info": "t:sections.all.padding_mobile.info"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product_tab",
+      "name": "Product tab",
+      "settings": [
+        {
+          "type": "liquid",
+          "id": "tab_name",
+          "default": "Tab name",
+          "label": "Tab Name"
+        },
+        {
+          "id": "collection",
+          "type": "collection",
+          "label": "t:sections.all.collection.label"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product tab (Swiper)",
+      "blocks": [
+        {
+          "type": "product_tab"
+        },
+        {
+          "type": "product_tab"
+        },
+        {
+          "type": "product_tab"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

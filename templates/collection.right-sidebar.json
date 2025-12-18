@@ -1,0 +1,143 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main_page_AfwUAM": {
+      "type": "main-page",
+      "settings": {
+        "setwidthout": "full",
+        "enable_title": true,
+        "padding_top": 30,
+        "padding_bottom": 30,
+        "height": 360,
+        "height_tablet": 300,
+        "height_mobile": 200,
+        "margin_desktop": "0 20px 120px",
+        "margin_tablet": "0 20px 100px",
+        "margin_mobile": "0 0 80px",
+        "bg_img": "shopify://shop_images/breadcrumb.jpg",
+        "background_gradient": "",
+        "background_color": "#282828",
+        "color_title": "#ffffff",
+        "color_breadcrumb": "#ffffff",
+        "breadcrumb_rounded": 20
+      }
+    },
+    "product-grid": {
+      "type": "main-collection-product-grid",
+      "blocks": {
+        "516dfcf0-85da-490b-8622-444719f7972f": {
+          "type": "banner",
+          "disabled": true,
+          "settings": {
+            "title_description": "Karpart is your one-stop-shop for all things automotive. Be it brakes or exhaust systems, seat covers or trailer hitches, ball bearings, or air/fuel filters, you can trust us for all your automotive needs.",
+            "color_title_top": "#194a33",
+            "sub_title": "Get Up To\n<br>\n<span class=\"primary\">\n20% off\n<span>",
+            "color_subtitle": "#ffffff",
+            "title": "Brakes and \n<br>\nRotors for Sale",
+            "color_title": "#ffffff",
+            "description": "",
+            "color_description": "#ffffff",
+            "button1_label": "shop now",
+            "link1": "",
+            "color_btn": "#000000",
+            "bg_btn": "#ffffff",
+            "color_btn_hover": "#ffffff",
+            "bg_btn_hover": "#000000"
+          }
+        }
+      },
+      "block_order": [
+        "516dfcf0-85da-490b-8622-444719f7972f"
+      ],
+      "settings": {
+        "type_collection": "default",
+        "setwidthout": "container",
+        "margin_desktop": "",
+        "padding_desktop": "0",
+        "title_categories": "Product categories",
+        "collection": "accessories",
+        "collection2": "hand-sanitizer",
+        "collection3": "health-medicine",
+        "collection4": "medical-equipment",
+        "collection5": "pressure-meter",
+        "collection6": "home-accessories",
+        "products_per_page": 9,
+        "columns_desktop": 3,
+        "columns_tablet": 3,
+        "columns_mobile": 2,
+        "product_space": 30
+      }
+    },
+    "3cf928a0-4ae7-4dbd-b666-3715ab87ee96": {
+      "type": "recently-viewed-products",
+      "settings": {
+        "full_width": false,
+        "container_type": "container",
+        "heading": "Recently viewed products",
+        "heading_size": 4,
+        "tab_description": "",
+        "text_align": "center",
+        "limit": 10,
+        "desktop_big_item": 4,
+        "desktop_item": 4,
+        "tablet_item": 3,
+        "tablet_small_item": 2,
+        "mobile_item": 1,
+        "loop": false,
+        "navigation": false,
+        "pagination": true,
+        "direction": "horizontal",
+        "rows": 1,
+        "space": "20",
+        "space_desktop": "30",
+        "time": "5000",
+        "margin_desktop": "0 0 80px",
+        "margin_mobile": "0 0 60px",
+        "padding_desktop": "",
+        "padding_mobile": ""
+      }
+    },
+    "product_recommendations_wt4bdd": {
+      "type": "product-recommendations",
+      "settings": {
+        "setwidthout": "container",
+        "heading": "You may also like",
+        "heading_size": 4,
+        "tab_description": "",
+        "text_align": "center",
+        "limit": 10,
+        "desktop_big_item": 4,
+        "desktop_item": 4,
+        "tablet_item": 3,
+        "tablet_small_item": 2,
+        "mobile_item": 1,
+        "loop": false,
+        "navigation": true,
+        "pagination": true,
+        "direction": "horizontal",
+        "rows": 1,
+        "space": "30",
+        "space_desktop": "30",
+        "time": "0",
+        "margin_desktop": "0 0 80px",
+        "margin_mobile": "0 0 60px",
+        "padding_desktop": "",
+        "padding_mobile": ""
+      }
+    }
+  },
+  "order": [
+    "main_page_AfwUAM",
+    "product-grid",
+    "3cf928a0-4ae7-4dbd-b666-3715ab87ee96",
+    "product_recommendations_wt4bdd"
+  ]
+}

@@ -1,0 +1,9 @@
+{%- case product_type -%}
+    {%- when 'product-grid-1' -%}
+        {%- render 'product-grid-1', product: product -%}
+    {%- when 'product-grid-2' -%}
+        {%- render 'product-grid-2', product: product -%}
+    {%- else -%}
+        {%- render 'product-grid-1', product: product -%}
+{%- endcase -%}
+   

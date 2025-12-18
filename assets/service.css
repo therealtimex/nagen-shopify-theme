@@ -1,0 +1,70 @@
+
+
+
+.main-image::before {
+  content: '';
+}
+
+
+.before-after-image-wrapper {
+  position: relative;
+  user-select: none;
+  overflow: hidden;
+}
+
+.before-after-image-relative {
+  height: var(--desktop-height);
+}
+
+
+@media (max-width: 767px) {
+  .before-after-image-relative {
+    height: var(--mobile-height);
+  }
+}
+
+
+
+.before-after-image {
+  width: 100%;
+  display: block;
+}
+
+.before-after-image--cover {
+  height: 100%;
+}
+
+.before-after__cursor {
+  height: 100%;
+  width: max-content;
+  touch-action: none;
+  --transform-logical-flip: 1;
+  transform: translate(calc(var(--transform-logical-flip) * -50% + var(--clip-path-offset, 0px)), -50%);
+  cursor: grab;
+  will-change: transform;
+  place-items: center;
+  display: grid;
+  position: relative;
+  top: 50%;
+  left: var(--before-after-initial-drag-position, 0px);
+  
+}
+
+.before-after__cursor span {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.before-after__cursor:before {
+  content: '';
+  height: 100%;
+  width: 2px;
+  background: var(--background);
+  z-index: -1;
+  position: absolute;
+}

@@ -1,0 +1,551 @@
+{% render 'section-style' %}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    --heading-color: {{ section.settings.heading_color | color_extract: 'red' }}, {{ section.settings.heading_color | color_extract: 'green' }}, {{ section.settings.heading_color | color_extract: 'blue' }};
+    background-size:{{ section.settings.e_size }} !important;
+  }
+
+  .categories-img_content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
+    padding: 40px;
+  }
+  .categories-linklist {
+    flex: 1;
+    padding: 40px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .categories__item-menu a {
+    line-height: 30px;
+  }
+  .categories-img {
+    max-width: 206px;
+    height: 100%;
+    flex: 1;
+    min-width: 200px;
+  }
+  .categories-img img {
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+  }
+  .categories {
+    border-radius: 20px;
+  }
+
+  @media (max-width: 480px) {
+    .categories {
+      flex-direction: column;
+    }
+    .categories-img img {
+      border-radius: 20px;
+    }
+    .categories-img {
+      max-width: 100%;
+      width: 100%;
+    }
+  }
+</style>
+
+<section class="categories-image">    
+    <div class="{%- if section.settings.fullwidth -%}container-fluid{%- else -%}container{%- endif -%}">
+      {% render 'section-heading' %}
+
+        <div class="row {% if section.settings.no_gutter %}no-gutters{% endif %}">
+            {% for block in section.blocks %}
+                {%- case block.settings.width -%}
+                {%- when '20%' -%}
+                {%- assign block_width = 'col-xl-20 col-md-6 col-12' -%}
+                {%- when '25%' -%}
+                {%- assign block_width = 'col-xl-3 col-md-6 col-12' -%}
+                {%- when '33%' -%}
+                {%- assign block_width = 'col-xl-4 col-lg-6 col-md-12 col-12 mb-30' -%}
+                {%- when '50%' -%}
+                {%- assign block_width = 'col-xl-6 col-md-6 col-12' -%}
+                {%- when '66%' -%}
+                {%- assign block_width = 'col-xl-8 col-md-6 col-12' -%}
+                {%- when '75%' -%}
+                {%- assign block_width = 'col-xl-9 col-md-6 col-12' -%}
+                {%- when '100%' -%}
+                {%- assign block_width = 'col-12' -%}
+                {%- endcase -%}
+                <div id="block-{{ block.id }}" class="{{ block_width }} {{ block.settings.class }}">
+
+                  {% case block.type %}
+  
+                      {%- when 'categories' -%}
+                          <div style="background-color: {{ section.settings.bg_color }};" class="categories d-flex align-items-center h-100">
+                            <div class="categories-img position-relative">
+                              {% if  block.settings.image != blank %}
+                                <img class="w-100 h-100 object-fit-cover" loading="lazy" 
+                                    sizes="(max-width: 999px) 100vw, 72vw" alt="" 
+                                    src="{{ block.settings.image | image_url: width: block.settings.image.width }}" 
+                                    data-srcset="{{ block.settings.image | image_url: width: 2000 }} 2000w" 
+                                    width="{{ block.settings.image.width }}" height="{{ block.settings.image.height }}">     
+                              {% else %}
+                                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                              {% endif %} 
+
+                              {%-liquid
+                                assign position_text = block.settings.position_text
+            
+                                case position_text
+                                  when 'top-left'
+                                  assign positiontxt = 'align-items-start justify-content-start'
+                                  when 'top-center'
+                                  assign positiontxt = 'align-items-center justify-content-start'
+                                  when 'top-right'
+                                  assign positiontxt = 'align-items-end justify-content-start'
+                                  when 'mid-left'
+                                  assign positiontxt = 'align-items-start justify-content-center'
+                                  when 'mid-center'
+                                  assign positiontxt = 'align-items-center justify-content-center'
+                                  when 'mid-right'
+                                  assign positiontxt = 'align-items-end justify-content-center'
+                                  when 'bot-left'
+                                  assign positiontxt = 'align-items-start justify-content-end'
+                                  when 'bot-center'
+                                  assign positiontxt = 'align-items-center justify-content-end'
+                                  when 'bot-right'
+                                  assign positiontxt = 'align-items-end justify-content-end'
+                                  else 
+                                  assign positiontxt = 'align-items-end justify-content-start'
+                                endcase
+                              -%}
+                              <div class="categories-img_content d-flex flex-column {{ positiontxt }}">
+                                <div class="text-{{ block.settings.text_align }}">
+                                    {% if block.settings.heading != blank %}
+                                      <h2 style="color: {{ section.settings.color_title_center }};" class="heading heading-center {{ section.settings.heading_size_2 }} my-0">
+                                        {{- block.settings.heading -}}
+                                      </h2>
+                                    {% endif %}   
+                                </div>
+                              </div>
+
+                            </div>
+
+                            <div class="categories-linklist d-flex">
+
+                              <div class="categories__item-menu">
+                                {%- if block.settings.menu != blank -%}
+                                  <ul role="list">
+                                  {%- for link in block.settings.menu.links -%}
+                                    <li>
+                                      <a href="{{ link.url }}">{{ link.title | escape }}</a>
+                                    </li>    
+                                  {% endfor %}
+                                  </ul>
+                                {% endif %}
+                              </div>
+            
+                              <div class="categories__item-menu">
+                                {%- if block.settings.menu_2 != blank -%}
+                                  <ul role="list">
+                                  {%- for link in block.settings.menu_2.links -%}
+                                    <li>
+                                      <a href="{{ link.url }}">{{ link.title | escape }}</a>
+                                    </li>
+                                  {% endfor %}
+                                  </ul>
+                                {% endif %}
+                              </div>
+
+                            </div>
+                          </div>
+  
+                  {% endcase %}
+
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% schema %}
+{
+  "name": "Ap Categories",
+  "tag": "section",
+  "class": "section section-categories-image",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "fullwidth",
+      "label": "t:sections.all.fullwidth.label",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "margin_desktop",
+      "label": "t:sections.all.margin_desktop.label",
+      "info": "t:sections.all.margin_desktop.info"
+    },
+    {
+      "type": "text",
+      "id": "margin_tablet",
+      "label": "t:sections.all.margin_tablet.label",
+      "info": "t:sections.all.margin_tablet.info"
+    },
+    {
+      "type": "text",
+      "id": "margin_mobile",
+      "label": "t:sections.all.margin_mobile.label",
+      "info": "t:sections.all.margin_mobile.info"
+    },
+    {
+      "type": "text",
+      "id": "padding_desktop",
+      "label": "Padding desktop",
+      "default": "0px 0px 0px 0px",
+      "info": "Example: 0px 0px 0px 0px"
+    },
+    {
+      "type": "text",
+      "id": "padding_tablet",
+      "label": "Padding tablet",
+      "default": "0px 0px 0px 0px",
+      "info": "Example: 0px 0px 0px 0px"
+    },
+    {
+      "type": "text",
+      "id": "padding_mobile",
+      "label": "Padding mobile",
+      "default": "0px 0px 0px 0px",
+      "info": "Example: 0px 0px 0px 0px"
+    },
+    {
+      "type": "checkbox",
+      "id": "no_gutter",
+      "label": "No gutters",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "background-color",
+      "default": "#ffffff",
+      "label": "t:sections.all.background-color.label"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "t:sections.all.background_image.label"
+    },
+    {
+      "type": "select",
+      "id": "e_size",
+      "label": "Background Size",
+      "default": "auto",
+      "options": [
+        {
+          "value": "auto",
+          "label": "Auto"
+        },
+        {
+          "value": "cover",
+          "label": "Cover"
+        },
+        {
+          "value": "contain",
+          "label": "Contain"
+        }
+      ]
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "default": "#282828",
+      "label": "t:sections.advanced-content.settings.heading_color.label"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "default": "#282828",
+      "label": "t:sections.advanced-content.settings.text_color.label"
+    },
+    {
+      "type": "liquid",
+      "id": "sub_heading",
+      "default": "Sub heading",
+      "label": "Sub Heading"
+    },
+    {
+      "type": "liquid",
+      "id": "tab_heading",
+      "default": "Welcome to our store",
+      "label": "t:sections.advanced-content.settings.tab_heading.label"
+    },
+    {
+      "type": "range",
+      "id": "tab_heading_size",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 2,
+      "label": "t:sections.advanced-content.settings.tab_heading_size.label"
+    },
+    {
+      "type": "liquid",
+      "id": "tab_description",
+      "label": "t:sections.advanced-content.settings.tab_description.label"
+    },
+    {
+      "type": "liquid",
+      "id": "btn_text",
+      "label": "Button Text"
+    },
+    {
+      "type": "url",
+      "id": "btn_link",
+      "label": "Link"
+    },
+    {
+      "type": "select",
+      "id": "style_btn",
+      "label": "Style Button",
+      "default": "btn-base",
+      "options": [
+        {
+          "value": "btn-base",
+          "label": "Button Base"
+        },
+        {
+          "value": "btn-outline",
+          "label": "Button Out Line"
+        },
+        {
+          "value": "btn-line",
+          "label": "Button Line"
+        },
+        {
+          "value": "btn-line-black",
+          "label": "Button Line Black"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left",
+      "label": "Text align"
+    },
+    {
+      "type": "header",
+      "content": "Settings item"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "default": "#ffffff",
+      "label": "Background content"
+    },
+    {
+      "type": "color",
+      "id": "color_title_center",
+      "default": "#ffffff",
+      "label": "Color heading"
+    },
+    {
+      "type": "color",
+      "id": "color_link",
+      "default": "#666666",
+      "label": "Color link"
+    },
+    {
+      "type": "select",
+      "id": "heading_size_2",
+      "options": [
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "h4",
+          "label": "H4"
+        },
+        {
+          "value": "h5",
+          "label": "H5"
+        },
+        {
+          "value": "h6",
+          "label": "H6"
+        },
+        {
+          "value": "p",
+          "label": "P"
+        }
+      ],
+      "default": "h3",
+      "label": "Heading size"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "categories",
+      "name": "Categories",
+      "settings": [
+        {
+          "type": "select",
+          "id": "width",
+          "label": "Width product",
+          "default": "33%",
+          "options": [
+            {
+              "value": "20%",
+              "label": "20%"
+            },
+            {
+              "value": "25%",
+              "label": "25%"
+            },
+            {
+              "value": "33%",
+              "label": "33%"
+            },
+            {
+              "value": "50%",
+              "label": "50%"
+            },
+            {
+              "value": "66%",
+              "label": "66%"
+            },
+            {
+              "value": "75%",
+              "label": "75%"
+            },
+            {
+              "value": "100%",
+              "label": "100%"
+            }
+          ]
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "liquid",
+          "id": "heading",
+          "label": "Heading center"
+        },
+        {
+          "type": "select",
+          "id": "text_align",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ],
+          "default": "left",
+          "label": "Text align"
+        },
+        {
+          "type": "select",
+          "id": "position_text",
+          "options": [
+            {
+              "value": "top-left",
+              "label": "Top Left"
+            },
+            {
+              "value": "top-center",
+              "label": "Top Center"
+            },
+            {
+              "value": "top-right",
+              "label": "Top Right"
+            },
+            {
+              "value": "mid-left",
+              "label": "Midle Left "
+            },
+            {
+              "value": "mid-center",
+              "label": "Midle Center "
+            },
+            {
+              "value": "mid-right",
+              "label": "Midle Right "
+            },
+            {
+              "value": "bot-left",
+              "label": "Bottom Left "
+            },
+            {
+              "value": "bot-center",
+              "label": "Bottom Center "
+            },
+            {
+              "value": "bot-right",
+              "label": "Bottom Right "
+            }
+          ],
+          "default": "mid-center",
+          "label": "Text Position"
+        },
+        {
+          "type": "header",
+          "content": "Content link list"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "t:sections.header.settings.menu.label"
+        },
+        {
+          "type": "link_list",
+          "id": "menu_2",
+          "label": "Menu 2"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Ap Categories",
+      "blocks": [
+        {
+          "type": "categories"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

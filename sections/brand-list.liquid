@@ -1,0 +1,602 @@
+{% render 'section-style' %}
+{%- assign id = '#shopify-section-' | append: section.id -%}
+
+{% style %}
+  {{ id }} {
+    background-size: auto;
+    background-position: top center;
+    background-repeat: no-repeat;
+
+    border-color: rgba(255,255,255,0.1)
+  }
+
+  .manufacturer-swiper {
+    height: 40px;
+  }
+
+  {{ id }} .section_footer {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-top: 100px;
+    @media (max-width: 767px) {
+      margin-top: 80px;
+    }
+  }
+  {{ id }} .section_footer:before, {{ id }} .section_footer:after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    width: 100%;
+    background-color: #E5EAE8;
+  }
+
+  {{ id }} .footer-text {
+    font-size: 14px;
+    line-height: 28px;
+    font-weight: 700;
+  }
+
+  .manufacturer__item--link {
+    color: var(--color);
+    transition: all 0.3s ease-in-out;
+  }
+
+  .manufacturer__item--link svg {
+    max-width: 100%;
+  }
+
+  .manufacturer__item--link:hover {
+    color: var(--hover-color);
+  }
+
+
+  
+{% endstyle %}
+
+<div class="manufacturer-section">
+  <div class="shopify-container">
+    <div class="section_header text-{{ section.settings.text_align }}">
+      {%- if section.settings.title != blank -%}
+        <div class="title_block justify-content-{{ section.settings.text_align }}" style="color: {{ section.settings.title_color }}">
+          <span>{{ section.settings.title }}</span>
+        </div>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="heading_block" style="color: {{ section.settings.heading_color }}">
+          {{ section.settings.heading }}
+        </h2>
+      {%- endif -%}
+      {%- if section.settings.description != blank -%}
+        <p class="text_description" style="color: {{ section.settings.description_color }}">
+          {{ section.settings.description }}
+        </p>
+      {%- endif -%}
+    </div>
+
+
+    <div class="manufacturer-swiper">
+      <div id="swiper-{{ section.id }}" class="ap-swiper swiper"
+      data-desktop-item="{{ section.settings.desktop_item }}"
+      data-tablet-item="{{ section.settings.tablet_item }}"
+      data-tabletsmall-item="{{ section.settings.tablet_small_item }}"
+      data-mobile-item="{{ section.settings.mobile_item }}"
+      data-loop="{{ section.settings.loop }}"
+      data-rows="{{ section.settings.rows }}"
+      data-direction="{{ section.settings.direction }}"
+      data-navigation="{{ section.settings.navigation }}"
+      data-pagination="{{ section.settings.pagination }}"
+      data-space="{{ section.settings.space }}"
+      data-space-desktop="{{ section.settings.space_desktop }}"
+      data-time="{{ section.settings.time }}">
+        <div class="swiper-wrapper align-items-{{ section.settings.align_items }}">
+          {% for block in section.blocks %}
+            <div class="swiper-slide">
+              <div id="block-{{ block.id }}" class="manufacturer-item text-{{ section.settings.manufacturer_item_text_align }}" {% if section.settings.data_aos != 'none' %}
+                data-aos="{{ section.settings.data_aos }}"
+              {% endif %}>
+              <div class="manufacturer__item">
+                <a href="{{ block.settings.collection.url }}" class="manufacturer__item--link" style="--color: {{ block.settings.brand_svg_color }}; --hover-color: {{ block.settings.brand_svg_hover_color }} ">
+                  
+
+                  {%- if block.settings.image != blank -%}
+                    {{ block.settings.image |  image_url: width: block.settings.image.width |  image_tag: class: "img-fluid" }}
+                  {%- else -%}
+                    {{ block.settings.brand_svg }}
+                  {%- endif -%}
+                </a>
+              </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+        {% if section.settings.pagination %}
+          <div class="swiper-pagination swiper-pagination_{{ section.id }}"></div>
+        {% endif %}
+      </div>
+    </div>
+
+    {%- if section.settings.footer_text != blank -%}
+      <div class="section_footer text-{{ section.settings.text_align }}" {% if section.settings.footer_data_aos != 'none' %}
+        data-aos="{{ section.settings.footer_data_aos }}"
+      {% endif %}>
+        <p class="footer-text" style="color: {{ section.settings.footer_text_color }};">{{ section.settings.footer_text }}</p>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Manufacturer",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Layout settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full width",
+      "default": false
+    },
+    {
+        "type": "number",
+        "id": "content_width",
+        "label": "Content width",
+        "default": 1290
+       }, {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background color"
+      },
+      {
+        "type": "image_picker",
+        "id": "background_image",
+        "label": "Background image"
+      },
+      {
+        "type": "text",
+        "id": "margin_desktop",
+        "label": "t:sections.all.margin_desktop.label",
+        "info": "t:sections.all.margin_desktop.info"
+      },
+      {
+        "type": "text",
+        "id": "margin_tablet",
+        "label": "t:sections.all.margin_tablet.label",
+        "info": "t:sections.all.margin_tablet.info"
+      },
+      {
+        "type": "text",
+        "id": "margin_mobile",
+        "label": "t:sections.all.margin_mobile.label",
+        "info": "t:sections.all.margin_mobile.info"
+      },
+      {
+        "type": "text",
+        "id": "padding_desktop",
+        "label": "t:sections.all.padding_desktop.label",
+        "info": "t:sections.all.padding_desktop.info"
+      },
+      {
+        "type": "text",
+        "id": "padding_tablet",
+        "label": "t:sections.all.padding_tablet.label",
+        "info": "t:sections.all.padding_tablet.info"
+      },
+      {
+        "type": "text",
+        "id": "padding_mobile",
+        "label": "t:sections.all.padding_mobile.label",
+        "info": "t:sections.all.padding_mobile.info"
+      },
+      {
+        "type": "text",
+        "id": "border_width",
+        "label": "Border width"
+      }, {
+        "type": "color",
+        "id": "border_color",
+        "label": "Border color"
+      }, {
+        "type": "header",
+        "content": "Title settings"
+      }, {
+        "type": "text",
+        "id": "title",
+        "label": "Title"
+      }, {
+        "type": "color",
+        "id": "title_color",
+        "label": "Title color"
+      }, {
+        "type": "header",
+        "content": "Heading settings"
+      }, {
+        "type": "liquid",
+        "id": "heading",
+        "label": "Heading"
+      }, {
+        "type": "color",
+        "id": "heading_color",
+        "label": "Heading color"
+      }, {
+        "type": "header",
+        "content": "Description settings"
+      }, {
+        "type": "liquid",
+        "id": "description",
+        "label": "Description"
+      }, {
+        "type": "color",
+        "id": "description_color",
+        "label": "Description color"
+      }, {
+        "type": "select",
+        "id": "text_align",
+        "label": "Text align",
+        "options": [
+          {
+            "value": "start",
+            "label": "Start"
+          }, {
+            "value": "center",
+            "label": "Center"
+          }, {
+            "value": "end",
+            "label": "End"
+          }
+        ]
+      },
+      {
+        "type": "header",
+        "content": "Section footer settings"
+      }, {
+        "type": "liquid",
+        "id": "footer_text",
+        "label": "Footer text"
+      }, {
+        "type": "color",
+        "id": "footer_text_color",
+        "label": "Footer text color"
+      },{
+          "type": "select",
+          "id": "footer_data_aos",
+          "label": "Banner Data Aos",
+          "default": "none",
+          "options": [
+            {
+              "value": "none",
+              "label": "none"
+            },
+            {
+              "value": "fade-up",
+              "label": "fade-up"
+            },
+            {
+              "value": "fade-down",
+              "label": "fade-down"
+            },
+            {
+              "value": "fade-right",
+              "label": "fade-right"
+            },
+            {
+              "value": "fade-left",
+              "label": "fade-left"
+            },
+            {
+              "value": "flip-left",
+              "label": "flip-left"
+            },
+            {
+              "value": "flip-right",
+              "label": "flip-right"
+            },
+            {
+              "value": "flip-up",
+              "label": "flip-up"
+            },
+            {
+              "value": "flip-down",
+              "label": "flip-down"
+            },
+            {
+              "value": "zoom-in",
+              "label": "zoom-in"
+            },
+            {
+              "value": "zoom-in-up",
+              "label": "zoom-in-up"
+            },
+            {
+              "value": "zoom-in-down",
+              "label": "zoom-in-down"
+            },
+            {
+              "value": "zoom-in-left",
+              "label": "zoom-in-left"
+            },
+            {
+              "value": "zoom-in-right",
+              "label": "zoom-in-right"
+            },
+            {
+              "value": "zoom-out",
+              "label": "zoom-out"
+            },
+            {
+              "value": "zoom-out-up",
+              "label": "zoom-out-up"
+            },
+            {
+              "value": "zoom-out-down",
+              "label": "zoom-out-down"
+            },
+            {
+              "value": "zoom-out-left",
+              "label": "zoom-out-left"
+            },
+            {
+              "value": "zoom-out-right",
+              "label": "zoom-out-right"
+            }
+          ]
+        },  {
+          "type": "header",
+          "content": "Testimonial swiper settings"
+        }, {
+        "type": "range",
+        "id": "desktop_item",
+        "min": 1,
+        "max": 10,
+        "step": 1,
+        "default": 4,
+        "label": "Desktop item"
+      }, {
+        "type": "range",
+        "id": "tablet_item",
+        "min": 1,
+        "max": 10,
+        "step": 1,
+        "default": 3,
+        "label": "Tablet item"
+      }, {
+        "type": "range",
+        "id": "tablet_small_item",
+        "min": 1,
+        "max": 10,
+        "step": 1,
+        "default": 2,
+        "label": "Tablet small item"
+      }, {
+        "type": "range",
+        "id": "mobile_item",
+        "min": 1,
+        "max": 10,
+        "step": 1,
+        "default": 1,
+        "label": "Mobile item"
+      }, {
+        "type": "checkbox",
+        "id": "loop",
+        "label": "Loop",
+        "default": false
+      }, {
+        "type": "checkbox",
+        "id": "navigation",
+        "label": "Navigation",
+        "default": true
+      }, {
+        "type": "checkbox",
+        "id": "pagination",
+        "label": "Pagination",
+        "default": true
+      }, {
+        "type": "select",
+        "id": "direction",
+        "label": "Direction",
+        "default": "horizontal",
+        "options": [
+          {
+            "value": "horizontal",
+            "label": "Horizontal"
+          }, {
+            "value": "vertical",
+            "label": "Vertical"
+          }
+        ]
+      }, {
+        "type": "range",
+        "id": "rows",
+        "min": 1,
+        "max": 10,
+        "step": 1,
+        "default": 1,
+        "label": "Rows"
+      }, {
+        "type": "text",
+        "id": "space",
+        "label": "Space",
+        "default": "30"
+      }, {
+        "type": "text",
+        "id": "space_desktop",
+        "label": "Space desktop",
+        "default": "30"
+      }, {
+        "type": "text",
+        "id": "time",
+        "label": "Time",
+        "default": "0"
+      },{
+        "type": "select",
+        "id": "align_items",
+        "label": "Align items",
+        "options": [
+          {
+            "value": "start",
+            "label": "Top"
+          }, {
+            "value": "center",
+            "label": "Middle"
+          }, {
+            "value": "end",
+            "label": "Bottom"
+          }
+        ],
+        "default": "start"
+      }, {
+        "type": "header",
+        "content": "Manufacturer Item Settings"
+      }, {
+        "type": "select",
+        "id": "manufacturer_item_text_align",
+        "label": "Manufacturer item text align",
+        "options": [
+          {
+            "value": "start",
+            "label": "Start"
+          }, {
+            "value": "center",
+            "label": "Center"
+          }, {
+            "value": "end",
+            "label": "End"
+          }
+        ], 
+        "default": "center"
+      }, {
+          "type": "select",
+          "id": "data_aos",
+          "label": "Banner Data Aos",
+          "default": "none",
+          "options": [
+            {
+              "value": "none",
+              "label": "none"
+            },
+            {
+              "value": "fade-up",
+              "label": "fade-up"
+            },
+            {
+              "value": "fade-down",
+              "label": "fade-down"
+            },
+            {
+              "value": "fade-right",
+              "label": "fade-right"
+            },
+            {
+              "value": "fade-left",
+              "label": "fade-left"
+            },
+            {
+              "value": "flip-left",
+              "label": "flip-left"
+            },
+            {
+              "value": "flip-right",
+              "label": "flip-right"
+            },
+            {
+              "value": "flip-up",
+              "label": "flip-up"
+            },
+            {
+              "value": "flip-down",
+              "label": "flip-down"
+            },
+            {
+              "value": "zoom-in",
+              "label": "zoom-in"
+            },
+            {
+              "value": "zoom-in-up",
+              "label": "zoom-in-up"
+            },
+            {
+              "value": "zoom-in-down",
+              "label": "zoom-in-down"
+            },
+            {
+              "value": "zoom-in-left",
+              "label": "zoom-in-left"
+            },
+            {
+              "value": "zoom-in-right",
+              "label": "zoom-in-right"
+            },
+            {
+              "value": "zoom-out",
+              "label": "zoom-out"
+            },
+            {
+              "value": "zoom-out-up",
+              "label": "zoom-out-up"
+            },
+            {
+              "value": "zoom-out-down",
+              "label": "zoom-out-down"
+            },
+            {
+              "value": "zoom-out-left",
+              "label": "zoom-out-left"
+            },
+            {
+              "value": "zoom-out-right",
+              "label": "zoom-out-right"
+            }
+          ]
+        }
+    ],
+    "blocks": [
+      {
+        "name": "Manufacturer Item",
+        "type": "manufacturer-item",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          }, {
+            "type": "liquid",
+            "id": "brand_svg",
+            "label": "Brand SVG"
+          }, {
+            "type": "color",
+            "id": "brand_svg_color",
+            "label": "Brand SVG color",
+            "default": "#000000"
+          }, {
+            "type": "color",
+            "id": "brand_svg_hover_color",
+            "label": "Brand SVG hover color",
+            "default": "#000000"
+          }, {
+            "type": "collection",
+            "id": "collection",
+            "label": "Collection"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Manufacturer",
+        "blocks": [
+          {
+            "type": "manufacturer-item"
+          }, {
+            "type": "manufacturer-item"
+          }, {
+            "type": "manufacturer-item"
+          }
+        ]
+      }
+    ],
+  }
+{% endschema %}

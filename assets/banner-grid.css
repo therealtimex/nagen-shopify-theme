@@ -1,0 +1,54 @@
+.banner-image img {
+  width: 100%;
+  object-fit: cover;
+}
+
+.banner__item--btn a {
+  transition: 0.3s all ease;
+}
+
+
+.banner-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
+  border-radius: 50%;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.banner-icon svg {
+  position: relative;
+}
+
+.banner-icon:before {
+      background-color:#FFFFFF66;
+    border-radius: 50%;
+    content: "";
+    position: absolute;
+    transform: scale(1);
+    pointer-events: none;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transition: all 0.3s ease;
+}
+
+.banner-icon:hover::before {
+  animation: pulse 1.5s infinite linear;
+}
+
+
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.6);
+}
+100% {
+    box-shadow: 0 0 0 12px rgba(255, 255, 255, 0);
+}
+}

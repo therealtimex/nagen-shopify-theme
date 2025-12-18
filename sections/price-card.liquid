@@ -1,0 +1,645 @@
+{% render 'section-style' %}
+{{ 'price-card.css' | asset_url | stylesheet_tag }}
+{%- assign id = '#shopify-section-' | append: section.id -%}
+
+
+{%- style -%}
+
+  {{ id }} {
+    {%- if section.settings.background_repeat -%}
+      background-repeat: repeat;
+    {%- else -%}
+      background-repeat: no-repeat;
+    {%- endif -%}
+    {%- if section.settings.background_size != "default" and section.settings.background_size != "custom" -%}
+      background-size: {{ section.settings.background_size }};
+    {%- endif -%}
+    {%- if section.settings.background_size == "custom" -%}
+      background-size: {{ section.settings.background_size_custom }}%;
+    {%- endif -%}
+    {%- if section.settings.background_position != "custom" -%}
+      background-position: {{ section.settings.background_position }};
+    {%- else -%}
+      background-position-x: {{ section.settings.background_position_x }};
+      background-position-y: {{ section.settings.background_position_y }};
+    {%- endif -%}
+  }
+
+  .price--card__section .block-content {
+    max-width: 382px;
+  }
+
+  {{ id }} .price__card--list {
+    grid-template-columns: repeat({{ section.settings.card_number_column }}, 1fr);
+  }
+
+  {{ id }} .price__card--item {
+    background: var(--card-background-color);
+    border-radius: var(--card-rounded);
+    padding: var(--card-padding);
+    border: 1px solid rgb(var(--border-color))
+  }
+
+  {{ id }} .card__button .btn {
+    color: var(--card-button-color);
+    background: var(--card-button-background);
+  }
+
+  {{ id }} .card__button .btn:hover {
+    color: var(--card-button-color-hover);
+    background: var(--card-button-background-color-hover);
+
+  }
+
+  @media (max-width: 1199px) {
+    {{ id }} .price__card--list {
+    grid-template-columns: repeat({{ section.settings.card_number_column_tablet }}, 1fr);
+  }
+  }
+  @media (max-width: 575px) {
+    {{ id }} .price__card--list {
+    grid-template-columns: repeat({{ section.settings.card_number_column_mobile }}, 1fr);
+  }
+  }
+  
+{%- endstyle -%}
+
+<div class="price--card__section">
+  <div class="{{ section.settings.width_content }}">
+    <div class="row">
+      {%- if section.settings.title_block != blank or section.settings.heading_block != blank -%}
+        <div class="col-xl-{{ section.settings.col_xl }} col-lg-{{ section.settings.col_lg }} col-md-{{ section.settings.col_md }} col-sm-{{ section.settings.col_sm }} col-12" {% if section.settings.banner_data_aos != 'none' %}
+          data-aos="{{ section.settings.banner_data_aos }}"
+        {% endif %}>
+
+        <div class="block-content">
+        {%- if section.settings.title_block != blank -%}
+          <div class="title_block" style="color: {{ section.settings.title_block_color }}; margin-bottom: {{ section.settings.title_block_space |  append: 'px' }}">
+            <span>{{ section.settings.title_block }}</span>
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.heading_block != blank -%}
+          <h2 class="heading_block" style="color: {{ section.settings.heading_block_color }}; margin-bottom: {{ section.settings.heading_block_space |  append: 'px' }}">
+            {{ section.settings.heading_block }}
+          </h2>
+        {%- endif -%}
+
+        {%- if section.settings.icon_1 != blank or section.settings.icon_2 != blank -%}
+          <div class="icon__box--list">
+            <div class="icon__box--item">
+              <div class="icon__box--icon" style="color: {{ section.settings.icon_color }}">
+                {{ section.settings.icon_1 }}
+              </div>
+              <div class="icon__box--content">
+                {% if section.settings.icon_box_label_1 != blank %} 
+                  <h6 class="icon__box--label" style="color: {{ section.settings.label_color }}">{{ section.settings.icon_box_label_1 }}</h6>
+                {% endif %}
+              {% if section.settings.icon_box_text_1 != blank %}
+                <p class="icon__box--text" style="color: {{ section.settings.text_color }}"> {{ section.settings.icon_box_text_1 }}</p>
+              {% endif %}
+              </div>
+            </div>
+            <div class="icon__box--item">
+              <div class="icon__box--icon" style="color: {{ section.settings.icon_color }}">
+                {{ section.settings.icon_2 }}
+              </div>
+              <div class="icon__box--content">
+                {% if section.settings.icon_box_label_2 != blank %} 
+                  <h6 class="icon__box--label" style="color: {{ section.settings.label_color }}">{{ section.settings.icon_box_label_2 }}</h6>
+                {% endif %}
+              {% if section.settings.icon_box_text_2 != blank %}
+                <p class="icon__box--text" style="color: {{ section.settings.text_color }}"> {{ section.settings.icon_box_text_2 }}</p>
+              {% endif %}
+              </div>
+            </div>
+          </div>
+        {%- endif -%}
+
+        </div>
+
+        </div>
+      {%- endif -%}
+
+      {%- liquid
+        if section.settings.col_xl < 12
+          assign col_xl = 12 | minus: section.settings.col_xl
+        else 
+          assign col_xl = 12
+        endif
+        if section.settings.col_lg < 12
+          assign col_lg = 12 | minus: section.settings.col_lg
+        else 
+          assign col_lg = 12
+        endif
+        if section.settings.col_md < 12
+          assign col_md = 12 | minus: section.settings.col_md
+        else 
+          assign col_md = 12
+        endif
+        if section.settings.col_xl < 12
+          assign col_sm = 12 | minus: section.settings.col_sm
+        else 
+          assign col_sm = 12
+        endif
+      -%}
+
+      <div class="{% if section.settings.title_block != blank or section.settings.heading_block != blank %}col-xl-{{ col_xl }} col-lg-{{ col_lg }} col-md-{{ col_md }} col-sm-{{ col_sm }}{% endif %} col-12">
+        <div class="price__card--list">
+          {% for block in section.blocks %}
+            {%- case block.type -%}
+              {%- when 'price-card' -%}
+                <div class="price__card--item" style="--card-padding: {{ block.settings.card_padding }};
+                --card-rounded: {{ block.settings.card_rounded |  append: 'px' }};
+                --card-background-color: {{ block.settings.card_background }}">
+                  <div class="card__wrapper">
+                    {%- if block.settings.card_heading != blank -%}
+                    <h4 class="card__heading" style="color: {{ block.settings.card_heading_color }}">
+                      {{ block.settings.card_heading }}
+                    </h4>
+                    {%- endif -%}
+
+                    {%- if block.settings.card_sub_heading != blank -%}
+                      <p class="card_sub_heading" style="color: {{ block.settings.card_sub_heading_color }}">
+                        {{ block.settings.card_sub_heading }}
+                      </p>
+                    {%- endif -%}
+
+                    {%- if block.settings.card_price != blank -%}
+                      <div class="card__price--blocks d-flex align-items-end">
+                        <h1 class="card__price" style="color: {{ block.settings.card_price_color }}">
+                          {{ block.settings.card_price }}
+                        </h1>
+                        {%- if block.settings.card_price_suffix != blank -%}
+                          <span class="card__price--suffix" style="color: {{ block.settings.card_price_suffix_color }}">
+                            {{ block.settings.card_price_suffix }}
+                        </span>
+                        {%- endif -%}
+                      </div>
+                    {%- endif -%}
+                    {%- if block.settings.card_benefits != blank -%}
+                      <div class="card__benefits" style="color: {{ block.settings.card_benefits_color }}">
+                        {{ block.settings.card_benefits }}
+                      </div>
+                    {%- endif -%}
+
+                    {%- if block.settings.card_button != blank -%}
+                      <div class="card__button">
+                        <a class="btn btn-primary" href="{{ block.settings.card_button_url |  default : "#" }}"
+                        style="--card-button-color: {{ block.settings.card_button_color }};
+                        --card-button-background: {{ block.settings.card_button_background_color }};
+                        --card-button-color-hover: {{ block.settings.card_button_color_hover }};
+                        --card-button-background-color-hover: {{ block.settings.card_button_background_color_hover }}"
+                        >
+                          {{ block.settings.card_button }}
+                          {% if block.settings.card_button_icon != blank %}
+                            <span class="icon-button">{{ block.settings.card_button_icon }}</span>
+                          {% endif %}
+                        </a>
+                      </div>
+                    {%- endif -%}
+                  </div>
+                </div>
+              {%- endcase -%}
+          {% endfor %}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Price Card",
+    "tag": "section",
+    "settings": [
+        {
+        "type": "header",
+        "content": "Section settings"
+        },
+        {
+        "type": "select",
+        "id": "width_content",
+        "label": "Width content",
+        "options": [
+            {
+            "value": "container",
+            "label": "Container"
+            },
+            {
+            "value": "container-fluid",
+            "label": "Container fluid"
+            },
+            {
+            "value": "full-width",
+            "label": "Full width"
+            }
+        ],
+        "default": "full-width"
+        },
+        {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background color"
+        },
+        {
+        "type": "image_picker",
+        "id": "background_image",
+        "label": "Background image"
+        },
+        {
+        "type": "checkbox",
+        "id": "background_repeat",
+        "label": "Background repeat",
+        "default": false
+        }, {
+        "type": "select",
+        "id": "background_size",
+        "label": "Background size",
+        "options": [
+            {
+            "value": "default",
+            "label": "Default"
+            }, {
+            "value": "auto",
+            "label": "Auto"
+            }, {
+            "value": "cover",
+            "label": "Cover"
+            }, {
+            "value": "contain",
+            "label": "Contain"
+            }, {
+            "value": "custom",
+            "label": "Custom"
+            }
+        ],
+        "default": "default"
+        },
+        {
+        "type": "number",
+        "id": "background_size_custom",
+        "label": "Background size custom",
+        "default": 100
+        },
+        {
+        "type": "select",
+        "id": "background_position",
+        "label": "Background position",
+        "options": [
+            {
+            "value": "center",
+            "label": "Center"
+            },
+            {
+            "value": "top left",
+            "label": "Top Left"
+            },
+            {
+            "value": "top center",
+            "label": "Top Center"
+            },
+            {
+            "value": "top right",
+            "label": "Top right"
+            },
+            {
+            "value": "center left",
+            "label": "Center Left"
+            }, {
+            "value": "center right",
+            "label": "Center Right"
+            },
+            {
+            "value": "bottom left",
+            "label": "Bottom Left"
+            },
+            {
+            "value": "bottom center",
+            "label": "Bottom Center"
+            },
+            {
+            "value": "bottom right",
+            "label": "Bottom Right"
+            }, {
+            "value": "custom",
+            "label": "Custom"
+            }
+        ],
+        "default": "center"
+        },
+        {
+        "type": "text",
+        "id": "background_position_x",
+        "label": "Background position x"
+        }, {
+        "type": "text",
+        "id": "background_position_y",
+        "label": "Background position y"
+        },
+        {
+        "type": "select",
+        "id": "content_positon",
+        "label": "Content position",
+        "options": [
+            {
+            "value": "start",
+            "label": "Top"
+            },
+            {
+            "value": "center",
+            "label": "Middle"
+            },
+            {
+            "value": "end",
+            "label": "Bottom"
+            }
+        ],
+        "default": "start"
+        },
+        {
+        "type": "text",
+        "id": "class",
+        "label": "Class"
+        },
+        {
+        "type": "image_picker",
+        "id": "background_content_image",
+        "label": "Background content image"
+        },
+        {
+        "type": "text",
+        "id": "margin_desktop",
+        "label": "t:sections.all.margin_desktop.label",
+        "info": "t:sections.all.margin_desktop.info"
+        },
+        {
+        "type": "text",
+        "id": "margin_tablet",
+        "label": "t:sections.all.margin_tablet.label",
+        "info": "t:sections.all.margin_tablet.info"
+        },
+        {
+        "type": "text",
+        "id": "margin_mobile",
+        "label": "t:sections.all.margin_mobile.label",
+        "info": "t:sections.all.margin_mobile.info"
+        },
+        {
+        "type": "text",
+        "id": "padding_desktop",
+        "label": "t:sections.all.padding_desktop.label",
+        "info": "t:sections.all.padding_desktop.info"
+        },
+        {
+        "type": "text",
+        "id": "padding_tablet",
+        "label": "t:sections.all.padding_tablet.label",
+        "info": "t:sections.all.padding_tablet.info"
+        },
+        {
+        "type": "text",
+        "id": "padding_mobile",
+        "label": "t:sections.all.padding_mobile.label",
+        "info": "t:sections.all.padding_mobile.info"
+        },
+        {
+          "type": "header",
+          "content": "Info Columns settings"
+        },
+        {
+          "type": "range",
+          "id": "col_xl",
+          "label": "Extra large screen",
+          "default": 6,
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "unit": "/12",
+          "info": "screen >= 1200px"
+        },
+        {
+          "type": "range",
+          "id": "col_lg",
+          "label": "Large screen",
+          "default": 6,
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "unit": "/12",
+          "info": "screen >= 992px"
+        },
+        {
+          "type": "range",
+          "id": "col_md",
+          "label": "Medium screen",
+          "default": 6,
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "unit": "/12",
+          "info": "screen >= 768px"
+        },
+        {
+          "type": "range",
+          "id": "col_sm",
+          "label": "Small screen",
+          "default": 6,
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "unit": "/12",
+          "info": "screen >= 576px"
+        },
+         {
+          "type": "header",
+          "content": "Title block settings"
+        }, {
+          "type": "text",
+          "id": "title_block",
+          "label": "Content"
+        }, {
+          "type": "color",
+          "id": "title_block_color",
+          "label": "Color"
+        }, {
+          "type": "number",
+          "id": "title_block_space",
+          "label": "Margin bottom"
+        }, {
+          "type": "header",
+          "content": "Heading block settings"
+        }, {
+          "type": "text",
+          "id": "heading_block",
+          "label": "Content"
+        }, {
+          "type": "color",
+          "id": "heading_block_color",
+          "label": "Color"
+        }, {
+          "type": "number",
+          "id": "heading_block_space",
+          "label": "Margin bottom"
+        }, {
+          "type": "header",
+          "content": "Icon box settings"
+        }, {
+          "type": "liquid",
+          "id": "icon_1",
+          "label": "Icon 1"
+        }, {
+          "type": "text",
+          "id": "icon_box_label_1",
+          "label": "Icon box label 1"
+        }, {
+          "type": "text",
+          "id": "icon_box_text_1",
+          "label": "Icon box text 1"
+        }, {
+          "type": "liquid",
+          "id": "icon_2",
+          "label": "Icon 2"
+        }, {
+          "type": "text",
+          "id": "icon_box_label_2",
+          "label": "Icon box label 2"
+        }, {
+          "type": "text",
+          "id": "icon_box_text_2",
+          "label": "Icon box text 2"
+        }, {
+          "type": "color",
+          "id": "icon_color",
+          "label": "Icon color"
+        }, 
+        {
+          "type": "color",
+          "id": "label_color",
+          "label": "Label color"
+        }, 
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text color"
+        }, {
+          "type": "header",
+          "content": "Card list settings"
+        }, {
+          "type": "number",
+          "id": "card_number_column",
+          "label": "Card number column"
+        }, {
+          "type": "number",
+          "id": "card_number_column_tablet",
+          "label": "Card number column tablet"
+        }, {
+          "type": "number",
+          "id": "card_number_column_mobile",
+          "label": "Card number column mobile"
+        }
+    ],
+    "blocks": [
+      {
+        "name": "Card",
+        "type": "price-card",
+        "settings": [
+          {
+            "type": "header",
+            "content": "Card content"
+          },
+           {
+            "type": "text",
+            "id": "card_heading",
+            "label": "Card heading"
+           }, {
+            "type": "liquid",
+            "id": "card_sub_heading",
+            "label": "Card sub heading"
+           }, {
+            "type": "text",
+            "id": "card_price",
+            "label": "Card price"
+           }, {
+            "type": "text",
+            "id": "card_price_suffix",
+            "label": "Card price suffix"
+           }, {
+            "type": "liquid",
+            "id": "card_benefits",
+            "label": "Card benefits"
+           }, {
+            "type": "text",
+            "id": "card_button",
+            "label": "Card button"
+           }, {
+            "type": "liquid",
+            "id": "card_button_icon",
+            "label": "Card button icon"
+           }, {
+            "type": "url",
+            "id": "card_button_url",
+            "label": "Card button url"
+           }, {
+            "type": "header",
+            "content": "Card settings"
+           }, {
+            "type": "text",
+            "id": "card_padding",
+            "label": "Card padding"
+           }, {
+            "type": "number",
+            "id": "card_rounded",
+            "label": "Card rounded"
+           }, {
+            "type": "color",
+            "id": "card_background",
+            "label": "Card background"
+           }, {
+            "type": "color",
+            "id": "card_heading_color",
+            "label": "Card heading color"
+           }, {
+            "type": "color",
+            "id": "card_sub_heading_color",
+            "label": "Card sub heading color"
+           }, {
+            "type": "color",
+            "id": "card_price_color",
+            "label": "Card price color"
+           }, {
+            "type": "color",
+            "id": "card_price_suffix_color",
+            "label": "Card price suffix color"
+           }, {
+            "type": "color",
+            "id": "card_benefits_color",
+            "label": "Card benefits color"
+           }, {
+            "type": "color",
+            "id": "card_button_color",
+            "label": "Card button color"
+           }, {
+            "type": "color_background",
+            "id": "card_button_background_color",
+            "label": "Card button background color"
+           }, {
+            "type": "color",
+            "id": "card_button_color_hover",
+            "label": "Card button color hover"
+           }, {
+            "type": "color_background",
+            "id": "card_button_background_color_hover",
+            "label": "Card button background color hover"
+           }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Pride Card"
+      }
+    ]
+  }
+{% endschema %}

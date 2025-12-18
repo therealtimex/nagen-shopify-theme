@@ -1,0 +1,23 @@
+{% style %}
+  #{{ class }}--{{ id }}.btn {
+    background-color: {{ bgColor }};
+    color: {{ color }};
+  }
+  #{{ class }}--{{ id }}.btn:hover {
+    background-color: {{ bgColorHover }};
+    color: {{ colorHover }}
+  }
+  {% if style == 'btn__type--2' %}
+    #{{ class }}--{{ id }}.btn {
+      border-color: {{ color }}
+    }
+    #{{ class }}--{{ id }}.btn:hover {
+      border-color: {{ bgColorHover }}
+    }
+  {% endif %}
+{% endstyle %}
+
+
+<a id="{{ class }}--{{ id }}" href="{{ url | default : "#" }}" class="btn {{ style}}">
+  {{ text }}
+</a>

@@ -1,0 +1,569 @@
+<style>
+{%- if template contains 'product' -%}
+.product-content {
+  flex-direction: column;
+  gap: 50px;
+  margin: 0;
+  max-width: 1470px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom: 68px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.product-content__featured-products {
+  width: 100%;
+  margin-top: 60px;
+  margin-bottom: 60px;
+}
+.product-content__featured-products-list {
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  margin-top: 23px;
+}
+.ap-productrecommendations .scroller__inner {
+  margin: 0 calc(-1 * var(--container-distance));
+}
+.ap-navtabs__item {
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 500;
+  letter-spacing: 0;
+  padding: 0;
+  border-radius: 0;
+  font-family: var(--hd-font-family);
+  color: rgb(var(--color-bofy));
+  text-transform: none;
+}
+.ap-navtabs__item:hover {
+  color: var(--primary_hover);
+}
+
+.product-tabs__content .jdgm-rev-widg {
+  padding: 0;
+}
+#shopify-section-{{ section.id }} .wp-product-content {
+  background-color: #fff;
+  border-radius: 10px;
+}
+#shopify-section-{{ section.id }} .ap-navtabs__position {
+  display: none;
+}
+#shopify-section-{{ section.id }} .ap-navtabs__item-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgb(var(--border-color));
+}
+#shopify-section-{{ section.id }} .ap-navtabs__item[ap-expanded-aria=true] {
+  color: var(--primary_hover);
+}
+@media (max-width:1299px) {
+  .product-content__featured-products-list {
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px 0;
+  }
+}
+@media (max-width: 999px) {
+  ap-productrecommendations .scroller {
+      overflow-x: hidden;
+  }
+}
+@media (max-width: 991px) {
+  .product-content__featured-products-list {
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px 0;
+    padding: 0 var(--container-distance);
+    grid-auto-flow: row;
+  }
+}
+@media (max-width: 480px) {
+  .product-content__featured-products-list {
+    grid-template-columns: 1fr;
+    grid-gap: 15px 0;
+    grid-auto-flow: unset;
+    grid-auto-columns: unset; 
+  }
+  .product-content__featured-products .product-item {
+    
+  }
+}
+@media screen and (min-width: 1000px) {
+  .product-content__tabs {
+    width: 100%;
+  }
+
+  .product-tabs.vertical {
+    position: relative;
+    display: flex;
+    border: 1px solid #e2e2e2;
+    border-radius: 2px;
+  }
+
+  .product-tabs.vertical .product-tabs__content {
+    flex: 1;
+    padding: 20px;
+  }
+
+  .product-tabs.vertical .ap-navtabs {
+    width: 300px;
+    margin: 0;
+    border-right: 1px solid #e2e2e2;
+  }
+  .product-tabs.vertical .ap-navtabs__item-list {
+    gap: 0;
+    flex-direction: column;
+  }
+
+  .product-tabs.vertical .ap-navtabs__item {
+    width: 100%;
+    padding: 10px 20px;
+  }
+
+  .product-tabs.vertical .ap-navtabs__item:not(:last-child) {
+    border-bottom: 1px solid #e2e2e2;
+  }
+
+  .product-tabs.vertical .ap-navtabs__item {
+  }
+
+  #shopify-section-{{ section.id }} .product-tabs.vertical .ap-navtabs__item-list {
+    align-items: flex-start;
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
+}
+{%- endif -%}
+</style>
+<section class="container">
+  <div class="wp-product-content">
+    <div id="product-{{ product.id }}-content" class="product-content anchor">
+      <div class="product-content__tabs anchor" id="product-{{ product.id }}-tabs">
+        <div class="product-tabs {% if section.settings.tab_vertical %} vertical {% endif %}">
+          <ap-navtabs arrows="" class="ap-navtabs ap-navtabs--loose hd-pocket">
+            <ap-scrollablecontent class="ap-navtabs__scroller hide-scrollbar">
+              <div class="ap-navtabs__scroller-inner">
+                <div class="ap-navtabs__item-list">
+                  {% for block in section.blocks %}
+
+                    {%- case block.type -%}
+                      {%- when '@app' -%}
+                        <button type="button" class="ap-navtabs__item heading heading--small" ap-expanded-aria="{% if forloop.index == 1 %}true{% else %}false{% endif %}" ap-controlsaria="block-{{ block.id }}">Reviews</button>
+
+                      {%- when 'tab_review' -%}
+                        <button type="button" class="ap-navtabs__item heading heading--small" ap-expanded-aria="{% if forloop.index == 1 %}true{% else %}false{% endif %}" ap-controlsaria="block-{{ block.id }}">{{ block.settings.tab_name }}</button>
+
+                      {%- when 'product_description' -%}
+                        <button type="button" class="ap-navtabs__item heading heading--small" ap-expanded-aria="{% if forloop.index == 1 %}true{% else %}false{% endif %}" ap-controlsaria="block-{{ block.id }}">{{ block.settings.tab_name }}</button>
+
+                      {%- when 'tab_custom' -%}
+                        <button type="button" class="ap-navtabs__item heading heading--small" ap-expanded-aria="{% if forloop.index == 1 %}true{% else %}false{% endif %}" ap-controlsaria="block-{{ block.id }}">{{ block.settings.tab_name }}</button>
+
+                    {%- endcase -%}
+
+                  {% endfor %}
+                </div>
+              </div>
+            </ap-scrollablecontent>
+            <div class="ap-navtabs__arrows">
+              <button class="ap-navtabs__arrow-item">
+                <span class="visually-hidden">Previous</span>
+                <svg focusable="false" width="6" height="9" class="icon icon--product-tab-left  icon--direction-aware " viewBox="0 0 6 9">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M2.554 4.5L6 1.054 4.946 0l-4.5 4.5 4.5 4.5L6 7.946 2.554 4.5z" fill="currentColor"></path>
+                </svg>
+              </button>
+              <button class="ap-navtabs__arrow-item">
+                <span class="visually-hidden">Next</span>
+                <svg focusable="false" width="6" height="9" class="icon icon--product-tab-right  icon--direction-aware " viewBox="0 0 6 9">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M3.446 4.5L0 1.054 1.054 0l4.5 4.5-4.5 4.5L0 7.946 3.446 4.5z" fill="currentColor"></path>
+                </svg>
+              </button>
+            </div>
+          </ap-navtabs>
+          <div class="product-tabs__content">
+            {% for block in section.blocks %}
+
+                <div id="block-{{ block.id }}" class="product-tabs__tab-item-wrapper" {% if forloop.index != 1 %}hidden{% endif %}>
+
+                  {%- case block.type -%}
+
+                    {%- when '@app' -%}
+                      <button is="toggle-button" class="collapsible-toggle heading heading--small hd-lap-and-up"
+                        ap-controlsaria="block-{{ block.id }}-content" ap-expanded-aria="false">
+                        Reviews
+                        <svg focusable="false" width="12" height="8" class="icon icon--chevron   " viewBox="0 0 12 8">
+                          <path fill="none" d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="2"></path>
+                        </svg>
+                      </button>
+                      <ap-contentcollapsible id="block-{{ block.id }}-content" class="collapsible">
+                        <div id="shopify-product-reviews" class="spr-reviews" data-id="{{ product.id }}">
+                          {% render block %}
+                        </div>
+                      </ap-contentcollapsible>
+
+                    {%- when "tab_review" -%} 
+                      <button is="toggle-button" class="collapsible-toggle heading heading--small hd-lap-and-up" ap-controlsaria="block-{{ block.id }}-content" ap-expanded-aria="false">
+                        {{ block.settings.tab_name }}
+                        <svg focusable="false" width="12" height="8" class="icon icon--chevron   " viewBox="0 0 12 8">
+                          <path fill="none" d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="2"></path>
+                        </svg>
+                      </button>
+                      <ap-contentcollapsible id="block-{{ block.id }}-content" class="collapsible">
+                        <div id="shopify-product-reviews" class="spr-reviews" data-id="{{ product.id }}">
+
+                        </div>
+                      </ap-contentcollapsible>
+                    
+                    {%- when 'product_description' -%}
+                      <button is="toggle-button" class="collapsible-toggle heading heading--small hd-lap-and-up" ap-controlsaria="block-{{ block.id }}-content" ap-expanded-aria="false">
+                        {{ block.settings.tab_name }}
+                        <svg focusable="false" width="12" height="8" class="icon icon--chevron   " viewBox="0 0 12 8">
+                          <path fill="none" d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="2"></path>
+                        </svg>
+                      </button>
+                      <ap-contentcollapsible id="block-{{ block.id }}-content" class="collapsible">
+                        <div class="product-tabs__tab-item-content rte">
+                          {{ product.description }}
+                        </div>
+                        {% if section.settings.enable_guide %}
+                          <div class="product-tabs__trust-list hd-pocket">
+                            {% if section.settings.guide1_icon or section.settings.guide1_label %}
+                              <button is="toggle-button" class="product-tabs__trust-title icon-text link text--subdued hd-phone" ap-controlsaria="product-{{ section.id }}-trust-1-drawer" ap-expanded-aria="false">
+                                  {{ section.settings.guide1_icon }}
+                                  {{ section.settings.guide1_label }}
+                              </button>
+                              <button is="toggle-button" class="product-tabs__trust-title icon-text link text--subdued hd-tablet-and-up" ap-controlsaria="product-{{ section.id }}-trust-1-popover" ap-expanded-aria="false">
+                                  {{ section.settings.guide1_icon }}
+                                  {{ section.settings.guide1_label }}
+                              </button>
+                            {% endif %}
+                          
+                            {% if section.settings.guide2_icon or section.settings.guide2_label %}
+                              <button is="toggle-button" class="product-tabs__trust-title icon-text link text--subdued hd-phone" ap-controlsaria="product-{{ section.id }}-trust-2-drawer" ap-expanded-aria="false">
+                                  {{ section.settings.guide2_icon }}
+                                  {{ section.settings.guide2_label }}
+                              </button>
+                              <button is="toggle-button" class="product-tabs__trust-title icon-text link text--subdued hd-tablet-and-up" ap-controlsaria="product-{{ section.id }}-trust-2-popover" ap-expanded-aria="false">
+                                  {{ section.settings.guide2_icon }}
+                                  {{ section.settings.guide2_label }}
+                              </button>
+                            {% endif %}
+
+                            {% if section.settings.guide3_icon or section.settings.guide3_label %}
+                              <button is="toggle-button" class="product-tabs__trust-title icon-text link text--subdued hd-phone" ap-controlsaria="product-{{ section.id }}-trust-3-drawer" ap-expanded-aria="false">
+                                  {{ section.settings.guide3_icon }}
+                                  {{ section.settings.guide3_label }}
+                              </button>
+                              <button is="toggle-button" class="product-tabs__trust-title icon-text link text--subdued hd-tablet-and-up" ap-controlsaria="product-{{ section.id }}-trust-3-popover" ap-expanded-aria="false">
+                                  {{ section.settings.guide3_icon }}
+                                  {{ section.settings.guide3_label }}
+                              </button>
+                            {% endif %}
+                          </div>
+                        {% endif %}
+                      </ap-contentcollapsible>
+                    
+                    {%- when 'tab_custom' -%}
+                      <button is="toggle-button" class="collapsible-toggle heading heading--small hd-lap-and-up" ap-controlsaria="block-{{ block.id }}-content" ap-expanded-aria="false">
+                        {{ block.settings.tab_name }}
+                        <svg focusable="false" width="12" height="8" class="icon icon--chevron   " viewBox="0 0 12 8">
+                          <path fill="none" d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="2"></path>
+                        </svg>
+                      </button>
+                      <ap-contentcollapsible id="block-{{ block.id }}-content" class="collapsible">
+                        {{ block.settings.tab_custom_content }}
+                      </ap-contentcollapsible>
+                      
+                  {%- endcase -%}
+                </div>
+
+            {% endfor %}
+          </div>
+          {% if section.settings.enable_guide %}
+            <div class="product-tabs__trust-list container hd-lap-and-up">
+              {% if section.settings.guide1_icon or section.settings.guide1_label %}
+                  <button is="toggle-button" class="product-tabs__trust-title icon-text link text--subdued hd-phone" ap-controlsaria="product-{{ section.id }}-trust-1-drawer" ap-expanded-aria="false">
+                      {{ section.settings.guide1_icon }}
+                      {{ section.settings.guide1_label }}
+                  </button>
+                  <button is="toggle-button" class="product-tabs__trust-title icon-text link text--subdued hd-tablet-and-up" ap-controlsaria="product-{{ section.id }}-trust-1-popover" ap-expanded-aria="false">
+                      {{ section.settings.guide1_icon }}
+                      {{ section.settings.guide1_label }}
+                  </button>
+              {% endif %}
+
+              {% if section.settings.guide2_icon or section.settings.guide2_label %}
+                <button is="toggle-button" class="product-tabs__trust-title icon-text link text--subdued hd-phone" ap-controlsaria="product-{{ section.id }}-trust-2-drawer" ap-expanded-aria="false">
+                    {{ section.settings.guide2_icon }}
+                    {{ section.settings.guide2_label }}
+                </button>
+                <button is="toggle-button" class="product-tabs__trust-title icon-text link text--subdued hd-tablet-and-up" ap-controlsaria="product-{{ section.id }}-trust-2-popover" ap-expanded-aria="false">
+                    {{ section.settings.guide2_icon }}
+                    {{ section.settings.guide2_label }}
+                </button>
+              {% endif %}
+              
+              {% if section.settings.guide3_icon or section.settings.guide3_label %}
+                <button is="toggle-button" class="product-tabs__trust-title icon-text link text--subdued hd-phone" ap-controlsaria="product-{{ section.id }}-trust-3-drawer" ap-expanded-aria="false">
+                    {{ section.settings.guide3_icon }}
+                    {{ section.settings.guide3_label }}
+                </button>
+                <button is="toggle-button" class="product-tabs__trust-title icon-text link text--subdued hd-tablet-and-up" ap-controlsaria="product-{{ section.id }}-trust-3-popover" ap-expanded-aria="false">
+                    {{ section.settings.guide3_icon }}
+                    {{ section.settings.guide3_label }}
+                </button>
+              {% endif %}
+            </div>
+
+            {% if section.settings.guide1_icon or section.settings.guide1_label %}
+              <ap-drawercontent id="product-{{ section.id }}-trust-1-drawer" class="drawer drawer--large">
+                <span class="drawer__overlay"></span>
+                <header class="drawer__header">
+                  <p class="drawer__title heading h6">
+                    {{ section.settings.guide1_icon }}
+                    {{ section.settings.guide1_label }}
+                  </p>
+                  <button type="button" class="drawer__close-button tap-area" data-action="close" title="Close">
+                    <svg focusable="false" width="14" height="14" class="icon icon--close   " viewBox="0 0 14 14">
+                      <path d="M13 13L1 1M13 1L1 13" stroke="currentColor" stroke-width="2" fill="none"></path>
+                    </svg>
+                  </button>
+                </header>
+                <div class="drawer__content drawer__content--padded-start">
+                  <div class="rte">
+                    {{ section.settings.guide1_returns_content }}
+                  </div>
+                </div>
+              </ap-drawercontent>
+              <apollopop-content id="product-{{ section.id }}-trust-1-popover" class="popover">
+                <span class="popover__overlay"></span>
+                <header class="popover__header">
+                  <p class="popover__title heading h6">
+                    {{ section.settings.guide1_icon }}
+                    {{ section.settings.guide1_label }}
+                  </p>
+                  <button type="button" class="popover__close-button tap-area tap-area--large" data-action="close" title="Close">
+                    <svg focusable="false" width="14" height="14" class="icon icon--close   " viewBox="0 0 14 14">
+                      <path d="M13 13L1 1M13 1L1 13" stroke="currentColor" stroke-width="2" fill="none"></path>
+                    </svg>
+                  </button>
+                </header>
+                <div class="popover__content">
+                  <div class="rte">
+                    {{ section.settings.guide1_returns_content }}
+                  </div>
+                </div>
+              </apollopop-content>
+            {% endif %}
+            
+            {% if section.settings.guide2_icon or section.settings.guide2_label %}
+              <ap-drawercontent id="product-{{ section.id }}-trust-2-drawer" class="drawer drawer--large">
+                  <span class="drawer__overlay"></span>
+                  <header class="drawer__header">
+                    <p class="drawer__title heading h6">
+                      {{ section.settings.guide2_icon }}
+                      {{ section.settings.guide2_label }}
+                    </p>
+                    <button type="button" class="drawer__close-button tap-area" data-action="close" title="Close">
+                      <svg focusable="false" width="14" height="14" class="icon icon--close   " viewBox="0 0 14 14">
+                        <path d="M13 13L1 1M13 1L1 13" stroke="currentColor" stroke-width="2" fill="none"></path>
+                      </svg>
+                    </button>
+                  </header>
+                  <div class="drawer__content drawer__content--padded-start">
+                    <div class="rte">
+                      {{ section.settings.guide2_returns_content }}
+                    </div>
+                  </div>
+                </ap-drawercontent>
+                <apollopop-content id="product-{{ section.id }}-trust-2-popover" class="popover">
+                  <span class="popover__overlay"></span>
+                  <header class="popover__header">
+                    <p class="popover__title heading h6">
+                      {{ section.settings.guide2_icon }}
+                      {{ section.settings.guide2_label }}
+                    </p>
+                    <button type="button" class="popover__close-button tap-area tap-area--large" data-action="close" title="Close">
+                      <svg focusable="false" width="14" height="14" class="icon icon--close   " viewBox="0 0 14 14">
+                        <path d="M13 13L1 1M13 1L1 13" stroke="currentColor" stroke-width="2" fill="none"></path>
+                      </svg>
+                    </button>
+                  </header>
+                  <div class="popover__content">
+                    <div class="rte">
+                      {{ section.settings.guide2_returns_content }}
+                    </div>
+                  </div>
+                </apollopop-content>
+            {% endif %}
+
+            {% if section.settings.guide3_icon or section.settings.guide3_label %}
+              <ap-drawercontent id="product-{{ section.id }}-trust-3-drawer" class="drawer drawer--large">
+                  <span class="drawer__overlay"></span>
+                  <header class="drawer__header">
+                    <p class="drawer__title heading h6">
+                      {{ section.settings.guide3_icon }}
+                      {{ section.settings.guide3_label }}
+                    </p>
+                    <button type="button" class="drawer__close-button tap-area" data-action="close" title="Close">
+                      <svg focusable="false" width="14" height="14" class="icon icon--close   " viewBox="0 0 14 14">
+                        <path d="M13 13L1 1M13 1L1 13" stroke="currentColor" stroke-width="2" fill="none"></path>
+                      </svg>
+                    </button>
+                  </header>
+                  <div class="drawer__content drawer__content--padded-start">
+                    <div class="rte">
+                      {{ section.settings.guide3_returns_content }}
+                    </div>
+                  </div>
+                </ap-drawercontent>
+                <apollopop-content id="product-{{ section.id }}-trust-3-popover" class="popover">
+                  <span class="popover__overlay"></span>
+                  <header class="popover__header">
+                    <p class="popover__title heading h6">
+                      {{ section.settings.guide3_icon }}
+                      {{ section.settings.guide3_label }}
+                    </p>
+                    <button type="button" class="popover__close-button tap-area tap-area--large" data-action="close" title="Close">
+                      <svg focusable="false" width="14" height="14" class="icon icon--close   " viewBox="0 0 14 14">
+                        <path d="M13 13L1 1M13 1L1 13" stroke="currentColor" stroke-width="2" fill="none"></path>
+                      </svg>
+                    </button>
+                  </header>
+                  <div class="popover__content">
+                    <div class="rte">
+                      {{ section.settings.guide3_returns_content }}
+                    </div>
+                  </div>
+                </apollopop-content>
+            {% endif %}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+{% schema %}
+{
+  "name": "t:sections.product-content.name",
+  "tag": "section",
+  "class": "shopify-section--product-content",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_guide",
+      "default": true,
+      "label": "t:sections.product-content.settings.enable_guide.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "tab_vertical",
+      "label": "Tab vertical",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Guide 1"
+    },
+    {
+      "type": "text",
+      "id": "guide1_label",
+      "default": "Shipping & Returns ",
+      "label": "t:sections.product-content.settings.guide1_label.label"
+    },
+    {
+      "type": "textarea",
+      "id": "guide1_icon",
+      "label": "t:sections.product-content.settings.guide1_icon.label"
+    },
+    {
+      "type": "richtext",
+      "id": "guide1_returns_content",
+      "label": "t:sections.product-content.settings.guide1_returns_content.label"
+    },
+    {
+      "type": "text",
+      "id": "guide2_label",
+      "default": "Warranty",
+      "label": "t:sections.product-content.settings.guide2_label.label"
+    },
+    {
+      "type": "textarea",
+      "id": "guide2_icon",
+      "label": "t:sections.product-content.settings.guide2_icon.label"
+    },
+    {
+      "type": "richtext",
+      "id": "guide2_returns_content",
+      "label": "t:sections.product-content.settings.guide2_returns_content.label"
+    },
+    {
+      "type": "text",
+      "id": "guide3_label",
+      "default": "Secure Payment",
+      "label": "t:sections.product-content.settings.guide3_label.label"
+    },
+    {
+      "type": "textarea",
+      "id": "guide3_icon",
+      "label": "t:sections.product-content.settings.guide3_icon.label"
+    },
+    {
+      "type": "richtext",
+      "id": "guide3_returns_content",
+      "label": "t:sections.product-content.settings.guide3_returns_content.label"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "@app"
+    },
+    {
+      "type": "product_description",
+      "name": "t:sections.product-content.blocks.product_description.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tab_name",
+          "default": "Description",
+          "label": "t:sections.product-content.blocks.product_description.settings.tab_name.label"
+        }
+      ]
+    },
+    {
+      "type": "tab_custom",
+      "name": "t:sections.product-content.blocks.tab_custom.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tab_name",
+          "default": "Custom",
+          "label": "t:sections.product-content.blocks.tab_custom.settings.tab_name.label"
+        },
+        {
+          "type": "richtext",
+          "id": "tab_custom_content",
+          "label": "t:sections.product-content.blocks.tab_custom.settings.tab_custom_content.label"
+        }
+      ]
+    },
+    {
+      "type": "tab_review",
+      "name": "t:sections.product-content.blocks.tab_review.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tab_name",
+          "default": "Review",
+          "label": "t:sections.product-content.blocks.tab_review.settings.tab_name.label"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

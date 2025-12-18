@@ -1,0 +1,51 @@
+<div class="ap-productform__buy-buttons">
+  {%- assign product_form_id = 'ap-productform-' | append: section.id | append: '-' | append: product.id -%}
+
+  {%- form 'product',
+    product,
+    id: product_form_id,
+    class: "shopify-ap-productform form",
+    novalidate: 'novalidate',
+    data-type: 'add-to-cart-form',
+    is: 'ap-productform'
+  -%}
+  
+    <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+
+    <ap-paymentcontainerproduct
+      id="ApolloProductSticky"
+      form-id="ap-productform-{{ section.id }}-{{ product.id }}"
+      class="ap-productform__payment-container">
+
+      <button
+        id="AddToCart"
+        type="submit"
+        is="loader-button"
+        data-use-primary=""
+        data-product-add-to-cart-button=""
+        data-button-content="{{ 'products.product.add_to_cart' | t }}"
+        class="ap-productform__add-button button button--primary button--full">
+
+        <span class="ap-text-loaderbutton">
+          {%- if product.selected_or_first_available_variant.available -%}
+            {{ 'products.product.add_to_cart' | t }}
+          {%- else -%}
+            {{ 'products.product.sold_out' | t }}
+          {%- endif -%}
+        </span>
+
+        <span class="ap-loader-loaderbutton" hidden>
+          <div class="spinner">
+            <svg focusable="false" width="24" height="24" class="icon icon--spinner" viewBox="25 25 50 50">
+              <circle cx="50" cy="50" r="20" fill="none" stroke="currentColor" stroke-width="5"></circle>
+            </svg>
+          </div>
+        </span>
+      </button>
+
+      {{ form | payment_button }}
+
+    </ap-paymentcontainerproduct>
+
+  {%- endform -%}
+</div>

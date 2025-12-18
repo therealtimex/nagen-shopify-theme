@@ -1,0 +1,192 @@
+{% style %}
+  #shopify-section-{{ section.id }} {
+    {%- if section.settings.background_color != blank -%}
+      background-color: {{ section.settings.background_color }};
+    {%- endif -%}
+
+    {% if section.settings.background_gradient != blank %}
+      background-image: {{ section.settings.background_gradient }};
+    {% endif %}
+
+    {%- if section.settings.background_image != blank -%}
+      background-image: url({{ section.settings.background_image | image_url: width: 2000 }});
+      background-size: cover;
+      background-position: center;
+    {%- endif -%}
+
+    {%- if section.settings.section_rounded > 0 -%} 
+      border-radius: {{ section.settings.section_rounded |  append: 'px' }};
+    {%- endif -%}
+
+    {%- if section.settings.margin_desktop != blank -%}
+      margin: {{ section.settings.margin_desktop }};
+    {%- endif -%}
+
+    {%- if section.settings.padding_desktop != blank -%}
+      padding: {{ section.settings.padding_desktop }};
+    {%- endif -%}
+
+    {%- if section.settings.border_width != blank -%}
+      border-width: {{ section.settings.border_width }};
+      border-style: solid;
+      border-color: {{ section.settings.border_color }};
+    {%- endif -%}
+
+    /* overflow-x: hidden; */
+    
+    {%- unless section.settings.overflow_visible -%}
+      overflow: hidden;
+    {%- endunless -%}
+    {%- if section.settings.z_index != blank and section.settings.z_index > 0 -%}
+      position: relative;
+      z-index: {{ section.settings.z_index }};
+    {%- endif -%}
+  }
+  
+
+  {% if section.settings.margin_tablet != blank or section.settings.padding_tablet != blank %}
+    @media(max-width: 1199px) {
+      #shopify-section-{{ section.id }} {
+        {% if section.settings.margin_tablet != blank %}
+          margin: {{ section.settings.margin_tablet }};
+        {% endif %}
+        {% if section.settings.padding_tablet != blank %}
+          padding: {{ section.settings.padding_tablet }};
+        {% endif %}
+      }
+    }
+  {% endif %}
+
+  {% if section.settings.margin_mobile != blank or section.settings.padding_mobile != blank %}
+    @media(max-width: 767px) {
+      #shopify-section-{{ section.id }} {
+        {% if section.settings.margin_mobile != blank %}
+          margin: {{ section.settings.margin_mobile }};
+        {% endif %}
+        {% if section.settings.padding_mobile != blank %}
+          padding: {{ section.settings.padding_mobile }};
+        {% endif %}
+      }
+    }
+  {% endif %}
+
+
+  #shopify-section-{{ section.id }} .shopify-container {
+    {%- if section.settings.full_width -%}
+      max-width: 100%;
+    {%- else -%}
+      max-width: {{ section.settings.content_width |  append: 'px' }};
+      padding-left: 30px;
+      padding-right: 30px;
+    {%- endif -%}
+
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    
+  }
+
+
+  {%- for block in section.blocks -%}
+    #block-{{ block.id }}.col {
+      
+      {%- if block.settings.width_desktop != blank -%}
+        width: {{ block.settings.width_desktop | round : 2 | append : "%" }};
+        {%- else -%}
+          width: auto;
+      {%- endif -%}
+      flex: none;
+      {%- if block.settings.block_margin_desktop != blank -%}
+          margin: {{ block.settings.block_margin_desktop }};
+        {%- endif -%}
+    }
+    #block-{{ block.id }}.col > .shopify-block {
+      padding: {{ block.settings.block_padding_desktop }};
+      height: 100%;
+      {%- if block.settings.block_rounded > 0 -%}
+        border-radius: {{ block.settings.block_rounded |  append: 'px' }};
+      {%- endif -%}
+      {%- if block.settings.background_color != blank -%}
+        background-color: {{ block.settings.background_color }};
+      {%- endif -%}
+      {%- if block.settings.background_image != blank -%}
+         background-image: url({{ block.settings.background_image | image_url: width: 2000 }});
+         background-size: cover;
+         background-repeat: no-repeat;
+         background-position: center center;
+      {%- endif -%}
+    }
+    @media (max-width: 1199px) {
+      #block-{{ block.id }}.col {
+        {%- if block.settings.width_tablet != blank -%}
+          width: {{ block.settings.width_tablet | round : 2 | append : "%" }};
+          {%- else -%}
+            width: auto;
+        {%- endif -%}
+        {%- if block.settings.block_margin_tablet != blank -%}
+          margin: {{ block.settings.block_margin_tablet }};
+        {%- endif -%}
+      }
+      #block-{{ block.id }}.col > .shopify-block {
+        padding: {{ block.settings.block_padding_tablet }};
+      }
+    }
+
+    @media (max-width: 991px) {
+      #block-{{ block.id }}.col {
+        {%- if block.settings.width_tablet_small != blank -%}
+          width: {{ block.settings.width_tablet_small | round : 2 | append : "%" }};
+        {%- endif -%}
+      }
+    }
+    @media (max-width: 767px) {
+      #block-{{ block.id }}.col {
+        {%- if block.settings.width_mobile_big != blank -%}
+          width: {{ block.settings.width_mobile_big | round : 2 | append : "%" }};
+          {%- else -%}
+            width: auto;
+        {%- endif -%}
+        {%- if block.settings.block_margin_mobile != blank -%}
+          margin: {{ block.settings.block_margin_mobile }};
+        {%- endif -%}
+      }
+      #block-{{ block.id }}.col > .shopify-block {
+        padding: {{ block.settings.block_padding_mobile }};
+      }
+    }
+    @media (max-width: 575px) {
+      #block-{{ block.id }}.col {
+        {%- if block.settings.width_mobile != blank -%}
+          width: {{ block.settings.width_mobile | round : 2 | append : "%" }};
+          {%- else -%}
+            width: auto;
+        {%- endif -%}
+        
+      }
+    }
+  {%- endfor -%}
+
+  @media (max-width: 1199px) {
+    #shopify-section-{{ section.id }} .shopify-container {
+      
+      {%- unless section.settings.full_width -%}
+        padding-left: 20px;
+        padding-right: 20px;
+      {%- endunless -%}
+    }
+  }
+
+  @media (max-width: 767px) {
+    #shopify-section-{{ section.id }} .shopify-container {
+      
+      {%- unless section.settings.full_width -%}
+        padding-left: 15px;
+        padding-right: 15px;
+      {%- endunless -%}
+    }
+  }
+
+
+
+{% endstyle %}
+

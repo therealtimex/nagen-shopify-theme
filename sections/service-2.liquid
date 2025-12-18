@@ -1,0 +1,741 @@
+{% render 'section-style' %}
+{%- assign id = '#shopify-section-' | append: section.id -%}
+
+{% liquid
+
+  assign section_header_spacing = section.settings.section_header_spacing | append: 'px'
+  assign title_size = section.settings.title_size | append: 'px'
+  assign title_height = section.settings.title_height | append: '%'
+  assign title_color = section.settings.title_color
+  assign title_mb = section.settings.title_mb | append: 'px'
+
+  assign bootstrap_spacing = section.settings.bootstrap_spacing | append: 'px'
+
+  assign service_icon_size = section.settings.service_icon_size | append: 'px'
+  assign service_icon_spacing = section.settings.service_icon_spacing | append: 'px'
+  assign service_icon_color = section.settings.service_icon_color
+
+  assign service_title_font_size = section.settings.service_title_font_size | append: 'px'
+  assign service_title_line_height = section.settings.service_title_line_height
+  assign service_title_font_weight = section.settings.service_title_font_weight
+  assign service_title_color = section.settings.service_title_color
+  assign service_title_margin_bottom = section.settings.service_title_margin_bottom | append: 'px'
+
+  assign service_description_font_size = section.settings.service_description_font_size | append: 'px'
+  assign service_description_line_height = section.settings.service_description_line_height
+  assign service_description_color = section.settings.service_description_color
+
+  assign service_item_padding = section.settings.service_item_padding
+  assign service_item_border_radius = section.settings.service_item_border_radius | append: 'px'
+  assign service_item_background_color = section.settings.service_item_background_color
+  assign item_background_color_hover = section.settings.item_background_color_hover
+  assign item_text_color_hover = section.settings.item_text_color_hover
+%}
+
+
+{% style %}
+
+  {{ id }} .section__header {
+    margin-bottom: {{ section_header_spacing }};
+  }
+  {{ id }} .section__header .title {
+    font-size: {{ title_size }};
+    line-height: {{ title_height }};
+    color: {{ title_color }};
+    margin-bottom: {{ title_mb }};
+  }
+  {{ id }} .row {
+    --bs-gutter-x: {{ bootstrap_spacing }};
+    gap: 0;
+  }
+  {{ id }}
+  .service__item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    gap: {{ service_icon_spacing }};
+    padding: {{ service_item_padding }};
+    border-radius: {{ service_item_border_radius }};
+    background-color: {{ service_item_background_color }};
+    transition: all 0.3s ease;
+    overflow: hidden;
+  }
+  {{ id }}
+  .service__item--icon {
+    color: {{ service_icon_color }};
+    width: fit-content;
+    position: relative;
+    z-index: 1;
+  }
+
+
+  .service__item--icon:before {
+    content: "";
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #F5F9FD;
+    position: absolute;
+    bottom: -8px;
+    right: -7px;
+    z-index: -1;
+    transition: 0.3s all ease;
+  }
+
+  .service__item--icon img {
+    width: {{ service_icon_size }};
+    transition: 0.3s all ease;
+  }
+  
+  .service__item--text {
+    flex: 1;
+    position: relative;
+    z-index: 1;
+  }
+
+  .service__item--overlay {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+  }
+  .service__item--overlay img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+
+  .service__item:before,  .service__item:after {
+    content: "";
+    position: absolute;
+    width: 155px;
+    height: 258px;
+    border-radius: 18px;
+    display: block;
+    opacity: 0;
+    transition: 0.3s all ease;
+  }
+
+  .service__item:before {
+    transform: rotateZ(42.33deg);
+    background: linear-gradient(111.8deg, #8236fb 21.93%, #076ef4 90.29%);
+    top: -200px;
+    left: -150px;
+    z-index: 1;
+  }
+
+  .service__item:after {
+    right: -150px;
+    bottom: -100px;
+    transform: rotateZ(42.33deg);
+    background: linear-gradient(111.8deg, #8236fb 21.93%, #076ef4 90.29%);
+    outline: 1px ridge rgba(255, 255, 255, .54);
+    outline-offset: 20px;
+  }
+  .service__item:hover .service__item--icon:before {
+    opacity: 0;
+  }
+
+  .service__item:hover .service__item--icon img {
+    filter: brightness(0) invert(1);
+  }
+
+  .service__item:hover .service__item--overlay {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .service__item:hover:before {
+    top: -130px;
+    left: 5px;
+    opacity: 0.5;
+  }
+
+  .service__item:hover:after {
+    right: -110px;
+    bottom: -30px;
+    opacity: 1;
+  }
+
+  .service__item:hover .service_title {
+    color: #fff;
+  }
+
+  .service__item:hover .service_description {
+    color: #fff;
+  }
+  
+  .service_title {
+    font-size: {{ service_title_font_size }};
+    line-height: {{ service_title_line_height }};
+    font-weight: {{ service_title_font_weight }};
+    color: {{ service_title_color }};
+    margin-bottom: {{ service_title_margin_bottom }};
+    transition: 0.3s all ease;
+  }
+  
+  .service_description {
+    font-size: {{ service_description_font_size }};
+    line-height: {{ service_description_line_height }};
+    color: {{ service_description_color }};
+    max-width: 266px;
+    transition: 0.3s all ease;
+  }
+  
+  .box__service--4 .row {
+    margin: 0;
+    padding: 68px 15px;
+    background-color: #fff;
+    border-radius: 5px;
+  }
+
+  {{ id }} .box__service--4 .service_title {
+    font-family: var(--hd-font-family);
+  }
+
+  {{ id }} .box__service--4 .service__item--icon {
+    width: {{ service_icon_size }};
+  }
+
+  {{ id }} .box__service--4 .service__item--icon img {
+    width: auto;
+    max-height: 60px;
+  }
+
+  {%- if section.settings.hover -%}
+    {{ id }} .service__item:hover {
+    background-color: {{ item_background_color_hover }};
+  }
+  {{ id }} .service__item:hover .service_title, {{ id }} .service__item:hover .service_description, {{ id }} .service__item:hover .service__item--icon {
+    color: {{ item_text_color_hover }};
+  }
+  {%- endif -%}
+
+  @media (min-width: 1200px) {
+    {{ id }} .box__service--3 .row {
+    justify-content: space-between;
+  }
+  }
+
+  {%- for block in section.blocks -%}
+    .box__service--1 #block-{{ block.id }} .service__item {
+      border-bottom: 1px solid #E5E7EA;
+    }
+      .box__service--1 #block-{{ block.id }}:not(:last-child) .service__item {
+        border-right: 1px solid #E5E7EA;
+      }
+    @media (min-width: 1200px) {
+      .box__service--1 #block-{{ block.id }} {
+        width: 20%;
+      }
+    }
+  {%- endfor -%}
+
+  @media (max-width: 1199px) {
+    .box__service--4 .row {
+      padding: 50px 0;
+    }
+  }
+  @media (max-width: 767px) {
+    .box__service--4 .row {
+      padding: 40px 0;
+    }
+  }
+
+  
+
+{% endstyle %}
+
+<section class="service-list {{ section.settings.class }}">
+
+  {%- unless section.settings.full_width -%}
+    <div class="{{ section.settings.container_type }}">
+  {%- endunless -%}
+
+    {%- render 'section-header' -%}
+
+  <div class="row">
+    {% for block in section.blocks %}
+      {% assign column_class_mobile = 'col-sm-' | append: block.settings.columns_mobile %}
+      {% assign column_class_tablet = 'col-md-' | append: block.settings.columns_tablet %}
+      {% assign column_class_desktop = 'col-xl-' | append: block.settings.columns_desktop %}
+      <div id="block-{{ block.id }}" class="{{ column_class_mobile }} {{ column_class_tablet }} {{ column_class_desktop }} col-12">
+        <div class="service__item" {% if section.settings.data_aos != "none" %} data-aos="{{ section.settings.data_aos }}" {% endif %}>
+          {%- if block.settings.background_image_hover != blank -%}
+            <div class="service__item--overlay">
+              {{ block.settings.background_image_hover |  image_url: width: block.settings.background_image_hover.width |  image_tag }}
+            </div>
+          {%- endif -%}
+          <div class="service__item--icon">
+            {%- if block.settings.link != blank -%}
+              <a href="{{ block.settings.link }}">
+            {%- endif -%}
+            {% if block.settings.icon_image != blank %}
+              {{ block.settings.icon_image | image_url: width: block.settings.icon_image.width | image_tag }}
+            {% else %}
+              {{ block.settings.icon_svg }}
+            {% endif %}
+            {%- if block.settings.link != blank -%}
+              </a>
+            {%- endif -%}
+          </div>
+
+          <div class="service__item--text">
+            {% if block.settings.service_title != blank %}
+              {%- if block.settings.link != blank -%}
+                <a href="{{ block.settings.link }}">
+              {%- endif -%}
+              <h3 class="service_title">{{ block.settings.service_title }}</h3>
+              {%- if block.settings.link != blank -%}
+                </a>
+              {%- endif -%}
+            {% endif %}
+            {% if block.settings.service_description != blank %}
+              <p class="service_description">{{ block.settings.service_description }}</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  {%- unless section.settings.full_width -%}
+    </div>
+  {%- endunless -%}
+</section>
+
+
+{% schema %}
+  {
+    "name": "Service 2",
+    "class": "shopify-section--service-2",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Section Settings"
+      },
+      {
+        "type": "checkbox",
+        "id": "full_width",
+        "label": "Full Width Section",
+        "default": false
+      },
+      {
+        "type": "select",
+        "id": "container_type",
+        "label": "Container Type",
+        "default": "container",
+        "options": [
+          {
+            "value": "container",
+            "label": "Container"
+          }, {
+            "value": "container-fluid",
+            "label": "Contauiner Fluid"
+          }
+        ]
+      },
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background Color",
+        "default": "#f9f9f9"
+      }, {
+        "type": "image_picker",
+        "id": "background_image",
+        "label": "Background Image"
+      }, {
+        "type": "text",
+        "id": "class",
+        "label": "Class"
+      }, {
+        "type": "text",
+        "id": "padding_desktop",
+        "label": "Padding (Desktop)",
+        "info": "Top Right Bottom Left",
+        "default": "40px 20px"
+      }, {
+        "type": "text",
+        "id": "padding_tablet",
+        "label": "Padding (Tablet)",
+        "info": "Top Right Bottom Left",
+        "default": "40px 20px"
+      }, {
+        "type": "text",
+        "id": "padding_mobile",
+        "label": "Padding (Mobile)",
+        "info": "Top Right Bottom Left",
+        "default": "40px 20px"
+      }, {
+        "type": "text",
+        "id": "margin_dekstop",
+        "label": "Margin (Desktop)",
+        "info": "Top Right Bottom Left",
+        "default": "40px 20px"
+      }, {
+        "type": "text",
+        "id": "margin_tablet",
+        "label": "Margin (Tablet)",
+        "info": "Top Right Bottom Left",
+        "default": "40px 20px"
+      }, {
+        "type": "text",
+        "id": "margin_mobile",
+        "label": "Margin (Mobile)",
+        "info": "Top Right Bottom Left",
+        "default": "40px 20px"
+      }, 
+      {
+        "type": "range",
+        "id": "bootstrap_spacing",
+        "label": "Bootstrap Spacing",
+        "min": 0,
+        "max": 50,
+        "step": 0.5,
+        "default": 15,
+        "unit": "px"
+      },
+      {
+        "type": "header",
+        "content": "Section Header Settings"
+      },
+      {
+        "type": "select",
+        "id": "text_align",
+        "label": "Text Align",
+        "default": "center",
+        "options": [
+          {
+            "value": "left",
+            "label": "Left"
+          }, {
+            "value": "center",
+            "label": "Center"
+          }, {
+            "value": "right",
+            "label": "Right"
+          }
+        ]
+      },
+      {
+        "type": "range",
+        "id": "section_header_spacing",
+        "label": "Section Header Spacing",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "default": 20
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Section Title",
+        "default": "Our Services"
+      },
+      {
+        "type": "range",
+        "id": "title_size",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Font size",
+        "default": 20
+      }, {
+        "type": "range",
+        "id": "title_height",
+        "min": 80,
+        "max": 180,
+        "step": 1,
+        "unit": "%",
+        "label": "Line height",
+        "default": 100
+      }, {
+        "type": "range",
+        "id": "title_mb",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Margin bottom",
+        "default": 20
+      }, {
+        "type": "color",
+        "id": "title_color",
+        "label": "Title color",
+        "default": "#000"
+      },
+      {
+        "type": "header",
+        "content": "Sevice Items Settings"
+      }, {
+        "type": "range",
+        "id": "service_title_font_size",
+        "label": "Service Title Font Size",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "default": 20,
+        "unit": "px"
+      }, {
+        "type": "range",
+        "id": "service_title_line_height",
+        "label": "Service Title Line Height",
+        "min": 0,
+        "max": 2,
+        "step": 0.1,
+        "default": 1
+      }, {
+        "type": "range",
+        "id": "service_title_font_weight",
+        "label": "Service Title Font Weight",
+        "min": 100,
+        "max": 900,
+        "step": 100,
+        "default": 400
+      }, {
+        "type": "color",
+        "id": "service_title_color",
+        "label": "Service Title Color",
+        "default": "#333"
+      }, {
+        "type": "range",
+        "id": "service_title_margin_bottom",
+        "label": "Service Title Margin Bottom",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "default": 10,
+        "unit": "px"
+      }, {
+        "type": "range",
+        "id": "service_description_font_size",
+        "label": "Service Description Font Size",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "default": 14,
+        "unit": "px"
+      }, {
+        "type": "range",
+        "id": "service_description_line_height",
+        "label": "Service Description Line Height",
+        "min": 0,
+        "max": 2,
+        "step": 0.1,
+        "default": 1
+      }, {
+        "type": "color",
+        "id": "service_description_color",
+        "label": "Service Description Color",
+        "default": "#333"
+      }, {
+        "type": "range",
+        "id": "service_icon_spacing",
+        "label": "Service Icon Spacing",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "default": 10,
+        "unit": "px"
+      }, {
+        "type": "range",
+        "id": "service_icon_size",
+        "label": "Service Icon Size",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "default": 50,
+        "unit": "px"
+      }, {
+        "type": "color",
+        "id": "service_icon_color",
+        "label": "Service Icon Color",
+        "default": "#000"
+      },
+      {
+        "type": "text",
+        "id": "service_item_padding",
+        "label": "Service Item Padding",
+        "default": "20px"
+      }, {
+        "type": "range",
+        "id": "service_item_border_radius",
+        "label": "Service Item Border Radius",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "default": 5,
+        "unit": "px"
+      },
+      {
+        "type": "color",
+        "id": "service_item_background_color",
+        "label": "Service Item Background Color"
+      },
+      {
+        "type": "color",
+        "id": "item_background_color_hover",
+        "label": "Service Item Background Color Hover"
+      },
+      {
+        "type": "color",
+        "id": "item_text_color_hover",
+        "label": "Service Item Text Color Hover"
+      },
+      {
+        "type": "checkbox",
+        "id": "hover",
+        "label": "Hover Effect",
+        "default": true
+      },
+       {
+                "type": "select",
+                "id": "data_aos",
+                "label": "Data Aos",
+                "default": "none",
+                "options": [
+                  {
+                    "value": "none",
+                    "label": "none"
+                  }, {
+                    "value": "fade-up",
+                    "label": "fade-up"
+                  }, {
+                    "value": "fade-down",
+                    "label": "fade-down"
+                  }, {
+                    "value": "fade-right",
+                    "label": "fade-right"
+                  }, {
+                    "value": "fade-left",
+                    "label": "fade-left"
+                  }, {
+                    "value": "flip-left",
+                    "label": "flip-left"
+                  }, {
+                    "value": "flip-right",
+                    "label": "flip-right"
+                  }, {
+                    "value": "flip-up",
+                    "label": "flip-up"
+                  }, {
+                    "value": "flip-down",
+                    "label": "flip-down"
+                  }, {
+                    "value": "zoom-in",
+                    "label": "zoom-in"
+                  }, {
+                    "value": "zoom-in-up",
+                    "label": "zoom-in-up"
+                  }, {
+                    "value": "zoom-in-down",
+                    "label": "zoom-in-down"
+                  },  {
+                    "value": "zoom-in-left",
+                    "label": "zoom-in-left"
+                  },  {
+                    "value": "zoom-in-right",
+                    "label": "zoom-in-right"
+                  }, {
+                    "value": "zoom-out",
+                    "label": "zoom-out"
+                  }, {
+                    "value": "zoom-out-up",
+                    "label": "zoom-out-up"
+                  }, {
+                    "value": "zoom-out-down",
+                    "label": "zoom-out-down"
+                  },  {
+                    "value": "zoom-out-left",
+                    "label": "zoom-out-left"
+                  },  {
+                    "value": "zoom-out-right",
+                    "label": "zoom-out-right"
+                  }
+                ]
+              }
+    ],
+    "blocks": [
+      {
+        "type": "service",
+        "name": "Service",
+        "settings": [
+
+          {
+            "type": "image_picker",
+            "id": "icon_image",
+            "label": "Icon Image"
+          },
+          
+          {
+            "type": "liquid",
+            "id": "icon_svg",
+            "label": "Icon SVG"
+          },
+          {
+            "type": "text",
+            "id": "service_title",
+            "label": "Service Title",
+            "default": "Service Title"
+          },
+          {
+            "type": "textarea",
+            "id": "service_description",
+            "label": "Service Description",
+            "default": "Service Description"
+          }, {
+            "type": "url",
+            "id": "link",
+            "label": "Link"
+          },
+          {
+            "type": "image_picker",
+            "id": "background_image_hover",
+            "label": "Background Image Hover"
+          },
+          
+          {
+            "type": "range",
+            "id": "columns_mobile",
+            "label": "Column Width (Mobile)",
+            "default": 6,
+            "min": 1,
+            "max": 12,
+            "step": 1
+          }, {
+            "type": "range",
+            "id": "columns_tablet",
+            "label": "Column Width (Tablet)",
+            "default": 6,
+            "min": 1,
+            "max": 12,
+            "step": 1
+          }, {
+            "type": "range",
+            "id": "columns_desktop",
+            "label": "Column Width (Desktop)",
+            "default": 3,
+            "min": 1,
+            "max": 12,
+            "step": 1
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Service 2",
+        "blocks": [
+          {
+            "type": "service"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

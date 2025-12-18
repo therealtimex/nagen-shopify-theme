@@ -1,0 +1,391 @@
+{% render 'section-style' %}
+{%- assign id = '#shopify-section-' | append: section.id -%}
+
+<style>
+
+
+{%- for block in section.blocks -%}
+  {{ id }}
+      .outlined {
+        -webkit-text-stroke: 0.5px{{ block.settings.colorText }};
+        color: {{ block.settings.colorBackground }};
+      }
+      {{ id }}
+      .hura-marquee-bar.hura-messages {
+        background-color: {{ block.settings.colorBackground }};
+      }
+
+
+    {%- endfor -%}
+
+    {{ id }} .hura-message  {
+      font-size: {{ section.settings.font_size | append: 'px' }};
+      line-height: {{ section.settings.line_height }};
+      font-weight: {{ section.settings.font_weight }};
+      text-transform: {{ section.settings.text_transform }};
+    }
+
+
+
+
+
+    {{ id }} .hura-marquee-bar.hura-messages {
+      position: relative;
+      overflow: hidden;
+      padding: 0;
+    }
+   
+    {{ id }} .cus-content span:last-child {
+      padding-right: 20px;
+    }
+    
+    {{ id }}
+    .cus-marquee {
+      min-height: {{ section.settings.height }}px;
+      overflow-x: hidden;
+      display: flex;
+      overflow: hidden;
+      width: 100%;
+      align-items: center;
+      gap: 0 40px;
+    }
+    {{ id }}
+    .cus-content {
+      white-space: nowrap;
+      height: 100%;
+      display: inline-flex;
+      gap: 30px;
+      align-items: center;
+      animation: marquee {{ section.settings.speed }}s linear infinite;
+      {% if section.settings.direction == 'right' %}
+        animation-direction: reverse;
+      {% endif %}
+    }
+    {% if section.settings.pause_on_hover %}
+      {{ id }} .hura-marquee-bar:hover .cus-content {
+        animation-play-state: paused;
+      }
+    {% endif %}
+
+    {{ id }}
+    .marquee-stop .cus-content {
+      animation: none;
+    }
+    {{ id }}
+    .marquee-stop .cus-content.hura-mess-2 {
+      display: none;
+    }
+    {{ id }}
+    .cus-marquee.marquee-stop {
+      justify-content: center;
+    }
+
+    @keyframes marquee {
+      from {
+        transform: translateX(0%);
+      }
+      to {
+        transform: translateX(-100%);
+      }
+    }
+
+    @media (max-width: 1199px) {
+      {{ id }} .hura-message  {
+      font-size: {{ section.settings.font_size_tablet | append: 'px' }};
+      }
+    }
+    @media (max-width: 767px) {
+      {{ id }} .hura-message  {
+        font-size: {{ section.settings.font_size_mobile | append: 'px' }};
+      }
+    }
+
+
+
+
+
+</style>
+
+{%- if section.blocks.size > 0 -%}
+  <div class="hura-marquee-bar hura-messages
+  {%- if section.settings.text_size -%}{{ 'text-large' | prepend: ' ' }}{%- endif -%}
+  " {% if section.settings.data_aos !="none" %}
+    data-aos="{{ section.settings.data_aos }}"
+  {% endif %} >
+    <div class="cus-marquee {%- if section.settings.marquee_stop -%}{{ 'marquee-stop' | prepend: ' ' }}{%- endif -%}">
+      {%- for block in section.blocks -%}
+        <div class="hura-message cus-content hura-mess-1" style="background:{{ block.settings.colorBackground }};color:{{ block.settings.colorText }};">
+          {{ block.settings.message }}
+        </div>
+      {%- endfor -%}
+      {%- for block in section.blocks -%}
+        <div class="hura-message cus-content hura-mess-2" style="background:{{ block.settings.colorBackground }};color:{{ block.settings.colorText }};">
+          {{ block.settings.message }}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+  
+{%- endif -%}
+
+{% schema %}
+  {
+    "name": "Hura Marquee",
+    "max_blocks": 1,
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "box-custom",
+        "label": "Box Custom"
+      },
+      {
+        "type": "text",
+        "id": "margin_desktop",
+        "label": "t:sections.all.margin_desktop.label",
+        "info": "t:sections.all.margin_desktop.info"
+      },
+      {
+        "type": "text",
+        "id": "margin_tablet",
+        "label": "t:sections.all.margin_tablet.label",
+        "info": "t:sections.all.margin_tablet.info"
+      },
+      {
+        "type": "text",
+        "id": "margin_mobile",
+        "label": "t:sections.all.margin_mobile.label",
+        "info": "t:sections.all.margin_mobile.info"
+      }, {
+        "type": "header",
+        "content": "Padding section"
+      }, {
+        "type": "text",
+        "id": "padding_desktop",
+        "label": "Padding desktop",
+        "info": "Example: 0px 0px 0px 0px"
+      }, {
+        "type": "text",
+        "id": "padding_tablet",
+        "label": "Padding tablet",
+        "info": "Example: 0px 0px 0px 0px"
+      }, {
+        "type": "text",
+        "id": "padding_mobile",
+        "label": "Padding mobile",
+        "info": "Example: 0px 0px 0px 0px"
+      }, {
+        "type": "select",
+        "id": "direction",
+        "options": [
+          {
+            "value": "left",
+            "label": "Right to Left"
+          }, {
+            "value": "right",
+            "label": "Left to Right"
+          }
+        ],
+        "default": "right",
+        "label": "Direction"
+      }, {
+        "type": "checkbox",
+        "id": "pause_on_hover",
+        "label": "Pause on hover"
+      }, {
+        "type": "number",
+        "id": "speed",
+        "label": "Speed",
+        "default": 25
+      }, {
+        "type": "number",
+        "id": "height",
+        "label": "Height",
+        "default": 40
+      }, {
+        "type": "checkbox",
+        "id": "marquee_stop",
+        "label": "Marquee Stop"
+      }, {
+        "type": "header",
+        "content": "Text settings"
+      }, {
+        "type": "number",
+        "id": "font_size",
+        "label": "Font size",
+        "default": 30
+      },  {
+        "type": "number",
+        "id": "font_size_tablet",
+        "label": "Font size tablet",
+        "default": 30
+      }, 
+      {
+        "type": "number",
+        "id": "font_size_mobile",
+        "label": "Font size mobile",
+        "default": 30
+      }, {
+        "type": "text",
+        "id": "line_height",
+        "label": "Line height"
+      }, {
+        "type": "select",
+        "id": "font_weight",
+        "label": "Font weight",
+        "default": "normal",
+        "options": [
+          {
+            "value": "normal",
+            "label": "Normal"
+          },
+          {
+            "value": "400",
+            "label": "400"
+          },
+          {
+            "value": "500",
+            "label": "500"
+          },
+          {
+            "value": "600",
+            "label": "600"
+          }, {
+            "value": "700",
+            "label": "700"
+          }
+        ]
+      }, {
+        "type": "select",
+        "id": "text_transform",
+        "label": "Text transform",
+        "default": "none",
+        "options": [
+          {
+            "value": "none",
+            "label": "None"
+          }, {
+            "value": "uppercase",
+            "label": "Uppercase"
+          }, {
+            "value": "lowercase",
+            "label": "Lowercase"
+          }, {
+            "value": "capitalize",
+            "label": "Capitalize"
+          }
+        ]
+      }, {
+          "type": "select",
+          "id": "data_aos",
+          "label": "Data Aos",
+          "default": "none",
+          "options": [
+            {
+              "value": "none",
+              "label": "none"
+            },
+            {
+              "value": "fade-up",
+              "label": "fade-up"
+            },
+            {
+              "value": "fade-down",
+              "label": "fade-down"
+            },
+            {
+              "value": "fade-right",
+              "label": "fade-right"
+            },
+            {
+              "value": "fade-left",
+              "label": "fade-left"
+            },
+            {
+              "value": "flip-left",
+              "label": "flip-left"
+            },
+            {
+              "value": "flip-right",
+              "label": "flip-right"
+            },
+            {
+              "value": "flip-up",
+              "label": "flip-up"
+            },
+            {
+              "value": "flip-down",
+              "label": "flip-down"
+            },
+            {
+              "value": "zoom-in",
+              "label": "zoom-in"
+            },
+            {
+              "value": "zoom-in-up",
+              "label": "zoom-in-up"
+            },
+            {
+              "value": "zoom-in-down",
+              "label": "zoom-in-down"
+            },
+            {
+              "value": "zoom-in-left",
+              "label": "zoom-in-left"
+            },
+            {
+              "value": "zoom-in-right",
+              "label": "zoom-in-right"
+            },
+            {
+              "value": "zoom-out",
+              "label": "zoom-out"
+            },
+            {
+              "value": "zoom-out-up",
+              "label": "zoom-out-up"
+            },
+            {
+              "value": "zoom-out-down",
+              "label": "zoom-out-down"
+            },
+            {
+              "value": "zoom-out-left",
+              "label": "zoom-out-left"
+            },
+            {
+              "value": "zoom-out-right",
+              "label": "zoom-out-right"
+            }
+          ]
+        }
+    ],
+    "blocks": [
+      {
+        "type": "header",
+        "name": "Message",
+        "settings": [
+          {
+            "id": "message",
+            "type": "liquid",
+            "label": "Message"
+          }, {
+            "type": "color",
+            "id": "colorBackground",
+            "label": "Background color",
+            "default": "#ffffff"
+          }, {
+            "type": "color",
+            "id": "colorText",
+            "label": "Text color",
+            "default": "#000"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Hura Messase"
+      }
+    ]
+  }
+{% endschema %}

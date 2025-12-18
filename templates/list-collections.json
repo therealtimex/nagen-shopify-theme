@@ -1,0 +1,59 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "setwidthout": "full",
+        "enable_title": true,
+        "padding_top": 30,
+        "padding_bottom": 30,
+        "height": 360,
+        "height_tablet": 300,
+        "height_mobile": 200,
+        "margin_desktop": "0 20px 0",
+        "margin_tablet": "",
+        "margin_mobile": "0",
+        "bg_img": "shopify://shop_images/breadcrumb.jpg",
+        "background_gradient": "",
+        "background_color": "rgba(0,0,0,0)",
+        "color_title": "#ffffff",
+        "color_breadcrumb": "#ffffff",
+        "breadcrumb_rounded": 20
+      }
+    },
+    "main_list_collections_UkiVet": {
+      "type": "main-list-collections",
+      "settings": {
+        "display_default_collection": true,
+        "background_color": "rgba(0,0,0,0)",
+        "margin_desktop": "",
+        "margin_tablet": "",
+        "margin_mobile": "",
+        "padding_desktop": "100px 0",
+        "padding_tablet": "",
+        "padding_mobile": "80px 0",
+        "title": "Collections",
+        "show_description": true,
+        "sort": "alphabetical",
+        "image_ratio": "adapt",
+        "columns_desktop": 4,
+        "columns_tablet": 3,
+        "columns_tablet_small": 2,
+        "columns_mobile": 1
+      }
+    }
+  },
+  "order": [
+    "main",
+    "main_list_collections_UkiVet"
+  ]
+}

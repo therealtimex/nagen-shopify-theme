@@ -1,0 +1,80 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "footer",
+  "name": "Custom Group",
+  "sections": {
+    "cookie_bar_mxBJKL": {
+      "type": "cookie-bar",
+      "name": "Cookie bar",
+      "settings": {
+        "show_cookie_bar": true,
+        "heading": "Cookie policy",
+        "heading_size": "heading--xsmall",
+        "content": "I agree to the processing of my data in accordance with the conditions set out in the policy of Privacy."
+      }
+    },
+    "mini_cart_RCEAkV": {
+      "type": "mini-cart",
+      "name": "Mini cart",
+      "settings": {}
+    },
+    "popup_7d9iTi": {
+      "type": "popup",
+      "name": "Popup",
+      "settings": {
+        "show_popup": true,
+        "title": "Join our newletter and get 20% discount",
+        "desciption": "This website uses cookies to ensure you get the best experience on our website.",
+        "input": "Your Email...",
+        "button_text": "Subscribe",
+        "time_delay": 5,
+        "bg_input": "#ffffff",
+        "color_title": "",
+        "color_description": ""
+      }
+    },
+    "recently_viewed_products_popup_NYDErq": {
+      "type": "recently-viewed-products-popup",
+      "name": "Recently review popop",
+      "settings": {
+        "show": true,
+        "heading": "Recently viewed products",
+        "heading_size": 1,
+        "products_to_show": 10
+      }
+    },
+    "main_coupon_code_6PD3VJ": {
+      "type": "main-coupon_code",
+      "name": "Coupon",
+      "settings": {
+        "coupon_time": 3,
+        "coupon_background": "shopify:\/\/shop_images\/a_h1-bg-footer.png",
+        "coupon_title": "-10% FOR BEST SELLER",
+        "color_title": "#fff",
+        "coupon_description": "Enter this coupon code at checkout to get 10% off:",
+        "color_des": "#fff"
+      }
+    },
+    "loadmoreproduct_BUB3yJ": {
+      "type": "loadmoreproduct",
+      "name": "Load more",
+      "settings": {}
+    }
+  },
+  "order": [
+    "cookie_bar_mxBJKL",
+    "mini_cart_RCEAkV",
+    "popup_7d9iTi",
+    "recently_viewed_products_popup_NYDErq",
+    "main_coupon_code_6PD3VJ",
+    "loadmoreproduct_BUB3yJ"
+  ]
+}

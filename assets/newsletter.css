@@ -1,0 +1,158 @@
+.block__title {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    line-height: 22px;
+    font-weight: 600;
+  }
+
+  .block__heading {
+    font-size: 36px;
+    line-height: 44px;
+    font-weight: 500;
+  }
+
+
+  .block__description {
+    display: flex;
+    gap: 20px;
+    font-size: 16px;
+    line-height: 26px;
+  }
+
+  .newsletter-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0 20px;
+  }
+
+  .newsletter__title {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: var(--primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0;
+  }
+
+  .newsletter__heading {
+    flex: 1;
+    font-size: 36px;
+    line-height: 44px;
+    font-weight: 500;
+    margin-bottom: 0;
+  }
+
+  .newsletter__description {
+    width: 100%;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    line-height: 26px;
+  }
+
+  .wp-newsletter-input {
+    position: relative;
+  }
+
+  .newsletter-wrapper .email-form {
+    width: 100%;
+  }
+
+  .newsletter-wrapper .input-button {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: -1px;
+  }
+
+    .newsletter-wrapper .input-button .btn-email {
+        height: 50px;
+        padding: 8px 24px 8px 8px;
+        font-size: 14px;
+        line-height: 22px;
+        font-weight: 600;
+        border-radius: 30px;
+        border: none;
+        transition: 0.3s all ease;
+        background-color: var(--btn-bg);
+        color: var(--btn-color);
+        text-transform: capitalize;
+    }
+
+
+.newsletter-wrapper .input-button .btn-email:hover {
+  background-color: var(--btn-bg-hover);
+  color: var(--btn-color-hover)
+}
+
+.newsletter-wrapper .input-button .btn-email .icon-button {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s all ease;
+  color: var(--btn-bg);
+}
+
+
+.newsletter-wrapper .input-button .btn-email:hover .icon-button {
+  color: var(--btn-bg-hover);
+}
+
+
+@media (max-width: 991px) and (min-width: 768px) {
+    .newsletter-wrapper .input-button{
+        position: unset;
+    }
+    .newsletter-wrapper .input-row {
+        min-width: 250px;
+    }
+
+    .newsletter-wrapper .wp-newsletter-input {
+        flex-wrap: wrap;
+    }
+}
+
+
+@media (max-width: 991px) {
+    .block__heading, .newsletter__heading {
+        font-size: 30px;
+        line-height: 38px;
+    }
+
+    .newsletter__title {
+        width: 80px;
+        height: 80px;
+    }
+     .newsletter__title svg {
+        width: 30px;
+     }
+}
+
+@media (max-width: 400px) {
+    .newsletter-wrapper .input-button{
+        position: unset;
+    }
+    .newsletter-wrapper .input-row {
+        min-width: 250px;
+    }
+
+    .newsletter-wrapper .wp-newsletter-input {
+        flex-wrap: wrap;
+    }
+
+    .newsletter__heading {
+        width: 100%;
+        margin-top: 10px;
+        flex: none;
+    }
+}

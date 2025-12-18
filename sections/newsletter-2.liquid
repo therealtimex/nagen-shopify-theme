@@ -1,0 +1,691 @@
+{% render 'section-style' %}
+{%- assign id = '#shopify-section-' | append: section.id -%}
+
+{% liquid
+  assign text_alignment = section.settings.text_alignment
+
+  assign heading_font_size = section.settings.heading_font_size | append: 'px'
+  assign heading_line_height = section.settings.heading_line_height
+  assign heading_color = section.settings.heading_color
+  assign heading_margin_bottom = section.settings.heading_margin_bottom | append: 'px'
+
+  assign description_font_size = section.settings.description_font_size | append: 'px'
+  assign description_line_height = section.settings.description_line_height
+  assign description_color = section.settings.description_color
+  assign description_margin_bottom = section.settings.description_margin_bottom | append: 'px'
+
+  assign input_font_size = section.settings.input_font_size | append: 'px'
+  assign input_width = section.settings.input_width | append: 'px'
+  assign input_height = section.settings.input_height | append: 'px'
+  assign input_border_radius = section.settings.input_border_radius | append: 'px'
+  assign input_line_height = section.settings.input_line_height
+  assign input_color = section.settings.input_color
+  assign input_placeholder_color = section.settings.input_placeholder_color
+  assign input_padding = section.settings.input_padding | append: 'px'
+  assign input_background_color = section.settings.input_background_color
+  assign input_border_color = section.settings.input_border_color
+  assign input_border_width = section.settings.input_border_width | append: 'px'
+
+  assign button_font_size = section.settings.button_font_size | append: 'px'
+  assign button_width = section.settings.button_width | append: 'px'
+  assign button_height = section.settings.button_height | append: 'px'
+  assign button_letter = section.settings.button_letter | append: 'px'
+  assign button_border_radius = section.settings.button_border_radius | append: 'px'
+  assign button_line_height = section.settings.button_line_height
+  assign button_color = section.settings.button_color
+  assign button_background_color = section.settings.button_background_color
+  assign button_color_hover = section.settings.button_color_hover
+  assign button_background_color_hover = section.settings.button_background_color_hover
+  assign button_padding = section.settings.button_padding | append: 'px'
+  assign button_border_color = section.settings.button_border_color
+  assign button_border_width = section.settings.button_border_width | append: 'px'
+%}
+
+
+{% style %}
+  {{ id }}
+  .newsletter__content {
+    text-align: {{ text_alignment }};
+  }
+  {{ id }}
+  .newsletter__heading {
+    font-size: {{ heading_font_size }};
+    line-height: {{ heading_line_height }};
+    color: {{ heading_color }};
+    margin-bottom: {{ heading_margin_bottom }};
+  }
+  {{ id }}
+  .newsletter__description {
+    font-size: {{ description_font_size }};
+    line-height: {{ description_line_height }};
+    color: {{ description_color }};
+    margin-bottom: {{ description_margin_bottom }};
+    max-width: 356px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  {{ id }}
+  .newletter__form--content {
+    max-width: {{ input_width }};
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+  }
+  {{ id }}
+  .newletter__form input[type="email"] {
+    font-size: {{ input_font_size }};
+    max-width: {{ input_width }};
+    width: 100%;
+    height: {{ input_height }};
+    border-radius: {{ input_border_radius }};
+    line-height: {{ input_line_height }};
+    color: {{ input_color }};
+    padding: 0 {{ input_padding }};
+    background-color: {{ input_background_color }};
+    border: {{ input_border_width }}
+    solid{{ input_border_color }};
+    text-align: left;
+  }
+  {{ id }}
+  .newletter__form input[type="email"]::placeholder {
+    color: {{ input_placeholder_color }};
+  }
+  {{ id }}
+  .newletter__form button {
+    font-size: {{ button_font_size }};
+    max-width: {{ button_width }};
+    height: {{ button_height }};
+    border-radius: {{ button_border_radius }};
+    line-height: {{ button_line_height }};
+    letter-spacing: {{ button_letter }};
+    color: {{ button_color }};
+    background-color: {{ button_background_color }};
+    padding: 0 {{ button_padding }};
+    border: {{ button_border_width }}
+    solid{{ button_border_color }};
+    text-transform: uppercase;
+    font-family: var(--hd-font-family);
+    margin-top: 10px;
+    transition: 0.3s all ease;
+  }
+
+  {{ id }} .newletter__form button:hover {
+    background-color: {{ button_background_color_hover }};
+    color: {{ button_color_hover }};
+  }
+
+@media (min-width: 480px) {
+  {{ id }}
+  .newletter__form button {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-top: 0;
+  }
+}
+
+{{ id }}
+.newletter__form .form__banner {
+  max-width: {{ input_width }};
+  margin: 10px auto 0;
+  padding-left: {{ input_padding }};
+  padding-right: {{ input_padding }};
+  border-radius: {{ input_border_radius }};
+}
+{% endstyle %}
+
+
+<div class="newletter__section">
+  {%- unless section.settings.full_width -%}
+    <div class="{{ section.settings.container_width }}">
+  {%- endunless -%}
+  <div class="newsletter__content">
+    <div class="newsletter__content__inner">
+      {% if section.settings.section_heading != blank %}
+        <h2 class="newsletter__heading" {% if section.settings.data_aos != "none" %} data-aos="{{ section.settings.data_aos }}" {% endif %}>{{ section.settings.section_heading }}</h2>
+      {% endif %}
+      {% if section.settings.section_description != blank %}
+        <p class="newsletter__description" {% if section.settings.data_aos != "none" %} data-aos="{{ section.settings.data_aos }}" {% endif %}>{{ section.settings.section_description }}</p>
+      {% endif %}
+      <div class="newletter__form" {% if section.settings.data_aos != "none" %} data-aos="{{ section.settings.data_aos }}" {% endif %}>
+        {% form 'customer' %}
+
+          <input
+            type="hidden"
+            name="contact[tags]"
+            value="newsletter">
+          <input
+            type="hidden"
+            name="contact[context]"
+            value="newsletter-{{ section.id }}">
+          <div class="newletter__form--content">
+            <input
+              type="email"
+              name="contact[email]"
+              id="newsletter[{{ section.id }}][contact][email]"
+              value="{% if customer.email != blank %}{{ customer.email }}{% endif %}"
+              placeholder="{{ section.settings.input_placeholder }}"
+              autocorrect="off"
+              autocapitalize="off"
+              required>
+            <button
+              type="submit"
+              name="commit"
+              is="loader-button">
+              <span class="ap-text-loaderbutton">
+                {{ section.settings.button_text }}
+                {% render 'arrow-right' %}
+              </span>
+              <span class="ap-loader-loaderbutton" hidden="">
+                <div class="spinner">
+                  <svg
+                    focusable="false"
+                    width="24"
+                    height="24"
+                    class="icon icon--spinner"
+                    viewBox="25 25 50 50">
+                    <circle
+                      cx="50"
+                      cy="50"
+                      r="20"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="5"></circle>
+                  </svg>
+                </div>
+              </span>
+            </button>
+          </div>
+
+          {% if form.errors != nil %}
+            <div class="form__banner banner banner--error">
+              <small class="newsletter-form__message form__message" id="Newsletter-error--{{ section.id }}">{% render 'icon-error' %}{{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}</small>
+            </div>
+
+          {% endif %}
+          {% if form.posted_successfully? %}
+
+            <div class="form__banner banner banner--success">
+              <span class="banner__ribbon">
+                <svg
+                  focusable="false"
+                  width="18"
+                  height="26"
+                  class="icon icon--form-success   "
+                  viewBox="0 0 18 26">
+                  <circle
+                    fill="none"
+                    cx="9"
+                    cy="13"
+                    r="8"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"></circle>
+                  <path
+                    fill="none"
+                    d="M5 13l3 3 5-6"
+                    stroke="currentColor"
+                    stroke-width="1.5"></path>
+                </svg>
+              </span>
+              <p class="banner__content">{{ 'newsletter.success' | t }}</p>
+            </div>
+          {% endif %}
+        {% endform %}
+      </div>
+    </div>
+  </div>
+  {%- unless section.settings.full_width -%}
+    </div>
+  {%- endunless -%}
+</div>
+
+
+{% schema %}
+  {
+    "name": "Newsletter 2",
+    "class": "shopify-section--newsletter-2",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Section settings"
+      },
+      {
+        "type": "checkbox",
+        "id": "full_width",
+        "label": "Full width",
+        "default": false
+      },
+      {
+        "type": "select",
+        "id": "container_width",
+        "label": "Container width",
+        "options": [
+          {
+            "value": "container",
+            "label": "Container"
+          }, {
+            "value": "container-fluid",
+            "label": "Container fluid"
+          }
+        ],
+        "default": "container"
+      },
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background color",
+        "default": "#f4f4f4"
+      }, {
+        "type": "image_picker",
+        "id": "background_image",
+        "label": "Background image"
+      }, {
+        "type": "text",
+        "id": "padding_desktop",
+        "label": "Padding (Desktop)",
+        "default": "50px 0",
+        "info": "Top Right Bottom Left"
+      }, {
+        "type": "text",
+        "id": "padding_tablet",
+        "label": "Padding (Tablet)",
+        "default": "30px 0",
+        "info": "Top Right Bottom Left"
+      }, {
+        "type": "text",
+        "id": "padding_mobile",
+        "label": "Padding (Mobile)",
+        "default": "20px 0",
+        "info": "Top Right Bottom Left"
+      }, {
+        "type": "text",
+        "id": "margin_desktop",
+        "label": "Margin (Desktop)",
+        "default": "0",
+        "info": "Top Right Bottom Left"
+      }, {
+        "type": "text",
+        "id": "margin_tablet",
+        "label": "Margin (Tablet)",
+        "default": "0",
+        "info": "Top Right Bottom Left"
+      }, {
+        "type": "text",
+        "id": "margin_mobile",
+        "label": "Margin (Mobile)",
+        "default": "0",
+        "info": "Top Right Bottom Left"
+      }, {
+        "type": "header",
+        "content": "Section content"
+      }, {
+        "type": "text",
+        "id": "section_heading",
+        "label": "Section heading",
+        "default": "Subscribe to our newsletter"
+      }, {
+        "type": "liquid",
+        "id": "section_description",
+        "label": "Section description",
+        "default": "Get the latest news and updates from our store."
+      }, {
+        "type": "text",
+        "id": "input_placeholder",
+        "label": "Input placeholder",
+        "default": "Enter your email address"
+      }, {
+        "type": "text",
+        "id": "button_text",
+        "label": "Button text",
+        "default": "Subscribe"
+      }, {
+        "type": "header",
+        "content": "Section style"
+      }, {
+        "type": "select",
+        "id": "text_alignment",
+        "label": "Text alignment",
+        "options": [
+          {
+            "value": "left",
+            "label": "Left"
+          }, {
+            "value": "center",
+            "label": "Center"
+          }, {
+            "value": "right",
+            "label": "Right"
+          }
+        ],
+        "default": "center"
+      } , {
+                "type": "select",
+                "id": "data_aos",
+                "label": "Data Aos",
+                "default": "none",
+                "options": [
+                  {
+                    "value": "none",
+                    "label": "none"
+                  }, {
+                    "value": "fade-up",
+                    "label": "fade-up"
+                  }, {
+                    "value": "fade-down",
+                    "label": "fade-down"
+                  }, {
+                    "value": "fade-right",
+                    "label": "fade-right"
+                  }, {
+                    "value": "fade-left",
+                    "label": "fade-left"
+                  }, {
+                    "value": "flip-left",
+                    "label": "flip-left"
+                  }, {
+                    "value": "flip-right",
+                    "label": "flip-right"
+                  }, {
+                    "value": "flip-up",
+                    "label": "flip-up"
+                  }, {
+                    "value": "flip-down",
+                    "label": "flip-down"
+                  }, {
+                    "value": "zoom-in",
+                    "label": "zoom-in"
+                  }, {
+                    "value": "zoom-in-up",
+                    "label": "zoom-in-up"
+                  }, {
+                    "value": "zoom-in-down",
+                    "label": "zoom-in-down"
+                  },  {
+                    "value": "zoom-in-left",
+                    "label": "zoom-in-left"
+                  },  {
+                    "value": "zoom-in-right",
+                    "label": "zoom-in-right"
+                  }, {
+                    "value": "zoom-out",
+                    "label": "zoom-out"
+                  }, {
+                    "value": "zoom-out-up",
+                    "label": "zoom-out-up"
+                  }, {
+                    "value": "zoom-out-down",
+                    "label": "zoom-out-down"
+                  },  {
+                    "value": "zoom-out-left",
+                    "label": "zoom-out-left"
+                  },  {
+                    "value": "zoom-out-right",
+                    "label": "zoom-out-right"
+                  }
+                ]
+              }, {
+        "type": "header",
+        "content": "Section heaidng style"
+      }, {
+        "type": "range",
+        "id": "heading_font_size",
+        "label": "Font size",
+        "min": 12,
+        "max": 40,
+        "step": 1,
+        "default": 24,
+        "unit": "px"
+      }, {
+        "type": "range",
+        "id": "heading_line_height",
+        "label": "Line height",
+        "min": 0,
+        "max": 2,
+        "step": 0.1,
+        "default": 1.5
+      }, {
+        "type": "color",
+        "id": "heading_color",
+        "label": "Color",
+        "default": "#333"
+      }, {
+        "type": "range",
+        "id": "heading_margin_bottom",
+        "label": "Margin bottom",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "default": 20,
+        "unit": "px"
+      }, {
+        "type": "header",
+        "content": "Section description style"
+      }, {
+        "type": "range",
+        "id": "description_font_size",
+        "label": "Font size",
+        "min": 12,
+        "max": 24,
+        "step": 1,
+        "default": 16,
+        "unit": "px"
+      }, {
+        "type": "range",
+        "id": "description_line_height",
+        "label": "Line height",
+        "min": 0,
+        "max": 2,
+        "step": 0.1,
+        "default": 1.5
+      }, {
+        "type": "color",
+        "id": "description_color",
+        "label": "Color",
+        "default": "#333"
+      }, {
+        "type": "range",
+        "id": "description_margin_bottom",
+        "label": "Margin bottom",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "default": 20,
+        "unit": "px"
+      }, {
+        "type": "header",
+        "content": "Input style"
+      }, {
+        "type": "range",
+        "id": "input_font_size",
+        "label": "Font size",
+        "min": 12,
+        "max": 24,
+        "step": 1,
+        "default": 16,
+        "unit": "px"
+      }, {
+        "type": "range",
+        "id": "input_width",
+        "label": "Input width",
+        "min": 0,
+        "max": 1000,
+        "step": 10,
+        "default": 200,
+        "unit": "px"
+      }, {
+        "type": "range",
+        "id": "input_height",
+        "label": "Input height",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "default": 40,
+        "unit": "px"
+      }, {
+        "type": "range",
+        "id": "input_border_radius",
+        "label": "Border radius",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "default": 5,
+        "unit": "px"
+      }, {
+        "type": "range",
+        "id": "input_line_height",
+        "label": "Line height",
+        "min": 0,
+        "max": 2,
+        "step": 0.1,
+        "default": 1.5
+      }, {
+        "type": "color",
+        "id": "input_color",
+        "label": "Color",
+        "default": "#333"
+      }, {
+        "type": "color",
+        "id": "input_placeholder_color",
+        "label": "Placeholder color",
+        "default": "#ccc"
+      }, {
+        "type": "range",
+        "id": "input_padding",
+        "label": "Padding",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "default": 10,
+        "unit": "px"
+      }, {
+        "type": "color",
+        "id": "input_background_color",
+        "label": "Background color",
+        "default": "#fff"
+      }, {
+        "type": "color",
+        "id": "input_border_color",
+        "label": "Border color",
+        "default": "#ccc"
+      }, {
+        "type": "range",
+        "id": "input_border_width",
+        "label": "Border width",
+        "min": 0,
+        "max": 5,
+        "step": 1,
+        "default": 1,
+        "unit": "px"
+      }, {
+        "type": "header",
+        "content": "Button style"
+      }, {
+        "type": "range",
+        "id": "button_font_size",
+        "label": "Font size",
+        "min": 12,
+        "max": 24,
+        "step": 1,
+        "default": 16,
+        "unit": "px"
+      }, {
+        "type": "range",
+        "id": "button_width",
+        "label": "Button width",
+        "min": 0,
+        "max": 1000,
+        "step": 10,
+        "default": 200,
+        "unit": "px"
+      }, {
+        "type": "range",
+        "id": "button_height",
+        "label": "Button height",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "default": 40,
+        "unit": "px"
+      }, {
+        "type": "range",
+        "id": "button_border_radius",
+        "label": "Border radius",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "default": 5,
+        "unit": "px"
+      }, {
+        "type": "range",
+        "id": "button_line_height",
+        "label": "Line height",
+        "min": 0,
+        "max": 2,
+        "step": 0.1,
+        "default": 1.5
+      }, {
+        "type": "range",
+        "id": "button_letter",
+        "label": "Button Letter Spacing",
+        "min": -5,
+        "max": 5,
+        "step": 1,
+        "unit": "px",
+        "default": 0
+      }, {
+        "type": "color",
+        "id": "button_color",
+        "label": "Color",
+        "default": "#fff"
+      }, {
+        "type": "color",
+        "id": "button_background_color",
+        "label": "Background color",
+        "default": "#333"
+      }, {
+        "type": "color",
+        "id": "button_color_hover",
+        "label": "Button Color Hover",
+        "default": "#000"
+      }, {
+        "type": "color",
+        "id": "button_background_color_hover",
+        "label": "Button Background Color Hover",
+        "default": "#fff"
+      }, {
+        "type": "range",
+        "id": "button_padding",
+        "label": "Padding",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "default": 10,
+        "unit": "px"
+      }, {
+        "type": "color",
+        "id": "button_border_color",
+        "label": "Border color",
+        "default": "#333"
+      }, {
+        "type": "range",
+        "id": "button_border_width",
+        "label": "Border width",
+        "min": 0,
+        "max": 5,
+        "step": 1,
+        "default": 1,
+        "unit": "px"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Newsletter 2"
+      }
+    ]
+  }
+{% endschema %}

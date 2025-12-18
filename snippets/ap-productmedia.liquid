@@ -1,0 +1,288 @@
+{% style %}
+.product__media-item-external_video iframe{
+  width: 100%;
+  height: 300px;
+}
+.modal-full .content-popup-modal {
+  display: flex;
+}
+.modal-full iframe{
+  width: 100%;
+  height: 100%;
+  max-width: 1000px;
+  max-height: 560px;
+  margin: auto;
+  display: block;
+}
+.modal-full video{
+  width: 100%;
+  max-width: 1000px;
+  margin: auto;
+  max-height: 90%;
+}
+.product-popup-media{
+  display: block;
+  margin-top: 15px;
+}
+.product-popup-media svg{
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  top: calc(50% - 50px);
+  left: calc(50% - 50px);
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 50%;
+  border: 10px solid #000;
+}
+.product__media-item {  
+  margin-bottom: 15px;
+}
+
+.product__media-item {  
+  opacity: 0;
+  transition: all .4s;
+}
+.flickity-viewport .product__media-item ,
+.product__media-item.d-show {
+  opacity: 1;      
+}
+{%- if section.settings.media_type == 'list' or section.settings.media_type == 'swiper' -%}
+  .product__media-item{
+    cursor: zoom-in;
+  }
+  .product__media-item {
+    opacity: 1;      
+  }
+{%- endif -%}
+{%- if section.settings.media_type == 'swiper' -%}
+  
+  .product__media-item {
+    padding: 0;     
+  }
+  .ap-product-media-list {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .product__zoom-button {
+    opacity: 0;
+    visibility: hidden;
+  }
+{%- endif -%}
+
+
+
+.swiper-controls {
+  display: flex;
+  align=items: center;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.swiper-controls .swiper-pagination {
+  margin-top: 0;
+  width: fit-content;
+}
+
+.swiper-controls .slider-arrow {
+  position: initial;
+  transform: none;
+}
+
+{% endstyle %}
+
+<div id="ap_product_detail_media" class="product__media">
+  <ap-productmedia form-id="ap-productform-{{ section.id }}-{{ product.id }}" autoplay-video="" thumbnails-position="bottom" reveal-on-scroll="" product-handle="{{ product.handle }}" class="ap-object-loaded" reveal-on-scroll>
+    <div class="ap-product-media-list-wrapper">
+        <ap-flickitycarousel click-nav="" flickity-config="{
+          &quot;adaptiveHeight&quot;: true,
+          &quot;dragThreshold&quot;: 10,
+          &quot;initialIndex&quot;: &quot;.is-initial-selected&quot;,
+          &quot;fade&quot;: false,
+          &quot;draggable&quot;: &quot;>1&quot;,
+          &quot;contain&quot;: true,  
+          &quot;imagesLoaded&quot;: true,  
+          &quot;resize&quot;: true,  
+          &quot;cellSelector&quot;: &quot;.product__media-item:not(.is-filtered)&quot;,
+          &quot;percentPosition&quot;: false,
+          &quot;pageDots&quot;: {% if section.settings.carousel_page_dots %}true{% else %}false{% endif %},
+          &quot;prevNextButtons&quot;: {% if section.settings.carousel_prevnextbuttons %}true{% else %}false{% endif %}
+        }" id="product-{{ section.id }}-{{ product.id }}-media-list" class="ap-product-media-list ap-object-loaded flickity-enabled is-draggable is-hovering-left {% if section.settings.media_type == 'swiper' %} swiper {% endif %}" {%- if section.settings.media_type == 'list' or section.settings.media_type == 'swiper' -%}list-type="true"{%- endif -%}>
+          {% if section.settings.media_type == 'swiper' %}
+            <div class="swiper-wrapper">
+          {% endif %}
+          {%- for media in product.media -%}  
+            {% if media.media_type == 'video' %}
+              {% if section.settings.enable_video_looping %}
+                {%- if template != "index" -%}
+                  
+                <div id="product-{{ section.id }}-{{ media.id }}" class="product__media-item product__media-item-{{ media.media_type }} is-selected {% if section.settings.media_type == 'swiper' %} swiper-slide {% endif %}" data-media-type="{{ media.media_type }}" data-media-id="{{ media.id }}">
+                        <div style="padding-top:140%;" class="ap-product-media-image-wrapper aspect-ratio aspect-ratio--natural">
+
+                            <product-popup-media class="product-popup-media" data-controls="popup-product-{{ section.id }}-{{ media.id }}">
+                              <img loading="lazy" sizes="(max-width: 999px) calc(100vw - 48px), 640px" 
+                                alt="{{ product.title }}" 
+                                src="{{ media.preview_image | image_url: width: media.preview_image.width }}"
+                                srcset="{{ media.preview_image | image_url: width: 400 }} 400w, {{ media.preview_image | image_url: width: 500 }} 500w, {{ media.preview_image | image_url: width: 600 }} 600w, {{ media.preview_image | image_url: width: 700 }} 700w, {{ media.preview_image | image_url: width: 800 }} 800w" 
+                                width="{{ media.preview_image.width }}" height="{{ media.preview_image.height }}">
+                                {%- if media.media_type == 'model' -%}{%- render 'icon-3d-model' -%}{%- endif -%}
+                                {%- if media.media_type != 'model' -%}{%- render 'icon-play' -%}{%- endif -%}
+                            </product-popup-media>
+
+                        </div>
+                      </div>
+        
+                {%- endif -%}
+              {% endif %}
+            {% elsif media.media_type == 'external_video' %}
+              {% if section.settings.enable_video_looping %}
+                {%- if template != "index" -%}
+                  
+                <div id="product-{{ section.id }}-{{ media.id }}" class="product__media-item product__media-item-{{ media.media_type }} is-selected {% if section.settings.media_type == 'swiper' %} swiper-slide {% endif %}" data-media-type="{{ media.media_type }}" data-media-id="{{ media.id }}">
+                        <div style="padding-top:140%;" class="ap-product-media-image-wrapper aspect-ratio aspect-ratio--natural">
+
+                            <product-popup-media class="product-popup-media" data-controls="popup-product-{{ section.id }}-{{ media.id }}">
+                              <img loading="lazy" sizes="(max-width: 999px) calc(100vw - 48px), 640px" 
+                                alt="{{ product.title }}" 
+                                src="{{ media.preview_image | image_url: width: media.preview_image.width }}"
+                                srcset="{{ media.preview_image | image_url: width: 400 }} 400w, {{ media.preview_image | image_url: width: 500 }} 500w, {{ media.preview_image | image_url: width: 600 }} 600w, {{ media.preview_image | image_url: width: 700 }} 700w, {{ media.preview_image | image_url: width: 800 }} 800w" 
+                                width="{{ media.preview_image.width }}" height="{{ media.preview_image.height }}">
+                                {%- if media.media_type == 'model' -%}{%- render 'icon-3d-model' -%}{%- endif -%}
+                                {%- if media.media_type != 'model' -%}{%- render 'icon-play' -%}{%- endif -%}
+                            </product-popup-media>
+
+                        </div>
+                      </div>
+        
+                {%- endif -%}
+              {% endif %}
+            {% else %}
+              <div id="product-{{ section.id }}-{{ media.id }}" class="product__media-item product__media-item-{{ media.media_type }} is-selected {% if section.settings.media_type == 'swiper' %} swiper-slide {% endif %}" data-media-type="{{ media.media_type }}" data-media-id="{{ media.id }}">
+                  <div style="padding-top:{{ 1 | divided_by: media.aspect_ratio | times: 100 }}%;" class="ap-product-media-image-wrapper aspect-ratio aspect-ratio--natural">
+                    <img loading="lazy" sizes="(max-width: 999px) calc(100vw - 48px), 640px" 
+                      alt="{{ product.title }}" 
+                      src="{{ media.preview_image | image_url: width: media.preview_image.width }}"
+                      srcset="{{ media.preview_image | image_url: width: 400 }} 400w, {{ media.preview_image | image_url: width: 500 }} 500w, {{ media.preview_image | image_url: width: 600 }} 600w, {{ media.preview_image | image_url: width: 700 }} 700w, {{ media.preview_image | image_url: width: 800 }} 800w" 
+                      width="{{ media.preview_image.width }}" height="{{ media.preview_image.height }}">
+                  </div>
+              </div>
+            {% endif %}  
+          {%- endfor -%}
+
+          
+
+          {% if section.settings.media_type == 'swiper' %}
+            </div>
+          {% endif %}
+          {% if section.settings.media_type == 'swiper' %}
+            <div class="swiper-controls">
+            <div class="swiper-button-prev slider-arrow">
+              <svg width="11" height="10" viewBox="0 0 11 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0.757812 5.34375L4.32031 9.09375C4.50781 9.28125 4.73438 9.375 5 9.375C5.25 9.375 5.46875 9.28906 5.65625 9.11719C5.84375 8.94531 5.9375 8.72656 5.9375 8.46094C5.9375 8.19531 5.85156 7.96875 5.67969 7.78125L3.61719 5.625H10.0625C10.3281 5.625 10.5547 5.53906 10.7422 5.36719C10.9141 5.17969 11 4.95312 11 4.6875C11 4.42188 10.9141 4.20312 10.7422 4.03125C10.5547 3.84375 10.3281 3.75 10.0625 3.75H3.61719L5.67969 1.59375C5.85156 1.40625 5.9375 1.17969 5.9375 0.914062C5.9375 0.648438 5.84375 0.429688 5.65625 0.257812C5.46875 0.0859375 5.24219 0 4.97656 0C4.71094 0 4.49219 0.09375 4.32031 0.28125L0.757812 4.03125C0.585938 4.21875 0.5 4.4375 0.5 4.6875C0.5 4.9375 0.585938 5.15625 0.757812 5.34375Z" fill="currentColor"></path>
+          </svg>
+            </div>
+            <div class="swiper-pagination">
+              
+            </div>
+            <div class="swiper-button-next slider-arrow">
+              <svg width="11" height="10" viewBox="0 0 11 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M10.2422 5.34375L6.67969 9.09375C6.49219 9.28125 6.26562 9.375 6 9.375C5.75 9.375 5.53125 9.28906 5.34375 9.11719C5.15625 8.94531 5.0625 8.72656 5.0625 8.46094C5.0625 8.19531 5.14844 7.96875 5.32031 7.78125L7.38281 5.625H0.9375C0.671875 5.625 0.445312 5.53906 0.257812 5.36719C0.0859375 5.17969 0 4.95312 0 4.6875C0 4.42188 0.0859375 4.20312 0.257812 4.03125C0.445312 3.84375 0.671875 3.75 0.9375 3.75H7.38281L5.32031 1.59375C5.14844 1.40625 5.0625 1.17969 5.0625 0.914062C5.0625 0.648438 5.15625 0.429688 5.34375 0.257812C5.53125 0.0859375 5.75781 0 6.02344 0C6.28906 0 6.50781 0.09375 6.67969 0.28125L10.2422 4.03125C10.4141 4.21875 10.5 4.4375 10.5 4.6875C10.5 4.9375 10.4141 5.15625 10.2422 5.34375Z" fill="currentColor"></path>
+          </svg>
+            </div>
+            </div>
+          {% endif %}
+        </ap-flickitycarousel>
+        {% comment %} {% if section.settings.media_type != 'swiper' %} {% endcomment %}
+          <button is="toggle-button" ap-controlsaria="product-{{ section.id }}-{{ product.id }}-zoom" ap-expanded-aria="false" class="tap-area product__zoom-button" >
+            <span class="visually-hidden">Zoom</span>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6.84199 13.684C8.36004 13.6837 9.83434 13.1755 11.0301 12.2403L14.7898 16L15.9991 14.7907L12.2395 11.031C13.1751 9.83508 13.6836 8.36043 13.684 6.84199C13.684 3.06949 10.6145 0 6.84199 0C3.06949 0 0 3.06949 0 6.84199C0 10.6145 3.06949 13.684 6.84199 13.684ZM6.84199 1.7105C9.67201 1.7105 11.9735 4.01197 11.9735 6.84199C11.9735 9.67201 9.67201 11.9735 6.84199 11.9735C4.01197 11.9735 1.7105 9.67201 1.7105 6.84199C1.7105 4.01197 4.01197 1.7105 6.84199 1.7105Z" fill="currentColor"></path>
+                          </svg>
+          </button>
+        {% comment %} {% endif %} {% endcomment %}
+          
+    </div>
+
+    {%- if section.settings.media_type == 'carousel' or settings.thumbnails_position != 'none' -%}
+      {%- if section.settings.media_type != 'list' and section.settings.media_type != 'swiper' -%}
+        <ap-flickitycontrols controls="product-{{ section.id }}-{{ product.id }}-media-list" class="product__media-nav">
+          <button class="product__media-ap-nextprev  hd-lap-and-up hd tap-area tap-area--large" aria-label="Previous" data-action="prev">
+            <svg focusable="false" width="17" height="14" class="icon icon--nav-arrow-left  icon--direction-aware " viewBox="0 0 17 14">
+              <path d="M17 7H2M8 1L2 7l6 6" stroke="currentColor" stroke-width="2" fill="none"></path>
+            </svg>
+          </button>
+          
+          <div class="dots-nav dots-nav--centered hd-lap-and-up hd">
+            {%- for media in product.media -%}
+              {%- if media.media_type == "image" -%}
+                <button type="button" tabindex="-1" class="dots-nav__item  tap-area" ap-currentaria="true" ap-controlsaria="product-{{ section.id }}-{{ media.id }}" data-media-id="{{ media.id }}" data-action="select">
+                  <span class="visually-hidden">Go to slide {{ forloop.index }}</span>
+                </button>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+          
+          {%- if section.settings.media_type != 'without-thumbnails' -%}
+            <ap-shadowscroll class="product__thumbnail-ap-shadowscroll">
+              <div class="product__thumbnail-list hide-scrollbar">
+                <div class="product__thumbnail-list-inner">
+                  {%- for media in product.media -%}
+                      <button type="button" tabindex="-1" reveal="" class="product__thumbnail-item " ap-currentaria="true" ap-controlsaria="product-{{ section.id }}-{{ media.id }}" data-media-id="{{ media.id }}" data-action="select">
+                        <div class="product__thumbnail">
+                          <img loading="lazy" 
+                            sizes="(max-width: 999px) 72px, 60px" 
+                            alt="{{ product.title }}" 
+                            src="{{ media.preview_image | image_url: width: 300 }}"
+                            srcset="{{ media.preview_image | image_url: width: 60 }} 60w, {{ media.preview_image | image_url: width: 70 }} 70w, {{ media.preview_image | image_url: width: 120 }} 120w, {{ media.preview_image | image_url: width: 140 }} 140w, {{ media.preview_image | image_url: width: 180 }} 180w, {{ media.preview_image | image_url: width: 210 }} 210w, {{ media.preview_image | image_url: width: 240 }} 240w, {{ media.preview_image | image_url: width: 300 }} 300w" 
+                            width="{{ media.preview_image.width }}" height="{{ media.preview_image.height }}">
+                        </div>
+                      </button>
+                  {%- endfor -%}
+                </div>
+              </div>
+            </ap-shadowscroll>
+          {%- endif -%}
+
+          <button class="product__media-ap-nextprev  hd-lap-and-up hd tap-area tap-aera--large" aria-label="Next" data-action="next">
+            <svg focusable="false" width="17" height="14" class="icon icon--nav-arrow-right  icon--direction-aware " viewBox="0 0 17 14">
+              <path d="M0 7h15M9 1l6 6-6 6" stroke="currentColor" stroke-width="2" fill="none"></path>
+            </svg>
+          </button>
+        </ap-flickitycontrols>
+      {%- endif -%}
+    {%- endif -%}
+
+  </ap-productmedia>
+  {% if section.settings.media_type == 'swiper' %}
+
+     
+    <script>
+
+    var TrandingSlider = new Swiper('.swiper', {
+      effect: 'coverflow',
+      grabCursor: true,
+      centeredSlides: true,
+      loop: true,
+      slidesPerView: 'auto',
+      spaceBetween: 30,
+      coverflowEffect: {
+        rotate: 0,
+        stretch: 0,
+        depth: 100,
+        modifier: 3,
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      }
+    });
+
+    </script>
+  {% endif %}
+</div>
+
+

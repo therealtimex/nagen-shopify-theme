@@ -1,0 +1,311 @@
+{%- assign id = '#shopify-section-' | append: section.id -%}
+{% render 'section-style' %}
+
+{%- style -%}
+
+{{ id }} .services__grid {
+  display: grid;
+  grid-template-columns: repeat({{ section.settings.desktop_columns }}, 1fr);
+  gap: {{ section.settings.rows_gap | append: 'px' }} {{ section.settings.columns_gap |  append: 'px' }};
+}
+
+{{ id }} .service__item {
+  padding: 40px;
+  border-radius: 20px;
+  background: #F1F7F6;
+  transition: 0.3s all ease;
+}
+
+{{ id }} .service__image {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 46px;
+}
+
+{{ id }} .service__order {
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 500;
+  color: #999;
+}
+
+
+{{ id }} .service__name {
+  margin-bottom: 20px
+}
+
+{{ id }} .service__description--short {
+  margin-bottom: 40px;
+}
+
+{{ id }} .service__btn {
+  --btn-color: #000;
+  --btn-bg: var(--primary);
+  --btn-color-hover: var(--primary);
+  --btn-bg-hover: var(--primary-2);
+  transition: 0.3s all ease;
+}
+
+{{ id }} .service__item:hover {
+  background: linear-gradient(119.44deg, #DCE9E2 47.06%, #FFE7DB 100%);
+}
+
+
+
+
+
+@media (min-width: 1200px) {
+  {{ id }} .service__content {
+    transform: translateY(74px);
+    transition: 0.3s all ease;
+  }
+  {{ id }} .service__btn {
+    opacity: 0;
+    visibility: hidden;
+  }
+  {{ id }} .service__item:hover .service__btn {
+    opacity: 1;
+    visibility: visible;
+  }
+  {{ id }} .service__item:hover .service__content {
+    transform: none;
+  }
+}
+
+@media (max-width: 1199px) {
+  {{ id }} .services__grid {
+    grid-template-columns: repeat({{ section.settings.tablet_columns }}, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  {{ id }} .services__grid {
+    grid-template-columns: repeat({{ section.settings.tablet_columns |  minus: 1 }}, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  {{ id }} .services__grid {
+    grid-template-columns: repeat({{ section.settings.mobile_columns }}, 1fr);
+  }
+  .service__item {
+    padding: 30px;
+  }
+}
+
+
+
+  
+{%- endstyle -%}
+
+<div class="shopify-container">
+  <div class="services__grid">
+    {%- for service in collection.products -%}
+      <div class="service__item" {% if section.settings.data_aos !="none" %} data-aos="{{ section.settings.data_aos }}"{% endif %}>
+        <div class="service__image">
+          <a href="{{ service.url }}">{{ service.featured_image |  image_url: width: service.featured_image.width |  default: '300px' |  image_tag }}</a>
+          <span class="service__order">
+            {%- if forloop.index > 10 -%}
+              {{ forloop.index }}
+            {%- else -%}
+              0{{ forloop.index }}
+            {%- endif -%}
+          </span>
+        </div>
+
+        <div class="service__content">
+          <h5 class="service__name"><a href="{{ service.url }}"> {{ service.title }} </a></h5>
+          <div class="service__description--short">
+            {{ service.metafields.custom.description_short }}
+          </div>
+          {%- if section.settings.button_content != blank -%}
+            <a class="service__btn {{ section.settings.button_style }}" href="{{ service.url }}">
+              <span class="icon-button">{%- render 'icon-arrow' -%}</span>
+              {{ section.settings.button_content }}
+            </a>
+          {%- endif -%}
+        </div>
+
+      </div>
+    {%- endfor -%}
+  </div>
+</div>
+
+
+{% schema %}
+  {
+    "name": "Services Grid",
+    "tag": "section",
+    "settings": [
+      {
+      "type": "header",
+      "content": "Section settings"
+    },
+    {
+          "type": "checkbox",
+          "id": "full_width",
+          "label": "Full width",
+          "default": false
+        },
+       {
+        "type": "number",
+        "id": "content_width",
+        "label": "Content width",
+        "default": 1290
+       }, {
+        "type": "text",
+        "id": "margin_desktop",
+        "label": "t:sections.all.margin_desktop.label",
+        "info": "t:sections.all.margin_desktop.info"
+      }, {
+        "type": "text",
+        "id": "margin_tablet",
+        "label": "t:sections.all.margin_tablet.label",
+        "info": "t:sections.all.margin_tablet.info"
+      }, {
+        "type": "text",
+        "id": "margin_mobile",
+        "label": "t:sections.all.margin_mobile.label",
+        "info": "t:sections.all.margin_mobile.info"
+      }, {
+        "type": "text",
+        "id": "padding_desktop",
+        "label": "t:sections.all.padding_desktop.label",
+        "info": "t:sections.all.padding_desktop.info"
+      }, {
+        "type": "text",
+        "id": "padding_tablet",
+        "label": "t:sections.all.padding_tablet.label",
+        "info": "t:sections.all.padding_tablet.info"
+      }, {
+        "type": "text",
+        "id": "padding_mobile",
+        "label": "t:sections.all.padding_mobile.label",
+        "info": "t:sections.all.padding_mobile.info"
+      },
+      {
+        "type": "header",
+        "content": "Services grid settings"
+      }, {
+        "type": "number",
+        "id": "desktop_columns",
+        "label": "Number of columns on desktop",
+        "default": 3
+      }, {
+        "type": "number",
+        "id": "tablet_columns",
+        "label": "Number of columns on tablet",
+        "default": 2
+      }, {
+        "type": "number",
+        "id": "mobile_columns",
+        "label": "Number of columns on mobile",
+        "default": 1
+      }, {
+        "type": "number",
+        "id": "columns_gap",
+        "label": "Columns gap",
+        "default": 30
+      }, {
+        "type": "number",
+        "id": "rows_gap",
+        "label": "Rows gap",
+        "default": 30
+      } , {
+        "type" : "header",
+        "content": "Service item settings"
+      }, {
+        "type": "text",
+        "id": "button_content",
+        "label": "Button content"
+      }, {
+            "type": "select",
+            "id": "button_style",
+            "label": "Button style",
+            "options": [
+              {
+                "value": "btn-primary",
+                "label": "Primary"
+              }, {
+                "value": "btn-secondary",
+                "label": "Secondary"
+              }
+            ]
+          }, {
+        "type": "select",
+        "id": "data_aos",
+        "label": "Data Aos",
+        "default": "none",
+        "options": [
+          {
+            "value": "none",
+            "label": "none"
+          },
+          {
+            "value": "fade-up",
+            "label": "fade-up"
+          },
+          {
+            "value": "fade-down",
+            "label": "fade-down"
+          },
+          {
+            "value": "fade-right",
+            "label": "fade-right"
+          }, {
+            "value": "fade-left",
+            "label": "fade-left"
+          }, {
+            "value": "flip-left",
+            "label": "flip-left"
+          }, {
+            "value": "flip-right",
+            "label": "flip-right"
+          }, {
+            "value": "flip-up",
+            "label": "flip-up"
+          }, {
+            "value": "flip-down",
+            "label": "flip-down"
+          }, {
+            "value": "zoom-in",
+            "label": "zoom-in"
+          }, {
+            "value": "zoom-in-up",
+            "label": "zoom-in-up"
+          }, {
+            "value": "zoom-in-down",
+            "label": "zoom-in-down"
+          }, {
+            "value": "zoom-in-left",
+            "label": "zoom-in-left"
+          }, {
+            "value": "zoom-in-right",
+            "label": "zoom-in-right"
+          }, {
+            "value": "zoom-out",
+            "label": "zoom-out"
+          }, {
+            "value": "zoom-out-up",
+            "label": "zoom-out-up"
+          }, {
+            "value": "zoom-out-down",
+            "label": "zoom-out-down"
+          }, {
+            "value": "zoom-out-left",
+            "label": "zoom-out-left"
+          }, {
+            "value": "zoom-out-right",
+            "label": "zoom-out-right"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Services Grid"
+      }
+    ]
+  }
+{% endschema %}

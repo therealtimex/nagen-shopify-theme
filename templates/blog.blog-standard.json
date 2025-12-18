@@ -1,0 +1,138 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "breadcrumb_blog_UAKVmQ": {
+      "type": "breadcrumb-blog",
+      "disabled": true,
+      "settings": {
+        "setwidthout": "full",
+        "padding_top": 30,
+        "padding_bottom": 0,
+        "height": 550,
+        "height_tablet": 400,
+        "height_mobile": 250,
+        "margin_desktop": "",
+        "bg_img": "shopify://shop_images/breadcrumb.jpg",
+        "background_gradient": "",
+        "background_color": "#282828",
+        "color_title": "#ffffff",
+        "color_breadcrumb": "#ffffff"
+      }
+    },
+    "main_page_RpGrBx": {
+      "type": "main-page",
+      "name": "Breadcrumb",
+      "settings": {
+        "setwidthout": "full",
+        "enable_title": true,
+        "padding_top": 35,
+        "padding_bottom": 35,
+        "height": 360,
+        "height_tablet": 300,
+        "height_mobile": 250,
+        "margin_desktop": "0 20px 0",
+        "margin_tablet": "",
+        "margin_mobile": "0 0 0",
+        "bg_img": "shopify://shop_images/breadcrumb.jpg",
+        "background_gradient": "",
+        "background_color": "#282828",
+        "color_title": "#ffffff",
+        "color_breadcrumb": "#ffffff",
+        "breadcrumb_rounded": 20
+      }
+    },
+    "main": {
+      "type": "main-blog",
+      "blocks": {
+        "search_DHp6F8": {
+          "type": "search",
+          "settings": {}
+        },
+        "categories_EwWYMM": {
+          "type": "categories",
+          "settings": {
+            "article_link": "staying-healthy",
+            "article_link_2": "nutrition",
+            "article_link_3": "mind-mood",
+            "article_link_4": "",
+            "article_link_5": ""
+          }
+        },
+        "blog_list_X4mcMW": {
+          "type": "blog-list",
+          "settings": {}
+        },
+        "banner_wEVEFt": {
+          "type": "banner",
+          "settings": {
+            "featured_image": "shopify://shop_images/blog_page_banner.jpg",
+            "title": "Our Newsletter",
+            "color_title": "#ffffff",
+            "heading": "Sign Up Now!",
+            "color_heading": "#ffffff",
+            "description": "Ready to start learn ?",
+            "color_description": "#ffffff",
+            "button1_label": "Contact Us",
+            "link1": "shopify://pages/contact"
+          }
+        },
+        "tags_E8ERdN": {
+          "type": "tags",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "search_DHp6F8",
+        "categories_EwWYMM",
+        "blog_list_X4mcMW",
+        "banner_wEVEFt",
+        "tags_E8ERdN"
+      ],
+      "custom_css": [
+        ".article-banner-title {font-size: 14px; line-height: 22px; margin-bottom: 10px;}",
+        ".article-banner-heading {font-size: 36px; line-height: 44px; margin-bottom: 10px;}",
+        ".article-banner-description {font-size: 20px; line-height: 28px; margin-bottom: 40px;}",
+        ".article-banner-text a {--btn-bg: var(--primary); --btn-color: #fff;}",
+        ".article-banner-text a:hover {--btn-color-hover: #fff; --btn-bg-hover: var(--primary-2);}"
+      ],
+      "settings": {
+        "background_color": "",
+        "margin_desktop": "",
+        "margin_tablet": "",
+        "margin_mobile": "",
+        "padding_desktop": "120px 0",
+        "padding_tablet": "100px 0",
+        "padding_mobile": "80px 0",
+        "blogs_type": "list",
+        "blog_limit": 3,
+        "blogs_desktop_column": 3,
+        "blogs_tablet_column": 3,
+        "blogs_tablet_small_column": 2,
+        "blogs_mobile_column": 1,
+        "blog_sidebar": true,
+        "show_image": true,
+        "show_date": true,
+        "show_author": true,
+        "show_category": true,
+        "show_readmore": true,
+        "readmore_text": "Read More",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "menu": ""
+      }
+    }
+  },
+  "order": [
+    "breadcrumb_blog_UAKVmQ",
+    "main_page_RpGrBx",
+    "main"
+  ]
+}

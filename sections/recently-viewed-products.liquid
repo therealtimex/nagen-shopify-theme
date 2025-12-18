@@ -1,0 +1,325 @@
+{% render 'section-style' %}
+{%- assign id = '#shopify-section-' | append: section.id -%}
+
+<style>
+  
+{{ id }} .section__header {
+  margin-bottom: 60px;
+}
+@media (max-width: 767px) {
+  {{ id }} .section__header {
+    margin-bottom: 40px;
+  }
+}
+
+  
+
+</style>
+
+
+
+
+
+<ap-recentlyproductsviewed section-id="{{ section.id }}" products-count="{{ section.settings.limit }}" class="section section--flush">
+  {%- if predictive_search.resources.products.size > 0 -%}
+    <div class="{% unless section.settings.full_width %}{{ section.settings.container_type }}{% endunless %} vertical-breather vertical-breather--tight vertical-breather--margin">
+      {% if section.settings.heading != blank %}
+        <header class="section__header text-{{ section.settings.text_align }}">
+          <h2 class="heading h{{ section.settings.heading_size }}">{{ section.settings.heading
+            }}</h2>
+          {% if section.settings.tab_description != blank %}
+          <div class="heading-description">
+            {{ section.settings.tab_description }}
+          </div>
+          {% endif %}
+        </header>
+      {% endif %}
+
+        <div class="product__swiper">
+    <div
+      id="swiper-{{ section.id }}"
+      class="swiper ap-swiper2"
+      data-desktopbig-item="{{ section.settings.desktop_big_item }}"
+      data-desktop-item="{{ section.settings.desktop_item }}"
+      data-tablet-item="{{ section.settings.tablet_item }}"
+      data-tabletsmall-item="{{ section.settings.tablet_small_item }}"
+      data-mobile-item="{{ section.settings.mobile_item }}"
+      data-loop="{{ section.settings.loop }}"
+      data-rows="{{ section.settings.rows }}"
+      data-direction="{{ section.settings.direction }}"
+      data-navigation="{{ section.settings.navigation }}"
+      data-pagination="{{ section.settings.pagination }}"
+      data-space="{{ section.settings.space }}"
+      data-space-desktop="{{ section.settings.space_desktop }}"
+      data-time="{{ section.settings.time }}">
+      <div class="swiper-wrapper">
+        {% liquid
+            assign limit = section.settings.limit
+            for product in predictive_search.resources.products limit: limit
+              echo '<div class="swiper-slide">'
+              render 'product-grid', product: product
+              echo '</div>'
+            endfor
+        %}
+
+
+      </div>
+
+      {% if section.settings.navigation %}
+        <div class="swiper-arrow">
+          <div class="swiper-button-prev swiper-button-prev_{{ section.id }}">
+            <svg
+              width="20"
+              height="21"
+              viewBox="0 0 24 25"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <path d="M20 11.7998H7.83L13.42 6.2098L12 4.7998L4 12.7998L12 20.7998L13.41 19.3898L7.83 13.7998H20V11.7998Z" fill="currentColor" />
+            </svg>
+          </div>
+          <div class="swiper-button-next swiper-button-next_{{ section.id }}">
+            <svg
+              width="20"
+              height="21"
+              viewBox="0 0 24 25"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 4.7998L10.59 6.2098L16.17 11.7998H4V13.7998H16.17L10.59 19.3898L12 20.7998L20 12.7998L12 4.7998Z" fill="currentColor" />
+            </svg>
+          </div>
+
+        </div>
+      {% endif %}
+
+      {% if section.settings.pagination %}
+        <div class="swiper-pagination swiper-pagination_{{ section.id }}"></div>
+      {% endif %}
+    </div>
+
+    
+
+  </div>
+
+
+    </div>
+  {%- endif -%}
+
+</ap-recentlyproductsviewed>
+
+
+
+
+       
+{% schema %}
+{
+  "name": "Recently viewed products",
+  "tag": "section",
+  "class": "section recenty-section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full width",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "container_type",
+      "label": "Container type",
+      "options": [
+        {
+          "value": "container",
+          "label": "Container"
+        },
+        {
+          "value": "container-fluid",
+          "label": "Container fluid"
+        }
+      ],
+      "default": "container"
+    },
+    {
+      "type": "paragraph",
+      "content": "Setting Recently viewed products"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "default": "Recently viewed products",
+      "label": "Heading"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 2,
+      "label": "Heading size"
+    },
+    {
+      "type": "text",
+      "id": "tab_description",
+      "label": "t:sections.advanced-content.settings.tab_description.label"
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",  
+          "label": "Right"
+        }
+      ],
+      "default": "left",
+      "label": "Text align"
+    },
+     {
+        "type": "header",
+        "content": "Carousel settings"
+      }, {
+        "type": "range",
+        "id": "limit",
+        "min": 3,
+        "max": 30,
+        "step": 1,
+        "label": "Limit items",
+        "default": 10
+      }, {
+        "type": "range",
+        "id": "desktop_big_item",
+        "min": 1,
+        "max": 10,
+        "step": 1,
+        "default": 4,
+        "label": "Desktop big item"
+      }, {
+        "type": "range",
+        "id": "desktop_item",
+        "min": 1,
+        "max": 10,
+        "step": 1,
+        "default": 4,
+        "label": "Desktop item"
+      }, {
+        "type": "range",
+        "id": "tablet_item",
+        "min": 1,
+        "max": 10,
+        "step": 1,
+        "default": 3,
+        "label": "Tablet item"
+      }, {
+        "type": "range",
+        "id": "tablet_small_item",
+        "min": 1,
+        "max": 10,
+        "step": 1,
+        "default": 2,
+        "label": "Tablet small item"
+      }, {
+        "type": "range",
+        "id": "mobile_item",
+        "min": 1,
+        "max": 10,
+        "step": 1,
+        "default": 1,
+        "label": "Mobile item"
+      }, {
+        "type": "checkbox",
+        "id": "loop",
+        "label": "Loop",
+        "default": false
+      }, {
+        "type": "checkbox",
+        "id": "navigation",
+        "label": "Navigation",
+        "default": true
+      }, {
+        "type": "checkbox",
+        "id": "pagination",
+        "label": "Pagination",
+        "default": true
+      }, {
+        "type": "select",
+        "id": "direction",
+        "label": "Direction",
+        "default": "horizontal",
+        "options": [
+          {
+            "value": "horizontal",
+            "label": "Horizontal"
+          }, {
+            "value": "vertical",
+            "label": "Vertical"
+          }
+        ]
+      }, {
+        "type": "range",
+        "id": "rows",
+        "min": 1,
+        "max": 10,
+        "step": 1,
+        "default": 1,
+        "label": "Rows"
+      }, {
+        "type": "text",
+        "id": "space",
+        "label": "Space",
+        "default": "30"
+      }, {
+        "type": "text",
+        "id": "space_desktop",
+        "label": "Space desktop",
+        "default": "30"
+      }, {
+        "type": "text",
+        "id": "time",
+        "label": "Time",
+        "default": "0"
+      }, 
+    {
+      "type": "header",
+      "content": "Margin & Padding"
+    },
+    {
+      "type": "text",
+      "id": "margin_desktop",
+      "label": "t:sections.all.margin_desktop.label",
+      "info": "t:sections.all.margin_desktop.info"
+    },
+    {
+      "type": "text",
+      "id": "margin_mobile",
+      "label": "t:sections.all.margin_mobile.label",
+      "info": "t:sections.all.margin_mobile.info"
+    },
+    {
+      "type": "text",
+      "id": "padding_desktop",
+      "label": "t:sections.all.padding_desktop.label",
+      "info": "t:sections.all.padding_desktop.info"
+    },
+    {
+      "type": "text",
+      "id": "padding_mobile",
+      "label": "t:sections.all.padding_mobile.label",
+      "info": "t:sections.all.padding_mobile.info"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Recently viewed products"
+    }
+  ]
+}
+{% endschema %}
+  

@@ -1,0 +1,63 @@
+{% comment %}
+    Renders a set of links for paginated results. Must be used within paginate tags.
+
+    Usage:
+    {% paginate results by 2 %}
+      {% render 'pagination', paginate: paginate, anchor: '#yourID' %}
+    {% endpaginate %}
+
+    Accepts:
+    - paginate: {Object}
+    - anchor: {String} (optional) This can be added so that on page reload it takes you to wherever you've placed your anchor tag.
+{% endcomment %}
+
+<link rel="stylesheet" href="{{ 'component-pagination.css' | asset_url }}" media="print" onload="this.media='all'">
+<noscript>{{ 'component-pagination.css' | asset_url | stylesheet_tag }}</noscript>
+
+{%- if paginate.parts.size > 0 -%}
+  <div class="pagination-wrapper">
+    <nav class="pagination" role="navigation" aria-label="{{ 'general.pagination.label' | t }}">
+      <ul class="pagination__list list-unstyled" role="list">
+      {%- if paginate.previous -%}
+        <li>
+          <a href="{{ paginate.previous.url }}{{ anchor }}" class="pagination__item pagination__item--next pagination__item-arrow link motion-reduce" aria-label="{{ 'general.pagination.previous' | t }}">
+            <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M5.79723 9.80898C6.06759 9.55429 6.06759 9.14136 5.79723 8.88667L1.67138 5L5.79723 1.11333C6.06759 0.85864 6.06759 0.445706 5.79723 0.191017C5.52687 -0.063673 5.08852 -0.0636731 4.81816 0.191017L0.202772 4.53884C-0.0675905 4.79353 -0.0675905 5.20647 0.202772 5.46116L4.81816 9.80898C5.08852 10.0637 5.52686 10.0637 5.79723 9.80898Z" fill="currentColor"/>
+</svg>
+
+          </a>
+        </li>
+      {%- endif -%}
+
+      {%- for part in paginate.parts -%}
+        <li>
+          {%- if part.is_link -%}
+            <a href="{{ part.url }}{{ anchor }}" class="pagination__item link" aria-label="{{ 'general.pagination.page' | t: number: part.title }}">{{ part.title }}</a>
+          {%- else -%}
+            {%- if part.title == paginate.current_page -%}
+              <a role="link" aria-disabled="true" class="pagination__item pagination__item--current light" ap-currentaria="page" aria-label="{{ 'general.pagination.page' | t: number: part.title }}">{{ part.title }}</a>
+            {%- else -%}
+              <span class="pagination__item">{{ part.title }}</span>
+            {%- endif -%}
+          {%- endif -%}
+        </li>
+      {%- endfor -%}
+
+      {%- if paginate.next -%}
+        <li>
+          <a href="{{ paginate.next.url }}{{ anchor }}" class="pagination__item pagination__item--prev pagination__item-arrow link motion-reduce" aria-label="{{ 'general.pagination.next' | t }}" >
+            
+<svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M0.202772 9.80898C-0.0675908 9.55429 -0.0675908 9.14136 0.202772 8.88667L4.32862 5L0.202772 1.11333C-0.0675912 0.858641 -0.0675912 0.445707 0.202772 0.191018C0.473135 -0.0636721 0.91148 -0.0636721 1.18184 0.191018L5.79723 4.53884C6.06759 4.79353 6.06759 5.20647 5.79723 5.46116L1.18184 9.80898C0.91148 10.0637 0.473135 10.0637 0.202772 9.80898Z" fill="currentColor"/>
+</svg>
+
+
+
+
+          </a>
+        </li>
+      {%- endif -%}
+      </ul>
+    </nav>
+  </div>
+{%- endif -%}

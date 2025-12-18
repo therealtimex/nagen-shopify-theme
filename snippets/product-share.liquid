@@ -1,0 +1,124 @@
+<div class="ap-productmeta__aside">
+    <div class="ap-productmeta__share text--subdued">
+      <button is="ap-sharetogglebutton" share-url="{{ product.product.url }}" share-title="{{ product.title }}" class="ap-productmeta__share-label link hidden-tablet-and-up d-none" ap-controlsaria="mobile-share-buttons-{{ section.id }}" ap-expanded-aria="false">Share</button>
+        <apollopop-content id="mobile-share-buttons-{{ section.id }}" class="popover hidden-tablet-and-up">
+          <span class="popover__overlay"></span>
+          <header class="popover__header">
+            <span class="popover__title heading h6 d-none">Share</span>
+            <button type="button" class="popover__close-button tap-area tap-area--large" data-action="close" title="Close">
+              <svg focusable="false" width="14" height="14" class="icon icon--close   " viewBox="0 0 14 14">
+                <path d="M13 13L1 1M13 1L1 13" stroke="currentColor" stroke-width="2" fill="none"></path>
+              </svg>
+            </button>
+          </header>
+          <div class="mobile-share-buttons">
+            <a class="mobile-share-buttons__item mobile-share-buttons__item--facebook" href="//www.facebook.com/sharer.php?u={{ shop.url | append: share_permalink }}{{ product.url | append: share_permalink }}" target="_blank" rel="noopener" aria-label="Share on Facebook">
+              <svg fill="none" focusable="false" width="24" height="24" class="icon icon--facebook-share-mobile   " viewBox="0 0 24 24">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M10.1834 21.85L10.1834 12.982H7.2002L7.2002 9.52604H10.1834V6.98204C10.062 5.75969 10.4857 4.54599 11.3415 3.66478C12.1972 2.78357 13.398 2.32449 14.6234 2.41004C15.5143 2.40481 16.4047 2.45289 17.2898 2.55404V5.63804L15.4598 5.63804C14.9879 5.53818 14.4974 5.68116 14.1532 6.01892C13.8089 6.35669 13.6566 6.84437 13.7474 7.31804L13.7474 9.52604L17.1698 9.52604L16.7234 12.982H13.7522V21.85H10.1834Z" fill="#3B5998"></path>
+              </svg>Facebook
+            </a>
+
+            <a class="mobile-share-buttons__item mobile-share-buttons__item--pinterest" href="https://pinterest.com/pin/create/button/?url={{ product.url }}&media={{ product.featured_image | image_url: width: product.featured_media.width }}&description={{ product.title }}" target="_blank" rel="noopener" aria-label="Pin on Pinterest">
+              <svg fill="none" focusable="false" width="24" height="24" class="icon icon--pinterest-share-mobile   " viewBox="0 0 24 24">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M11.7648 2.40138C15.3543 2.34682 17.602 3.80113 18.6595 6.35148C19.0087 7.1931 19.3817 8.74117 19.1015 10.0256C18.9898 10.5384 18.9581 11.0736 18.8069 11.5569C18.4993 12.5394 18.0993 13.4092 17.5694 14.1592C16.8499 15.1782 15.7582 15.8653 14.3872 16.2109C13.1746 16.5164 12.0593 16.059 11.4113 15.5678C11.2048 15.4115 10.9279 15.2073 10.8515 14.9251C10.8417 14.9251 10.8318 14.9251 10.822 14.9251C10.7755 15.4401 10.5782 15.9868 10.4389 16.4561C10.2461 17.1053 10.2086 17.7774 9.96749 18.3849C9.69999 19.0592 9.37509 19.6772 9.02467 20.253C8.84068 20.5549 8.33293 21.5884 7.9639 21.5999C7.92354 21.5224 7.90737 21.4925 7.90493 21.3551C7.7861 21.1659 7.86888 20.8468 7.81652 20.5893C7.73505 20.1883 7.67161 19.466 7.75769 19.0588C7.75769 18.8444 7.75769 18.6296 7.75769 18.4157C7.85257 17.9742 7.84882 17.5217 7.9639 17.0991C8.21425 16.1787 8.35354 15.2038 8.61211 14.2512C8.86057 13.3361 9.08856 12.3352 9.28987 11.4038C9.33529 11.1934 9.07963 10.5886 9.02467 10.3628C8.85134 9.65014 8.9833 8.66239 9.20146 8.12713C9.47618 7.45323 10.2804 6.4241 11.3229 6.68821C12.1607 6.90037 12.694 7.80624 12.413 8.95421C12.1181 10.159 11.7356 11.2383 11.4702 12.4443C11.4019 12.7551 11.5194 13.0852 11.588 13.2714C11.8361 13.9431 12.5882 14.5955 13.5916 14.3432C15.1126 13.9603 15.785 12.5834 16.2435 11.0974C16.3676 10.6955 16.3527 10.3157 16.4498 9.87241C16.6545 8.93705 16.5676 7.54083 16.273 6.81057C15.8008 5.64018 14.9198 4.89011 13.7095 4.48339C13.3756 4.42221 13.0416 4.36103 12.7077 4.29985C12.1486 4.17176 11.0822 4.36412 10.7041 4.48339C9.01386 5.01777 7.96723 5.91043 7.3157 7.51486C7.09393 8.06111 6.97235 8.61484 6.9327 9.38251C6.92276 9.47451 6.91294 9.5665 6.90314 9.6585C7.03364 10.3447 7.04691 10.7994 7.3157 11.3118C7.44838 11.5644 7.76346 11.7634 7.81652 12.0772C7.84781 12.2621 7.71227 12.5412 7.66931 12.6895C7.60427 12.9136 7.62792 13.1702 7.52193 13.3634C7.33028 13.712 6.8084 13.4501 6.57911 13.3018C5.38697 12.5324 4.40437 10.3073 4.95855 8.15795C5.04391 7.82607 5.0481 7.53731 5.16476 7.23932C5.8878 5.39455 6.96659 4.26111 8.5237 3.28922C9.10717 2.9252 9.89394 2.74473 10.6157 2.55456C10.9987 2.50352 11.3818 2.45245 11.7648 2.40138Z" fill="#BD081C"></path>
+              </svg>Pinterest
+            </a>
+
+            <a class="mobile-share-buttons__item mobile-share-buttons__item--twitter" href="//twitter.com/share?text={{ share_title | url_param_escape }}&amp;url={{ shop.url | append: share_permalink }}{{ product.url | append: share_permalink }}" target="_blank" rel="noopener" aria-label="Tweet on Twitter">
+              
+
+              <svg width="12" height="11" class="icon icon--twitter-share-mobile   " viewBox="0 0 12 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M9.11719 0.625H10.7812L7.17188 4.75L11.4141 10.375H8.08594L5.48438 6.97656L2.50781 10.375H0.84375L4.71094 5.96875L0.632812 0.625H4.03125L6.39844 3.74219L9.11719 0.625ZM8.53125 9.39062H9.46875L3.53906 1.5625H2.55469L8.53125 9.39062Z"
+                fill="currentColor" />
+</svg>
+              
+              
+              Twitter
+            </a>
+
+            <a class="mobile-share-buttons__item mobile-share-buttons__item--mail" href="mailto:?&subject=&body={{ product.url }}" aria-label="Share by e-mail">
+              <svg fill="none" focusable="false" width="24" height="24" class="icon icon--email-share-mobile   " viewBox="0 0 24 24">
+                <path d="M21.9135 2.08691L15.3396 20.8695L11.583 12.4173M21.9135 2.08691L3.13086 8.66083L11.583 12.4173M21.9135 2.08691L11.583 12.4173" stroke="currentColor" stroke-width="2"></path>
+              </svg>E-mail
+            </a>
+          </div>
+        </apollopop-content>
+
+        <div class="ap-productmeta__share-button-list hidden-phone">
+          <a class="ap-productmeta__share-button-item ap-productmeta__share-button-item--facebook link tap-area" href="//www.facebook.com/sharer.php?u={{ shop.url | append: share_permalink }}{{ product.url | append: share_permalink }}" target="_blank" rel="noopener" aria-label="Share on Facebook">
+            <svg focusable="false" width="8" height="14" class="icon icon--facebook   " viewBox="0 0 9 17">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M2.486 16.2084L2.486 8.81845H0L0 5.93845L2.486 5.93845L2.486 3.81845C2.38483 2.79982 2.73793 1.78841 3.45107 1.05407C4.16421 0.319722 5.16485 -0.0628415 6.186 0.00844868C6.9284 0.00408689 7.67039 0.0441585 8.408 0.128449V2.69845L6.883 2.69845C6.4898 2.61523 6.08104 2.73438 5.79414 3.01585C5.50724 3.29732 5.3803 3.70373 5.456 4.09845L5.456 5.93845H8.308L7.936 8.81845H5.46L5.46 16.2084H2.486Z" fill="currentColor"></path>
+            </svg>
+          </a>
+
+          <a class="ap-productmeta__share-button-item ap-productmeta__share-button-item--twitter link tap-area" href="//twitter.com/share?text={{ share_title | url_param_escape }}&amp;url={{ shop.url | append: share_permalink }}{{ product.url | append: share_permalink }}" target="_blank" rel="noopener" aria-label="Tweet on Twitter">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M9.3319 6.92804L14.5437 1H13.3087L8.78327 6.14724L5.16883 1H1L6.46574 8.78354L1 15H2.2351L7.01406 9.56434L10.8312 15H15L9.3316 6.92804H9.3319ZM7.64026 8.85211L7.08647 8.07705L2.68013 1.90977H4.57717L8.13314 6.88696L8.68693 7.66202L13.3093 14.1316H11.4122L7.64026 8.85241V8.85211Z" fill="currentColor"/>
+</svg>
+
+          </a>
+
+          <a class="ap-productmeta__share-button-item ap-productmeta__share-button-item--pinterest link tap-area" href="https://pinterest.com/pin/create/button/?url={{ product.url }}&media={{ product.featured_image | image_url: width: product.featured_media.width }}&description={{ product.title }}" target="_blank" rel="noopener" aria-label="Pin on Pinterest">
+            <svg focusable="false" width="10" height="14" class="icon icon--pinterest   " viewBox="0 0 12 16">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M5.8042 0.00123531C8.79537 -0.0442356 10.6685 1.16769 11.5498 3.29299C11.8407 3.99433 12.1516 5.28439 11.9181 6.35474C11.825 6.78208 11.7985 7.22812 11.6726 7.63086C11.4163 8.4496 11.0829 9.17441 10.6413 9.79945C10.0418 10.6486 9.13196 11.2212 7.98951 11.5091C6.97899 11.7637 6.04959 11.3826 5.50954 10.9732C5.33747 10.843 5.10674 10.6728 5.04304 10.4377C5.03488 10.4377 5.0267 10.4377 5.01853 10.4377C4.97972 10.8669 4.81532 11.3224 4.69924 11.7135C4.53858 12.2545 4.50733 12.8146 4.3064 13.3208C4.08349 13.8828 3.81274 14.3978 3.52072 14.8776C3.36739 15.1292 2.94427 15.9904 2.63675 16C2.60311 15.9354 2.58964 15.9105 2.58761 15.796C2.48858 15.6383 2.55757 15.3724 2.51393 15.1578C2.44604 14.8236 2.39317 14.2217 2.46491 13.8824C2.46491 13.7038 2.46491 13.5248 2.46491 13.3465C2.54397 12.9786 2.54085 12.6015 2.63675 12.2494C2.84537 11.4824 2.96145 10.6699 3.17692 9.87611C3.38398 9.11352 3.57396 8.27939 3.74172 7.50321C3.77957 7.32789 3.56652 6.82389 3.52072 6.63572C3.37628 6.04186 3.48624 5.21874 3.66805 4.77269C3.89698 4.21111 4.56717 3.3535 5.43589 3.57359C6.13407 3.75039 6.57846 4.50528 6.34437 5.46192C6.09862 6.46589 5.7798 7.3653 5.5587 8.37035C5.50173 8.62933 5.59968 8.90442 5.65687 9.05958C5.86357 9.61934 6.49037 10.163 7.32652 9.95278C8.59396 9.63365 9.15431 8.48627 9.53645 7.24791C9.63981 6.91302 9.62743 6.59647 9.70831 6.22709C9.87894 5.44763 9.80648 4.28411 9.56098 3.67556C9.16753 2.70023 8.43329 2.07518 7.42471 1.73624C7.1465 1.68526 6.86819 1.63427 6.58988 1.58329C6.12397 1.47655 5.23532 1.63685 4.92023 1.73624C3.51171 2.18156 2.63952 2.92544 2.09658 4.26247C1.91177 4.71767 1.81046 5.17911 1.77741 5.81884C1.76913 5.8955 1.76094 5.97217 1.75278 6.04883C1.86153 6.62068 1.87259 6.99959 2.09658 7.42657C2.20715 7.63711 2.46971 7.8029 2.51393 8.06444C2.54001 8.2185 2.42705 8.45105 2.39125 8.57467C2.33705 8.76137 2.35676 8.97522 2.26844 9.13625C2.10873 9.42678 1.67383 9.20852 1.48275 9.08491C0.489307 8.44373 -0.329526 6.5895 0.132284 4.79837C0.20342 4.5218 0.206915 4.28118 0.304126 4.03285C0.906661 2.49554 1.80565 1.55101 3.10325 0.741098C3.58947 0.437749 4.24511 0.287354 4.84657 0.128885C5.16574 0.0863481 5.48503 0.0437917 5.8042 0.00123531Z" fill="currentColor"></path>
+            </svg>
+          </a>
+
+          <a class="ap-productmeta__share-button-item ap-productmeta__share-button-item--linkedin link tap-area" href="//linkedin.com/share?text={{ share_title | url_param_escape }}&amp;url={{ shop.url | append: share_permalink }}{{ product.url | append: share_permalink }}" target="_blank" rel="noopener" aria-label="Tweet on linkedin">
+            <svg class="icon icon--linkedin" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+              <path
+                d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z" fill="currentColor"/>
+            </svg>
+          </a>
+
+          <a class="ap-productmeta__share-button-item ap-productmeta__share-button-item--mail link tap-area d-none" href="mailto:?&subject={{ product.title }}&body={{ product.url }}" aria-label="Share by e-mail">
+            <svg focusable="false" width="13" height="13" class="icon icon--share   " viewBox="0 0 18 18">
+              <path d="M17 1l-5.6 16-3.2-7.2M17 1L1 6.6l7.2 3.2M17 1L8.2 9.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+      <button is="toggle-button" class="ap-productmeta__help link text--subdued hidden-phone d-none" ap-controlsaria="product-{{ section.id }}-help-drawer" ap-expanded-aria="false">Need help?</button>
+    </div>
+
+    <ap-drawercontent id="product-{{ section.id }}-help-drawer" class="drawer drawer--large hidden-phone">
+      <span class="drawer__overlay"></span>
+      <header class="drawer__header">
+        <p class="drawer__title heading h6">Help</p>
+
+        <button type="button" class="drawer__close-button tap-area" data-action="close" title="Close"><svg focusable="false" width="14" height="14" class="icon icon--close   " viewBox="0 0 14 14">
+          <path d="M13 13L1 1M13 1L1 13" stroke="currentColor" stroke-width="2" fill="none"></path>
+        </svg>
+      </button>
+      </header>
+
+    <div class="drawer__content drawer__content--padded-start">
+      <div class="rte">
+        <p>If you have any questions, you are always welcome to contact us. We'll get back to you as soon as possible, withing 24 hours on weekdays.</p>
+        <h6>Customer service</h6>
+        <p>All questions about your order, return and delivery must be sent to our customer service team by e-mail at <a href="mailto:yourstore@yourdomain.com">yourstore@yourdomain.com</a></p>
+        <h6>Sale &amp; Press</h6>
+        <p>If you are interested in selling our products, need more information about our brand or wish to make a collaboration, please contact us at <a href="mailto:press@yourdomain.com">press@yourdomain.com</a></p></div>
+    </div>
+  </ap-drawercontent>
+  <apollopop-content id="product-{{ section.id }}-help-popover" class="popover hidden-lap-and-up" hidden="">
+    <span class="popover__overlay"></span>
+
+    <header class="popover__header">
+      <p class="popover__title heading h6">Help</p>
+      <button type="button" class="popover__close-button tap-area tap-area--large" data-action="close" title="Close"><svg focusable="false" width="14" height="14" class="icon icon--close   " viewBox="0 0 14 14">
+          <path d="M13 13L1 1M13 1L1 13" stroke="currentColor" stroke-width="2" fill="none"></path>
+        </svg>
+      </button>
+    </header>
+
+    <div class="popover__content">
+      <div class="rte"><p>If you have any questions, you are always welcome to contact us. We'll get back to you as soon as possible, withing 24 hours on weekdays.</p>
+        <h6>Customer service</h6>
+        <p>All questions about your order, return and delivery must be sent to our customer service team by e-mail at <a href="mailto:yourstore@yourdomain.com">yourstore@yourdomain.com</a></p>
+        <h6>Sale &amp; Press</h6>
+        <p>If you are interested in selling our products, need more information about our brand or wish to make a collaboration, please contact us at <a href="mailto:press@yourdomain.com">press@yourdomain.com</a></p></div>
+    </div>
+  </apollopop-content>
+
+  </div>

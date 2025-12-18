@@ -1,0 +1,23 @@
+<ap-inventoryproduct form-id="ap-productform-{{ section.id }}-{{ product.id }}" class="ap-productform__inventory-wrapper">
+    <span class="inventory inventory--high {% if product.variants[0]["available"] %} in_stock {% endif %}">
+        {% if product.variants[0]["available"] %}
+            
+            {{ 'products.product.in_stock' | t }}
+        {% else %}
+            {{ 'products.product.out_stock' | t }}
+        {% endif %}
+    </span>
+    <script type="application/json">
+        {
+            {%- assign _size = product.variants | size -%}
+            {%- for variant in product.variants -%}
+                {%- if product.variants[0]["available"] -%}
+                    "{{- variant.id -}}": "<span class=\"inventory inventory--high\">In stock</span>"
+                {%- else -%}
+                    "{{- variant.id -}}": "<span class=\"inventory inventory--high\">Out of stock</span>"
+                {%- endif -%}
+                {%- if forloop.index < _size and _size > 1 -%},{%- endif -%}
+            {%- endfor -%}
+        }
+    </script>
+</ap-inventoryproduct>

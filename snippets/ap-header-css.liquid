@@ -1,0 +1,284 @@
+{%- assign font_families = "" -%}
+
+{%- if settings.font_body_google_link contains "fonts.googleapis.com" -%}
+  {%- assign font_body_family = settings.font_body_google_link | split: "family=" | last | split: "&" | first -%}
+  {%- assign font_families = font_families | append: font_body_family | append: "|" -%}
+{%- endif -%}
+
+{%- if settings.font_header_google_link contains "fonts.googleapis.com" and settings.font_header_google_link != settings.font_body_google_link -%}
+  {%- assign font_header_family = settings.font_header_google_link | split: "family=" | last | split: "&" | first -%}
+  {%- unless font_families contains font_header_family -%}
+    {%- assign font_families = font_families | append: font_header_family | append: "|" -%}
+  {%- endunless -%}
+{%- endif -%}
+
+{%- if settings.font_more_google_link contains "fonts.googleapis.com"
+    and settings.font_more_google_link != settings.font_body_google_link
+    and settings.font_more_google_link != settings.font_header_google_link -%}
+  {%- assign font_more_family = settings.font_more_google_link | split: "family=" | last | split: "&" | first -%}
+  {%- unless font_families contains font_more_family -%}
+    {%- assign font_families = font_families | append: font_more_family | append: "|" -%}
+  {%- endunless -%}
+{%- endif -%}
+
+{%- assign font_families = font_families | split: "|" | uniq | join: "&family=" -%}
+
+{%- if font_families != "" -%}
+  {%- assign final_google_font_url = "https://fonts.googleapis.com/css2?family=" | append: font_families | append: "&display=swap" -%}
+
+  <link rel="preload" as="style" href="{{ final_google_font_url }}">
+  <link href="{{ final_google_font_url }}" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript>
+    <link href="{{ final_google_font_url }}" rel="stylesheet">
+  </noscript>
+{%- endif -%}
+
+{{ 'theme-font.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+      assign body_font_bold = settings.type_body_font | font_modify: 'weight', 'bold'
+      assign body_font_italic = settings.type_body_font | font_modify: 'style', 'italic'
+      assign body_font_bold_italic = body_font_bold | font_modify: 'style', 'italic'
+    %}
+
+    {% style %}
+      {{ settings.type_body_font | font_face: font_display: 'swap' }}
+      {{ body_font_bold | font_face: font_display: 'swap' }}
+      {{ body_font_italic | font_face: font_display: 'swap' }}
+      {{ body_font_bold_italic | font_face: font_display: 'swap' }}
+      {{ settings.type_header_font | font_face: font_display: 'swap' }}
+   
+      :root {
+        /* Typography (font family) */
+        {% if settings.enable_font_header_other != true %}
+          --hd-font-family: "{{ settings.heading_font_family }}", sans-serif;
+        {% endif %}
+        {% if settings.enable_font_body_other != true %}
+          --body-font-family: "{{ settings.text_font_family }}", sans-serif;
+        {% endif %}
+        {% if settings.font_more_google_link != blank %}
+          --custom-font-family: "{{ settings.more_font_family }}", cursive;
+        {% endif %}
+        
+        --primary: {{ settings.color_primary }};
+        --primary-2: {{ settings.color_primary_2 }};
+        --primary_hover: {{ settings.color_primary_hover }};
+
+        --sub-heading-color: {{ settings.sub_heading_color }};
+        --sub-background: {{ settings.sub_background }};
+        --heading-color: {{ settings.heading_color.red }}, {{ settings.heading_color.green }}, {{ settings.heading_color.blue }};
+        --color-body: {{ settings.text_color.red }}, {{ settings.text_color.green }}, {{ settings.text_color.blue }};
+        --background: {{ settings.background_color.red }}, {{ settings.background_color.green }}, {{ settings.background_color.blue }};
+        --secondary-background: {{ settings.secondary_bg_color.red }}, {{ settings.secondary_bg_color.green }}, {{ settings.secondary_bg_color.blue }};
+        --border-color: {{ settings.border_color.red }}, {{ settings.border_color.green }}, {{ settings.border_color.blue }};
+        --border-color-darker: {{ settings.border_color_darker.red }}, {{ settings.border_color_darker.green }}, {{ settings.border_color_darker.blue }};
+        --success-color: {{ settings.success_color.red }}, {{ settings.success_color.green }}, {{ settings.success_color.blue }};
+        --success-background: {{ settings.success_bg.red }}, {{ settings.success_bg.green }}, {{ settings.success_bg.blue }};
+        --error-color: {{ settings.error_color.red }}, {{ settings.error_color.green }}, {{ settings.error_color.blue }};
+        --error-background: {{ settings.error_bg.red }}, {{ settings.error_bg.green }}, {{ settings.error_bg.blue }};
+        --primary-button-background: {{ settings.primary_btn_bg.red }}, {{ settings.primary_btn_bg.green }}, {{ settings.primary_btn_bg.blue }};
+        --primary-button-text-color: {{ settings.primary_btn_color.red }}, {{ settings.primary_btn_color.green }}, {{ settings.primary_btn_color.blue }};
+        --secondary-button-background: {{ settings.secondary_btn_bg.red }}, {{ settings.secondary_btn_bg.green }}, {{ settings.secondary_btn_bg.blue }};
+        --secondary-button-text-color: {{ settings.secondary_btn_color.red }}, {{ settings.secondary_btn_color.green }}, {{ settings.secondary_btn_color.blue }};
+        --product-star-rating: {{ settings.product_star_rating.red }}, {{ settings.product_star_rating.green }}, {{ settings.product_star_rating.blue }};
+        --product-star-rating-empty: {{ settings.product_star_rating_empty.red }}, {{ settings.product_star_rating_empty.green }}, {{ settings.product_star_rating_empty.blue }};
+        --price-regular: {{ settings.price_regular.red }}, {{ settings.price_regular.green }}, {{ settings.price_regular.blue }};
+        --product-on-price: {{ settings.product_on_price.red }}, {{ settings.product_on_price.green }}, {{ settings.product_on_price.blue }};
+        --product-on-sale-accent: {{ settings.product_on_sale.red }}, {{ settings.product_on_sale.green }}, {{ settings.product_on_sale.blue }};
+        --product-sold-out-accent: {{ settings.product_on_sold_out.red }}, {{ settings.product_on_sold_out.green }}, {{ settings.product_on_sold_out.blue }};
+        --product-custom-label-background: {{ settings.product_custom_label_bg.red }}, {{ settings.product_custom_label_bg.green }}, {{ settings.product_custom_label_bg.blue }};
+        --product-custom-label-text-color: {{ settings.product_custom_label_color.red }}, {{ settings.product_custom_label_color.green }}, {{ settings.product_custom_label_color.blue }};
+        --product-custom-label-2-background: {{ settings.product_custom_label_bg_2.red }}, {{ settings.product_custom_label_bg_2.green }}, {{ settings.product_custom_label_bg_2.blue }};
+        --product-custom-label-2-text-color: {{ settings.product_custom_label_color_2.red }}, {{ settings.product_custom_label_color_2.green }}, {{ settings.product_custom_label_color_2.blue }};
+        --product-low-stock-text-color: {{ settings.product_low_stock_color.red }}, {{ settings.product_low_stock_color.green }}, {{ settings.product_low_stock_color.blue }};
+        --product-in-stock-text-color: {{ settings.product_in_stock_color.red }}, {{ settings.product_in_stock_color.green }}, {{ settings.product_in_stock_color.blue }};
+        --ap-loadingbar-background: {{ settings.bg_loading.red }}, {{ settings.bg_loading.green }}, {{ settings.bg_loading.blue }};
+
+        --color-cart-count: {{ settings.color_cart_count }};
+        --bg-cart-count: {{ settings.bg_cart_count }};
+        --color-type: {{ settings.color_type_product }};
+        --color-title-product: {{ settings.color_title_product }};
+
+        --color-icon: {{ settings.color_icon }};
+        --color-svg-hover: {{ settings.color_svg_hover }};
+        --background-service: {{ settings.bg_icon }};
+        --background-service-hover: {{ settings.bg_icon_hover }};
+
+        --color-addcart: {{ settings.color_addcart }};
+        --background-product: {{ settings.background_product }};
+
+        --color-accent-1: {{ settings.color_accent_1 }};
+        --color-accent-2: {{ settings.color_accent_2 }};
+        --color-accent-3: {{ settings.color_accent_3 }};
+        --color-accent-4: {{ settings.color_accent_4 }};
+        --color-accent-5: {{ settings.color_accent_5 }};
+        --color-accent-6: {{ settings.color_accent_6 }};
+
+        /* We duplicate some "base" colors as root colors, which is useful to use on drawer elements or popover without. Those should not be overridden to avoid issues */
+        --root-heading-color: {{ settings.root_heading_color.red }}, {{ settings.root_heading_color.green }}, {{ settings.root_heading_color.blue }};
+        --root-text-color: {{ settings.root_text_color.red }}, {{ settings.root_text_color.green }}, {{ settings.root_text_color.blue }};
+        --root-background: {{ settings.root_bg.red }}, {{ settings.root_bg.green }}, {{ settings.root_bg.blue }};
+        --root-border-color: {{ settings.root_border_color.red }}, {{ settings.root_border_color.green }}, {{ settings.root_border_color.blue }};
+        --root-primary-button-background: {{ settings.root_primary_btn_bg.red }}, {{ settings.root_primary_btn_bg.green }}, {{ settings.root_primary_btn_bg.blue }};
+        --root-primary-button-text-color: {{ settings.root_primary_btn_color.red }}, {{ settings.root_primary_btn_color.green }}, {{ settings.root_primary_btn_color.blue }};
+        --root-primary-button-color-hover: {{ settings.root_primary_btn_color_hover.red }}, {{ settings.root_primary_btn_color_hover.green }}, {{ settings.root_primary_btn_color_hover.blue }};
+        --root-primary-button-background-hover: {{ settings.root_primary_btn_background_hover.red }}, {{ settings.root_primary_btn_background_hover.green }}, {{ settings.root_primary_btn_background_hover.blue }};
+
+        /* Video related */
+        --play-button-background: {{ settings.bg_btn_play.red }}, {{ settings.bg_btn_play.green }}, {{ settings.bg_btn_play.blue }}; 
+        --play-button-arrow: {{ settings.color_btn_play.red }}, {{ settings.color_btn_play.green }}, {{ settings.color_btn_play.blue }};
+
+        /* Setting Font */
+        --heading-font-size: {{ settings.heading_font_size }}px;
+        --heading-font-weight: {{ settings.heading_font_weight }};
+        --heading-font-style: {{ settings.heading_font_style }};
+        --heading-text-transform: {{ settings.heading_text_transform }};
+
+        --base-font-size: {{ settings.base_font_size }}px;
+        --text-font-weight: {{ settings.text_font_weight }};
+        --text-font-style: {{ settings.text_font_style }};
+        --text-font-bold-weight: {{ settings.text_font_weight_bold }};
+
+        --xxsmall-font-size: {{ settings.heading_xxsmall_font_size }}px;
+        --xsmall-font-size: {{ settings.heading_xsmall_font_size }}px;
+        --heading-small-font-size: {{ settings.heading_small_font_size }}px;
+        --large-font-size: {{ settings.heading_large_font_size }}px;
+        --h1-font-size: {{ settings.heading_h1_font_size }}px;
+        --h2-font-size: {{ settings.heading_h2_font_size }}px;
+        --h3-font-size: {{ settings.heading_h3_font_size }}px;
+        --h4-font-size: {{ settings.heading_h4_font_size }}px;
+        --h5-font-size: {{ settings.heading_h5_font_size }}px;
+        --h6-font-size: {{ settings.heading_h6_font_size }}px;
+
+        /* Control the look and feel of the theme by changing radius of various elements */
+        --button-border-radius: {{ settings.btn_border_radius }}px;
+        --block-border-radius: {{ settings.block_border_radius }}px;
+        --block-border-radius-reduced: {{ settings.block_border_radius_reduced }}px;
+        --color-swatch-border-radius: {{ settings.border_radius_swatch }}px;
+
+        /* Button size */
+        --font-family_btn : var({{ settings.font_family_button }});
+        --font-weight-btn : {{ settings.font_weight_button }};
+        --font-size-btn : {{ settings.base_size_button }}px;
+        --font-spacing-btn : {{ settings.letter_spacing_button }}em;
+        --text-transform-btn : {{ settings.text_transform_btn }};
+        --g-padding-hoz-btn : {{ settings.padding_hoz_btn }}px;
+
+        --cta-button: {{ settings.color_cta }};
+        --cta-text:{{ settings.color_button_text }};
+        --cta-button-hover: {{ settings.color_cta_hover }};
+        --cta-text-hover:{{ settings.color_button_text_hover }};
+
+        --color-line:{{ settings.color_line }};
+        --color-border-line:{{ settings.color_border_line }};
+
+        --button-height: {{ settings.btn_height }}px;
+        --button-medium-height: {{ settings.btn_medium_height }}px;
+        --button-small-height: {{ settings.btn_small_height }}px;
+
+        /* Form related */
+        --form-input-field-height: {{ settings.form_input_field_height }}px;
+        --form-input-gap: {{ settings.form_input_gap }};
+        --form-submit-margin: {{ settings.form_submit_margin }};
+
+        /* Product listing related variables */
+        --ap-productlist-block-spacing: {{ settings.product_list_block_spacing }}px;
+        --ap-productlist-column-gap: {{ settings.product_list_col_gap }}px;
+
+        /* RTL support */
+        --transform-logical-flip: 1;
+        --transform-origin-start: left;
+        --transform-origin-end: right;
+
+        /* Other */
+        --zoom-cursor-svg-url: url({{ settings.zoom_cursor_svg_url }});
+        --arrow-right-svg-url: url({{ settings.arrow_right_svg_url }});
+        --arrow-left-svg-url: url({{ settings.arrow_left_svg_url }});
+
+        /* Some useful variables that we can reuse in our CSS. Some explanation are needed for some of them:
+          - container-max-width-minus-gutters: represents the container max width without the edge gutters
+          - container-outer-width: considering the screen width, represent all the space outside the container
+          - container-outer-margin: same as container-outer-width but get set to 0 inside a container
+          - container-inner-width: the effective space inside the container (minus gutters)
+          - grid-column-width: represents the width of a single column of the grid
+          - vertical-breather: this is a variable that defines the global "spacing" between sections, and inside the section
+                              to create some "breath" and minimum spacing
+        */
+
+        /* Container */
+        --container-max-width: {{ settings.container_max_width }}px;
+        --container-distance: {{ settings.container_gutter }}px;
+        --container-max-width-minus-gutters: calc(var(--container-max-width) - (var(--container-distance)) * 2);
+        --container-outer-width: max(calc((100vw - var(--container-max-width-minus-gutters)) / 2), var(--container-distance));
+        --container-outer-margin: var(--container-outer-width);
+        --container-inner-width: calc(100vw - var(--container-outer-width) * 2);
+
+        --grid-column-count: 20;
+        --grid-gap: 0px;
+        --grid-column-width: calc((100vw - var(--container-outer-width) * 2 - var(--grid-gap) * (var(--grid-column-count) - 1)) / var(--grid-column-count));
+
+        --vertical-breather: {{ settings.vertical_beather }}px;
+        --vertical-breather-tight: {{ settings.vertical_beather_tight }}px;
+
+        /* Shopify related variables */
+        --payment-terms-background-color: {{ settings.bg_payment.red }}, {{ settings.bg_payment.green }}, {{ settings.bg_payment.blue }};
+      }
+
+      @media screen and (max-width: 1199px) {
+        :root {
+          /* Typography */
+          --large-font-size: {{ settings.heading_large_size_1199 }}px;
+          --h1-font-size: {{ settings.heading_h1_size_1199 }}px;
+          --h2-font-size: {{ settings.heading_h2_size_1199 }}px;
+          --h3-font-size: {{ settings.heading_h3_size_1199 }}px;
+          --h4-font-size: {{ settings.heading_h4_size_1199 }}px;
+          --h5-font-size: {{ settings.heading_h5_size_1199 }}px;
+          --h6-font-size: {{ settings.heading_h6_size_1199 }}px;
+        }
+      }
+      
+      @media screen and (max-width: 767px) {
+      :root {
+          --container-distance: {{ settings.container_gutter_media_767 }}px;
+
+          /* Typography (font size) */
+          --xsmall-font-size: {{ settings.heading_xsmall_size_767 }}px;
+          --heading-small-font-size: {{ settings.heading_small_size_767 }}px;
+          --large-font-size: {{ settings.heading_large_size_767 }}px;
+          --h1-font-size: {{ settings.heading_h1_size_767 }}px;
+          --h2-font-size: {{ settings.heading_h2_size_767 }}px;
+          --h3-font-size: {{ settings.heading_h3_size_767 }}px;
+          --h4-font-size: {{ settings.heading_h4_size_767 }}px;
+          --h5-font-size: {{ settings.heading_h5_size_767 }}px;
+          --h6-font-size: {{ settings.heading_h6_size_767 }}px;
+
+          /* Form related */
+          --form-input-field-height: {{ settings.form_input_field_height_767 }}px;
+        }
+      }
+    {% endstyle %}
+
+
+<style>
+      body {
+        {% if settings.background_body != blank %}
+        background-color: {{ settings.background_body }};
+        {% endif %}
+        {% if settings.background_image != blank %}
+        background-image: url({{ settings.background_image | image_url: width: 2000 }});
+        {% endif %}
+      }
+      
+      {%- if template contains 'product-scroll' -%}
+      main#main {
+        overflow-x: visible;
+      }
+      {% endif %}
+    </style>
+
+{{ 'bootstrap.min.css' | asset_url | stylesheet_tag }}   
+    {{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}   
+    {{ 'aos.css' | asset_url | stylesheet_tag }}   
+    {{ 'ap-theme.css' | asset_url | stylesheet_tag }}   
+    {{ 'ap-theme-custom.css' | asset_url | stylesheet_tag }}   
+    {{ 'ap-theme-liquid.css' | asset_url | stylesheet_tag: preload: true }}

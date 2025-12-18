@@ -1,0 +1,1072 @@
+{% render 'section-style' %}
+{%- assign id = '#shopify-section-' | append: section.id -%}
+
+{% assign number_block = section.blocks | size %}
+{% if number_block > 0 %}
+  <style>
+    :root
+      {
+        --enable-sticky-ap-announcementbar: {% if section.settings.enable_sticky %}1{% else %}0{% endif %};
+    }
+
+
+      {{ id }} .announcement-transparent {
+        background: {{ section.settings.background_overlay }};
+      }
+
+    
+
+    {% if section.settings.hidden_desktop %}
+      @media (min-width: 1200px) {
+        {{ id }} {
+          display: none;
+        }
+      }
+    {% endif %}
+    {% if section.settings.hidden_tablet %}
+      @media (max-width: 1199px) and (min-width: 992px) {
+        {{ id }} {
+          display: none;
+        }
+      }
+    {% endif %}
+    {% if section.settings.hidden_tablet_small %}
+      @media (max-width: 991px) and (min-width: 768px) {
+        {{ id }} {
+          display: none;
+        }
+      }
+    {% endif %}
+    {% if section.settings.hidden_mobile %}
+      @media (max-width: 767px) {
+        {{ id }} {
+          display: none;
+        }
+      }
+    {% endif %}
+
+
+    {{ id }}.announcement-row > div:not(:last-child) {
+      width: fit-content;
+    }
+
+    {{ id }}.announcement-row > div:last-child {
+      flex: 1;
+    }
+
+    {{ id }}.announcement-row > div:nth-child(2) {
+      border-left: 1px solid #E8E8E8;
+    }
+
+
+    {{ id }} {
+      z-index: {{ section.settings.z_index }};
+      position: relative;
+      top: {{ section.settings.top }};
+      z-index: 5;
+      overflow: initial;
+    }
+
+
+    {{ id }}
+    .ap-announcementbar {
+      min-height: {{ section.settings.min_height }};
+    }
+
+    .announcement-contact-list ul {
+      gap: 0 30px;
+    }
+
+    .announcement-contact-list li {
+      display: flex;
+      align-items: center;
+      gap: 0 8px;
+    }
+
+    .announcement-social .social-media {
+      gap: 0 25px;
+    }
+
+    .announcement-social .text-social {
+      display: none;
+    }
+
+
+
+    {%- for block in section.blocks -%}
+      {%- case block.type -%}
+        {%- when 'announcement-contact' -%}
+          {%- liquid
+            assign icon_color = block.settings.icon_color
+            assign label_font_size = block.settings.label_font_size | append: 'px'
+            assign label_font_weight = block.settings.label_font_weight
+            assign label_color = block.settings.label_color
+          -%}
+          .announcement-contact-list li {
+            font-size: {{ label_font_size }};
+            font-weight: {{ label_font_weight }};
+            color: {{ label_color }};
+          }
+          .announcement-contact-list li .icon {
+            display: flex;
+            color: {{ icon_color }};
+          }
+        {%- when 'announcement-social' -%}
+          .announcement-social .social-media__link svg {
+            color: {{ block.settings.icon_color }};
+          }
+          .announcement-social .social-media__link:hover svg {
+            color: {{ block.settings.icon_color_hover }}
+          }
+          
+      {%- endcase -%}
+    {%- endfor -%}
+
+    @media (min-width: 992px) {
+      .announcement-transparent {
+        background-color: transparent;
+      }
+    }
+    @media (max-width: 1199px) and (min-width: 992px) {
+      .announcement-transparent {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        background-color: transparent;
+      }
+      body:not(.index) .announcement-transparent {
+        /* position: unset; */
+      }
+    }
+
+    {%- if template contains 'collection' or template contains 'search' -%}
+
+    .announcement-transparent {
+      position: initial;
+      border-bottom: rgb(var(--border-color));
+    }
+    .announcement-contact-list li, .announcement-contact-list li .icon, .announcement-social .social-media__link svg {
+      color: #162339;
+    }
+    
+
+    {%- endif -%}
+
+  </style>
+
+  <ap-announcementbar
+    cycle-speed="5"
+    class="ap-announcementbar ap-announcementbar--multiple {% if section.settings.transparent %} announcement-transparent{% endif %} d-flex align-items-center"
+  >
+    <div class="{%- if section.settings.setwidthout != 'full' -%}{{ section.settings.setwidthout }}{%- endif -%}">
+      <div class="row announcement-row align-items-center">
+        {%- for block in section.blocks -%}
+          <div
+            id="block-{{ block.id }}"
+            class="col-xl-{{ block.settings.extra_large_column }} col-lg-{{ block.settings.large_column }} col-md-{{ block.settings.medium_column }} col-sm-{{ block.settings.small_column }} col-12 {{ block.settings.class }}"
+          >
+            {%- case block.type -%}
+              {%- when 'announcement' -%}
+                <ap-announcementbar-item
+                  has-content=""
+                  class="ap-announcementbar__item text-{{ block.settings.text_align }}"
+                >
+                  <div class="ap-announcementbar__message" style="color: {{ block.settings.text_color }};">
+                    {{ block.settings.text }}
+                    {% if block.settings.view_more != blank %}
+                      <a
+                        class="fw-bold"
+                        href="{{ block.settings.link_view }}"
+                        class="link"
+                        data-action="open-content"
+                        style="color: {{ block.settings.link_color }};"
+                      >
+                        {{- block.settings.view_more | escape -}}
+                      </a>
+                    {% endif %}
+                  </div>
+                  <div class="ap-announcementbar__content has-image" hidden="">
+                    <div class="ap-announcementbar__content-overlay"></div>
+                    <div class="ap-announcementbar__content-overflow">
+                      <div class="ap-announcementbar__content-inner">
+                        <button
+                          type="button"
+                          class="announcement-bar__close-button tap-area"
+                          data-action="close-content"
+                        >
+                          <span class="visually-hidden">Close</span>
+                        </button>
+                        <img
+                          class="ap-announcementbar__content-image"
+                          loading="lazy"
+                          sizes="50vw"
+                          alt=""
+                          loading="lazy"
+                          src="{{ block.settings.image | image_url: width: 1400 }}"
+                          data-srcset="{{ block.settings.image | image_url: width: 400 }} 400w, {{ block.settings.image | image_url: width: 500 }} 500w, {{ block.settings.image | image_url: width: 600 }} 600w, {{ block.settings.image | image_url: width: 700 }} 700w, {{ block.settings.image | image_url: width: 800 }} 800w, {{ block.settings.image | image_url: width: 900 }} 900w, {{ block.settings.image | image_url: width: 1000 }} 1000w, {{ block.settings.image | image_url: width: 1200 }} 1200w, {{ block.settings.image | image_url: width: 1400 }} 1400w"
+                          width="1400"
+                          height="800"
+                        >
+                        <div class="ap-announcementbar__content-text-wrapper">
+                          <div class="ap-announcementbar__content-text text-container">
+                            <h3 class="heading {{ block.settings.heading_text_size | escape }}">
+                              {{ block.settings.heading_text | escape }}
+                            </h3>
+                            <p>{{ block.settings.description | escape }}</p>
+                            <div class="button-wrapper">
+                              <a href="{{ block.settings.link | escape }}" class="button button--primary">
+                                {{- block.settings.read_more | escape -}}
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </ap-announcementbar-item>
+
+              {%- when 'announcement-social' -%}
+                <div class="announcement-social">
+                  {% liquid
+                    assign _show_social = false
+                    if block.settings.social_facebook != blank
+                      assign _show_social = true
+                    endif
+                    if block.settings.social_twitter != blank
+                      assign _show_social = true
+                    endif
+                    if block.settings.social_instagram != blank
+                      assign _show_social = true
+                    endif
+                    if block.settings.social_pinterest != blank
+                      assign _show_social = true
+                    endif
+                    if block.settings.social_youtube != blank
+                      assign _show_social = true
+                    endif
+                    if block.settings.social_linkedin != blank
+                      assign _show_social = true
+                    endif
+                  %}
+                  {%- if _show_social == true -%}
+                    <div class="announcement__item-content">
+                      {% if block.settings.title != blank %}
+                        <div class="announcement-social_title">
+                          {{ block.settings.title }}
+                        </div>
+                      {% endif %}
+                      <ul class="social-media social-media--no-radius list--unstyled align-items-center justify-content-{{ block.settings.text_align }}" role="list">
+                        {%- if block.settings.social_facebook != blank -%}
+                          <li class="social-media__item social-media__item--facebook">
+                            <a
+                              href="{{ block.settings.social_facebook }}"
+                              target="_blank"
+                              rel="noopener"
+                              class="social-media__link"
+                              aria-label="Follow us on Facebook"
+                            >
+                              {% render 'icon-facebook' %}
+                              <span class="text-social">{{ 'general.social.links.facebook' | t }}</span>
+                            </a>
+                          </li>
+                        {%- endif -%}
+                        {%- if block.settings.social_twitter != blank -%}
+                          <li class="social-media__item social-media__item--twitter">
+                            <a
+                              href="{{ block.settings.social_twitter }}"
+                              target="_blank"
+                              rel="noopener"
+                              class="social-media__link"
+                              aria-label="Follow us on twitter"
+                            >
+                              {% render 'icon-twitter' %}
+                              <span class="text-social">{{ 'general.social.links.twitter' | t }}</span>
+                            </a>
+                          </li>
+                        {%- endif -%}
+                        {%- if block.settings.social_instagram != blank -%}
+                          <li class="social-media__item social-media__item--instagram">
+                            <a
+                              href="{{ block.settings.social_instagram }}"
+                              target="_blank"
+                              rel="noopener"
+                              class="social-media__link"
+                              aria-label="Follow us on Instagram"
+                            >
+                              {% render 'icon-instagram' %}
+                              <span class="text-social">{{ 'general.social.links.instagram' | t }}</span>
+                            </a>
+                          </li>
+                        {%- endif -%}
+                        {%- if block.settings.social_pinterest != blank -%}
+                          <li class="social-media__item social-media__item--pinterest">
+                            <a
+                              href="{{ block.settings.social_pinterest }}"
+                              target="_blank"
+                              rel="noopener"
+                              class="social-media__link"
+                              aria-label="Follow us on Pinterest"
+                            >
+                              {% render 'icon-pinterest' %}
+                              <span class="text-social">{{ 'general.social.links.pinterest' | t }}</span>
+                            </a>
+                          </li>
+                        {%- endif -%}
+                        {%- if block.settings.social_youtube != blank -%}
+                          <li class="social-media__item social-media__item--youtube">
+                            <a
+                              href="{{ block.settings.social_youtube }}"
+                              target="_blank"
+                              rel="noopener"
+                              class="social-media__link"
+                              aria-label="Follow us on YouTube"
+                            >
+                              {% render 'icon-youtube' %}
+                              <span class="text-social">{{ 'general.social.links.youtube' | t }}</span>
+                            </a>
+                          </li>
+                        {%- endif -%}
+                        {%- if block.settings.social_linkedin != blank -%}
+                          <li class="social-media__item social-media__item--linkedin">
+                            <a
+                              href="{{ block.settings.social_linkedin }}"
+                              target="_blank"
+                              rel="noopener"
+                              class="social-media__link"
+                              aria-label="Follow us on LinkedIn"
+                            >
+                              {% render 'icon-linkedin' %}
+                              <span class="text-social">
+                                {{ 'general.social.links.linkedin' | t }}
+                              </span>
+                            </a>
+                          </li>
+                        {%- endif -%}
+                      </ul>
+                    </div>
+                  {%- endif -%}
+                  {% if block.settings.show_user %}
+                    <div class="header-icon header__icon-list">
+                      <div class="header__icon-wrapper tap-area wrapper-user">
+                        {% render 'header-user' %}
+                      </div>
+                    </div>
+                  {% endif %}
+                </div>
+
+              {%- when 'announcement-language' -%}
+                <div
+                  class="d-flex align-items-center justify-content-md-{{ block.settings.text_align }} justify-content-center"
+                  style="color:{{ block.settings.color }};"
+                >
+                  <div class="announcement-language" style="--space: {{ block.settings.space }}">
+                    {% render 'localization' %}
+                  </div>
+                  <div class="announcement-currency">
+                    {% render 'localization-currency', id: 'HeaderCountryForm' %}
+                  </div>
+                </div>
+
+              {%- when 'announcement-link' -%}
+                {%- if block.settings.menu != blank -%}
+                  <ul class="announcemnt-menu text-{{ block.settings.text_align }}" role="list">
+                    {%- for link in block.settings.menu.links -%}
+                      <li class="announcemnt-menu__item">
+                        <a href="{{ link.url }}" class="announcemnt-menu__link">{{ link.title | escape }}</a>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+
+              {%- when 'announcement-contact' -%}
+                <div class="announcement-contact d-flex align-items-center justify-content-{{ block.settings.text_align }}">
+                  <div class="announcement-contact-list" style="color: {{ block.settings.text_color }};">
+                    <ul class="d-flex align-items-center flex-wrap">
+                      {% for i in (1..3) %}
+                        {% case i %}
+                          {% when 1 %}
+                            {%- assign icon = block.settings.icon_1 -%}
+                            {%- assign label = block.settings.label_1 -%}
+                          {% when 2 %}
+                            {%- assign icon = block.settings.icon_2 -%}
+                            {%- assign label = block.settings.label_2 -%}
+                          {% when 3 %}
+                            {%- assign icon = block.settings.icon_3 -%}
+                            {%- assign label = block.settings.label_3 -%}
+                        {% endcase %}
+
+                        {%- if label != blank -%}
+                          <li>
+                            <span class="icon">{{ icon }}</span>
+                            {{ label }}
+                          </li>
+                        {%- endif -%}
+                      {% endfor %}
+                    </ul>
+                  </div>
+                </div>
+            {%- endcase -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </ap-announcementbar>
+{%- endif -%}
+{% schema %}
+{
+  "name": "t:sections.ap-announcementbar.name",
+  "class": "shopify-section--ap-announcementbar",
+  "max_blocks": 12,
+  "settings": [
+    {
+      "type": "select",
+      "id": "setwidthout",
+      "label": "Width",
+      "default": "full",
+      "options": [
+        {
+          "value": "container",
+          "label": "Container"
+        },
+        {
+          "value": "container-fluid",
+          "label": "Container Fluid"
+        },
+        {
+          "value": "full",
+          "label": "Full"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "transparent",
+      "default": false,
+      "label": "Show Transparent"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "t:sections.ap-announcementbar.settings.background.label",
+      "default": "#F5F5F5"
+    },
+    {
+      "type": "color_background",
+      "id": "background_overlay",
+      "label": "Background overlay"
+    },
+    {
+      "type": "text",
+      "id": "border_width",
+      "label": "Border width",
+      "default": "1px 1px 1px 1px"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "default": "#DCDDE3"
+    },
+    {
+      "type": "text",
+      "id": "min_height",
+      "label": "Min height"
+    },
+    {
+      "type": "text",
+      "id": "z_index",
+      "label": "t:sections.ap-announcementbar.settings.z_index.label",
+      "default": "4"
+    },
+    {
+      "type": "text",
+      "id": "top",
+      "label": "t:sections.ap-announcementbar.settings.top.label",
+      "default": "0"
+    },
+    {
+      "type": "header",
+      "content": "Display"
+    },
+    {
+      "type": "checkbox",
+      "id": "hidden_desktop",
+      "label": "Hidden desktop",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hidden_tablet",
+      "label": "Hidden tablet",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hidden_tablet_small",
+      "label": "Hidden tablet small",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hidden_mobile",
+      "label": "Hidden monbile",
+      "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "type": "announcement",
+      "name": "t:sections.ap-announcementbar.blocks.announcement.name",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Columns width"
+        },
+        {
+          "type": "range",
+          "id": "extra_large_column",
+          "label": "Extra large screen",
+          "default": 6,
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "unit": "/12"
+        },
+        {
+          "type": "range",
+          "id": "large_column",
+          "label": "Large screen",
+          "default": 6,
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "unit": "/12"
+        },
+        {
+          "type": "range",
+          "id": "medium_column",
+          "label": "Medium screen",
+          "default": 6,
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "unit": "/12"
+        },
+        {
+          "type": "range",
+          "id": "small_column",
+          "label": "Small screen",
+          "default": 6,
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "unit": "/12"
+        },
+        {
+          "type": "text",
+          "id": "class",
+          "label": "Class"
+        },
+        {
+          "type": "select",
+          "id": "text_align",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ],
+          "default": "left",
+          "label": "Text align"
+        },
+        {
+          "type": "liquid",
+          "id": "text",
+          "default": "FREE Delivery Over $100 All Products",
+          "label": "t:sections.ap-announcementbar.blocks.announcement.settings.text.label"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text color"
+        },
+        {
+          "type": "text",
+          "id": "view_more",
+          "label": "t:sections.ap-announcementbar.blocks.announcement.settings.view_more.label",
+          "default": "View more"
+        },
+        {
+          "type": "url",
+          "id": "link_view",
+          "label": "t:sections.ap-announcementbar.blocks.announcement.settings.link_view.label"
+        },
+        {
+          "type": "color",
+          "id": "link_color",
+          "label": "Link color"
+        }
+      ]
+    },
+    {
+      "type": "announcement-social",
+      "name": "Announcement Social",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Columns width"
+        },
+        {
+          "type": "range",
+          "id": "extra_large_column",
+          "label": "Extra large screen",
+          "default": 6,
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "unit": "/12"
+        },
+        {
+          "type": "range",
+          "id": "large_column",
+          "label": "Large screen",
+          "default": 6,
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "unit": "/12"
+        },
+        {
+          "type": "range",
+          "id": "medium_column",
+          "label": "Medium screen",
+          "default": 6,
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "unit": "/12"
+        },
+        {
+          "type": "range",
+          "id": "small_column",
+          "label": "Small screen",
+          "default": 6,
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "unit": "/12"
+        },
+        {
+          "type": "select",
+          "id": "text_align",
+          "options": [
+            {
+              "value": "start",
+              "label": "Start"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "end",
+              "label": "End"
+            }
+          ],
+          "default": "start",
+          "label": "Text align"
+        },
+        {
+          "type": "header",
+          "content": "Social"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Follow us:"
+        },
+        {
+          "type": "text",
+          "id": "social_facebook",
+          "label": "t:sections.all.social_facebook.label"
+        },
+        {
+          "type": "text",
+          "id": "social_twitter",
+          "label": "Twitter"
+        },
+        {
+          "type": "text",
+          "id": "social_instagram",
+          "label": "t:sections.all.social_instagram.label"
+        },
+        {
+          "type": "text",
+          "id": "social_pinterest",
+          "label": "t:sections.all.social_pinterest.label"
+        },
+        {
+          "type": "text",
+          "id": "social_youtube",
+          "label": "t:sections.all.social_youtube.label"
+        },
+        {
+          "type": "text",
+          "id": "social_linkedin",
+          "label": "t:sections.all.social_linkedin.label"
+        },
+        {
+          "type": "color",
+          "id": "icon_color",
+          "label": "Icon color",
+          "default": "#000"
+        },
+        {
+          "type": "color",
+          "id": "icon_color_hover",
+          "label": "Icon color hover",
+          "default": "#000"
+        },
+        {
+          "type": "header",
+          "content": "User Header"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_user",
+          "default": true,
+          "label": "Show User"
+        }
+      ]
+    },
+    {
+      "type": "announcement-language",
+      "name": "Announcement Language",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Columns width"
+        },
+        {
+          "type": "range",
+          "id": "extra_large_column",
+          "label": "Extra large screen",
+          "default": 6,
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "unit": "/12"
+        },
+        {
+          "type": "range",
+          "id": "large_column",
+          "label": "Large screen",
+          "default": 6,
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "unit": "/12"
+        },
+        {
+          "type": "range",
+          "id": "medium_column",
+          "label": "Medium screen",
+          "default": 6,
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "unit": "/12"
+        },
+        {
+          "type": "range",
+          "id": "small_column",
+          "label": "Small screen",
+          "default": 6,
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "unit": "/12"
+        },
+        {
+          "type": "header",
+          "content": "Column settings"
+        },
+        {
+          "type": "select",
+          "id": "text_align",
+          "options": [
+            {
+              "value": "start",
+              "label": "Start"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "end",
+              "label": "End"
+            }
+          ],
+          "default": "start",
+          "label": "Text align"
+        },
+        {
+          "type": "text",
+          "id": "space",
+          "label": "Space"
+        },
+        {
+          "type": "color",
+          "id": "color",
+          "label": "Color"
+        }
+      ]
+    },
+    {
+      "type": "announcement-link",
+      "name": "Announcement Link",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Columns width"
+        },
+        {
+          "type": "range",
+          "id": "extra_large_column",
+          "label": "Extra large screen",
+          "default": 6,
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "unit": "/12"
+        },
+        {
+          "type": "range",
+          "id": "large_column",
+          "label": "Large screen",
+          "default": 6,
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "unit": "/12"
+        },
+        {
+          "type": "range",
+          "id": "medium_column",
+          "label": "Medium screen",
+          "default": 6,
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "unit": "/12"
+        },
+        {
+          "type": "range",
+          "id": "small_column",
+          "label": "Small screen",
+          "default": 6,
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "unit": "/12"
+        },
+        {
+          "type": "select",
+          "id": "text_align",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ],
+          "default": "left",
+          "label": "Text align"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu announcement"
+        }
+      ]
+    },
+    {
+      "type": "announcement-contact",
+      "name": "Announcement Contact",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Columns width"
+        },
+        {
+          "type": "range",
+          "id": "extra_large_column",
+          "label": "Extra large screen",
+          "default": 6,
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "unit": "/12"
+        },
+        {
+          "type": "range",
+          "id": "large_column",
+          "label": "Large screen",
+          "default": 6,
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "unit": "/12"
+        },
+        {
+          "type": "range",
+          "id": "medium_column",
+          "label": "Medium screen",
+          "default": 6,
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "unit": "/12"
+        },
+        {
+          "type": "range",
+          "id": "small_column",
+          "label": "Small screen",
+          "default": 6,
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "unit": "/12"
+        },
+        {
+          "type": "select",
+          "id": "text_align",
+          "options": [
+            {
+              "value": "start",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "end",
+              "label": "Right"
+            }
+          ],
+          "default": "start",
+          "label": "Text align"
+        },
+        {
+          "type": "header",
+          "content": "Content"
+        },
+        {
+          "type": "liquid",
+          "id": "icon_1",
+          "label": "Icon 1"
+        },
+        {
+          "type": "liquid",
+          "id": "label_1",
+          "label": "Label 1"
+        },
+        {
+          "type": "liquid",
+          "id": "icon_2",
+          "label": "Icon 2"
+        },
+        {
+          "type": "liquid",
+          "id": "label_2",
+          "label": "Label 2"
+        },
+        {
+          "type": "liquid",
+          "id": "icon_3",
+          "label": "Icon 3"
+        },
+        {
+          "type": "liquid",
+          "id": "label_3",
+          "label": "Label 3"
+        },
+        {
+          "type": "header",
+          "content": "Content settings"
+        },
+        {
+          "type": "range",
+          "id": "label_font_size",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "label": "Label font size",
+          "default": 16
+        },
+        {
+          "type": "select",
+          "id": "label_font_weight",
+          "options": [
+            {
+              "value": "400",
+              "label": "Regular"
+            },
+            {
+              "value": "500",
+              "label": "Medium"
+            },
+            {
+              "value": "600",
+              "label": "Semibold"
+            },
+            {
+              "value": "700",
+              "label": "Bold"
+            }
+          ],
+          "default": "400",
+          "label": "Label font weight"
+        },
+        {
+          "type": "color",
+          "id": "label_color",
+          "label": "Label color",
+          "default": "#000"
+        },
+        {
+          "type": "color",
+          "id": "icon_color",
+          "label": "Icon color",
+          "default": "#000"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Announcement bar"
+    }
+  ]
+}
+{% endschema %}
