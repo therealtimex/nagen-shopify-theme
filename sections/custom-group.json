@@ -13,6 +13,7 @@
   "sections": {
     "cookie_bar_mxBJKL": {
       "type": "cookie-bar",
+      "disabled": true,
       "name": "Cookie bar",
       "settings": {
         "show_cookie_bar": true,
@@ -56,11 +57,10 @@
       "name": "Coupon",
       "settings": {
         "coupon_time": 3,
-        "coupon_background": "shopify:\/\/shop_images\/a_h1-bg-footer.png",
         "coupon_title": "-10% FOR BEST SELLER",
-        "color_title": "#fff",
+        "color_title": "#ffffff",
         "coupon_description": "Enter this coupon code at checkout to get 10% off:",
-        "color_des": "#fff"
+        "color_des": "#ffffff"
       }
     },
     "loadmoreproduct_BUB3yJ": {
