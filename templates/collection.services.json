@@ -116,7 +116,7 @@
       "type": "contact-form-section",
       "blocks": {
         "image_cm8cAt": {
-          "type": "image",
+          "type": "block-image",
           "settings": {
             "width_desktop": "44.53",
             "width_tablet": "50",
