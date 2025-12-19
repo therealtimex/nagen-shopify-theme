@@ -214,9 +214,9 @@
         "section_header_type": "section-header-1",
         "text_align": "center",
         "direction_header": "vertical",
-        "align_items": "center",
+        "align_items": "end",
         "reverse": false,
-        "data_aos_text": "none"
+        "data_aos_text": "fade-up"
       }
     },
     "banner_grid_HrGwWk": {
