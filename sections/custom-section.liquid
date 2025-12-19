@@ -1010,6 +1010,33 @@
 
             </div>
           
+          {%- when 'service-grid' -%}
+            <div class="service-grid" style="--grid-gap: {{ block.settings.card_gap }}px; --grid-columns: {{ block.settings.desktop_columns }}; --grid-columns-tablet: {{ block.settings.tablet_columns }}; --grid-columns-mobile: {{ block.settings.mobile_columns }}; --card-radius: {{ block.settings.card_radius }}px; --card-bg: {{ block.settings.card_bg }}; --card-border: {{ block.settings.card_border }}; --card-padding: {{ block.settings.card_padding }}; --icon-size: {{ block.settings.icon_size }}px; --icon-bg: {{ block.settings.icon_bg }}; --icon-color: {{ block.settings.icon_color }}; --icon-offset: {{ block.settings.icon_size | divided_by: 2 | append: 'px' }};">
+              {%- for i in (1..6) -%}
+                {%- assign title_key = 'service_title_' | append: i -%}
+                {%- assign text_key = 'service_text_' | append: i -%}
+                {%- assign icon_key = 'service_icon_' | append: i -%}
+                {%- assign title_val = block.settings[title_key] -%}
+                {%- assign text_val = block.settings[text_key] -%}
+                {%- assign icon_val = block.settings[icon_key] -%}
+                {%- if title_val != blank or text_val != blank or icon_val != blank -%}
+                  <div class="service-card">
+                    {%- if icon_val != blank -%}
+                      <div class="service-card__icon">
+                        {{ icon_val | image_url: width: icon_val.width | image_tag }}
+                      </div>
+                    {%- endif -%}
+                    {%- if title_val != blank -%}
+                      <h6 class="service-card__title">{{ title_val }}</h6>
+                    {%- endif -%}
+                    {%- if text_val != blank -%}
+                      <p class="service-card__text">{{ text_val }}</p>
+                    {%- endif -%}
+                  </div>
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+          
           {%- when 'accordion' -%}
             
             <div class="custom__accordion">
@@ -4057,6 +4084,301 @@ function closeLightbox() {
           "type": "header",
           "content": "Data Aos settings"
         }, {
+          "type": "select",
+          "id": "data_aos",
+          "label": "Data Aos",
+          "default": "none",
+          "options": [
+            {
+              "value": "none",
+              "label": "none"
+            },
+            {
+              "value": "fade-up",
+              "label": "fade-up"
+            },
+            {
+              "value": "fade-down",
+              "label": "fade-down"
+            },
+            {
+              "value": "fade-right",
+              "label": "fade-right"
+            },
+            {
+              "value": "fade-left",
+              "label": "fade-left"
+            },
+            {
+              "value": "flip-left",
+              "label": "flip-left"
+            },
+            {
+              "value": "flip-right",
+              "label": "flip-right"
+            },
+            {
+              "value": "flip-up",
+              "label": "flip-up"
+            },
+            {
+              "value": "flip-down",
+              "label": "flip-down"
+            },
+            {
+              "value": "zoom-in",
+              "label": "zoom-in"
+            },
+            {
+              "value": "zoom-in-up",
+              "label": "zoom-in-up"
+            },
+            {
+              "value": "zoom-in-down",
+              "label": "zoom-in-down"
+            },
+            {
+              "value": "zoom-in-left",
+              "label": "zoom-in-left"
+            },
+            {
+              "value": "zoom-in-right",
+              "label": "zoom-in-right"
+            },
+            {
+              "value": "zoom-out",
+              "label": "zoom-out"
+            },
+            {
+              "value": "zoom-out-up",
+              "label": "zoom-out-up"
+            },
+            {
+              "value": "zoom-out-down",
+              "label": "zoom-out-down"
+            },
+            {
+              "value": "zoom-out-left",
+              "label": "zoom-out-left"
+            },
+            {
+              "value": "zoom-out-right",
+              "label": "zoom-out-right"
+            }
+          ]
+        }
+      ]
+    }, {
+      "type": "service-grid",
+      "name": "Service grid",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Column width settings"
+        },
+        {
+          "type": "number",
+          "id": "width_desktop",
+          "label": "Desktop width (%)",
+          "default": 50
+        },
+        {
+          "type": "number",
+          "id": "width_tablet",
+          "label": "Tablet width (%)",
+          "default": 100
+        },
+        {
+          "type": "number",
+          "id": "width_tablet_small",
+          "label": "Tablet small width (%)"
+        },
+        {
+          "type": "number",
+          "id": "width_mobile_big",
+          "label": "Mobile Big width (%)",
+          "default": 100
+        },
+        {
+          "type": "number",
+          "id": "width_mobile",
+          "label": "Mobile width (%)",
+          "default": 100
+        },
+        {
+          "type": "header",
+          "content": "Grid layout"
+        },
+        {
+          "type": "range",
+          "id": "desktop_columns",
+          "min": 1,
+          "max": 4,
+          "step": 1,
+          "default": 3,
+          "label": "Desktop columns"
+        },
+        {
+          "type": "range",
+          "id": "tablet_columns",
+          "min": 1,
+          "max": 3,
+          "step": 1,
+          "default": 2,
+          "label": "Tablet columns"
+        },
+        {
+          "type": "range",
+          "id": "mobile_columns",
+          "min": 1,
+          "max": 3,
+          "step": 1,
+          "default": 1,
+          "label": "Mobile columns"
+        },
+        {
+          "type": "number",
+          "id": "card_gap",
+          "label": "Card gap (px)",
+          "default": 24
+        },
+        {
+          "type": "text",
+          "id": "card_padding",
+          "label": "Card padding",
+          "default": "24px"
+        },
+        {
+          "type": "number",
+          "id": "card_radius",
+          "label": "Card radius",
+          "default": 16
+        },
+        {
+          "type": "color",
+          "id": "card_bg",
+          "label": "Card background",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "card_border",
+          "label": "Card border color",
+          "default": "#e6e6e6"
+        },
+        {
+          "type": "number",
+          "id": "icon_size",
+          "label": "Icon size (px)",
+          "default": 64
+        },
+        {
+          "type": "color",
+          "id": "icon_bg",
+          "label": "Icon background",
+          "default": "#E7ECF5"
+        },
+        {
+          "type": "color",
+          "id": "icon_color",
+          "label": "Icon color",
+          "default": "#21395D"
+        },
+        {
+          "type": "header",
+          "content": "Services (up to 6 cards)"
+        },
+        {
+          "type": "image_picker",
+          "id": "service_icon_1",
+          "label": "Icon 1"
+        },
+        {
+          "type": "text",
+          "id": "service_title_1",
+          "label": "Title 1"
+        },
+        {
+          "type": "liquid",
+          "id": "service_text_1",
+          "label": "Description 1"
+        },
+        {
+          "type": "image_picker",
+          "id": "service_icon_2",
+          "label": "Icon 2"
+        },
+        {
+          "type": "text",
+          "id": "service_title_2",
+          "label": "Title 2"
+        },
+        {
+          "type": "liquid",
+          "id": "service_text_2",
+          "label": "Description 2"
+        },
+        {
+          "type": "image_picker",
+          "id": "service_icon_3",
+          "label": "Icon 3"
+        },
+        {
+          "type": "text",
+          "id": "service_title_3",
+          "label": "Title 3"
+        },
+        {
+          "type": "liquid",
+          "id": "service_text_3",
+          "label": "Description 3"
+        },
+        {
+          "type": "image_picker",
+          "id": "service_icon_4",
+          "label": "Icon 4"
+        },
+        {
+          "type": "text",
+          "id": "service_title_4",
+          "label": "Title 4"
+        },
+        {
+          "type": "liquid",
+          "id": "service_text_4",
+          "label": "Description 4"
+        },
+        {
+          "type": "image_picker",
+          "id": "service_icon_5",
+          "label": "Icon 5"
+        },
+        {
+          "type": "text",
+          "id": "service_title_5",
+          "label": "Title 5"
+        },
+        {
+          "type": "liquid",
+          "id": "service_text_5",
+          "label": "Description 5"
+        },
+        {
+          "type": "image_picker",
+          "id": "service_icon_6",
+          "label": "Icon 6"
+        },
+        {
+          "type": "text",
+          "id": "service_title_6",
+          "label": "Title 6"
+        },
+        {
+          "type": "liquid",
+          "id": "service_text_6",
+          "label": "Description 6"
+        },
+        {
           "type": "select",
           "id": "data_aos",
           "label": "Data Aos",
