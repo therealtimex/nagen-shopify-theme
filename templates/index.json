@@ -219,23 +219,6 @@
         "data_aos_text": "none"
       }
     },
-    "line_section_d7twrT": {
-      "type": "line-section",
-      "disabled": true,
-      "name": "Line",
-      "settings": {
-        "bgsection": "#ffffff",
-        "setwidth": "full",
-        "paddingsection": "0px 0px 0px 0px",
-        "paddingtablet": "0px 0px 0px 0px",
-        "paddingmobile": "0",
-        "marginsection": "0px 0px 0px 0px",
-        "margintablet": "0px 0px 0px 0px",
-        "marginmobile": "0px 0px 0px 0px",
-        "bgborder": "#e7e2e2",
-        "wborder": "1px 0px 0px 0px"
-      }
-    },
     "banner_grid_HrGwWk": {
       "type": "banner-grid",
       "blocks": {
@@ -2597,7 +2580,6 @@
   "order": [
     "6fe8fbaa-5a22-4c15-86c6-9ad636d793b6",
     "custom_section_cmqMPP",
-    "line_section_d7twrT",
     "banner_grid_HrGwWk",
     "blocks_carousel_EhfDdR",
     "service_hBGWGG",
