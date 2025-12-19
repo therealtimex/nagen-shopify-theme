@@ -809,7 +809,7 @@
         "direction_header": "vertical",
         "align_items": "end",
         "reverse": false,
-        "data_aos_text": "none",
+        "data_aos_text": "fade-up",
         "desktop_item": 4,
         "laptop_item": 3,
         "tablet_item": 2,
