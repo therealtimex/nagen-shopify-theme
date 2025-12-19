@@ -226,7 +226,7 @@
           "type": "carousel-item",
           "name": "Bàn chân bẹt",
           "settings": {
-            "url": "",
+            "url": "shopify://pages/test",
             "heading": "Bàn chân bẹt",
             "heading_color": "#000000",
             "heading_font_size": 24,
@@ -277,7 +277,7 @@
           "type": "carousel-item",
           "name": "Bàn chân vòm cao",
           "settings": {
-            "url": "",
+            "url": "shopify://pages/test",
             "heading": "Bàn chân vòm cao",
             "heading_color": "#000000",
             "heading_font_size": 24,
@@ -328,7 +328,7 @@
           "type": "carousel-item",
           "name": "Chân chữ x,o",
           "settings": {
-            "url": "",
+            "url": "shopify://pages/test",
             "heading": "Chân chữ x,o",
             "heading_color": "#000000",
             "heading_font_size": 24,
@@ -379,7 +379,7 @@
           "type": "carousel-item",
           "name": "Viêm cân gan bàn chân",
           "settings": {
-            "url": "",
+            "url": "shopify://pages/test",
             "heading": "Viêm cân gan bàn chân",
             "heading_color": "#000000",
             "heading_font_size": 24,
@@ -430,7 +430,7 @@
           "type": "carousel-item",
           "name": "Đau gót chân",
           "settings": {
-            "url": "",
+            "url": "shopify://pages/test",
             "heading": "Đau gót chân",
             "heading_color": "#000000",
             "heading_font_size": 24,
@@ -481,7 +481,7 @@
           "type": "carousel-item",
           "name": "Gai gót chân",
           "settings": {
-            "url": "",
+            "url": "shopify://pages/test",
             "heading": "Gai gót chân",
             "heading_color": "#000000",
             "heading_font_size": 24,
@@ -532,7 +532,7 @@
           "type": "carousel-item",
           "name": "Đau nhức cột sống",
           "settings": {
-            "url": "",
+            "url": "shopify://pages/test",
             "heading": "Đau nhức cột sống",
             "heading_color": "#000000",
             "heading_font_size": 24,
@@ -583,7 +583,7 @@
           "type": "carousel-item",
           "name": "Vẹo cột sống",
           "settings": {
-            "url": "",
+            "url": "shopify://pages/test",
             "heading": "Vẹo cột sống",
             "heading_color": "#000000",
             "heading_font_size": 24,
@@ -634,7 +634,7 @@
           "type": "carousel-item",
           "name": "Vẹo cột sống",
           "settings": {
-            "url": "",
+            "url": "shopify://pages/test",
             "heading": "Vẹo cột sống",
             "heading_color": "#000000",
             "heading_font_size": 24,
@@ -685,7 +685,7 @@
           "type": "carousel-item",
           "name": "Hội chứng Marfan",
           "settings": {
-            "url": "",
+            "url": "shopify://pages/test",
             "heading": "Hội chứng Marfan",
             "heading_color": "#000000",
             "heading_font_size": 24,
