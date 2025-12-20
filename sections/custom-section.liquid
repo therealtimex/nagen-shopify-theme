@@ -1333,6 +1333,65 @@
               
             </div>
             
+          {%- when 'custom-carousel' -%}
+            <div class="custom-carousel">
+              <div
+                id="swiper-{{ block.id }}"
+                class="ap-swiper swiper"
+                data-desktop-item="{{ block.settings.desktop_item }}"
+                data-laptop-item="{{ block.settings.laptop_item }}"
+                data-tablet-item="{{ block.settings.tablet_item }}"
+                data-tabletsmall-item="{{ block.settings.tablet_small_item }}"
+                data-mobile-item="{{ block.settings.mobile_item }}"
+                data-loop="{{ block.settings.loop }}"
+                data-navigation="{{ block.settings.navigation }}"
+                data-pagination="{{ block.settings.pagination }}"
+                data-space="{{ block.settings.space }}"
+                data-space-desktop="{{ block.settings.space_desktop }}"
+                data-time="{{ block.settings.time }}">
+                <div class="swiper-wrapper">
+                  {%- assign items_limit = block.settings.items_count | default: 4 -%}
+                  {%- for i in (1..items_limit) -%}
+                    {%- assign img_key = 'item_image_' | append: i -%}
+                    {%- assign title_key = 'item_title_' | append: i -%}
+                    {%- assign text_key = 'item_text_' | append: i -%}
+                    {%- assign btn_text_key = 'item_button_text_' | append: i -%}
+                    {%- assign btn_url_key = 'item_button_url_' | append: i -%}
+                    {%- assign img = block.settings[img_key] -%}
+                    {%- assign title = block.settings[title_key] -%}
+                    {%- assign text = block.settings[text_key] -%}
+                    {%- assign btn_text = block.settings[btn_text_key] -%}
+                    {%- assign btn_url = block.settings[btn_url_key] -%}
+                    {%- if img != blank or title != blank or text != blank or btn_text != blank -%}
+                      <div class="swiper-slide">
+                        <div class="carousel-card" style="border-radius: {{ block.settings.card_radius }}px; background: {{ block.settings.card_background }};">
+                          {%- if img != blank -%}
+                            <div class="carousel-card__image">
+                              {{ img | image_url: width: img.width | image_tag: loading: 'lazy' }}
+                            </div>
+                          {%- endif -%}
+                          {%- if title != blank -%}
+                            <h5 class="carousel-card__title" style="color: {{ block.settings.title_color }};">{{ title }}</h5>
+                          {%- endif -%}
+                          {%- if text != blank -%}
+                            <p class="carousel-card__text" style="color: {{ block.settings.text_color }};">{{ text }}</p>
+                          {%- endif -%}
+                          {%- if btn_text != blank -%}
+                            <div class="carousel-card__button">
+                              <a href="{{ btn_url | default: '#' }}" class="{{ block.settings.button_style }}" style="--btn-color: {{ block.settings.button_color }}; --btn-bg: {{ block.settings.button_bg_color }}; --btn-color-hover: {{ block.settings.button_color_hover }}; --btn-bg-hover: {{ block.settings.button_bg_color_hover }};">
+                                <span class="icon-button">{%- render 'icon-arrow' -%}</span>
+                                {{ btn_text }}
+                              </a>
+                            </div>
+                          {%- endif -%}
+                        </div>
+                      </div>
+                    {%- endif -%}
+                  {%- endfor -%}
+                </div>
+              </div>
+            </div>
+            
         {%- endcase -%}
 
         </div>
@@ -5348,6 +5407,398 @@ function closeLightbox() {
           "id": "other_content",
           "label": "Other content"
         },  {
+          "type": "select",
+          "id": "data_aos",
+          "label": "Data Aos",
+          "default": "none",
+          "options": [
+            {
+              "value": "none",
+              "label": "none"
+            },
+            {
+              "value": "fade-up",
+              "label": "fade-up"
+            },
+            {
+              "value": "fade-down",
+              "label": "fade-down"
+            },
+            {
+              "value": "fade-right",
+              "label": "fade-right"
+            },
+            {
+              "value": "fade-left",
+              "label": "fade-left"
+            },
+            {
+              "value": "flip-left",
+              "label": "flip-left"
+            },
+            {
+              "value": "flip-right",
+              "label": "flip-right"
+            },
+            {
+              "value": "flip-up",
+              "label": "flip-up"
+            },
+            {
+              "value": "flip-down",
+              "label": "flip-down"
+            },
+            {
+              "value": "zoom-in",
+              "label": "zoom-in"
+            },
+            {
+              "value": "zoom-in-up",
+              "label": "zoom-in-up"
+            },
+            {
+              "value": "zoom-in-down",
+              "label": "zoom-in-down"
+            },
+            {
+              "value": "zoom-in-left",
+              "label": "zoom-in-left"
+            },
+            {
+              "value": "zoom-in-right",
+              "label": "zoom-in-right"
+            },
+            {
+              "value": "zoom-out",
+              "label": "zoom-out"
+            },
+            {
+              "value": "zoom-out-up",
+              "label": "zoom-out-up"
+            },
+            {
+              "value": "zoom-out-down",
+              "label": "zoom-out-down"
+            },
+            {
+              "value": "zoom-out-left",
+              "label": "zoom-out-left"
+            },
+            {
+              "value": "zoom-out-right",
+              "label": "zoom-out-right"
+            }
+          ]
+        }
+      ]
+    }, {
+      "type": "custom-carousel",
+      "name": "Custom Carousel",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Column width settings"
+        },
+        {
+          "type": "number",
+          "id": "width_desktop",
+          "label": "Desktop width (%)",
+          "default": 50
+        },
+        {
+          "type": "number",
+          "id": "width_tablet",
+          "label": "Tablet width (%)",
+          "default": 50
+        },
+        {
+          "type": "number",
+          "id": "width_tablet_small",
+          "label": "Tablet small width (%)"
+        },
+        {
+          "type": "number",
+          "id": "width_mobile_big",
+          "label": "Mobile Big width (%)",
+          "default": 50
+        },
+        {
+          "type": "number",
+          "id": "width_mobile",
+          "label": "Mobile width (%)",
+          "default": 50
+        },
+        {
+          "type": "header",
+          "content": "Card styling"
+        },
+        {
+          "type": "number",
+          "id": "card_radius",
+          "label": "Card radius",
+          "default": 16
+        },
+        {
+          "type": "color",
+          "id": "card_background",
+          "label": "Card background",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "title_color",
+          "label": "Title color",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text color",
+          "default": "#444444"
+        },
+        {
+          "type": "header",
+          "content": "Items"
+        },
+        {
+          "type": "range",
+          "id": "items_count",
+          "min": 1,
+          "max": 4,
+          "step": 1,
+          "default": 4,
+          "label": "Number of items"
+        },
+        {
+          "type": "image_picker",
+          "id": "item_image_1",
+          "label": "Item 1 image"
+        },
+        {
+          "type": "text",
+          "id": "item_title_1",
+          "label": "Item 1 title"
+        },
+        {
+          "type": "liquid",
+          "id": "item_text_1",
+          "label": "Item 1 text"
+        },
+        {
+          "type": "text",
+          "id": "item_button_text_1",
+          "label": "Item 1 button text"
+        },
+        {
+          "type": "url",
+          "id": "item_button_url_1",
+          "label": "Item 1 button link"
+        },
+        {
+          "type": "image_picker",
+          "id": "item_image_2",
+          "label": "Item 2 image"
+        },
+        {
+          "type": "text",
+          "id": "item_title_2",
+          "label": "Item 2 title"
+        },
+        {
+          "type": "liquid",
+          "id": "item_text_2",
+          "label": "Item 2 text"
+        },
+        {
+          "type": "text",
+          "id": "item_button_text_2",
+          "label": "Item 2 button text"
+        },
+        {
+          "type": "url",
+          "id": "item_button_url_2",
+          "label": "Item 2 button link"
+        },
+        {
+          "type": "image_picker",
+          "id": "item_image_3",
+          "label": "Item 3 image"
+        },
+        {
+          "type": "text",
+          "id": "item_title_3",
+          "label": "Item 3 title"
+        },
+        {
+          "type": "liquid",
+          "id": "item_text_3",
+          "label": "Item 3 text"
+        },
+        {
+          "type": "text",
+          "id": "item_button_text_3",
+          "label": "Item 3 button text"
+        },
+        {
+          "type": "url",
+          "id": "item_button_url_3",
+          "label": "Item 3 button link"
+        },
+        {
+          "type": "image_picker",
+          "id": "item_image_4",
+          "label": "Item 4 image"
+        },
+        {
+          "type": "text",
+          "id": "item_title_4",
+          "label": "Item 4 title"
+        },
+        {
+          "type": "liquid",
+          "id": "item_text_4",
+          "label": "Item 4 text"
+        },
+        {
+          "type": "text",
+          "id": "item_button_text_4",
+          "label": "Item 4 button text"
+        },
+        {
+          "type": "url",
+          "id": "item_button_url_4",
+          "label": "Item 4 button link"
+        },
+        {
+          "type": "header",
+          "content": "Button styling"
+        },
+        {
+          "type": "select",
+          "id": "button_style",
+          "label": "Button style",
+          "default": "btn-primary",
+          "options": [
+            {
+              "value": "btn-primary",
+              "label": "Primary"
+            },
+            {
+              "value": "btn-secondary",
+              "label": "Secondary"
+            }
+          ]
+        },
+        {
+          "type": "color",
+          "id": "button_color",
+          "label": "Button color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "button_bg_color",
+          "label": "Button background",
+          "default": "#21395D"
+        },
+        {
+          "type": "color",
+          "id": "button_color_hover",
+          "label": "Button color hover",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "button_bg_color_hover",
+          "label": "Button background hover",
+          "default": "#1A2F4D"
+        },
+        {
+          "type": "header",
+          "content": "Carousel settings"
+        },
+        {
+          "type": "range",
+          "id": "desktop_item",
+          "min": 1,
+          "max": 4,
+          "step": 1,
+          "default": 3,
+          "label": "Desktop item"
+        },
+        {
+          "type": "range",
+          "id": "laptop_item",
+          "min": 1,
+          "max": 4,
+          "step": 1,
+          "default": 3,
+          "label": "Laptop item"
+        },
+        {
+          "type": "range",
+          "id": "tablet_item",
+          "min": 1,
+          "max": 3,
+          "step": 1,
+          "default": 2,
+          "label": "Tablet item"
+        },
+        {
+          "type": "range",
+          "id": "tablet_small_item",
+          "min": 1,
+          "max": 3,
+          "step": 1,
+          "default": 2,
+          "label": "Tablet small item"
+        },
+        {
+          "type": "range",
+          "id": "mobile_item",
+          "min": 1,
+          "max": 3,
+          "step": 1,
+          "default": 1,
+          "label": "Mobile item"
+        },
+        {
+          "type": "checkbox",
+          "id": "loop",
+          "label": "Loop",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "navigation",
+          "label": "Navigation",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "pagination",
+          "label": "Pagination",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "space",
+          "label": "Space",
+          "default": "24"
+        },
+        {
+          "type": "text",
+          "id": "space_desktop",
+          "label": "Space desktop",
+          "default": "24"
+        },
+        {
+          "type": "text",
+          "id": "time",
+          "label": "Time",
+          "default": "0"
+        },
+        {
           "type": "select",
           "id": "data_aos",
           "label": "Data Aos",
