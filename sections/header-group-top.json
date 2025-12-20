@@ -205,10 +205,10 @@
         "enable_vetical": false,
         "enable_bar_menu": false,
         "color_menu": "#000000",
-        "color_menu_hover": "#EB1C25",
+        "color_menu_hover": "#335187",
         "color_menu_child_title": "#000000",
-        "color_menu_child": "#000000",
-        "color_menu_child_hover": "#EB1C25",
+        "color_menu_child": "#1d2a38",
+        "color_menu_child_hover": "#335187",
         "color_icon": "#000000",
         "color_icon_hover": "#ffffff",
         "color_btn_vertical": "#162339",
@@ -237,7 +237,7 @@
         "header_button_link": "shopify://collections/all",
         "header_button_bg": "#21395D",
         "header_button_color": "#ffffff",
-        "header_button_bg_hover": "#EB1C25",
+        "header_button_bg_hover": "#1A2F4D",
         "header_button_color_hover": "#ffffff"
       }
     }

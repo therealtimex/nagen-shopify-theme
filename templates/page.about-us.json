@@ -913,7 +913,7 @@
         "icon_play": "<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M6 20.1958V3.80433C6 3.0189 6.86395 2.54005 7.53 2.95633L20.6432 11.1521C21.2699 11.5437 21.2699 12.4564 20.6432 12.8481L7.53 21.0438C6.86395 21.4601 6 20.9813 6 20.1958Z\" fill=\"currentColor\"/>\n</svg>",
         "button_play_text": "THE FUTURE OF HEALTHCARE",
         "button_icon_color": "#ffffff",
-        "button_icon_bg": "#EB1C25",
+        "button_icon_bg": "#21395D",
         "video_heading": "",
         "video_heading_color": "#ffffff",
         "data_aos": "zoom-in"

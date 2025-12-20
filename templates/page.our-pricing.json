@@ -255,7 +255,7 @@
         "card_btn_color": "#000000",
         "card_btn_bg_color": "#ffffff",
         "card_btn_color_hover": "#ffffff",
-        "card_btn_bg_color_hover": "#EB1C25",
+        "card_btn_bg_color_hover": "#1A2F4D",
         "data_aos_card": "zoom-in"
       }
     },

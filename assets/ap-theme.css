@@ -3,7 +3,7 @@
   --btn-color: #fff;
   --btn-bg: var(--primary);
   --btn-color-hover: #fff;
-  --btn-bg-hover: var(--primary-2);
+  --btn-bg-hover: var(--primary_hover);
 }
 
 .row {

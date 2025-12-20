@@ -124,8 +124,8 @@
             "button_content": "Join Us Now",
             "button_url": "",
             "button_color": "#000000",
-            "button_bg_color": "#EB1C25",
-            "button_color_hover": "#EB1C25",
+            "button_bg_color": "#21395D",
+            "button_color_hover": "#1A2F4D",
             "button_bg_color_hover": "#21395D",
             "button_style": "btn-secondary"
           }
@@ -198,7 +198,7 @@
             "menu_font_weight": "400",
             "menu_space": 0,
             "menu_item_color": "#555555",
-            "menu_item_color_hover": "#EB1C25",
+            "menu_item_color_hover": "#1A2F4D",
             "data_aos": "none"
           }
         },
@@ -228,7 +228,7 @@
             "menu_font_weight": "400",
             "menu_space": 0,
             "menu_item_color": "#555555",
-            "menu_item_color_hover": "#EB1C25",
+            "menu_item_color_hover": "#1A2F4D",
             "data_aos": "none"
           }
         },
@@ -258,7 +258,7 @@
             "menu_font_weight": "400",
             "menu_space": 0,
             "menu_item_color": "#555555",
-            "menu_item_color_hover": "#EB1C25",
+            "menu_item_color_hover": "#1A2F4D",
             "data_aos": "none"
           }
         },
@@ -288,7 +288,7 @@
             "menu_font_weight": "400",
             "menu_space": 0,
             "menu_item_color": "#555555",
-            "menu_item_color_hover": "#EB1C25",
+            "menu_item_color_hover": "#1A2F4D",
             "data_aos": "none"
           }
         },
@@ -399,7 +399,7 @@
             "menu_font_weight": "500",
             "menu_space": 30,
             "menu_item_color": "#555555",
-            "menu_item_color_hover": "#EB1C25",
+            "menu_item_color_hover": "#1A2F4D",
             "data_aos": "none"
           }
         }
