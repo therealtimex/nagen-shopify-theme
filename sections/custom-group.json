@@ -31,7 +31,7 @@
       "type": "popup",
       "name": "Popup",
       "settings": {
-        "show_popup": true,
+        "show_popup": false,
         "title": "Join our newletter and get 20% discount",
         "desciption": "This website uses cookies to ensure you get the best experience on our website.",
         "input": "Your Email...",
@@ -46,7 +46,7 @@
       "type": "recently-viewed-products-popup",
       "name": "Recently review popop",
       "settings": {
-        "show": true,
+        "show": false,
         "heading": "Recently viewed products",
         "heading_size": 1,
         "products_to_show": 10
