@@ -194,7 +194,7 @@
         "header_background": "#ffffff",
         "header_text_color": "#ffffff",
         "border_color": "#e2e2e2",
-        "sticky_header": false,
+        "sticky_header": true,
         "transparent_header": false,
         "logo": "shopify://shop_images/header_logo.png",
         "logo_width": 200,
@@ -235,9 +235,9 @@
         "header_button_text": "Appointment now",
         "header_button_icon": "<svg width=\"6\" height=\"10\" viewBox=\"0 0 6 10\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M4.12053 5L1.3825e-07 8.94574L1.10097 10L5.77198 5.52713C6.07601 5.23601 6.07601 4.764 5.77198 4.47287L1.10097 3.82793e-07L1.17309e-06 1.05427L4.12053 5Z\" fill=\"currentColor\"/>\n</svg>",
         "header_button_link": "shopify://collections/all",
-        "header_button_bg": "#21395D",
+        "header_button_bg": "#21395d",
         "header_button_color": "#ffffff",
-        "header_button_bg_hover": "#1A2F4D",
+        "header_button_bg_hover": "#1a2f4d",
         "header_button_color_hover": "#ffffff"
       }
     }
