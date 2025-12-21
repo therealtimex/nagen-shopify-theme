@@ -1479,7 +1479,7 @@
         "tablet_small_item": 1,
         "mobile_item": 1,
         "loop": true,
-        "navigation": false,
+        "navigation": true,
         "pagination": true,
         "direction": "horizontal",
         "rows": 1,
