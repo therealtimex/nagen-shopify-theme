@@ -1347,7 +1347,10 @@
         "padding_mobile": "0",
         "background_color": "",
         "primary_color": "#21395d",
-        "secondary_color": "#1a2f4d"
+        "secondary_color": "#1a2f4d",
+        "data_aos_text": "fade-up",
+        "data_aos_featured": "fade-up",
+        "data_aos_carousel": "fade-up"
       }
     },
     "testimonial_main": {
