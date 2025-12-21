@@ -1806,7 +1806,8 @@
             "store_address": "Số 25, Ngõ 61, Lạc Trung, Hai Bà Trưng, Hà Nội",
             "store_phone": "0966578008",
             "store_lat": "21.0033",
-            "store_lng": "105.8617"
+            "store_lng": "105.8617",
+            "store_image": "shopify://shop_images/placeholder.svg"
           }
         },
         "store_hcm": {
@@ -1816,7 +1817,8 @@
             "store_address": "456 Nguyễn Huệ, Quận 1, TP. Hồ Chí Minh",
             "store_phone": "0966578009",
             "store_lat": "10.7769",
-            "store_lng": "106.7009"
+            "store_lng": "106.7009",
+            "store_image": "shopify://shop_images/placeholder.svg"
           }
         }
       },

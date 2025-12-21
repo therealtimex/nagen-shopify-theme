@@ -54,6 +54,7 @@
     },
     "main_coupon_code_6PD3VJ": {
       "type": "main-coupon_code",
+      "disabled": true,
       "name": "Coupon",
       "settings": {
         "coupon_time": 3,
