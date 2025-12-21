@@ -220,7 +220,7 @@
         "header_padding": "0",
         "show_user": true,
         "enable_cart": true,
-        "enable_wishlist": true,
+        "enable_wishlist": false,
         "enable_search": false,
         "icon_search": "icon",
         "enable_localization": false,
