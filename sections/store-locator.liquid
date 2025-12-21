@@ -52,7 +52,7 @@
     data-booking-text="{{ section.settings.booking_text | default: 'Đặt lịch' }}"
     data-booking-url="{{ section.settings.booking_url }}"
   >
-    <div class="store-locator__wrapper">
+    <div class="store-locator__wrapper"{% if section.settings.data_aos_content != 'none' %} data-aos="{{ section.settings.data_aos_content }}"{% endif %}>
       {%- comment -%} Store List Panel {%- endcomment -%}
       <div class="store-locator__panel">
         {%- comment -%} Toggle Button {%- endcomment -%}
@@ -276,6 +276,19 @@
       "default": 20
     },
     {
+      "type": "select",
+      "id": "title_font_weight",
+      "label": "Title font weight",
+      "options": [
+        { "value": "300", "label": "Light" },
+        { "value": "400", "label": "Normal" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi Bold" },
+        { "value": "700", "label": "Bold" }
+      ],
+      "default": "600"
+    },
+    {
       "type": "color",
       "id": "title_color",
       "label": "Title color"
@@ -392,6 +405,36 @@
       "options": [
         { "value": "horizontal", "label": "Horizontal" },
         { "value": "vertical", "label": "Vertical" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "data_aos_text",
+      "label": "Animation: Section header",
+      "default": "fade-up",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "fade-up", "label": "Fade Up" },
+        { "value": "fade-down", "label": "Fade Down" },
+        { "value": "fade-right", "label": "Fade Right" },
+        { "value": "fade-left", "label": "Fade Left" },
+        { "value": "zoom-in", "label": "Zoom In" },
+        { "value": "zoom-in-up", "label": "Zoom In Up" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "data_aos_content",
+      "label": "Animation: Map content",
+      "default": "fade-up",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "fade-up", "label": "Fade Up" },
+        { "value": "fade-down", "label": "Fade Down" },
+        { "value": "fade-right", "label": "Fade Right" },
+        { "value": "fade-left", "label": "Fade Left" },
+        { "value": "zoom-in", "label": "Zoom In" },
+        { "value": "zoom-in-up", "label": "Zoom In Up" }
       ]
     },
     {
