@@ -88,6 +88,133 @@
       width: {{ section.settings.banner_width_mobile | append: '%' }};
     }
   }
+
+  /* Centered Layout Styles */
+  {%- if section.settings.layout_style == 'centered' -%}
+    {{ id }} .testimonial-item--centered {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 0;
+    }
+
+    /* Quote Icon */
+    {{ id }} .testimonial-item--centered .testimonial-quote-icon {
+      margin-bottom: 24px;
+      color: {{ section.settings.quote_icon_color | default: '#21395D' }};
+    }
+
+    {{ id }} .testimonial-item--centered .testimonial-quote-icon svg {
+      width: 48px;
+      height: 48px;
+    }
+
+    /* Testimonial Content */
+    {{ id }} .testimonial-item--centered .testimonial-content {
+      font-size: 18px;
+      line-height: 1.7;
+      font-weight: 400;
+      color: {{ section.settings.testimonial_content_color | default: '#2d3748' }};
+      margin-bottom: 24px;
+      max-width: 600px;
+    }
+
+    /* Rating Stars */
+    {{ id }} .testimonial-item--centered .rating {
+      display: flex;
+      justify-content: center;
+      gap: 4px;
+      margin-bottom: 24px;
+    }
+
+    {{ id }} .testimonial-item--centered .rating span {
+      display: flex;
+    }
+
+    {{ id }} .testimonial-item--centered .rating svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    /* Author Block - Avatar + Name inline */
+    {{ id }} .testimonial-item--centered .testimonial-author-block {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    /* Circular Avatar */
+    {{ id }} .testimonial-item--centered .testimonial-avatar {
+      width: {{ section.settings.avatar_size | default: 48 }}px;
+      height: {{ section.settings.avatar_size | default: 48 }}px;
+      {%- if section.settings.avatar_style == 'circle' or section.settings.avatar_style == blank -%}
+        border-radius: 50%;
+      {%- elsif section.settings.avatar_style == 'rounded' -%}
+        border-radius: 8px;
+      {%- else -%}
+        border-radius: 0;
+      {%- endif -%}
+      overflow: hidden;
+      flex-shrink: 0;
+      border: 2px solid rgba(33, 57, 93, 0.1);
+    }
+
+    {{ id }} .testimonial-item--centered .testimonial-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Author Info */
+    {{ id }} .testimonial-item--centered .testimonial-info {
+      text-align: left;
+    }
+
+    {{ id }} .testimonial-item--centered .testimonial-name {
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.4;
+      color: {{ section.settings.testimonial_name_color | default: '#21395D' }};
+      margin: 0 0 2px 0;
+    }
+
+    {{ id }} .testimonial-item--centered .testimonial-job {
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 1.4;
+      color: {{ section.settings.testimonial_job_color | default: '#718096' }};
+      margin: 0;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      {{ id }} .testimonial-item--centered {
+        padding: 30px 20px;
+      }
+
+      {{ id }} .testimonial-item--centered .testimonial-quote-icon svg {
+        width: 40px;
+        height: 40px;
+      }
+
+      {{ id }} .testimonial-item--centered .testimonial-content {
+        font-size: 16px;
+        line-height: 1.6;
+        margin-bottom: 20px;
+      }
+
+      {{ id }} .testimonial-item--centered .rating {
+        margin-bottom: 20px;
+      }
+
+      {{ id }} .testimonial-item--centered .testimonial-avatar {
+        width: {{ section.settings.avatar_size | default: 48 | minus: 8 }}px;
+        height: {{ section.settings.avatar_size | default: 48 | minus: 8 }}px;
+      }
+    }
+  {%- endif -%}
 {% endstyle %}
 
 
@@ -126,58 +253,101 @@
                 <div class="swiper-wrapper">
                   {% for block in section.blocks %}
                     <div class="swiper-slide">
-                      <div id="block-{{ block.id }}" class="testimonial-item" {% if section.settings.data_aos_item != 'none' %}
-                        data-aos="{{ section.settings.data_aos_item }}"
-                      {% endif %}>
-                        {%- if block.settings.icon_child != blank -%}
-                          <div class="testimonial-quote-icon">
-                            {{ block.settings.icon_child }}
-                          </div>
-                        {%- endif -%}
-                        {%- if section.settings.show_rating -%}
-                          <div class="rating">
-                            {%- for i in (1..block.settings.rating) -%}
-                                <span class="d-flex" style="color: {{ section.settings.icon_color_active }}">{{ section.settings.icon_rating }}</span>
-                            {%- endfor -%}
-      
-                            {%- assign index = block.settings.rating | plus : 1 -%}
-      
-                            {%- for i in (index..5) -%}
-                              <span class="d-flex" style="color: {{ section.settings.icon_color }}">{{ section.settings.icon_rating }}</span>
-                            {%- endfor -%}
-                          </div>
-                        {%- endif -%}
-                        {%- if block.settings.content != blank -%}
-                          <div class="testimonial-content" style="color: {{ section.settings.testimonial_content_color }}">
-                            {{ block.settings.content }}
-                          </div>
-                        {%- endif -%}
-
-                        <div class="testimonial-author">
-                          
-                          {%- if block.settings.name != blank or block.settings.job != blank -%}
+                      {%- if section.settings.layout_style == 'centered' -%}
+                        {%- comment -%} Centered Layout: Quote Icon → Content → Rating → Author Block {%- endcomment -%}
+                        <div id="block-{{ block.id }}" class="testimonial-item testimonial-item--centered" {% if section.settings.data_aos_item != 'none' %}data-aos="{{ section.settings.data_aos_item }}"{% endif %}>
+                          {%- if block.settings.icon_child != blank -%}
+                            <div class="testimonial-quote-icon">
+                              {{ block.settings.icon_child }}
+                            </div>
+                          {%- endif -%}
+                          {%- if block.settings.content != blank -%}
+                            <div class="testimonial-content">
+                              {{ block.settings.content }}
+                            </div>
+                          {%- endif -%}
+                          {%- if section.settings.show_rating -%}
+                            <div class="rating">
+                              {%- for i in (1..block.settings.rating) -%}
+                                <span style="color: {{ section.settings.icon_color_active }}">{{ section.settings.icon_rating }}</span>
+                              {%- endfor -%}
+                              {%- assign index = block.settings.rating | plus: 1 -%}
+                              {%- for i in (index..5) -%}
+                                <span style="color: {{ section.settings.icon_color }}">{{ section.settings.icon_rating }}</span>
+                              {%- endfor -%}
+                            </div>
+                          {%- endif -%}
+                          <div class="testimonial-author-block">
+                            {%- if block.settings.image != blank -%}
+                              <div class="testimonial-avatar">
+                                {{ block.settings.image | image_url: width: 200 | image_tag: loading: 'lazy' }}
+                              </div>
+                            {%- endif -%}
                             <div class="testimonial-info">
                               {%- if block.settings.name != blank -%}
-                                <h6 class="testimonial-name" style="color: {{ section.settings.testimonial_name_color }}">
-                                  {{ block.settings.name }}
-                                </h6>
+                                <h6 class="testimonial-name">{{ block.settings.name }}</h6>
                               {%- endif -%}
                               {%- if block.settings.job != blank -%}
-                                <p class="testimonial-job" style="color: {{ section.settings.testimonial_job_color }}">
-                                  {{ block.settings.job }}
-                                </p>
+                                <p class="testimonial-job">{{ block.settings.job }}</p>
                               {%- endif -%}
                             </div>
-                          {%- endif -%}
-                          {%- if block.settings.image != blank -%}
-                            <div class="testimonial-image">
-                              {{ block.settings.image | image_url: width: block.settings.image.width, height: block.settings.image.height | image_tag }}
+                          </div>
+                        </div>
+                      {%- else -%}
+                        {%- comment -%} Default Layout {%- endcomment -%}
+                        <div id="block-{{ block.id }}" class="testimonial-item" {% if section.settings.data_aos_item != 'none' %}
+                          data-aos="{{ section.settings.data_aos_item }}"
+                        {% endif %}>
+                          {%- if block.settings.icon_child != blank -%}
+                            <div class="testimonial-quote-icon">
+                              {{ block.settings.icon_child }}
                             </div>
                           {%- endif -%}
+                          {%- if section.settings.show_rating -%}
+                            <div class="rating">
+                              {%- for i in (1..block.settings.rating) -%}
+                                  <span class="d-flex" style="color: {{ section.settings.icon_color_active }}">{{ section.settings.icon_rating }}</span>
+                              {%- endfor -%}
+
+                              {%- assign index = block.settings.rating | plus : 1 -%}
+
+                              {%- for i in (index..5) -%}
+                                <span class="d-flex" style="color: {{ section.settings.icon_color }}">{{ section.settings.icon_rating }}</span>
+                              {%- endfor -%}
+                            </div>
+                          {%- endif -%}
+                          {%- if block.settings.content != blank -%}
+                            <div class="testimonial-content" style="color: {{ section.settings.testimonial_content_color }}">
+                              {{ block.settings.content }}
+                            </div>
+                          {%- endif -%}
+
+                          <div class="testimonial-author">
+
+                            {%- if block.settings.name != blank or block.settings.job != blank -%}
+                              <div class="testimonial-info">
+                                {%- if block.settings.name != blank -%}
+                                  <h6 class="testimonial-name" style="color: {{ section.settings.testimonial_name_color }}">
+                                    {{ block.settings.name }}
+                                  </h6>
+                                {%- endif -%}
+                                {%- if block.settings.job != blank -%}
+                                  <p class="testimonial-job" style="color: {{ section.settings.testimonial_job_color }}">
+                                    {{ block.settings.job }}
+                                  </p>
+                                {%- endif -%}
+                              </div>
+                            {%- endif -%}
+                            {%- if block.settings.image != blank -%}
+                              <div class="testimonial-image">
+                                {{ block.settings.image | image_url: width: block.settings.image.width, height: block.settings.image.height | image_tag }}
+                              </div>
+                            {%- endif -%}
+                          </div>
+
+
                         </div>
-                        
-                        
-                      </div>
+                      {%- endif -%}
                     </div>
                   {% endfor %}
                 </div>
@@ -212,6 +382,22 @@
         "id": "content_width",
         "label": "Content width",
         "default": 1290
+      },
+      {
+        "type": "select",
+        "id": "layout_style",
+        "label": "Layout style",
+        "default": "default",
+        "options": [
+          {
+            "value": "default",
+            "label": "Default"
+          },
+          {
+            "value": "centered",
+            "label": "Centered (Avatar at top)"
+          }
+        ]
       },
       {
         "type": "text",
@@ -780,6 +966,36 @@
         {
           "type": "header",
           "content": "Testimonial item settings"
+        },
+        {
+          "type": "select",
+          "id": "avatar_style",
+          "label": "Avatar style",
+          "default": "circle",
+          "options": [
+            {
+              "value": "circle",
+              "label": "Circle"
+            },
+            {
+              "value": "rounded",
+              "label": "Rounded"
+            },
+            {
+              "value": "square",
+              "label": "Square"
+            }
+          ]
+        },
+        {
+          "type": "range",
+          "id": "avatar_size",
+          "label": "Avatar size",
+          "min": 32,
+          "max": 100,
+          "step": 4,
+          "default": 48,
+          "unit": "px"
         },
         {
           "type": "text",

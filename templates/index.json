@@ -1347,6 +1347,85 @@
         "secondary_color": "#1A2F4D"
       }
     },
+    "testimonial_main": {
+      "type": "testimonial-swiper",
+      "blocks": {
+        "testimonial_1": {
+          "type": "testimonial-item",
+          "settings": {
+            "icon_child": "<svg width=\"48\" height=\"48\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M6 17h3l2-4V7H5v6h3l-2 4zm8 0h3l2-4V7h-6v6h3l-2 4z\" fill=\"#21395D\"/></svg>",
+            "content": "Sản phẩm chất lượng tuyệt vời, giao hàng nhanh chóng. Tôi rất hài lòng với dịch vụ của cửa hàng!",
+            "rating": 5,
+            "name": "Nguyễn Văn An",
+            "job": "Khách hàng thân thiết"
+          }
+        },
+        "testimonial_2": {
+          "type": "testimonial-item",
+          "settings": {
+            "icon_child": "<svg width=\"48\" height=\"48\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M6 17h3l2-4V7H5v6h3l-2 4zm8 0h3l2-4V7h-6v6h3l-2 4z\" fill=\"#21395D\"/></svg>",
+            "content": "Đã mua nhiều lần và luôn cảm thấy hài lòng. Nhân viên tư vấn nhiệt tình, sản phẩm đúng mô tả.",
+            "rating": 5,
+            "name": "Trần Thị Bình",
+            "job": "Khách hàng mới"
+          }
+        },
+        "testimonial_3": {
+          "type": "testimonial-item",
+          "settings": {
+            "icon_child": "<svg width=\"48\" height=\"48\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M6 17h3l2-4V7H5v6h3l-2 4zm8 0h3l2-4V7h-6v6h3l-2 4z\" fill=\"#21395D\"/></svg>",
+            "content": "Giá cả hợp lý, chất lượng tốt. Sẽ tiếp tục ủng hộ cửa hàng trong thời gian tới.",
+            "rating": 4,
+            "name": "Lê Hoàng Cường",
+            "job": "Khách hàng"
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_1",
+        "testimonial_2",
+        "testimonial_3"
+      ],
+      "settings": {
+        "full_width": false,
+        "content_width": 1350,
+        "layout_style": "centered",
+        "margin_desktop": "80px 0",
+        "margin_tablet": "60px 0",
+        "margin_mobile": "40px 0",
+        "padding_desktop": "0",
+        "padding_tablet": "0",
+        "padding_mobile": "0",
+        "title_content": "<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z\" fill=\"#EB1C25\"/></svg> Đánh giá khách hàng",
+        "heading_content": "Khách hàng nói gì về chúng tôi",
+        "heading_font_size": 36,
+        "heading_font_size_tablet": 30,
+        "heading_font_size_mobile": 24,
+        "heading_font_weight": "500",
+        "section_header_space": 40,
+        "section_header_space_mobile": 30,
+        "text_align": "center",
+        "direction_header": "vertical",
+        "show_rating": true,
+        "icon_rating": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"currentColor\"><path d=\"M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z\"/></svg>",
+        "icon_color": "#E0E0E0",
+        "icon_color_active": "#FFC107",
+        "testimonial_content_color": "#4a5568",
+        "testimonial_name_color": "#21395D",
+        "testimonial_job_color": "#718096",
+        "desktop_item": 1,
+        "tablet_item": 1,
+        "tablet_small_item": 1,
+        "mobile_item": 1,
+        "space": "24",
+        "space_desktop": "30",
+        "navigation": false,
+        "pagination": true,
+        "loop": true,
+        "avatar_style": "circle",
+        "avatar_size": 48
+      }
+    },
     "banner_grid_HrGwWk": {
       "type": "banner-grid",
       "blocks": {
@@ -3571,6 +3650,7 @@
     "custom_section_FBrew9",
     "custom_section_TP8b7q",
     "product_showcase_main",
+    "testimonial_main",
     "banner_grid_HrGwWk",
     "blocks_carousel_EhfDdR",
     "service_hBGWGG",

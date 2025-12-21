@@ -1,48 +1,82 @@
+/* ========================================
+   Testimonial Section Styles
+   ======================================== */
+
 [dir=ltr] .ap-blockquote {
   padding-left: 0;
 }
-.rating {
-  gap: 3px;
+
+/* Rating Stars - Base */
+.testimonial-section .rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
-.testimonial-content {
-  font-size: 20px;
-  line-height: 28px;
-  padding-bottom: 100px;
-  border-bottom: 1px solid #E7E2E2;
-  @media (max-width: 991px) and (min-width: 768px) {
-    font-size: 16px;
-    line-height: 24px;
-    padding-bottom: 50px;
-  }
-  @media (max-width: 575px) {
-    font-size: 16px;
-    line-height: 24px;
-    padding-bottom: 50px;
-  }
+
+/* Quote Icon */
+.testimonial-section .testimonial-quote-icon {
+  margin-bottom: 20px;
+  line-height: 1;
 }
-.testimonial-author {
+
+.testimonial-section .testimonial-quote-icon svg {
+  display: block;
+}
+
+/* ========================================
+   Default Layout Styles
+   ======================================== */
+
+.testimonial-section .testimonial-item:not(.testimonial-item--centered) .testimonial-content {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.testimonial-section .testimonial-item:not(.testimonial-item--centered) .testimonial-author {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
 }
-.testimonial-name {
+
+.testimonial-section .testimonial-item:not(.testimonial-item--centered) .testimonial-name {
   font-size: 16px;
-  line-height: 26px;
+  line-height: 1.5;
   font-weight: 600;
-  margin-bottom: 6px
+  margin-bottom: 4px;
 }
 
-.testimonial-quote-icon {
-  margin-bottom: 20px;
-}
-
-.testimonial-job {
+.testimonial-section .testimonial-item:not(.testimonial-item--centered) .testimonial-job {
   font-size: 14px;
-  line-height: 22px;
-  font-weight: 500;
+  line-height: 1.5;
+  font-weight: 400;
 }
 
+.testimonial-section .testimonial-item:not(.testimonial-item--centered) .testimonial-image {
+  flex-shrink: 0;
+}
+
+.testimonial-section .testimonial-item:not(.testimonial-item--centered) .testimonial-image img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* ========================================
+   Centered Layout Overrides
+   (Main styles are inline in section)
+   ======================================== */
+
+.testimonial-section .testimonial-item--centered .testimonial-content {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+/* ========================================
+   Custom Block Styles (for other use)
+   ======================================== */
 
 .custom__block {
   display: flex;
@@ -68,7 +102,6 @@
   margin-right: 40px;
   border-right: 1px solid rgba(255, 255, 255, 0.1);
 }
-
 
 .custom__block .star__rating {
   display: flex;
