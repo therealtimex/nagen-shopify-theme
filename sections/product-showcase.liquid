@@ -311,7 +311,7 @@
 
     <div class="product-showcase">
       <!-- Featured Product Block -->
-      <div class="product-showcase__featured" data-featured>
+      <div class="product-showcase__featured" data-featured {% if section.settings.data_aos_featured != 'none' %}data-aos="{{ section.settings.data_aos_featured }}"{% endif %}>
         <div class="product-showcase__media" data-featured-media>
           {%- if first_product and first_product.featured_image -%}
             {{ first_product.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', widths: '300,400,600' }}
@@ -345,7 +345,7 @@
       </div>
 
       <!-- Product Carousel using theme's ap-swiper -->
-      <div class="product-showcase__carousel position-relative">
+      <div class="product-showcase__carousel position-relative" {% if section.settings.data_aos_carousel != 'none' %}data-aos="{{ section.settings.data_aos_carousel }}"{% endif %}>
         <div
           id="swiper-ps-{{ section.id }}"
           class="ap-swiper swiper"
@@ -819,6 +819,44 @@
       "id": "secondary_color",
       "label": "Secondary/Hover color",
       "default": "#1A2F4D"
+    },
+    {
+      "type": "header",
+      "content": "Animation"
+    },
+    {
+      "type": "select",
+      "id": "data_aos_featured",
+      "label": "Featured block animation",
+      "default": "none",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "fade-up", "label": "Fade up" },
+        { "value": "fade-down", "label": "Fade down" },
+        { "value": "fade-left", "label": "Fade left" },
+        { "value": "fade-right", "label": "Fade right" },
+        { "value": "zoom-in", "label": "Zoom in" },
+        { "value": "zoom-out", "label": "Zoom out" },
+        { "value": "flip-up", "label": "Flip up" },
+        { "value": "flip-down", "label": "Flip down" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "data_aos_carousel",
+      "label": "Carousel animation",
+      "default": "none",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "fade-up", "label": "Fade up" },
+        { "value": "fade-down", "label": "Fade down" },
+        { "value": "fade-left", "label": "Fade left" },
+        { "value": "fade-right", "label": "Fade right" },
+        { "value": "zoom-in", "label": "Zoom in" },
+        { "value": "zoom-out", "label": "Zoom out" },
+        { "value": "flip-up", "label": "Flip up" },
+        { "value": "flip-down", "label": "Flip down" }
+      ]
     }
   ],
   "presets": [
