@@ -134,7 +134,8 @@
             "social_instagram": "",
             "social_pinterest": "",
             "social_youtube": "https://www.youtube.com/@nagenvn",
-            "social_linkedin": ""
+            "social_linkedin": "",
+            "social_tiktok": ""
           }
         },
         "footer_contact_4RgcQj": {
@@ -278,7 +279,7 @@
             "heading_font_weight": "500",
             "heading_color": "#000000",
             "heading_space": 0,
-            "footer_text": "Copyright © 2025 <span style=\"color: #000\">BigMedix</span>. All rights reserved",
+            "footer_text": "© 2025. Bản quyền thuộc về <span style=\"color: #000\">Công ty TNHH Nagen</span>",
             "text_font_size": 14,
             "text_line_height": 22,
             "text_font_weight": "500",
@@ -346,7 +347,7 @@
         "content_width": 1350,
         "section_class": "",
         "background_color": "rgba(0,0,0,0)",
-        "background_gradient": "linear-gradient(135deg, rgba(240, 244, 248, 1) 0%, rgba(250, 245, 245, 1) 50%, rgba(248, 244, 240, 1) 100%)",
+        "background_gradient": "linear-gradient(135deg, rgba(240, 244, 248, 1), rgba(250, 245, 245, 1) 50%, rgba(248, 244, 240, 1) 100%)",
         "background_repeat": false,
         "background_size": "default",
         "background_size_custom": 100,
