@@ -1,0 +1,668 @@
+{{ 'store-locator.css' | asset_url | stylesheet_tag }}
+{% render 'section-style' %}
+
+{%- assign id = '#shopify-section-' | append: section.id -%}
+
+<style>
+  {{ id }} .store-locator {
+    --sl-primary: {{ section.settings.primary_color }};
+    --sl-primary-light: {{ section.settings.primary_color | color_lighten: 15 }};
+  }
+  
+  {{ id }} .store-locator__map {
+    height: {{ section.settings.map_height_desktop }}px;
+  }
+  
+  @media (max-width: 991px) {
+    {{ id }} .store-locator__map {
+      height: {{ section.settings.map_height_tablet }}px;
+    }
+  }
+  
+  @media (max-width: 575px) {
+    {{ id }} .store-locator__map {
+      height: {{ section.settings.map_height_mobile }}px;
+    }
+  }
+  
+  {% if section.settings.panel_width > 0 %}
+    {{ id }} .store-locator__wrapper {
+      grid-template-columns: {{ section.settings.panel_width }}px 1fr;
+    }
+    @media (max-width: 1199px) {
+      {{ id }} .store-locator__wrapper {
+        grid-template-columns: {{ section.settings.panel_width | minus: 60 }}px 1fr;
+      }
+    }
+  {% endif %}
+</style>
+
+<div class="shopify-container">
+  {% render 'section-header' %}
+  
+  <div 
+    class="store-locator"
+    data-section-id="{{ section.id }}"
+    data-default-lat="{{ section.settings.default_lat | default: '21.0338373' }}"
+    data-default-lng="{{ section.settings.default_lng | default: '105.7701789' }}"
+    data-default-zoom="{{ section.settings.default_zoom | default: 12 }}"
+    data-enable-geolocation="{{ section.settings.enable_geolocation }}"
+    data-show-popup-image="{{ section.settings.show_popup_image }}"
+    data-directions-text="{{ section.settings.directions_text | default: 'Chỉ đường' }}"
+    data-booking-text="{{ section.settings.booking_text | default: 'Đặt lịch' }}"
+    data-booking-url="{{ section.settings.booking_url }}"
+  >
+    <div class="store-locator__wrapper">
+      {%- comment -%} Store List Panel {%- endcomment -%}
+      <div class="store-locator__panel">
+        {%- comment -%} Toggle Button {%- endcomment -%}
+        <button class="store-locator__toggle-btn" type="button" title="Thu gọn danh sách">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </button>
+        
+        {%- comment -%} Geolocation Section {%- endcomment -%}
+        {% if section.settings.enable_geolocation %}
+          <div class="store-locator__panel-header">
+            <h3 class="store-locator__panel-title">{{ section.settings.geo_title | default: 'Tìm cửa hàng gần bạn' }}</h3>
+            <button class="store-locator__geo-btn" type="button">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+              {{ section.settings.geo_button_text | default: 'Xác định vị trí của tôi' }}
+            </button>
+            <div class="store-locator__geo-status" style="display: none;"></div>
+          </div>
+        {% endif %}
+        
+        {%- comment -%} Store List {%- endcomment -%}
+        <div>
+          <div class="store-locator__list-header">
+            <h4 class="store-locator__list-title">{{ section.settings.list_title | default: 'Danh sách cửa hàng' }}</h4>
+            <span class="store-locator__list-count">0 cửa hàng</span>
+          </div>
+          <div class="store-locator__list">
+            {%- comment -%} Cards will be rendered by JavaScript {%- endcomment -%}
+            <div class="store-locator__loading">
+              <div class="store-locator__spinner"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      {%- comment -%} Map Container {%- endcomment -%}
+      <div class="store-locator__map-wrapper">
+        {%- comment -%} Expand Button (when panel collapsed) {%- endcomment -%}
+        <button class="store-locator__expand-btn" type="button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="8" y1="6" x2="21" y2="6"></line>
+            <line x1="8" y1="12" x2="21" y2="12"></line>
+            <line x1="8" y1="18" x2="21" y2="18"></line>
+            <line x1="3" y1="6" x2="3.01" y2="6"></line>
+            <line x1="3" y1="12" x2="3.01" y2="12"></line>
+            <line x1="3" y1="18" x2="3.01" y2="18"></line>
+          </svg>
+          {{ section.settings.list_title | default: 'Danh sách cửa hàng' }}
+        </button>
+        
+        {%- comment -%} Map Header {%- endcomment -%}
+        <div class="store-locator__map-header">
+          <h4 class="store-locator__map-title">{{ section.settings.map_title | default: 'Bản đồ cửa hàng' }}</h4>
+          <div class="store-locator__map-legend">
+            <div class="store-locator__legend-item">
+              <span class="store-locator__legend-dot store-locator__legend-dot--store"></span>
+              <span>{{ section.settings.legend_store | default: 'Cửa hàng' }}</span>
+            </div>
+            {% if section.settings.enable_geolocation %}
+              <div class="store-locator__legend-item">
+                <span class="store-locator__legend-dot store-locator__legend-dot--user"></span>
+                <span>{{ section.settings.legend_user | default: 'Vị trí của bạn' }}</span>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+        
+        {%- comment -%} Leaflet Map {%- endcomment -%}
+        <div class="store-locator__map" id="store-locator-map-{{ section.id }}"></div>
+        
+        {%- comment -%} Map Instructions - inside map wrapper, below map {%- endcomment -%}
+        {% if section.settings.show_instructions %}
+          <p class="store-locator__map-instructions">
+            {{ section.settings.instructions_text | default: 'Click vào marker trên bản đồ để xem thông tin cửa hàng' }}
+          </p>
+        {% endif %}
+      </div>
+    </div>
+    
+    {%- comment -%} Mobile Support Section {%- endcomment -%}
+    {% if section.settings.show_mobile_support %}
+      <div class="store-locator__mobile-support">
+        <h4 class="store-locator__mobile-title">{{ section.settings.mobile_title | default: 'Hỗ trợ tìm cửa hàng' }}</h4>
+        <p class="store-locator__mobile-text">{{ section.settings.mobile_text | default: 'Gọi hotline để được hỗ trợ tìm cửa hàng gần nhất và đặt lịch hẹn tư vấn' }}</p>
+        <div class="store-locator__mobile-buttons">
+          {% if section.settings.hotline_number != blank %}
+            <a href="tel:{{ section.settings.hotline_number }}" class="store-locator__mobile-btn store-locator__mobile-btn--primary">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              {{ section.settings.hotline_number }}
+            </a>
+          {% endif %}
+          {% if section.settings.zalo_url != blank %}
+            <a href="{{ section.settings.zalo_url }}" target="_blank" class="store-locator__mobile-btn store-locator__mobile-btn--secondary">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+              Chat Zalo
+            </a>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+    
+    {%- comment -%} Store Data JSON {%- endcomment -%}
+    <script type="application/json" id="store-locator-data-{{ section.id }}">
+      [
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'store' -%}
+            {
+              "id": "{{ block.id }}",
+              "name": {{ block.settings.store_name | json }},
+              "address": {{ block.settings.store_address | json }},
+              "phone": {{ block.settings.store_phone | default: '' | json }},
+              "lat": {{ block.settings.store_lat | default: 0 }},
+              "lng": {{ block.settings.store_lng | default: 0 }},
+              "image": "{{ block.settings.store_image | image_url: width: 400 }}"
+            }{%- unless forloop.last -%},{%- endunless -%}
+          {%- endif -%}
+        {%- endfor -%}
+      ]
+    </script>
+  </div>
+</div>
+
+{%- comment -%} Load Leaflet CSS & JS from CDN {%- endcomment -%}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+{%- comment -%} Load Store Locator JS {%- endcomment -%}
+<script src="{{ 'store-locator.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Store Locator",
+  "tag": "section",
+  "class": "shopify-section--store-locator spaced-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full width",
+      "default": false
+    },
+    {
+      "type": "number",
+      "id": "content_width",
+      "label": "Content width",
+      "default": 1290
+    },
+    {
+      "type": "text",
+      "id": "section_class",
+      "label": "Custom class"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "t:sections.all.background-color.label"
+    },
+    {
+      "type": "text",
+      "id": "margin_desktop",
+      "label": "t:sections.all.margin_desktop.label",
+      "info": "t:sections.all.margin_desktop.info"
+    },
+    {
+      "type": "text",
+      "id": "margin_tablet",
+      "label": "t:sections.all.margin_tablet.label",
+      "info": "t:sections.all.margin_tablet.info"
+    },
+    {
+      "type": "text",
+      "id": "margin_mobile",
+      "label": "t:sections.all.margin_mobile.label",
+      "info": "t:sections.all.margin_mobile.info"
+    },
+    {
+      "type": "text",
+      "id": "padding_desktop",
+      "label": "t:sections.all.padding_desktop.label",
+      "info": "t:sections.all.padding_desktop.info"
+    },
+    {
+      "type": "text",
+      "id": "padding_tablet",
+      "label": "t:sections.all.padding_tablet.label",
+      "info": "t:sections.all.padding_tablet.info"
+    },
+    {
+      "type": "text",
+      "id": "padding_mobile",
+      "label": "t:sections.all.padding_mobile.label",
+      "info": "t:sections.all.padding_mobile.info"
+    },
+    {
+      "type": "header",
+      "content": "Section header"
+    },
+    {
+      "type": "liquid",
+      "id": "title_content",
+      "label": "Title"
+    },
+    {
+      "type": "number",
+      "id": "title_font_size",
+      "label": "Title font size",
+      "default": 14
+    },
+    {
+      "type": "number",
+      "id": "title_line_height",
+      "label": "Title line height",
+      "default": 20
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color"
+    },
+    {
+      "type": "number",
+      "id": "title_space",
+      "label": "Title space",
+      "default": 10
+    },
+    {
+      "type": "liquid",
+      "id": "heading_content",
+      "label": "Heading",
+      "default": "Hệ thống cửa hàng"
+    },
+    {
+      "type": "number",
+      "id": "heading_font_size",
+      "label": "Heading font size",
+      "default": 40
+    },
+    {
+      "type": "number",
+      "id": "heading_font_size_tablet",
+      "label": "Heading font size tablet",
+      "default": 32
+    },
+    {
+      "type": "number",
+      "id": "heading_font_size_mobile",
+      "label": "Heading font size mobile",
+      "default": 28
+    },
+    {
+      "type": "text",
+      "id": "heading_line_height",
+      "label": "Heading line height",
+      "default": "1.2"
+    },
+    {
+      "type": "select",
+      "id": "heading_font_weight",
+      "label": "Font weight",
+      "default": "600",
+      "options": [
+        { "value": "normal", "label": "Normal" },
+        { "value": "500", "label": "500" },
+        { "value": "600", "label": "600" },
+        { "value": "700", "label": "700" }
+      ]
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color"
+    },
+    {
+      "type": "number",
+      "id": "heading_space",
+      "label": "Heading space",
+      "default": 30
+    },
+    {
+      "type": "liquid",
+      "id": "description_content",
+      "label": "Description"
+    },
+    {
+      "type": "number",
+      "id": "description_font_size",
+      "label": "Description font size",
+      "default": 16
+    },
+    {
+      "type": "number",
+      "id": "description_line_height",
+      "label": "Description line height",
+      "default": 26
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Description color"
+    },
+    {
+      "type": "number",
+      "id": "section_header_space",
+      "label": "Section header space",
+      "default": 40
+    },
+    {
+      "type": "number",
+      "id": "section_header_space_mobile",
+      "label": "Section header space mobile",
+      "default": 30
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Text align",
+      "default": "center",
+      "options": [
+        { "value": "start", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "end", "label": "Right" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "direction_header",
+      "label": "Direction header",
+      "default": "vertical",
+      "options": [
+        { "value": "horizontal", "label": "Horizontal" },
+        { "value": "vertical", "label": "Vertical" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Map settings"
+    },
+    {
+      "type": "color",
+      "id": "primary_color",
+      "label": "Primary color",
+      "default": "#21395D"
+    },
+    {
+      "type": "text",
+      "id": "default_lat",
+      "label": "Default latitude",
+      "default": "21.0338373",
+      "info": "Center latitude when map loads"
+    },
+    {
+      "type": "text",
+      "id": "default_lng",
+      "label": "Default longitude",
+      "default": "105.7701789",
+      "info": "Center longitude when map loads"
+    },
+    {
+      "type": "range",
+      "id": "default_zoom",
+      "label": "Default zoom level",
+      "min": 3,
+      "max": 18,
+      "step": 1,
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "map_height_desktop",
+      "label": "Map height desktop",
+      "min": 300,
+      "max": 800,
+      "step": 50,
+      "unit": "px",
+      "default": 500
+    },
+    {
+      "type": "range",
+      "id": "map_height_tablet",
+      "label": "Map height tablet",
+      "min": 250,
+      "max": 600,
+      "step": 50,
+      "unit": "px",
+      "default": 400
+    },
+    {
+      "type": "range",
+      "id": "map_height_mobile",
+      "label": "Map height mobile",
+      "min": 200,
+      "max": 500,
+      "step": 50,
+      "unit": "px",
+      "default": 350
+    },
+    {
+      "type": "range",
+      "id": "panel_width",
+      "label": "Panel width",
+      "min": 280,
+      "max": 500,
+      "step": 20,
+      "unit": "px",
+      "default": 380
+    },
+    {
+      "type": "text",
+      "id": "map_title",
+      "label": "Map title",
+      "default": "Bản đồ cửa hàng"
+    },
+    {
+      "type": "text",
+      "id": "legend_store",
+      "label": "Store legend text",
+      "default": "Cửa hàng"
+    },
+    {
+      "type": "text",
+      "id": "legend_user",
+      "label": "User location legend text",
+      "default": "Vị trí của bạn"
+    },
+    {
+      "type": "header",
+      "content": "Geolocation settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_geolocation",
+      "label": "Enable geolocation",
+      "default": true,
+      "info": "Allow users to find stores near them"
+    },
+    {
+      "type": "text",
+      "id": "geo_title",
+      "label": "Geolocation section title",
+      "default": "Tìm cửa hàng gần bạn"
+    },
+    {
+      "type": "text",
+      "id": "geo_button_text",
+      "label": "Geolocation button text",
+      "default": "Xác định vị trí của tôi"
+    },
+    {
+      "type": "header",
+      "content": "Store list settings"
+    },
+    {
+      "type": "text",
+      "id": "list_title",
+      "label": "Store list title",
+      "default": "Danh sách cửa hàng"
+    },
+    {
+      "type": "header",
+      "content": "Popup & Actions"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_popup_image",
+      "label": "Show store image in popup",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "directions_text",
+      "label": "Directions button text",
+      "default": "Chỉ đường"
+    },
+    {
+      "type": "text",
+      "id": "booking_text",
+      "label": "Booking button text",
+      "default": "Đặt lịch"
+    },
+    {
+      "type": "url",
+      "id": "booking_url",
+      "label": "Booking page URL"
+    },
+    {
+      "type": "header",
+      "content": "Instructions"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_instructions",
+      "label": "Show map instructions",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "instructions_text",
+      "label": "Instructions text",
+      "default": "Click vào marker trên bản đồ để xem thông tin cửa hàng • Sử dụng chuột để phóng to/thu nhỏ và di chuyển bản đồ"
+    },
+    {
+      "type": "header",
+      "content": "Mobile support"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_mobile_support",
+      "label": "Show mobile support section",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "mobile_title",
+      "label": "Mobile support title",
+      "default": "Hỗ trợ tìm cửa hàng"
+    },
+    {
+      "type": "text",
+      "id": "mobile_text",
+      "label": "Mobile support text",
+      "default": "Gọi hotline để được hỗ trợ tìm cửa hàng gần nhất và đặt lịch hẹn tư vấn"
+    },
+    {
+      "type": "text",
+      "id": "hotline_number",
+      "label": "Hotline number",
+      "default": "0966578008"
+    },
+    {
+      "type": "url",
+      "id": "zalo_url",
+      "label": "Zalo chat URL"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "store",
+      "name": "Store location",
+      "settings": [
+        {
+          "type": "text",
+          "id": "store_name",
+          "label": "Store name",
+          "default": "Store Name"
+        },
+        {
+          "type": "textarea",
+          "id": "store_address",
+          "label": "Store address",
+          "default": "123 Example Street, City"
+        },
+        {
+          "type": "text",
+          "id": "store_phone",
+          "label": "Phone number"
+        },
+        {
+          "type": "text",
+          "id": "store_lat",
+          "label": "Latitude",
+          "info": "Right-click on Google Maps → 'What's here?' to get coordinates"
+        },
+        {
+          "type": "text",
+          "id": "store_lng",
+          "label": "Longitude"
+        },
+        {
+          "type": "image_picker",
+          "id": "store_image",
+          "label": "Store image",
+          "info": "Displayed in map popup when enabled"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Store Locator",
+      "blocks": [
+        {
+          "type": "store",
+          "settings": {
+            "store_name": "NAGEN Hà Nội",
+            "store_address": "123 Đường Láng, Đống Đa, Hà Nội",
+            "store_phone": "0966578008",
+            "store_lat": "21.0338373",
+            "store_lng": "105.7701789"
+          }
+        },
+        {
+          "type": "store",
+          "settings": {
+            "store_name": "NAGEN Hồ Chí Minh",
+            "store_address": "456 Nguyễn Huệ, Quận 1, TP.HCM",
+            "store_phone": "0966578009",
+            "store_lat": "10.7769",
+            "store_lng": "106.7009"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
