@@ -175,6 +175,9 @@
                       if block.settings.social_linkedin != blank
                         assign _show_social = true
                       endif
+                      if block.settings.social_tiktok != blank
+                        assign _show_social = true
+                      endif
                     %}
 
 
@@ -229,6 +232,14 @@
                               <a href="{{ block.settings.social_linkedin }}" target="_blank" rel="noopener" class="social-media__link" aria-label="Follow us on LinkedIn">
                                 {% render 'icon-linkedin' %}
                                 <span class="text-social">{{ 'general.social.links.linkedin' | t }}</span>
+                              </a>
+                            </li>
+                          {%- endif -%}
+                          {%- if block.settings.social_tiktok != blank -%}
+                            <li class="social-media__item social-media__item--tiktok">
+                              <a href="{{ block.settings.social_tiktok }}" target="_blank" rel="noopener" class="social-media__link" aria-label="Follow us on TikTok">
+                                {% render 'icon-tiktok' %}
+                                <span class="text-social">TikTok</span>
                               </a>
                             </li>
                           {%- endif -%}
@@ -416,16 +427,18 @@
                         </p>
                       {% endif %}
                       {% if block.settings.phone != blank %}
-                        <p class="footer__item-phone">
+                        {%- assign phone_clean = block.settings.phone | remove: ' ' | remove: '-' | remove: '.' | remove: '(' | remove: ')' -%}
+                        <a href="tel:{{ phone_clean }}" class="footer__item-phone footer__item-link">
                           <span class="footer__item-icon">{{ block.settings.phone_icon }}</span>
-                          {{ block.settings.phone }}
-                        </p>
+                          <span>{{ block.settings.phone }}</span>
+                        </a>
                       {% endif %}
                       {% if block.settings.email != blank %}
-                        <p class="footer__item-email">
+                        {%- assign email_text = block.settings.email | remove: 'Email: ' | remove: 'Email:' | strip -%}
+                        <a href="mailto:{{ email_text }}" class="footer__item-email footer__item-link">
                           <span class="footer__item-icon">{{ block.settings.email_icon }}</span>
-                          {{ block.settings.email }}
-                        </p>
+                          <span>{{ block.settings.email }}</span>
+                        </a>
                       {% endif %}
                     </div>
                   </div>
@@ -917,6 +930,11 @@
           "type": "text",
           "id": "social_linkedin",
           "label": "t:sections.all.social_linkedin.label"
+        },
+        {
+          "type": "text",
+          "id": "social_tiktok",
+          "label": "TikTok"
         }
         
       ]
