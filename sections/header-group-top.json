@@ -195,7 +195,7 @@
         "header_text_color": "#ffffff",
         "border_color": "#e2e2e2",
         "sticky_header": true,
-        "transparent_header": true,
+        "transparent_header": false,
         "logo": "shopify://shop_images/header_logo.png",
         "logo_width": 200,
         "menu": "main-menu",
