@@ -687,7 +687,7 @@
 }
 
 .store-locator__popup-phone a {
-  color: var(--sl-primary);
+  color: var(--sl-primary) !important;
   text-decoration: none;
   font-weight: 500;
 }
@@ -801,6 +801,6 @@
   border-bottom: 1px solid var(--sl-border-color) !important;
 }
 
-.leaflet-container a {
+.store-locator .store-locator__popup-actions a {
   color: #fff !important;
 }
