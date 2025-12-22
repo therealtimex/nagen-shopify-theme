@@ -2213,7 +2213,24 @@ input[type='checkbox'] {
 
 /* section-header */
 .shopify-section--header {
-  z-index: 3;
+  z-index: 999;
+  position: relative;
+}
+
+/* Sticky header - applies when ap-headerstore has sticky attribute */
+ap-headerstore[sticky] {
+  display: block;
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: var(--header-background, #ffffff);
+}
+
+body:has(ap-headerstore[sticky]) {
+  padding-top: var(--header-height, 0px);
 }
 
 .shopify-section-header-sticky {

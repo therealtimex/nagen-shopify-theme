@@ -85,17 +85,20 @@
  
 
 
+{%- if section.settings.sticky_header -%}
+body {
+  padding-top: var(--header-height, 0px);
+}
+{%- endif -%}
+
 #shopify-section-{{ section.id }} {
   --header-text-color: {{ section.settings.header_text_color | color_extract: 'red' }}, 
   {{ section.settings.header_text_color | color_extract: 'green' }}, 
   {{ section.settings.header_text_color | color_extract: 'blue' }};
   --header-border-color: {{ section.settings.header_border_color }};
   --header-padding: {{ section.settings.header_padding }};
-  position: unset;
-  {% if section.settings.sticky_header %}position: sticky;
-{% endif %}
-top: 0;
-z-index: 999;
+  position: relative;
+  z-index: 999;
 
 --header-background: {{ section.settings.header_background }};
 --section-block-overlay-opacity: {{ section.settings.overlay_opacity_header | divided_by: 10.0 }};
@@ -119,6 +122,15 @@ z-index: 999;
 /* VERTICAL Menu */
 --bg-btn-vertical: {{ section.settings.bg_btn_vertical }};
 --color-btn-vertical: {{ section.settings.color_btn_vertical }};
+}
+
+#shopify-section-{{ section.id }} ap-headerstore[sticky] {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  width: 100%;
 }
 
 @media (max-width: 1199px) {
