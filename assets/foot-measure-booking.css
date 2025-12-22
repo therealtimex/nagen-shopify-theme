@@ -1,0 +1,322 @@
+/* Foot Measure Booking Section */
+.shopify-section--foot-measure-booking {
+  background-color: transparent;
+}
+
+.fmb-wrapper {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Header Styles */
+.fmb-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.fmb-header__title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: capitalize;
+  margin-bottom: 12px;
+}
+
+.fmb-header__title svg {
+  flex-shrink: 0;
+}
+
+.fmb-header__heading {
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 1.3;
+  margin: 0 0 12px;
+}
+
+.fmb-header__description {
+  font-size: 15px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Form Container */
+.fmb-form-container {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 28px 32px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+/* Form Styles */
+.fmb-form__fields {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.fmb-form__group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.fmb-form__label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333333;
+}
+
+.fmb-form__required {
+  color: #eb1c25;
+}
+
+.fmb-form__input,
+.fmb-form__select {
+  width: 100%;
+  height: 44px;
+  padding: 10px 14px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #333333;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.fmb-form__input::placeholder {
+  color: #999999;
+}
+
+.fmb-form__input:focus,
+.fmb-form__select:focus {
+  outline: none;
+  border-color: #eb1c25;
+  box-shadow: 0 0 0 3px rgba(235, 28, 37, 0.1);
+}
+
+.fmb-form__input.error,
+.fmb-form__select.error {
+  border-color: #eb1c25;
+}
+
+/* Select Arrow */
+.fmb-form__select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23666666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  padding-right: 44px;
+  cursor: pointer;
+}
+
+/* Radio Group */
+.fmb-form__radio-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 4px;
+}
+
+.fmb-form__radio-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.fmb-form__radio {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: #eb1c25;
+  cursor: pointer;
+}
+
+.fmb-form__radio-label {
+  font-size: 14px;
+  color: #333333;
+}
+
+/* Location Fields */
+.fmb-form__location-office,
+.fmb-form__location-home {
+  margin-top: 12px;
+}
+
+/* Error Messages */
+.fmb-form__error {
+  font-size: 13px;
+  color: #eb1c25;
+  min-height: 18px;
+  display: none;
+}
+
+.fmb-form__error.visible {
+  display: block;
+}
+
+/* Submit Button */
+.fmb-form__group--submit {
+  margin-top: 8px;
+}
+
+.fmb-form__submit {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 48px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: #eb1c25;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 12px 24px;
+}
+
+.fmb-form__submit:hover {
+  background-color: #c41920;
+}
+
+.fmb-form__submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.fmb-form__submit .icon-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+}
+
+.fmb-form__submit .icon-button svg {
+  stroke: #ffffff;
+}
+
+.fmb-form__submit-loading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Spinner Animation */
+.fmb-form__spinner {
+  animation: fmb-spin 1s linear infinite;
+}
+
+@keyframes fmb-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Success State */
+.fmb-form__success {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.fmb-form__success-icon {
+  color: #22c55e;
+  margin-bottom: 24px;
+}
+
+.fmb-form__success-icon svg {
+  width: 64px;
+  height: 64px;
+}
+
+.fmb-form__success-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #166534;
+  margin: 0 0 16px;
+}
+
+.fmb-form__success-message {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #555555;
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 767px) {
+  .fmb-header {
+    margin-bottom: 30px;
+  }
+  
+  .fmb-header__heading {
+    font-size: 24px;
+  }
+  
+  .fmb-header__description {
+    font-size: 14px;
+  }
+  
+  .fmb-form-container {
+    padding: 24px;
+    border-radius: 12px;
+  }
+  
+  .fmb-form__fields {
+    gap: 20px;
+  }
+  
+  .fmb-form__input,
+  .fmb-form__select {
+    height: 44px;
+    font-size: 14px;
+  }
+  
+  .fmb-form__submit {
+    height: 48px;
+    font-size: 15px;
+  }
+  
+  .fmb-form__success-icon svg {
+    width: 48px;
+    height: 48px;
+  }
+  
+  .fmb-form__success-title {
+    font-size: 20px;
+  }
+  
+  .fmb-form__success-message {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 575px) {
+  .fmb-form-container {
+    padding: 20px 16px;
+  }
+  
+  .fmb-form__radio-group {
+    gap: 10px;
+  }
+  
+  .fmb-form__radio-label {
+    font-size: 14px;
+  }
+}

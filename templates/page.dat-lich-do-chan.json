@@ -26,18 +26,76 @@
         "height": 150,
         "height_tablet": 150,
         "height_mobile": 150,
-        "margin_desktop": "",
-        "margin_tablet": "",
-        "margin_mobile": "",
+        "margin_desktop": "0",
+        "margin_tablet": "0",
+        "margin_mobile": "0",
         "background_gradient": "",
         "background_color": "#282828",
         "color_title": "#ffffff",
         "color_breadcrumb": "#ffffff",
         "breadcrumb_rounded": 0
       }
+    },
+    "booking_form": {
+      "type": "foot-measure-booking",
+      "blocks": {
+        "store_1": {
+          "type": "store",
+          "settings": {
+            "store_name": "NAGEN Hà Nội",
+            "store_address": "123 Đường Láng, Đống Đa, Hà Nội"
+          }
+        },
+        "store_2": {
+          "type": "store",
+          "settings": {
+            "store_name": "NAGEN Hồ Chí Minh",
+            "store_address": "456 Nguyễn Huệ, Quận 1, TP.HCM"
+          }
+        }
+      },
+      "block_order": [
+        "store_1",
+        "store_2"
+      ],
+      "settings": {
+        "full_width": true,
+        "content_width": 560,
+        "background_color": "",
+        "margin_desktop": "0",
+        "margin_tablet": "0",
+        "margin_mobile": "0",
+        "padding_desktop": "50px 40px 60px",
+        "padding_tablet": "40px 30px 50px",
+        "padding_mobile": "30px 20px 40px",
+        "title_content": "<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M14.1218 10.4792C13.7313 10.0886 13.0981 10.0886 12.7076 10.4792L12.0005 11.1863C11.2194 11.9673 9.95308 11.9673 9.17203 11.1863C8.39098 10.4052 8.39098 9.13888 9.17203 8.35783L14.8027 2.72568C16.9066 2.24973 19.2013 2.83075 20.8393 4.46875C23.2587 6.88811 23.3721 10.7402 21.1797 13.2939L19.0715 15.4289L14.1218 10.4792ZM3.16162 4.46875C5.33501 2.29536 8.6646 1.98283 11.1705 3.53116L7.75781 6.94362C6.19572 8.50572 6.19572 11.0384 7.75781 12.6005C9.27258 14.1152 11.7 14.1611 13.27 12.7382L13.4147 12.6005L17.6573 16.8431L13.4147 21.0858C12.6336 21.8668 11.3673 21.8668 10.5863 21.0858L3.16162 13.6611C0.62321 11.1227 0.62321 7.00715 3.16162 4.46875Z\" fill=\"#EB1C25\"/></svg> Đặt lịch đo chân",
+        "title_font_size": 14,
+        "title_color": "#21395d",
+        "heading_content": "Đăng ký đo vòm bàn chân miễn phí",
+        "heading_font_size": 32,
+        "heading_font_size_tablet": 28,
+        "heading_font_size_mobile": 24,
+        "heading_color": "#000000",
+        "description_content": "Vui lòng điền thông tin bên dưới để đặt lịch hẹn đo vòm bàn chân miễn phí với chuyên gia NAGEN.",
+        "description_font_size": 16,
+        "description_color": "#555555",
+        "primary_color": "#eb1c25",
+        "label_color": "#333333",
+        "required_color": "#eb1c25",
+        "input_border_color": "#e0e0e0",
+        "input_bg_color": "#ffffff",
+        "button_text": "Đặt lịch hẹn",
+        "button_bg_color": "#eb1c25",
+        "button_text_color": "#ffffff",
+        "button_bg_hover": "#c41920",
+        "success_title": "Cảm ơn bạn!",
+        "success_message": "Chúng tôi đã nhận được thông tin đăng ký của bạn. Đội ngũ NAGEN sẽ liên hệ với bạn trong vòng 24 giờ để xác nhận lịch hẹn.",
+        "data_aos": "fade-up"
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "booking_form"
   ]
 }

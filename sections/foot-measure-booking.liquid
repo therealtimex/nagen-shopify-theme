@@ -1,0 +1,526 @@
+{{ 'foot-measure-booking.css' | asset_url | stylesheet_tag }}
+{% render 'section-style' %}
+
+{%- assign id = '#shopify-section-' | append: section.id -%}
+
+<style>
+  {{ id }} .fmb-form__input,
+  {{ id }} .fmb-form__select {
+    border-color: {{ section.settings.input_border_color }};
+    background-color: {{ section.settings.input_bg_color }};
+  }
+  
+  {{ id }} .fmb-form__input:focus,
+  {{ id }} .fmb-form__select:focus {
+    border-color: {{ section.settings.primary_color }};
+  }
+  
+  {{ id }} .fmb-form__label {
+    color: {{ section.settings.label_color }};
+  }
+  
+  {{ id }} .fmb-form__required {
+    color: {{ section.settings.required_color }};
+  }
+  
+  {{ id }} .fmb-form__submit {
+    background-color: {{ section.settings.button_bg_color }};
+    color: {{ section.settings.button_text_color }};
+  }
+  
+  {{ id }} .fmb-form__submit:hover {
+    background-color: {{ section.settings.button_bg_hover }};
+  }
+  
+  {{ id }} .fmb-header__title {
+    font-size: {{ section.settings.title_font_size }}px;
+    color: {{ section.settings.title_color }};
+  }
+  
+  {{ id }} .fmb-header__heading {
+    font-size: {{ section.settings.heading_font_size }}px;
+    color: {{ section.settings.heading_color }};
+  }
+  
+  {{ id }} .fmb-header__description {
+    font-size: {{ section.settings.description_font_size }}px;
+    color: {{ section.settings.description_color }};
+  }
+  
+  @media (max-width: 991px) {
+    {{ id }} .fmb-header__heading {
+      font-size: {{ section.settings.heading_font_size_tablet }}px;
+    }
+  }
+  
+  @media (max-width: 575px) {
+    {{ id }} .fmb-header__heading {
+      font-size: {{ section.settings.heading_font_size_mobile }}px;
+    }
+  }
+</style>
+
+<div class="shopify-container">
+  <div class="fmb-wrapper">
+    {%- comment -%} Section Header {%- endcomment -%}
+    <div class="fmb-header" {% if section.settings.data_aos != 'none' %}data-aos="{{ section.settings.data_aos }}"{% endif %}>
+      {%- if section.settings.title_content != blank -%}
+        <div class="fmb-header__title">{{ section.settings.title_content }}</div>
+      {%- endif -%}
+      
+      {%- if section.settings.heading_content != blank -%}
+        <h1 class="fmb-header__heading">{{ section.settings.heading_content }}</h1>
+      {%- endif -%}
+      
+      {%- if section.settings.description_content != blank -%}
+        <p class="fmb-header__description">{{ section.settings.description_content }}</p>
+      {%- endif -%}
+    </div>
+    
+    {%- comment -%} Booking Form {%- endcomment -%}
+    <div class="fmb-form-container" {% if section.settings.data_aos != 'none' %}data-aos="{{ section.settings.data_aos }}" data-aos-delay="100"{% endif %}>
+      <form 
+        class="fmb-form" 
+        id="foot-measure-booking-form-{{ section.id }}"
+        data-section-id="{{ section.id }}"
+      >
+        {%- comment -%} Success Message (hidden by default) {%- endcomment -%}
+        <div class="fmb-form__success" style="display: none;">
+          <div class="fmb-form__success-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+          </div>
+          <h3 class="fmb-form__success-title">{{ section.settings.success_title | default: 'Cảm ơn bạn!' }}</h3>
+          <p class="fmb-form__success-message">{{ section.settings.success_message | default: 'Chúng tôi đã nhận được thông tin đăng ký của bạn. Đội ngũ NAGEN sẽ liên hệ với bạn trong vòng 24 giờ để xác nhận lịch hẹn.' }}</p>
+        </div>
+        
+        {%- comment -%} Form Fields {%- endcomment -%}
+        <div class="fmb-form__fields">
+          {%- comment -%} Name Field {%- endcomment -%}
+          <div class="fmb-form__group">
+            <label class="fmb-form__label" for="fmb-name-{{ section.id }}">
+              Họ và tên <span class="fmb-form__required">*</span>
+            </label>
+            <input 
+              type="text" 
+              class="fmb-form__input" 
+              id="fmb-name-{{ section.id }}" 
+              name="name" 
+              placeholder="Nhập họ và tên"
+              required
+            >
+            <span class="fmb-form__error" data-field="name"></span>
+          </div>
+          
+          {%- comment -%} Date of Birth Field {%- endcomment -%}
+          <div class="fmb-form__group">
+            <label class="fmb-form__label" for="fmb-birthdate-{{ section.id }}">
+              Ngày tháng năm sinh <span class="fmb-form__required">*</span>
+            </label>
+            <input 
+              type="date" 
+              class="fmb-form__input" 
+              id="fmb-birthdate-{{ section.id }}" 
+              name="birthDate"
+              required
+            >
+            <span class="fmb-form__error" data-field="birthDate"></span>
+          </div>
+          
+          {%- comment -%} Phone Field {%- endcomment -%}
+          <div class="fmb-form__group">
+            <label class="fmb-form__label" for="fmb-phone-{{ section.id }}">
+              Số điện thoại <span class="fmb-form__required">*</span>
+            </label>
+            <input 
+              type="tel" 
+              class="fmb-form__input" 
+              id="fmb-phone-{{ section.id }}" 
+              name="phone" 
+              placeholder="Nhập số điện thoại"
+              inputmode="numeric"
+              required
+            >
+            <span class="fmb-form__error" data-field="phone"></span>
+          </div>
+          
+          {%- comment -%} Email Field {%- endcomment -%}
+          <div class="fmb-form__group">
+            <label class="fmb-form__label" for="fmb-email-{{ section.id }}">
+              Email <span class="fmb-form__required">*</span>
+            </label>
+            <input 
+              type="email" 
+              class="fmb-form__input" 
+              id="fmb-email-{{ section.id }}" 
+              name="email" 
+              placeholder="Nhập địa chỉ email"
+              required
+            >
+            <span class="fmb-form__error" data-field="email"></span>
+          </div>
+          
+          {%- comment -%} Location Type Selection {%- endcomment -%}
+          <div class="fmb-form__group fmb-form__group--location">
+            <label class="fmb-form__label">
+              Địa điểm đo chân <span class="fmb-form__required">*</span>
+            </label>
+            
+            <div class="fmb-form__radio-group">
+              <label class="fmb-form__radio-item">
+                <input 
+                  type="radio" 
+                  name="locationType" 
+                  value="office"
+                  class="fmb-form__radio"
+                  data-location-type="office"
+                >
+                <span class="fmb-form__radio-label">Tại trụ sở công ty, đại lý</span>
+              </label>
+              
+              <label class="fmb-form__radio-item">
+                <input 
+                  type="radio" 
+                  name="locationType" 
+                  value="home"
+                  class="fmb-form__radio"
+                  data-location-type="home"
+                >
+                <span class="fmb-form__radio-label">Tại nhà khách hàng</span>
+              </label>
+            </div>
+            <span class="fmb-form__error" data-field="locationType"></span>
+            
+            {%- comment -%} Store Location Dropdown (shown when office is selected) {%- endcomment -%}
+            <div class="fmb-form__location-office" style="display: none;">
+              <select class="fmb-form__select" id="fmb-store-{{ section.id }}" name="selectedOffice">
+                <option value="">Chọn địa điểm</option>
+                {%- for block in section.blocks -%}
+                  {%- if block.type == 'store' -%}
+                    <option value="{{ block.settings.store_name }} - {{ block.settings.store_address }}">
+                      {{ block.settings.store_name }} - {{ block.settings.store_address }}
+                    </option>
+                  {%- endif -%}
+                {%- endfor -%}
+              </select>
+              <span class="fmb-form__error" data-field="selectedOffice"></span>
+            </div>
+            
+            {%- comment -%} Address Input (shown when home is selected) {%- endcomment -%}
+            <div class="fmb-form__location-home" style="display: none;">
+              <input 
+                type="text" 
+                class="fmb-form__input" 
+                id="fmb-address-{{ section.id }}" 
+                name="address" 
+                placeholder="Nhập địa chỉ chi tiết của bạn"
+              >
+              <span class="fmb-form__error" data-field="address"></span>
+            </div>
+          </div>
+          
+          {%- comment -%} Submit Button {%- endcomment -%}
+          <div class="fmb-form__group fmb-form__group--submit">
+            <button type="submit" class="fmb-form__submit btn-primary">
+              <span class="fmb-form__submit-text">{{ section.settings.button_text | default: 'Đặt lịch hẹn' }}</span>
+              <span class="fmb-form__submit-loading" style="display: none;">
+                <svg class="fmb-form__spinner" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10" stroke-opacity="0.25"></circle>
+                  <path d="M12 2a10 10 0 0 1 10 10" stroke-linecap="round"></path>
+                </svg>
+                Đang gửi...
+              </span>
+              <span class="icon-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+              </span>
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script src="{{ 'foot-measure-booking.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Foot Measure Booking",
+  "tag": "section",
+  "class": "shopify-section--foot-measure-booking spaced-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full width",
+      "default": false
+    },
+    {
+      "type": "number",
+      "id": "content_width",
+      "label": "Content width",
+      "default": 600
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color"
+    },
+    {
+      "type": "text",
+      "id": "margin_desktop",
+      "label": "Margin desktop",
+      "info": "Example: 60px 0",
+      "default": "60px 0"
+    },
+    {
+      "type": "text",
+      "id": "margin_tablet",
+      "label": "Margin tablet",
+      "info": "Example: 40px 0"
+    },
+    {
+      "type": "text",
+      "id": "margin_mobile",
+      "label": "Margin mobile",
+      "info": "Example: 30px 0"
+    },
+    {
+      "type": "text",
+      "id": "padding_desktop",
+      "label": "Padding desktop",
+      "info": "Example: 60px 0",
+      "default": "60px 40px"
+    },
+    {
+      "type": "text",
+      "id": "padding_tablet",
+      "label": "Padding tablet",
+      "info": "Example: 40px 0"
+    },
+    {
+      "type": "text",
+      "id": "padding_mobile",
+      "label": "Padding mobile",
+      "info": "Example: 30px 0",
+      "default": "40px 20px"
+    },
+    {
+      "type": "header",
+      "content": "Section header"
+    },
+    {
+      "type": "liquid",
+      "id": "title_content",
+      "label": "Title",
+      "default": "<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M14.1218 10.4792C13.7313 10.0886 13.0981 10.0886 12.7076 10.4792L12.0005 11.1863C11.2194 11.9673 9.95308 11.9673 9.17203 11.1863C8.39098 10.4052 8.39098 9.13888 9.17203 8.35783L14.8027 2.72568C16.9066 2.24973 19.2013 2.83075 20.8393 4.46875C23.2587 6.88811 23.3721 10.7402 21.1797 13.2939L19.0715 15.4289L14.1218 10.4792ZM3.16162 4.46875C5.33501 2.29536 8.6646 1.98283 11.1705 3.53116L7.75781 6.94362C6.19572 8.50572 6.19572 11.0384 7.75781 12.6005C9.27258 14.1152 11.7 14.1611 13.27 12.7382L13.4147 12.6005L17.6573 16.8431L13.4147 21.0858C12.6336 21.8668 11.3673 21.8668 10.5863 21.0858L3.16162 13.6611C0.62321 11.1227 0.62321 7.00715 3.16162 4.46875Z\" fill=\"#EB1C25\"/></svg> Đặt lịch đo chân"
+    },
+    {
+      "type": "number",
+      "id": "title_font_size",
+      "label": "Title font size",
+      "default": 14
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#21395d"
+    },
+    {
+      "type": "text",
+      "id": "heading_content",
+      "label": "Heading",
+      "default": "Đăng ký đo vòm bàn chân miễn phí"
+    },
+    {
+      "type": "number",
+      "id": "heading_font_size",
+      "label": "Heading font size",
+      "default": 32
+    },
+    {
+      "type": "number",
+      "id": "heading_font_size_tablet",
+      "label": "Heading font size tablet",
+      "default": 28
+    },
+    {
+      "type": "number",
+      "id": "heading_font_size_mobile",
+      "label": "Heading font size mobile",
+      "default": 24
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#000000"
+    },
+    {
+      "type": "textarea",
+      "id": "description_content",
+      "label": "Description",
+      "default": "Vui lòng điền thông tin bên dưới để đặt lịch hẹn đo vòm bàn chân miễn phí với chuyên gia NAGEN."
+    },
+    {
+      "type": "number",
+      "id": "description_font_size",
+      "label": "Description font size",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Description color",
+      "default": "#555555"
+    },
+    {
+      "type": "header",
+      "content": "Form styling"
+    },
+    {
+      "type": "color",
+      "id": "primary_color",
+      "label": "Primary color",
+      "default": "#eb1c25"
+    },
+    {
+      "type": "color",
+      "id": "label_color",
+      "label": "Label color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "required_color",
+      "label": "Required asterisk color",
+      "default": "#eb1c25"
+    },
+    {
+      "type": "color",
+      "id": "input_border_color",
+      "label": "Input border color",
+      "default": "#e0e0e0"
+    },
+    {
+      "type": "color",
+      "id": "input_bg_color",
+      "label": "Input background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Đặt lịch hẹn"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button background",
+      "default": "#eb1c25"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_hover",
+      "label": "Button hover background",
+      "default": "#c41920"
+    },
+    {
+      "type": "header",
+      "content": "Success message"
+    },
+    {
+      "type": "text",
+      "id": "success_title",
+      "label": "Success title",
+      "default": "Cảm ơn bạn!"
+    },
+    {
+      "type": "textarea",
+      "id": "success_message",
+      "label": "Success message",
+      "default": "Chúng tôi đã nhận được thông tin đăng ký của bạn. Đội ngũ NAGEN sẽ liên hệ với bạn trong vòng 24 giờ để xác nhận lịch hẹn."
+    },
+    {
+      "type": "header",
+      "content": "Animation"
+    },
+    {
+      "type": "select",
+      "id": "data_aos",
+      "label": "Animation",
+      "default": "fade-up",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "fade-up", "label": "Fade Up" },
+        { "value": "fade-down", "label": "Fade Down" },
+        { "value": "zoom-in", "label": "Zoom In" }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "store",
+      "name": "Store location",
+      "settings": [
+        {
+          "type": "text",
+          "id": "store_name",
+          "label": "Store name",
+          "default": "NAGEN Store"
+        },
+        {
+          "type": "textarea",
+          "id": "store_address",
+          "label": "Store address",
+          "default": "123 Example Street, City"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Foot Measure Booking",
+      "blocks": [
+        {
+          "type": "store",
+          "settings": {
+            "store_name": "NAGEN Hà Nội",
+            "store_address": "123 Đường Láng, Đống Đa, Hà Nội"
+          }
+        },
+        {
+          "type": "store",
+          "settings": {
+            "store_name": "NAGEN Hồ Chí Minh",
+            "store_address": "456 Nguyễn Huệ, Quận 1, TP.HCM"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
