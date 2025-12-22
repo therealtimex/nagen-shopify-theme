@@ -38,26 +38,6 @@
     },
     "booking_form": {
       "type": "foot-measure-booking",
-      "blocks": {
-        "store_1": {
-          "type": "store",
-          "settings": {
-            "store_name": "NAGEN Hà Nội",
-            "store_address": "123 Đường Láng, Đống Đa, Hà Nội"
-          }
-        },
-        "store_2": {
-          "type": "store",
-          "settings": {
-            "store_name": "NAGEN Hồ Chí Minh",
-            "store_address": "456 Nguyễn Huệ, Quận 1, TP.HCM"
-          }
-        }
-      },
-      "block_order": [
-        "store_1",
-        "store_2"
-      ],
       "settings": {
         "full_width": true,
         "content_width": 560,

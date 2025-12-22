@@ -197,12 +197,10 @@
             <div class="fmb-form__location-office" style="display: none;">
               <select class="fmb-form__select" id="fmb-store-{{ section.id }}" name="selectedOffice">
                 <option value="">Chọn địa điểm</option>
-                {%- for block in section.blocks -%}
-                  {%- if block.type == 'store' -%}
-                    <option value="{{ block.settings.store_name }} - {{ block.settings.store_address }}">
-                      {{ block.settings.store_name }} - {{ block.settings.store_address }}
-                    </option>
-                  {%- endif -%}
+                {%- for store in shop.metaobjects.store_location.values -%}
+                  <option value="{{ store.name.value }} - {{ store.address.value }}">
+                    {{ store.name.value }} - {{ store.address.value }}
+                  </option>
                 {%- endfor -%}
               </select>
               <span class="fmb-form__error" data-field="selectedOffice"></span>
@@ -481,45 +479,9 @@
       ]
     }
   ],
-  "blocks": [
-    {
-      "type": "store",
-      "name": "Store location",
-      "settings": [
-        {
-          "type": "text",
-          "id": "store_name",
-          "label": "Store name",
-          "default": "NAGEN Store"
-        },
-        {
-          "type": "textarea",
-          "id": "store_address",
-          "label": "Store address",
-          "default": "123 Example Street, City"
-        }
-      ]
-    }
-  ],
   "presets": [
     {
-      "name": "Foot Measure Booking",
-      "blocks": [
-        {
-          "type": "store",
-          "settings": {
-            "store_name": "NAGEN Hà Nội",
-            "store_address": "123 Đường Láng, Đống Đa, Hà Nội"
-          }
-        },
-        {
-          "type": "store",
-          "settings": {
-            "store_name": "NAGEN Hồ Chí Minh",
-            "store_address": "456 Nguyễn Huệ, Quận 1, TP.HCM"
-          }
-        }
-      ]
+      "name": "Foot Measure Booking"
     }
   ]
 }

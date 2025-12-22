@@ -158,21 +158,19 @@
       </div>
     {% endif %}
     
-    {%- comment -%} Store Data JSON {%- endcomment -%}
+    {%- comment -%} Store Data JSON (auto-loaded from all store_location metaobjects) {%- endcomment -%}
     <script type="application/json" id="store-locator-data-{{ section.id }}">
       [
-        {%- for block in section.blocks -%}
-          {%- if block.type == 'store' -%}
-            {
-              "id": "{{ block.id }}",
-              "name": {{ block.settings.store_name | json }},
-              "address": {{ block.settings.store_address | json }},
-              "phone": {{ block.settings.store_phone | default: '' | json }},
-              "lat": {{ block.settings.store_lat | default: 0 }},
-              "lng": {{ block.settings.store_lng | default: 0 }},
-              "image": "{{ block.settings.store_image | image_url: width: 400 }}"
-            }{%- unless forloop.last -%},{%- endunless -%}
-          {%- endif -%}
+        {%- for store in shop.metaobjects.store_location.values -%}
+          {
+            "id": "{{ store.system.handle }}",
+            "name": {{ store.name.value | json }},
+            "address": {{ store.address.value | json }},
+            "phone": {{ store.phone.value | default: '' | json }},
+            "lat": {{ store.latitude.value | default: 0 }},
+            "lng": {{ store.longitude.value | default: 0 }},
+            "image": "{{ store.image.value | image_url: width: 400 }}"
+          }{%- unless forloop.last -%},{%- endunless -%}
         {%- endfor -%}
       ]
     </script>
@@ -638,73 +636,9 @@
       "label": "Zalo chat URL"
     }
   ],
-  "blocks": [
-    {
-      "type": "store",
-      "name": "Store location",
-      "settings": [
-        {
-          "type": "text",
-          "id": "store_name",
-          "label": "Store name",
-          "default": "Store Name"
-        },
-        {
-          "type": "textarea",
-          "id": "store_address",
-          "label": "Store address",
-          "default": "123 Example Street, City"
-        },
-        {
-          "type": "text",
-          "id": "store_phone",
-          "label": "Phone number"
-        },
-        {
-          "type": "text",
-          "id": "store_lat",
-          "label": "Latitude",
-          "info": "Right-click on Google Maps → 'What's here?' to get coordinates"
-        },
-        {
-          "type": "text",
-          "id": "store_lng",
-          "label": "Longitude"
-        },
-        {
-          "type": "image_picker",
-          "id": "store_image",
-          "label": "Store image",
-          "info": "Displayed in map popup when enabled"
-        }
-      ]
-    }
-  ],
   "presets": [
     {
-      "name": "Store Locator",
-      "blocks": [
-        {
-          "type": "store",
-          "settings": {
-            "store_name": "NAGEN Hà Nội",
-            "store_address": "123 Đường Láng, Đống Đa, Hà Nội",
-            "store_phone": "0966578008",
-            "store_lat": "21.0338373",
-            "store_lng": "105.7701789"
-          }
-        },
-        {
-          "type": "store",
-          "settings": {
-            "store_name": "NAGEN Hồ Chí Minh",
-            "store_address": "456 Nguyễn Huệ, Quận 1, TP.HCM",
-            "store_phone": "0966578009",
-            "store_lat": "10.7769",
-            "store_lng": "106.7009"
-          }
-        }
-      ]
+      "name": "Store Locator"
     }
   ]
 }
