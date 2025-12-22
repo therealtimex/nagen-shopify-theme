@@ -4,6 +4,15 @@
 <noscript>{{ 'section-main-page.css' | asset_url | stylesheet_tag }}</noscript>
 <noscript>{{ 'component-rte.css' | asset_url | stylesheet_tag }}</noscript>
 
+{%- liquid
+  assign layout_style = section.settings.layout_style | default: 'banner'
+  if layout_style == 'compact'
+    assign is_compact = true
+  else
+    assign is_compact = false
+  endif
+-%}
+
 {%- style -%}
   .main-page-title {
     margin-bottom: 10px;
@@ -15,21 +24,78 @@
     text-align: center;
   }
 
+  .section-{{ section.id }}-padding {
+    margin: {{ section.settings.margin_desktop }};
+    margin-bottom: 30px;
+  }
   
+  .breadcrumb__list {
+    padding: 0;
+  }
+  
+  .breadcrumb__item svg {
+    margin: 0 10px;
+  }
+  
+  {% if is_compact %}
+  .breadcrumb__item,
+  .breadcrumb__link,
+  .breadcrumb__item+.breadcrumb__item:before {
+    color: {{ section.settings.compact_text_color }};
+  }
+  {% else %}
+  .breadcrumb__item,
+  .breadcrumb__link,
+  .breadcrumb__item+.breadcrumb__item:before {
+    color: {{ section.settings.color_breadcrumb }};
+  }
+  {% endif %}
+
+  {% if is_compact %}
+    /* Compact mode styles */
     .section-{{ section.id }}-padding {
-      margin: {{ section.settings.margin_desktop }};
+      max-width: 100%;
+      padding-left: 0;
+      padding-right: 0;
     }
-    .breadcrumb__list {
-      padding: 0;
+    
+    .section-{{ section.id }}-padding .breadcrumb-wp {
+      background-color: {{ section.settings.compact_background }};
+      min-height: auto;
+      border-radius: 0;
+      border-bottom: 1px solid {{ section.settings.compact_border_color }};
     }
-    .breadcrumb__item svg {
-      margin: 0 10px;
+    
+    .section-{{ section.id }}-padding .breadcrumb-wp.breadcrumb-wp--compact {
+      display: flex;
+      flex-direction: column;
+      padding: {{ section.settings.compact_padding }}px 15px;
+      text-align: {{ section.settings.compact_alignment }};
+      align-items: {% if section.settings.compact_alignment == 'center' %}center{% else %}flex-start{% endif %};
+      justify-content: center;
     }
-    .breadcrumb__item,
-    .breadcrumb__link ,
-    .breadcrumb__item+.breadcrumb__item:before {
-      color: {{ section.settings.color_breadcrumb }};
+    
+    .section-{{ section.id }}-padding .breadcrumb__list {
+      justify-content: {% if section.settings.compact_alignment == 'center' %}center{% else %}flex-start{% endif %};
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0;
     }
+    
+    .section-{{ section.id }}-padding .breadcrumb__item {
+      display: flex;
+      align-items: center;
+      font-size: {{ section.settings.compact_font_size }}px;
+    }
+    
+    .section-{{ section.id }}-padding .breadcrumb__item svg {
+      margin: 0 6px;
+      width: 16px;
+      height: 16px;
+    }
+  {% else %}
+    /* Banner mode styles */
     .section-{{ section.id }}-padding .breadcrumb-wp {
       padding-top: {{ section.settings.padding_top | times: 1 | round: 0 }}px;
       padding-bottom: {{ section.settings.padding_bottom | times: 1 | round: 0 }}px;
@@ -45,77 +111,84 @@
       border-radius: 0;
       text-align: center;
       {% unless section.settings.bg_img != blank %}
-        {% if section.settings.background_gradient != blank  %} 
+        {% if section.settings.background_gradient != blank %} 
           background-image: {{ section.settings.background_gradient }};
-          {% endif %}
+        {% endif %}
       {% endunless %}
       
       {% if section.settings.background_color != blank %}
         background-color: {{ section.settings.background_color }};
       {% endif %}
     }
+    
     @media (min-width: 768px) {
       .section-{{ section.id }}-padding .breadcrumb-wp {
-        border-radius: {{ section.settings.breadcrumb_rounded |  append: 'px' }};
+        border-radius: {{ section.settings.breadcrumb_rounded | append: 'px' }};
       }
     }
-    .main-content-page {
-      padding-bottom: 60px;
-    }
-    .breadcrumb-wp {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
+    
     @media (max-width: 1199px) {
       .section-{{ section.id }}-padding .breadcrumb-wp {
         min-height: {{ section.settings.height_tablet }}px;
       }
       .section-{{ section.id }}-padding {
-      margin: {{ section.settings.margin_tablet }};
-    }
-    }
-    @media (max-width: 999px) {
-      .section-{{ section.id }}-padding {
+        margin: {{ section.settings.margin_tablet }};
         margin-bottom: 30px;
       }
     }
+    
     @media (max-width: 767px) {
       .section-{{ section.id }}-padding .breadcrumb-wp {
         min-height: {{ section.settings.height_mobile }}px;
       }
     }
- 
+  {% endif %}
+
+  .main-content-page {
+    padding-bottom: 60px;
+  }
+  
+  .breadcrumb-wp {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  @media (max-width: 999px) {
+    .section-{{ section.id }}-padding {
+      margin-bottom: 30px;
+    }
+  }
 
 {%- endstyle -%}
 
 <div class="page-width page-width--narrow section-{{ section.id }}-padding">
   <div class="{{ section.settings.setwidthout }}">
-    <div class="breadcrumb-wp">
+    <div class="breadcrumb-wp{% if is_compact %} breadcrumb-wp--compact{% endif %}">
      
-      
-
-      {%- if section.settings.enable_title -%}
-        <h1 style="color: {{ section.settings.color_title }}" class="main-page-title page-title h0">
-        
-        {% unless template contains 'article' %}
-        {% if template contains 'page' %}
-          {{ page.title | escape }}
-        {% elsif template contains 'collection' %}
-          {% if collection.title != blank %}
-            {{ collection.title }}
+      {% unless is_compact %}
+        {%- if section.settings.enable_title -%}
+          <h1 style="color: {{ section.settings.color_title }}" class="main-page-title page-title h0">
+          
+          {% unless template contains 'article' %}
+          {% if template contains 'page' %}
+            {{ page.title | escape }}
+          {% elsif template contains 'collection' %}
+            {% if collection.title != blank %}
+              {{ collection.title }}
+            {% else %}
+                Collection all
+            {% endif %}
           {% else %}
-              Collection all
+          {{ page_title }}
           {% endif %}
-        {% else %}
-        {{ page_title }}
-        {% endif %}
-        {% endunless %}
+          {% endunless %}
 
-        
-      </h1>
-      {%- endif -%}
+          
+        </h1>
+        {%- endif -%}
+      {% endunless %}
 
       {% render 'breadcrumb' %}
       
@@ -142,6 +215,85 @@
   "settings": [
     {
       "type": "select",
+      "id": "layout_style",
+      "label": "Layout Style",
+      "default": "banner",
+      "options": [
+        {
+          "value": "banner",
+          "label": "Banner (with background)"
+        },
+        {
+          "value": "compact",
+          "label": "Compact (inline breadcrumb only)"
+        }
+      ],
+      "info": "Compact mode shows only the breadcrumb without title or background images."
+    },
+    {
+      "type": "header",
+      "content": "Compact Mode Settings"
+    },
+    {
+      "type": "range",
+      "id": "compact_padding",
+      "label": "Vertical padding",
+      "min": 8,
+      "max": 40,
+      "step": 2,
+      "default": 16,
+      "unit": "px",
+      "info": "Only applies when Layout Style is 'Compact'"
+    },
+    {
+      "type": "color",
+      "id": "compact_background",
+      "label": "Background color",
+      "default": "#faf8f8",
+      "info": "Only applies when Layout Style is 'Compact'"
+    },
+    {
+      "type": "color",
+      "id": "compact_border_color",
+      "label": "Border color",
+      "default": "#e5e5e5",
+      "info": "Bottom border to separate from content"
+    },
+    {
+      "type": "select",
+      "id": "compact_alignment",
+      "label": "Alignment",
+      "default": "center",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" }
+      ],
+      "info": "Only applies when Layout Style is 'Compact'"
+    },
+    {
+      "type": "range",
+      "id": "compact_font_size",
+      "label": "Font size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "default": 13,
+      "unit": "px",
+      "info": "Only applies when Layout Style is 'Compact'"
+    },
+    {
+      "type": "color",
+      "id": "compact_text_color",
+      "label": "Text color",
+      "default": "#666666",
+      "info": "Only applies when Layout Style is 'Compact'"
+    },
+    {
+      "type": "header",
+      "content": "General Settings"
+    },
+    {
+      "type": "select",
       "id": "setwidthout",
       "label": "Set Width",
       "default": "full",
@@ -164,11 +316,12 @@
       "type": "checkbox",
       "id": "enable_title",
       "label": "Show title",
-      "default": true
+      "default": true,
+      "info": "Only applies when Layout Style is 'Banner'"
     },
     {
       "type": "header",
-      "content": "t:sections.all.padding.section_padding_heading"
+      "content": "Banner Mode Settings"
     },
     {
       "type": "range",
