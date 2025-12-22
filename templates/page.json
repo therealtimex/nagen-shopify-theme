@@ -12,10 +12,28 @@
     "main": {
       "type": "main-page",
       "settings": {
+        "layout_style": "compact",
+        "compact_padding": 16,
+        "compact_background": "#faf8f8",
+        "compact_border_color": "#e5e5e5",
+        "compact_alignment": "center",
+        "compact_font_size": 13,
+        "compact_text_color": "#666666",
+        "setwidthout": "full",
+        "enable_title": true,
         "padding_top": 0,
         "padding_bottom": 0,
-        "bg_img": "shopify://shop_images/Mask_group_2_1_296c8746-0255-4182-865b-7d93972b80d2.png",
-        "background_color": "#282828"
+        "height": 150,
+        "height_tablet": 150,
+        "height_mobile": 150,
+        "margin_desktop": "",
+        "margin_tablet": "",
+        "margin_mobile": "",
+        "background_gradient": "",
+        "background_color": "#282828",
+        "color_title": "#ffffff",
+        "color_breadcrumb": "#ffffff",
+        "breadcrumb_rounded": 0
       }
     }
   },
