@@ -68,6 +68,17 @@
       "type": "loadmoreproduct",
       "name": "Load more",
       "settings": {}
+    },
+    "floating_buttons_main": {
+      "type": "floating-buttons",
+      "settings": {
+        "enable": true,
+        "bottom_distance": 100,
+        "right_distance": 20,
+        "button_size": 48,
+        "show_on_scroll": false,
+        "scroll_threshold": 300
+      }
     }
   },
   "order": [
@@ -76,6 +87,7 @@
     "popup_7d9iTi",
     "recently_viewed_products_popup_NYDErq",
     "main_coupon_code_6PD3VJ",
-    "loadmoreproduct_BUB3yJ"
+    "loadmoreproduct_BUB3yJ",
+    "floating_buttons_main"
   ]
 }

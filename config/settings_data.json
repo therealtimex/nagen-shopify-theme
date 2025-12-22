@@ -115,7 +115,7 @@
     "link_font_custome_other_2": "",
     "background_body": "#ffffff",
     "header_type": "header-1",
-    "show_backtotop": true,
+    "show_backtotop": false,
     "page_width": 1200,
     "btn_height": 50,
     "btn_medium_height": 54,

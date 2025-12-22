@@ -1,0 +1,303 @@
+/* ==========================================================================
+   Floating Buttons
+   ========================================================================== */
+
+.floating-buttons {
+  position: fixed;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.floating-buttons--hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(20px);
+}
+
+/* Individual Button */
+.floating-button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: var(--floating-btn-bg, #21395D);
+  color: var(--floating-btn-color, #ffffff);
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.25s ease;
+  text-decoration: none;
+}
+
+.floating-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+.floating-button:active {
+  transform: scale(0.95);
+}
+
+/* Button Icon */
+.floating-button__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+
+.floating-button__icon svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+}
+
+.floating-button__icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Tooltip */
+.floating-button__tooltip {
+  position: absolute;
+  right: calc(100% + 12px);
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 8px 12px;
+  background-color: rgba(0, 0, 0, 0.85);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+  border-radius: 6px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+  pointer-events: none;
+}
+
+.floating-button__tooltip::after {
+  content: '';
+  position: absolute;
+  right: -6px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 6px solid transparent;
+  border-left-color: rgba(0, 0, 0, 0.85);
+}
+
+.floating-button:hover .floating-button__tooltip {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Platform-specific colors */
+.floating-button--zalo {
+  --floating-btn-bg: #0068FF;
+}
+
+.floating-button--messenger {
+  --floating-btn-bg: linear-gradient(135deg, #00B2FF 0%, #006AFF 50%, #9F00FF 100%);
+  background: var(--floating-btn-bg);
+}
+
+.floating-button--phone {
+  --floating-btn-bg: #25D366;
+}
+
+.floating-button--scroll-top {
+  --floating-btn-bg: #333333;
+}
+
+.floating-button--ai-chat {
+  --floating-btn-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--floating-btn-bg);
+  cursor: pointer;
+}
+
+/* Scroll to top specific animation */
+.floating-button--scroll-top.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(20px);
+}
+
+/* Mobile Adjustments */
+@media (max-width: 767px) {
+  .floating-buttons {
+    gap: 10px;
+  }
+  
+  .floating-button {
+    width: 44px;
+    height: 44px;
+  }
+  
+  .floating-button__icon {
+    width: 22px;
+    height: 22px;
+  }
+  
+  .floating-button__tooltip {
+    display: none;
+  }
+}
+
+/* Small mobile */
+@media (max-width: 480px) {
+  .floating-button {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .floating-button__icon {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+/* Pulse animation for attention */
+@keyframes floating-button-pulse {
+  0% {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  50% {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), 0 0 0 8px rgba(33, 57, 93, 0.2);
+  }
+  100% {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.floating-button--pulse {
+  animation: floating-button-pulse 2s ease-in-out infinite;
+}
+
+/* ==========================================================================
+   Buttons List Container
+   ========================================================================== */
+
+.floating-buttons__list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+@media (max-width: 767px) {
+  .floating-buttons__list {
+    gap: 10px;
+  }
+}
+
+/* ==========================================================================
+   Mobile Toggle Functionality
+   ========================================================================== */
+
+/* Toggle button - hidden on desktop */
+.floating-button--toggle {
+  display: none;
+  --floating-btn-bg: #21395D;
+}
+
+.floating-button--toggle .floating-button__icon--close {
+  display: none;
+}
+
+.floating-button--toggle .floating-button__icon--open {
+  display: flex;
+}
+
+/* When expanded, show close icon */
+[aria-expanded="true"].floating-button--toggle .floating-button__icon--close {
+  display: flex;
+}
+
+[aria-expanded="true"].floating-button--toggle .floating-button__icon--open {
+  display: none;
+}
+
+/* Toggle button rotation animation */
+[aria-expanded="true"].floating-button--toggle {
+  transform: rotate(45deg);
+}
+
+.floating-button--toggle:hover {
+  transform: scale(1.1);
+}
+
+[aria-expanded="true"].floating-button--toggle:hover {
+  transform: rotate(45deg) scale(1.1);
+}
+
+/* Mobile toggle behavior */
+@media (max-width: 767px) {
+  /* Use column-reverse so items stack from bottom up */
+  .floating-buttons--has-toggle {
+    flex-direction: column-reverse;
+  }
+  
+  /* Show toggle button on mobile when enabled */
+  .floating-buttons--has-toggle .floating-button--toggle {
+    display: flex;
+  }
+  
+  /* Hide buttons list by default - fade in place */
+  .floating-buttons--has-toggle .floating-buttons__list {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    pointer-events: none;
+  }
+  
+  /* Show buttons list when expanded */
+  .floating-buttons--has-toggle.floating-buttons--expanded .floating-buttons__list {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+  
+  /* Stagger animation for buttons */
+  .floating-buttons--has-toggle.floating-buttons--expanded .floating-buttons__list .floating-button {
+    animation: floating-button-pop 0.3s ease forwards;
+  }
+  
+  .floating-buttons--has-toggle.floating-buttons--expanded .floating-buttons__list .floating-button:nth-child(1) {
+    animation-delay: 0.05s;
+  }
+  
+  .floating-buttons--has-toggle.floating-buttons--expanded .floating-buttons__list .floating-button:nth-child(2) {
+    animation-delay: 0.1s;
+  }
+  
+  .floating-buttons--has-toggle.floating-buttons--expanded .floating-buttons__list .floating-button:nth-child(3) {
+    animation-delay: 0.15s;
+  }
+  
+  .floating-buttons--has-toggle.floating-buttons--expanded .floating-buttons__list .floating-button:nth-child(4) {
+    animation-delay: 0.2s;
+  }
+  
+  .floating-buttons--has-toggle.floating-buttons--expanded .floating-buttons__list .floating-button:nth-child(5) {
+    animation-delay: 0.25s;
+  }
+}
+
+@keyframes floating-button-pop {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
