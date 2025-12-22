@@ -6,6 +6,7 @@
   assign right_distance = section.settings.right_distance | default: 20
   assign button_size = section.settings.button_size | default: 48
   assign button_size_mobile = section.settings.button_size_mobile | default: 44
+  assign icon_size_percent = section.settings.icon_size | default: 50
   assign show_on_scroll = section.settings.show_on_scroll
   assign scroll_threshold = section.settings.scroll_threshold | default: 300
   assign mobile_toggle = section.settings.mobile_toggle
@@ -24,8 +25,8 @@
     }
     
     .floating-buttons--{{ section.id }} .floating-button__icon {
-      width: {{ button_size | times: 0.5 }}px;
-      height: {{ button_size | times: 0.5 }}px;
+      width: {{ button_size | times: icon_size_percent | divided_by: 100 }}px;
+      height: {{ button_size | times: icon_size_percent | divided_by: 100 }}px;
     }
     
     @media (max-width: 767px) {
@@ -35,8 +36,8 @@
       }
       
       .floating-buttons--{{ section.id }} .floating-button__icon {
-        width: {{ button_size_mobile | times: 0.5 }}px;
-        height: {{ button_size_mobile | times: 0.5 }}px;
+        width: {{ button_size_mobile | times: icon_size_percent | divided_by: 100 }}px;
+        height: {{ button_size_mobile | times: icon_size_percent | divided_by: 100 }}px;
       }
     }
     
@@ -84,6 +85,7 @@
         assign tooltip = block.settings.tooltip
         assign link = block.settings.link
         assign page_link = block.settings.page_link
+        assign icon_image = block.settings.icon_image
         assign icon_svg = block.settings.icon_svg
         assign open_new_tab = block.settings.open_new_tab
         assign enable_pulse = block.settings.enable_pulse
@@ -100,7 +102,9 @@
             {{ block.shopify_attributes }}
           >
             <span class="floating-button__icon">
-              {%- if icon_svg != blank -%}
+              {%- if icon_image != blank -%}
+                <img src="{{ icon_image | image_url: width: 64 }}" alt="{{ tooltip | default: 'Icon' }}" loading="lazy">
+              {%- elsif icon_svg != blank -%}
                 {{ icon_svg }}
               {%- else -%}
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -122,7 +126,9 @@
             {{ block.shopify_attributes }}
           >
             <span class="floating-button__icon">
-              {%- if icon_svg != blank -%}
+              {%- if icon_image != blank -%}
+                <img src="{{ icon_image | image_url: width: 64 }}" alt="{{ tooltip | default: 'Icon' }}" loading="lazy">
+              {%- elsif icon_svg != blank -%}
                 {{ icon_svg }}
               {%- else -%}
                 <svg viewBox="0 0 48 48" fill="currentColor">
@@ -144,7 +150,9 @@
             {{ block.shopify_attributes }}
           >
             <span class="floating-button__icon">
-              {%- if icon_svg != blank -%}
+              {%- if icon_image != blank -%}
+                <img src="{{ icon_image | image_url: width: 64 }}" alt="{{ tooltip | default: 'Icon' }}" loading="lazy">
+              {%- elsif icon_svg != blank -%}
                 {{ icon_svg }}
               {%- else -%}
                 <svg viewBox="0 0 24 24" fill="currentColor">
@@ -166,7 +174,9 @@
             {{ block.shopify_attributes }}
           >
             <span class="floating-button__icon">
-              {%- if icon_svg != blank -%}
+              {%- if icon_image != blank -%}
+                <img src="{{ icon_image | image_url: width: 64 }}" alt="{{ tooltip | default: 'Icon' }}" loading="lazy">
+              {%- elsif icon_svg != blank -%}
                 {{ icon_svg }}
               {%- else -%}
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -197,7 +207,9 @@
             {{ block.shopify_attributes }}
           >
             <span class="floating-button__icon">
-              {%- if icon_svg != blank -%}
+              {%- if icon_image != blank -%}
+                <img src="{{ icon_image | image_url: width: 64 }}" alt="{{ tooltip | default: 'Icon' }}" loading="lazy">
+              {%- elsif icon_svg != blank -%}
                 {{ icon_svg }}
               {%- else -%}
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -324,10 +336,21 @@
       "id": "button_size_mobile",
       "label": "Button size - Mobile (px)",
       "min": 32,
-      "max": 56,
+      "max": 64,
       "step": 4,
       "default": 44,
       "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Icon size (%)",
+      "min": 40,
+      "max": 100,
+      "step": 5,
+      "default": 50,
+      "unit": "%",
+      "info": "Size of icon relative to button size"
     },
     {
       "type": "header",
@@ -428,10 +451,16 @@
           "default": "#ffffff"
         },
         {
+          "type": "image_picker",
+          "id": "icon_image",
+          "label": "Custom icon (Image)",
+          "info": "Upload an icon image. Recommended: PNG with transparent background."
+        },
+        {
           "type": "liquid",
           "id": "icon_svg",
           "label": "Custom icon (SVG)",
-          "info": "Paste SVG code here. Leave blank to use default icon."
+          "info": "Or paste SVG code here. Image takes priority over SVG."
         },
         {
           "type": "checkbox",
