@@ -79,7 +79,7 @@
             "button_type": "custom",
             "tooltip": "Đặt lịch đo chân",
             "link": "",
-            "page_link": "shopify://pages/test",
+            "page_link": "shopify://pages/dat-lich-do-chan",
             "ai_chat_sdk": "",
             "open_new_tab": true,
             "bg_color": "#0084ff",
