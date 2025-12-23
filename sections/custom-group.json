@@ -99,7 +99,7 @@
             "page_link": "",
             "ai_chat_sdk": "",
             "open_new_tab": true,
-            "bg_color": "",
+            "bg_color": "#0084ff",
             "icon_color": "#ffffff",
             "icon_svg": "",
             "enable_pulse": false
@@ -149,11 +149,11 @@
         "bottom_distance": 100,
         "right_distance": 20,
         "button_size": 64,
-        "button_size_mobile": 64,
+        "button_size_mobile": 56,
         "icon_size": 50,
         "show_on_scroll": false,
         "scroll_threshold": 300,
-        "mobile_toggle": true
+        "mobile_toggle": false
       }
     }
   },
