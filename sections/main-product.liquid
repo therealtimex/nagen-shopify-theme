@@ -518,39 +518,14 @@
                         <div class="quantity_wrapper">
                           <p class="quantity-label">{{ 'products.product.quantity.label' | t }}</p>
                           {%- render 'product-quantity', product: product -%}
-                                    
 
                           {%- render 'product-buy',
                             block: block,
                             product: product,
                             product_form_id: product_form_id,
                             section_id: section.id,
-                            show_pickup_availability: true 
+                            show_pickup_availability: true
                           -%}
-
-
-                          <div class="ap-productform__buy-buttons buy-now">
-                            <form method="post" action="/cart/add" id="ap-productform-{{ section.id }}-{{ product.id }}" accept-charset="UTF-8" class="shopify-ap-productform" enctype="multipart/form-data" is="ap-productform">
-                                {%- form 'product',
-                                  product,
-                                  id: product_form_id,
-                                  class: 'form',
-                                  novalidate: 'novalidate',
-                                  data-type: 'add-to-cart-form'
-                                -%}
-                                  <input type="hidden" name="form_type" value="product"><input type="hidden" name="utf8" value="✓">
-                                  <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-                                  <ap-paymentcontainerproduct id="ApolloProductSticky" form-id="ap-productform-{{ section.id }}-{{ product.id }}" class="ap-productform__payment-container">
-                                    
-                                  {{ form | payment_button }}
-
-
-                                  </ap-paymentcontainerproduct>
-                                {%- endform -%}
-                              </form>
-                          </div>
-
-                          
                         </div>
                          
                       {%- when 'buy_buttons' -%}
