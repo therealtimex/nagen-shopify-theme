@@ -1297,6 +1297,9 @@
     },
     "product_showcase_main": {
       "type": "product-showcase",
+      "custom_css": [
+        ".product-showcase__carousel .swiper-wrapper {align-items: stretch; height: auto;}"
+      ],
       "settings": {
         "title_content": "<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M14.1218 10.4792C13.7313 10.0886 13.0981 10.0886 12.7076 10.4792L12.0005 11.1863C11.2194 11.9673 9.95308 11.9673 9.17203 11.1863C8.39098 10.4052 8.39098 9.13888 9.17203 8.35783L14.8027 2.72568C16.9066 2.24973 19.2013 2.83075 20.8393 4.46875C23.2587 6.88811 23.3721 10.7402 21.1797 13.2939L19.0715 15.4289L14.1218 10.4792ZM3.16162 4.46875C5.33501 2.29536 8.6646 1.98283 11.1705 3.53116L7.75781 6.94362C6.19572 8.50572 6.19572 11.0384 7.75781 12.6005C9.27258 14.1152 11.7 14.1611 13.27 12.7382L13.4147 12.6005L17.6573 16.8431L13.4147 21.0858C12.6336 21.8668 11.3673 21.8668 10.5863 21.0858L3.16162 13.6611C0.62321 11.1227 0.62321 7.00715 3.16162 4.46875Z\" fill=\"#EB1C25\"/></svg> Sản phẩm nổi bật",
         "title_font_size": 14,
@@ -1798,34 +1801,6 @@
     },
     "store_locator_section": {
       "type": "store-locator",
-      "blocks": {
-        "store_hanoi": {
-          "type": "store",
-          "settings": {
-            "store_name": "NAGEN Hà Nội",
-            "store_address": "Số 25, Ngõ 61, Lạc Trung, Hai Bà Trưng, Hà Nội",
-            "store_phone": "0966578008",
-            "store_lat": "21.0033",
-            "store_lng": "105.8617",
-            "store_image": "shopify://shop_images/placeholder.svg"
-          }
-        },
-        "store_hcm": {
-          "type": "store",
-          "settings": {
-            "store_name": "NAGEN Hồ Chí Minh",
-            "store_address": "456 Nguyễn Huệ, Quận 1, TP. Hồ Chí Minh",
-            "store_phone": "0966578009",
-            "store_lat": "10.7769",
-            "store_lng": "106.7009",
-            "store_image": "shopify://shop_images/placeholder.svg"
-          }
-        }
-      },
-      "block_order": [
-        "store_hanoi",
-        "store_hcm"
-      ],
       "settings": {
         "full_width": false,
         "content_width": 1350,
