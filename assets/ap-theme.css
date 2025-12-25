@@ -4319,7 +4319,7 @@ ap-recentlyproductsviewed-popup.drawer[open],
 .modal.modal-video,
 #modal-productsell.modal-active,
 #newsletter-popup {
-  z-index: 9999999;
+  z-index: 9999999999;
 }
 
 #newsletter-popup {
