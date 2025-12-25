@@ -159,19 +159,35 @@
   .product__info .ap-productform__buy-buttons:not(.buy-now) {
     flex: 1;
   }
-  .quantity_wrapper button#AddToCart{
-    
+  .product__info button#AddToCart,
+  .product__info .ap-productform__add-button {
+    --button-background: rgba(var(--root-primary-button-background), 0.08);
+    --button-text-color: var(--root-primary-button-background);
+    background-color: rgba(var(--root-primary-button-background), 0.08);
+    color: rgb(var(--root-primary-button-background));
+    border: 1px solid rgb(var(--root-primary-button-background));
+  }
+  .product__info button#AddToCart:hover,
+  .product__info .ap-productform__add-button:hover {
+    --button-background: rgba(var(--root-primary-button-background), 0.16);
+    --button-text-color: var(--root-primary-button-background);
+    background-color: rgba(var(--root-primary-button-background), 0.16);
+    color: rgb(var(--root-primary-button-background));
+    border-color: rgb(var(--root-primary-button-background));
   }
   .product__info .shopify-payment-button {
     width: 100%;
   }
 
-  .product__info .shopify-payment-button .shopify-payment-button__button {
-    background-color: #222;
-    color: #fff
+  .product__info .shopify-payment-button .shopify-payment-button__button--unbranded {
+    background-color: rgb(var(--root-primary-button-background));
+    color: rgb(var(--root-primary-button-color));
+    border: 1px solid rgb(var(--root-primary-button-background));
   }
-  .product__info .shopify-payment-button .shopify-payment-button__button:hover {
-    background-color: var(--primary-2);
+  .product__info .shopify-payment-button .shopify-payment-button__button--unbranded:hover {
+    background-color: rgb(var(--root-primary-button-background-hover));
+    color: rgb(var(--root-primary-button-color-hover));
+    border-color: rgb(var(--root-primary-button-background-hover));
   }
   .quantity_wrapper .ap-text-loaderbutton {
     flex-direction: row;
