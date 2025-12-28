@@ -1,8 +1,10 @@
 <link rel="stylesheet" href="{{ 'section-main-page.css' | asset_url }}" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="{{ 'component-rte.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'page-content.css' | asset_url }}" media="print" onload="this.media='all'">
 
 <noscript>{{ 'section-main-page.css' | asset_url | stylesheet_tag }}</noscript>
 <noscript>{{ 'component-rte.css' | asset_url | stylesheet_tag }}</noscript>
+<noscript>{{ 'page-content.css' | asset_url | stylesheet_tag }}</noscript>
 
 {%- liquid
   assign layout_style = section.settings.layout_style | default: 'banner'
