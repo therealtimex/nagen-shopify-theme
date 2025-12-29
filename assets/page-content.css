@@ -9,7 +9,7 @@
 .page-content {
   max-width: 900px;
   margin: 0 auto;
-  padding: 10px 0 40px;
+  padding: 0 0 40px;
 }
 
 .page-content--wide {
@@ -18,7 +18,7 @@
 
 @media (min-width: 768px) {
   .page-content {
-    padding: 16px 0 50px;
+    padding: 0 0 50px;
   }
 }
 
