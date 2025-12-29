@@ -20,7 +20,6 @@
         "height_tablet": 400,
         "height_mobile": 250,
         "margin_desktop": "0 0 80px",
-        "bg_img": "shopify://shop_images/breadcrumb.jpg",
         "background_gradient": "linear-gradient(180deg, rgba(234, 245, 255, 1), rgba(255, 255, 255, 0) 100%)",
         "background_color": "#ffffff",
         "color_title": "#ffffff",
@@ -31,6 +30,13 @@
       "type": "main-page",
       "name": "Breadcrumb",
       "settings": {
+        "layout_style": "compact",
+        "compact_padding": 16,
+        "compact_background": "#faf8f8",
+        "compact_border_color": "#e5e5e5",
+        "compact_alignment": "center",
+        "compact_font_size": 13,
+        "compact_text_color": "#666666",
         "setwidthout": "full",
         "enable_title": true,
         "padding_top": 30,
@@ -41,7 +47,6 @@
         "margin_desktop": "0 20px 100px",
         "margin_tablet": "0 20px 80px",
         "margin_mobile": "0 0 60px",
-        "bg_img": "shopify://shop_images/breadcrumb_3.jpg",
         "background_gradient": "",
         "background_color": "#282828",
         "color_title": "#ffffff",
@@ -80,7 +85,6 @@
         "96ce13c5-3720-4f03-9e42-5f492870f98b": {
           "type": "banner",
           "settings": {
-            "featured_image": "shopify://shop_images/blog_page_banner.jpg",
             "title": "Our Newsletter",
             "color_title": "#ffffff",
             "heading": "Sign Up Now!",
