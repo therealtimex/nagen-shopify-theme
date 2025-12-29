@@ -29,6 +29,13 @@
     "main_page_RqeyE8": {
       "type": "main-page",
       "settings": {
+        "layout_style": "compact",
+        "compact_padding": 16,
+        "compact_background": "#faf8f8",
+        "compact_border_color": "#e5e5e5",
+        "compact_alignment": "center",
+        "compact_font_size": 13,
+        "compact_text_color": "#666666",
         "setwidthout": "full",
         "enable_title": true,
         "padding_top": 30,
@@ -39,7 +46,6 @@
         "margin_desktop": "0 20px 0",
         "margin_tablet": "",
         "margin_mobile": "0 0",
-        "bg_img": "shopify://shop_images/breadcrumb.jpg",
         "background_gradient": "",
         "background_color": "#282828",
         "color_title": "#ffffff",
