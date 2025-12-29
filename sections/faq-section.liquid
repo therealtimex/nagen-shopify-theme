@@ -1,0 +1,413 @@
+{{ 'faq-section.css' | asset_url | stylesheet_tag }}
+{% render 'section-style' %}
+
+{%- assign id = '#shopify-section-' | append: section.id -%}
+
+<style>
+  {{ id }} .faq-header__title {
+    color: {{ section.settings.title_color }};
+  }
+  
+  {{ id }} .faq-header__heading {
+    font-size: {{ section.settings.heading_font_size }}px;
+    color: {{ section.settings.heading_color }};
+  }
+  
+  {{ id }} .faq-header__description {
+    color: {{ section.settings.description_color }};
+  }
+  
+  {{ id }} .faq-question__text {
+    color: {{ section.settings.question_color }};
+  }
+  
+  {{ id }} .faq-answer__content {
+    color: {{ section.settings.answer_color }};
+  }
+  
+  @media (max-width: 991px) {
+    {{ id }} .faq-header__heading {
+      font-size: {{ section.settings.heading_font_size_tablet }}px;
+    }
+  }
+  
+  @media (max-width: 575px) {
+    {{ id }} .faq-header__heading {
+      font-size: {{ section.settings.heading_font_size_mobile }}px;
+    }
+  }
+</style>
+
+<div class="shopify-container">
+  <div class="faq-wrapper">
+    {%- comment -%} Section Header {%- endcomment -%}
+    <div class="faq-header" {% if section.settings.data_aos != 'none' %}data-aos="{{ section.settings.data_aos }}"{% endif %}>
+      {%- if section.settings.title_content != blank -%}
+        <div class="faq-header__title">{{ section.settings.title_content }}</div>
+      {%- endif -%}
+      
+      {%- if section.settings.heading_content != blank -%}
+        <h1 class="faq-header__heading">{{ section.settings.heading_content }}</h1>
+      {%- endif -%}
+      
+      {%- if section.settings.description_content != blank -%}
+        <p class="faq-header__description">{{ section.settings.description_content }}</p>
+      {%- endif -%}
+    </div>
+    
+    {%- comment -%} FAQ Accordion {%- endcomment -%}
+    <div class="faq-list" id="faq-accordion-{{ section.id }}" {% if section.settings.data_aos != 'none' %}data-aos="{{ section.settings.data_aos }}" data-aos-delay="100"{% endif %}>
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'faq_item' -%}
+          <div class="faq-item{% if forloop.first and section.settings.first_open %} active{% endif %}" {{ block.shopify_attributes }}>
+            <button class="faq-question" type="button" aria-expanded="{% if forloop.first and section.settings.first_open %}true{% else %}false{% endif %}" aria-controls="faq-answer-{{ section.id }}-{{ forloop.index }}">
+              <h2 class="faq-question__text">{{ block.settings.question }}</h2>
+              <span class="faq-question__icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12.0006 13.1714L16.9504 8.22168L18.3646 9.63589L12.0006 15.9999L5.63672 9.63589L7.05093 8.22168L12.0006 13.1714Z" fill="currentColor"/>
+                </svg>
+              </span>
+            </button>
+            <div class="faq-answer" id="faq-answer-{{ section.id }}-{{ forloop.index }}" aria-hidden="{% if forloop.first and section.settings.first_open %}false{% else %}true{% endif %}">
+              <div class="faq-answer__content">
+                {{ block.settings.answer }}
+              </div>
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+    
+    {%- comment -%} CTA Section {%- endcomment -%}
+    {%- if section.settings.show_cta -%}
+      <div class="faq-cta" {% if section.settings.data_aos != 'none' %}data-aos="{{ section.settings.data_aos }}" data-aos-delay="200"{% endif %}>
+        {%- if section.settings.cta_title != blank -%}
+          <h3 class="faq-cta__title">{{ section.settings.cta_title }}</h3>
+        {%- endif -%}
+        {%- if section.settings.cta_text != blank -%}
+          <p class="faq-cta__text">{{ section.settings.cta_text }}</p>
+        {%- endif -%}
+        {%- if section.settings.cta_button_text != blank -%}
+          <a href="{{ section.settings.cta_button_url | default: '#' }}" class="faq-cta__button">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            {{ section.settings.cta_button_text }}
+          </a>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var accordionContainer = document.getElementById('faq-accordion-{{ section.id }}');
+    if (!accordionContainer) return;
+    
+    var items = accordionContainer.querySelectorAll('.faq-item');
+    var allowMultiple = {{ section.settings.allow_multiple | json }};
+    
+    items.forEach(function(item) {
+      var button = item.querySelector('.faq-question');
+      var answer = item.querySelector('.faq-answer');
+      var answerContent = item.querySelector('.faq-answer__content');
+      
+      button.addEventListener('click', function() {
+        var isActive = item.classList.contains('active');
+        
+        // Close others if not allowing multiple
+        if (!allowMultiple && !isActive) {
+          items.forEach(function(otherItem) {
+            otherItem.classList.remove('active');
+            otherItem.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+            var otherAnswer = otherItem.querySelector('.faq-answer');
+            if (otherAnswer) {
+              otherAnswer.setAttribute('aria-hidden', 'true');
+              otherAnswer.style.maxHeight = '0px';
+            }
+          });
+        }
+        
+        // Toggle current
+        item.classList.toggle('active');
+        button.setAttribute('aria-expanded', !isActive);
+        if (answer) {
+          answer.setAttribute('aria-hidden', isActive);
+          if (!isActive && answerContent) {
+            answer.style.maxHeight = answerContent.scrollHeight + 'px';
+          } else {
+            answer.style.maxHeight = '0px';
+          }
+        }
+      });
+    });
+
+    // Initialize heights for any default open items
+    items.forEach(function(item) {
+      if (item.classList.contains('active')) {
+        var activeAnswer = item.querySelector('.faq-answer');
+        var activeContent = item.querySelector('.faq-answer__content');
+        if (activeAnswer && activeContent) {
+          activeAnswer.style.maxHeight = activeContent.scrollHeight + 'px';
+        }
+      }
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "FAQ Accordion",
+  "tag": "section",
+  "class": "shopify-section--faq-section spaced-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full width",
+      "default": false
+    },
+    {
+      "type": "number",
+      "id": "content_width",
+      "label": "Content width",
+      "default": 900
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color"
+    },
+    {
+      "type": "text",
+      "id": "margin_desktop",
+      "label": "Margin desktop",
+      "info": "Example: 60px 0",
+      "default": "60px 0"
+    },
+    {
+      "type": "text",
+      "id": "margin_tablet",
+      "label": "Margin tablet",
+      "info": "Example: 40px 0"
+    },
+    {
+      "type": "text",
+      "id": "margin_mobile",
+      "label": "Margin mobile",
+      "info": "Example: 30px 0"
+    },
+    {
+      "type": "text",
+      "id": "padding_desktop",
+      "label": "Padding desktop",
+      "info": "Example: 60px 0",
+      "default": "60px 20px"
+    },
+    {
+      "type": "text",
+      "id": "padding_tablet",
+      "label": "Padding tablet",
+      "info": "Example: 40px 0"
+    },
+    {
+      "type": "text",
+      "id": "padding_mobile",
+      "label": "Padding mobile",
+      "info": "Example: 30px 0",
+      "default": "40px 16px"
+    },
+    {
+      "type": "header",
+      "content": "Section header"
+    },
+    {
+      "type": "liquid",
+      "id": "title_content",
+      "label": "Title",
+      "default": "<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M14.1218 10.4792C13.7313 10.0886 13.0981 10.0886 12.7076 10.4792L12.0005 11.1863C11.2194 11.9673 9.95308 11.9673 9.17203 11.1863C8.39098 10.4052 8.39098 9.13888 9.17203 8.35783L14.8027 2.72568C16.9066 2.24973 19.2013 2.83075 20.8393 4.46875C23.2587 6.88811 23.3721 10.7402 21.1797 13.2939L19.0715 15.4289L14.1218 10.4792ZM3.16162 4.46875C5.33501 2.29536 8.6646 1.98283 11.1705 3.53116L7.75781 6.94362C6.19572 8.50572 6.19572 11.0384 7.75781 12.6005C9.27258 14.1152 11.7 14.1611 13.27 12.7382L13.4147 12.6005L17.6573 16.8431L13.4147 21.0858C12.6336 21.8668 11.3673 21.8668 10.5863 21.0858L3.16162 13.6611C0.62321 11.1227 0.62321 7.00715 3.16162 4.46875Z\" fill=\"#EB1C25\"/></svg> Câu hỏi thường gặp"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#21395d"
+    },
+    {
+      "type": "text",
+      "id": "heading_content",
+      "label": "Heading",
+      "default": "Câu hỏi thường gặp"
+    },
+    {
+      "type": "number",
+      "id": "heading_font_size",
+      "label": "Heading font size",
+      "default": 32
+    },
+    {
+      "type": "number",
+      "id": "heading_font_size_tablet",
+      "label": "Heading font size tablet",
+      "default": 28
+    },
+    {
+      "type": "number",
+      "id": "heading_font_size_mobile",
+      "label": "Heading font size mobile",
+      "default": 24
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#000000"
+    },
+    {
+      "type": "textarea",
+      "id": "description_content",
+      "label": "Description",
+      "default": "Tìm hiểu thêm về sản phẩm và dịch vụ của NAGEN qua các câu hỏi phổ biến dưới đây."
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Description color",
+      "default": "#555555"
+    },
+    {
+      "type": "header",
+      "content": "FAQ styling"
+    },
+    {
+      "type": "color",
+      "id": "question_color",
+      "label": "Question text color",
+      "default": "#21395d"
+    },
+    {
+      "type": "color",
+      "id": "answer_color",
+      "label": "Answer text color",
+      "default": "#555555"
+    },
+    {
+      "type": "checkbox",
+      "id": "first_open",
+      "label": "Open first item by default",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "allow_multiple",
+      "label": "Allow multiple items open",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "CTA section"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cta",
+      "label": "Show CTA section",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "cta_title",
+      "label": "CTA title",
+      "default": "Vẫn còn thắc mắc?"
+    },
+    {
+      "type": "textarea",
+      "id": "cta_text",
+      "label": "CTA text",
+      "default": "Nếu bạn không tìm thấy câu trả lời cho câu hỏi của mình, đừng ngần ngại liên hệ với chúng tôi."
+    },
+    {
+      "type": "text",
+      "id": "cta_button_text",
+      "label": "CTA button text",
+      "default": "Đặt lịch tư vấn miễn phí"
+    },
+    {
+      "type": "url",
+      "id": "cta_button_url",
+      "label": "CTA button URL"
+    },
+    {
+      "type": "header",
+      "content": "Animation"
+    },
+    {
+      "type": "select",
+      "id": "data_aos",
+      "label": "Animation",
+      "default": "fade-up",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "fade-up", "label": "Fade Up" },
+        { "value": "fade-down", "label": "Fade Down" },
+        { "value": "zoom-in", "label": "Zoom In" }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "Question goes here?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>Answer goes here. You can use rich text formatting including <strong>bold</strong>, <em>italic</em>, lists, and links.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ Accordion",
+      "blocks": [
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Tấm lót hỗ trợ vòm là gì?",
+            "answer": "<p>Tấm lót vòm chân là thiết bị được thiết kế đặc biệt để đeo bên trong giày. Tấm lót vòm bàn chân của chúng tôi được thiết kế theo nguyên lý cơ sinh học để định vị chính xác xương, dây chằng, cơ và gân của bàn chân.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Làm thế nào để biết tôi cần tấm lót hỗ trợ vòm bàn chân?",
+            "answer": "<p>Tấm lót hỗ trợ vòm bàn chân có thể giúp ích nếu bạn bị đau hoặc khó chịu ở chân do mất cân bằng cơ học sinh học như bàn chân bẹt hoặc vòm chân cao.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Sản phẩm NAGEN có xuất xứ từ đâu?",
+            "answer": "<p>Tấm lót hỗ trợ vòm bàn chân NAGEN được sản xuất tại Hoa Kỳ, do Bio Orthotics International Inc – Đơn vị gần 60 năm nghiên cứu và phát triển tấm lót hỗ trợ vòm bàn chân.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
