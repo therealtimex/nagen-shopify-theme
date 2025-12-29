@@ -242,9 +242,9 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  padding: 14px 24px;
+  padding: 10px 20px;
   border-radius: 8px;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   text-decoration: none;
   transition: all 0.2s ease;
@@ -261,6 +261,7 @@
 .nc-btn--primary:hover {
   background-color: #c41920;
   box-shadow: 0 4px 12px rgba(235, 28, 37, 0.2);
+  color: #ffffff;
 }
 
 .nc-btn--secondary {
@@ -271,6 +272,7 @@
 .nc-btn--secondary:hover {
   background-color: #1a2d4a;
   box-shadow: 0 4px 12px rgba(33, 57, 93, 0.2);
+  color: #ffffff;
 }
 
 /* Map Box */
