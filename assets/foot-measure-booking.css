@@ -181,12 +181,12 @@
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
   padding: 12px 24px;
 }
 
 .fmb-form__submit:hover {
-  background-color: #c41920;
+  background-color: #b3131a;
 }
 
 .fmb-form__submit:disabled {
