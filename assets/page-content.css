@@ -33,7 +33,7 @@
   line-height: 22px;
   font-weight: 600;
   text-transform: capitalize;
-  color: var(--sub-heading-color);
+  color: rgba(var(--heading-color), 0.75);
 }
 
 .section-label svg {
