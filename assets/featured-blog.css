@@ -113,8 +113,8 @@
 }
 
 .blog-tag .article-item__category:hover {
-  background-color: var(--primary);
-  color: #1a1a1a;
+  background-color: #b3131a;
+  color: #fff;
 }
 
 .blog-author {
@@ -197,7 +197,11 @@
 }
 
 .btn__readmore:hover {
-  color: var(--btn-color-hover);
+  color: var(--primary_hover);
+}
+
+.btn__readmore:hover .icon-button {
+  background-color: var(--btn-bg-hover, #b3131a);
 }
 
 .no-swiper .article-card__image img {

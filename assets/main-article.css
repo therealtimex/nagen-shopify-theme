@@ -543,8 +543,8 @@ p.description-comment {
     color: var(--primary_hover);
 }
 
-.btn__readmore:hover .icon__button {
-    background-color: var(--primary-2);
+.btn__readmore:hover .icon-button {
+    background-color: var(--btn-bg-hover, #b3131a);
 }
 
 
@@ -573,6 +573,11 @@ p.description-comment {
     font-size: 14px;
     line-height: 22px;
     font-weight: 600;
+}
+
+.article-item__category:hover {
+    background-color: #b3131a;
+    color: #fff;
 }
 
 .article-item__category::before {
