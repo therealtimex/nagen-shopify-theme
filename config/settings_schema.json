@@ -1360,7 +1360,6 @@
         "id": "background_image",
         "label": "t:settings_schema.layout.settings.background_image.label"
       },
-   
       {
         "type": "checkbox",
         "id": "show_backtotop",
@@ -2300,7 +2299,8 @@
         "id": "favicon",
         "label": "t:settings_schema.favicon.settings.favicon.label",
         "info": "t:settings_schema.favicon.settings.favicon.info"
-      }, {
+      },
+      {
         "type": "header",
         "content": "Meta Description"
       },
@@ -2411,6 +2411,45 @@
         "id": "free_shipping_label",
         "label": "Content when not free shipping",
         "default": "Spend %% more and get free shipping!"
+      }
+    ]
+  },
+  {
+    "name": "Affiliate Tracking",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Track affiliate referrals via URL parameters and attribute orders to affiliates for commission calculation."
+      },
+      {
+        "type": "checkbox",
+        "id": "affiliate_tracking_enabled",
+        "label": "Enable affiliate tracking",
+        "default": false
+      },
+      {
+        "type": "text",
+        "id": "affiliate_param_name",
+        "label": "URL parameter name",
+        "default": "ref",
+        "info": "The query parameter used for affiliate links (e.g., ?ref=ABC123)"
+      },
+      {
+        "type": "range",
+        "id": "affiliate_ttl_days",
+        "label": "Attribution window (days)",
+        "min": 1,
+        "max": 90,
+        "step": 1,
+        "default": 7,
+        "info": "How long the affiliate cookie lasts before expiring"
+      },
+      {
+        "type": "checkbox",
+        "id": "affiliate_link_decoration_enabled",
+        "label": "Decorate shared links",
+        "default": true,
+        "info": "Automatically append affiliate parameter to social share links"
       }
     ]
   }

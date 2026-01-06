@@ -1,0 +1,23 @@
+{% comment %}
+  Affiliate Tracker Snippet
+  Initializes the affiliate tracking system with theme settings.
+
+  Usage:
+  {% render 'affiliate-tracker' %}
+{% endcomment %}
+
+{% if settings.affiliate_tracking_enabled %}
+<script src="{{ 'affiliate-tracker.js' | asset_url }}" defer></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof AffiliateTracker !== 'undefined') {
+      window.affiliateTracker = new AffiliateTracker({
+        paramName: {{ settings.affiliate_param_name | default: 'ref' | json }},
+        ttlDays: {{ settings.affiliate_ttl_days | default: 7 }},
+        decorateLinks: {{ settings.affiliate_link_decoration_enabled | json }}
+      });
+      window.affiliateTracker.init();
+    }
+  });
+</script>
+{% endif %}
