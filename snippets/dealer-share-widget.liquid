@@ -1,0 +1,140 @@
+{% comment %}
+  Dealer Share Link Widget
+  Displays personalized share link for logged-in dealers.
+  Requires customer metafield: affiliate.ref_code
+
+  Usage:
+  {% render 'dealer-share-widget' %}
+{% endcomment %}
+
+{% if customer and customer.metafields.affiliate.ref_code %}
+  {% assign ref_code = customer.metafields.affiliate.ref_code %}
+  {% assign param_name = settings.affiliate_param_name | default: 'ref' %}
+  {% assign share_url = shop.url | append: '?' | append: param_name | append: '=' | append: ref_code %}
+  
+  <div class="dealer-share-widget" id="dealer-share-widget">
+    <div class="dealer-share-widget__header">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
+        <polyline points="16 6 12 2 8 6"></polyline>
+        <line x1="12" y1="2" x2="12" y2="15"></line>
+      </svg>
+      <span>{{ 'customer.account.dealer_share_link' | t | default: 'Your Share Link' }}</span>
+    </div>
+    <div class="dealer-share-widget__input-group">
+      <input 
+        type="text" 
+        id="dealer-share-link" 
+        class="dealer-share-widget__input"
+        readonly 
+        value="{{ share_url }}"
+        data-ref-code="{{ ref_code }}"
+        aria-label="{{ 'customer.account.dealer_share_link' | t | default: 'Your Share Link' }}"
+      >
+      <button 
+        type="button" 
+        class="dealer-share-widget__copy" 
+        id="dealer-copy-btn"
+        aria-label="{{ 'customer.account.copy_link' | t | default: 'Copy Link' }}"
+      >
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-copy">
+          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+        </svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-check" style="display:none;">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+        <span class="copy-text">{{ 'customer.account.copy' | t | default: 'Copy' }}</span>
+      </button>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      const copyBtn = document.getElementById('dealer-copy-btn');
+      const input = document.getElementById('dealer-share-link');
+      
+      if (copyBtn && input) {
+        copyBtn.addEventListener('click', function() {
+          navigator.clipboard.writeText(input.value).then(function() {
+            const iconCopy = copyBtn.querySelector('.icon-copy');
+            const iconCheck = copyBtn.querySelector('.icon-check');
+            const copyText = copyBtn.querySelector('.copy-text');
+            
+            iconCopy.style.display = 'none';
+            iconCheck.style.display = 'inline';
+            copyText.textContent = '{{ 'customer.account.copied' | t | default: 'Copied!' }}';
+            
+            setTimeout(function() {
+              iconCopy.style.display = 'inline';
+              iconCheck.style.display = 'none';
+              copyText.textContent = '{{ 'customer.account.copy' | t | default: 'Copy' }}';
+            }, 2000);
+          });
+        });
+      }
+    })();
+  </script>
+
+  <style>
+    .dealer-share-widget {
+      padding: 1rem;
+      background: var(--color-accent-4, #f5f5f5);
+      border-radius: 8px;
+      margin: 1rem 0;
+    }
+    .dealer-share-widget__header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      color: var(--heading-color, #333);
+    }
+    .dealer-share-widget__input-group {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .dealer-share-widget__input {
+      flex: 1;
+      padding: 0.625rem 0.75rem;
+      border: 1px solid var(--border-color, #ddd);
+      border-radius: 6px;
+      font-size: 0.875rem;
+      background: #fff;
+      color: var(--text-color, #333);
+    }
+    .dealer-share-widget__input:focus {
+      outline: none;
+      border-color: var(--color-primary, #000);
+    }
+    .dealer-share-widget__copy {
+      display: flex;
+      align-items: center;
+      gap: 0.375rem;
+      padding: 0.625rem 1rem;
+      background: var(--color-primary, #000);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: background 0.2s ease;
+    }
+    .dealer-share-widget__copy:hover {
+      background: var(--color-primary-hover, #333);
+    }
+    .dealer-share-widget__copy svg {
+      flex-shrink: 0;
+    }
+    @media (max-width: 480px) {
+      .dealer-share-widget__input-group {
+        flex-direction: column;
+      }
+      .dealer-share-widget__copy {
+        justify-content: center;
+      }
+    }
+  </style>
+{% endif %}

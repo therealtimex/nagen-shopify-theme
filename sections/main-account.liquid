@@ -23,6 +23,9 @@
       </svg>
       {{ 'customer.log_out' | t }}
     </a>
+    
+    {% comment %} Dealer share link widget - shows only if customer has affiliate.ref_code metafield {% endcomment %}
+    {% render 'dealer-share-widget' %}
   </div>
 
   <div class="container">
