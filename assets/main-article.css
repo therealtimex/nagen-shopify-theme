@@ -228,15 +228,15 @@ a.mobile-share-buttons__item {
 }
 
 .mobile-share-buttons__item--facebook {
-    background-color: #516EAB;
+    background-color: #1877f2;
 }
 
 .mobile-share-buttons__item--pinterest {
-    background-color: #29C5F6;
+    background-color: #e60023;
 }
 
 .mobile-share-buttons__item--twitter {
-    background-color: #CA212A;
+    background-color: #111111;
 }
 
 [dir=ltr] .mobile-share-buttons__item svg {
@@ -260,6 +260,19 @@ a.mobile-share-buttons__item path {
     width: 34px;
     height: 24px;
 }
+
+.article__share-button-item--facebook {
+    color: #1877f2;
+}
+
+.article__share-button-item--pinterest {
+    color: #e60023;
+}
+
+.article__share-button-item--twitter {
+    color: #111111;
+}
+
 
 .nav-previous,
 .nav-next {
