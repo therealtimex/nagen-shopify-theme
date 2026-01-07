@@ -84,6 +84,7 @@
         },
         "96ce13c5-3720-4f03-9e42-5f492870f98b": {
           "type": "banner",
+          "disabled": true,
           "settings": {
             "title": "Our Newsletter",
             "color_title": "#ffffff",
