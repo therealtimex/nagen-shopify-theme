@@ -1,6 +1,7 @@
 {% comment %}
   Affiliate Tracker Snippet
   Initializes the affiliate tracking system with theme settings.
+  Dealer ref_code (if logged in) takes priority for share link decoration.
 
   Usage:
   {% render 'affiliate-tracker' %}
@@ -11,10 +12,16 @@
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     if (typeof AffiliateTracker !== 'undefined') {
+      {% if customer and customer.metafields.rtcloud.ref_code %}
+        {% assign dealer_ref_code = customer.metafields.rtcloud.ref_code %}
+      {% else %}
+        {% assign dealer_ref_code = nil %}
+      {% endif %}
       window.affiliateTracker = new AffiliateTracker({
         paramName: {{ settings.affiliate_param_name | default: 'ref' | json }},
         ttlDays: {{ settings.affiliate_ttl_days | default: 7 }},
-        decorateLinks: {{ settings.affiliate_link_decoration_enabled | json }}
+        decorateLinks: {{ settings.affiliate_link_decoration_enabled | json }},
+        dealerRefCode: {{ dealer_ref_code | json }}
       });
       window.affiliateTracker.init();
     }

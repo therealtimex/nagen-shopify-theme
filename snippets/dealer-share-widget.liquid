@@ -1,14 +1,14 @@
 {% comment %}
   Dealer Share Link Widget
   Displays personalized share link for logged-in dealers.
-  Requires customer metafield: affiliate.ref_code
+  Requires customer metafield: rtcloud.ref_code
 
   Usage:
   {% render 'dealer-share-widget' %}
 {% endcomment %}
 
-{% if customer and customer.metafields.affiliate.ref_code %}
-  {% assign ref_code = customer.metafields.affiliate.ref_code %}
+{% if customer and customer.metafields.rtcloud.ref_code %}
+  {% assign ref_code = customer.metafields.rtcloud.ref_code %}
   {% assign param_name = settings.affiliate_param_name | default: 'ref' %}
   {% assign share_url = shop.url | append: '?' | append: param_name | append: '=' | append: ref_code %}
   

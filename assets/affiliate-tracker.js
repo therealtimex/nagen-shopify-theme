@@ -14,6 +14,7 @@ class AffiliateTracker {
     this.paramName = config.paramName || 'ref';
     this.ttlDays = config.ttlDays || 7;
     this.decorateLinks = config.decorateLinks !== false;
+    this.dealerRefCode = config.dealerRefCode || null; // Dealer's own ref_code (takes priority for sharing)
     this.cookieName = 'rt_aff';
     this.storageKey = 'rt_aff';
     this.cartAttrKey = 'rt_aff_ref';
@@ -180,12 +181,21 @@ class AffiliateTracker {
 
   /**
    * Decorate all share links with affiliate parameter
+   * Priority: dealer's own ref_code > visitor's stored attribution
    */
   decorateShareLinks() {
-    const attr = this.getStoredAttribution();
-    if (!this.isValidAttribution(attr)) {
-      return;
+    // Dealer priority: use dealer's ref_code if logged in, otherwise use visitor attribution
+    let refToUse = this.dealerRefCode;
+    
+    if (!refToUse) {
+      const attr = this.getStoredAttribution();
+      if (!this.isValidAttribution(attr)) {
+        return;
+      }
+      refToUse = attr.ref;
     }
+    
+    if (!refToUse) return;
 
     // Find all elements with data-share-url attribute
     const shareLinks = document.querySelectorAll('[data-share-url]');
@@ -193,7 +203,7 @@ class AffiliateTracker {
       const baseUrl = link.getAttribute('data-share-url');
       if (!baseUrl) return;
 
-      const decoratedUrl = this.decorateUrl(baseUrl, attr.ref);
+      const decoratedUrl = this.decorateUrl(baseUrl, refToUse);
       const currentHref = link.getAttribute('href');
       if (!currentHref) return;
 
