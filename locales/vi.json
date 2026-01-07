@@ -34,7 +34,8 @@
         "snapchat": "Snapchat",
         "youtube": "YouTube",
         "vimeo": "Vimeo",
-        "tiktok": "TikTok"
+        "tiktok": "TikTok",
+        "linkedin": "Linkedin"
       }
     },
     "continue_shopping": "Tiếp tục mua sắm",
@@ -45,11 +46,36 @@
       "previous": "Trang trước"
     },
     "search": {
-      "search": "Tìm kiếm"
+      "search": "Tìm kiếm",
+      "popular": "Phổ biến",
+      "all_product": "Tất cả sản phẩm",
+      "all_collection": "Tất cả bộ sưu tập",
+      "contact": "Liên hệ",
+      "blog": "Blog",
+      "information": "Thông tin",
+      "placeholder": "Tìm kiếm trong cửa hàng...",
+      "view_all": "Xem tất cả kết quả"
     },
     "cart": {
       "view": "Xem giỏ hàng của tôi ({{ count }})",
-      "item_added": "Mặt hàng đã thêm vào giỏ hàng"
+      "item_added": "Mặt hàng đã thêm vào giỏ hàng",
+      "cart_text": "Giỏ hàng",
+      "cart_item": "sản phẩm",
+      "gift": "Thêm gói quà",
+      "note": "Thêm ghi chú",
+      "counpon": "Mã giảm giá",
+      "shipping": "Vận chuyển",
+      "remove": "Xóa",
+      "subtotal": "Tạm tính:",
+      "checkout": "Thanh toán",
+      "agree": "Tôi đồng ý với",
+      "conditions": "điều khoản và điều kiện",
+      "marquee": "Mọi khoản phí được tính bằng USD. Dù giỏ hàng đang hiển thị VND, thanh toán sẽ sử dụng USD theo tỷ giá cập nhật nhất.",
+      "add_note": "Thêm ghi chú cho đơn hàng",
+      "note_placeholder": "Bạn cần hỗ trợ gì?",
+      "save": "Lưu",
+      "ship_estimates": "Ước tính phí vận chuyển",
+      "policy": "Thuế và phí vận chuyển được tính khi thanh toán"
     },
     "share": {
       "copy_to_clipboard": "Sao chép liên kết",
@@ -62,12 +88,23 @@
       "next_slide": "Trượt sang phải",
       "previous_slide": "Trượt sang trái",
       "name": "Thanh trượt"
+    },
+    "users": {
+      "hello": "Xin chào",
+      "login": "Đăng nhập",
+      "logout": "Đăng xuất",
+      "check_out": "Thanh toán",
+      "wishlist": "Danh sách yêu thích",
+      "compare": "So sánh",
+      "my_account": "Tài khoản của tôi",
+      "register": "Đăng ký"
     }
   },
   "newsletter": {
     "label": "Email",
     "success": "Cảm ơn bạn đã đăng ký",
-    "button_label": "Đăng ký"
+    "button_label": "Đăng ký",
+    "button_note": "Thông báo cho tôi"
   },
   "accessibility": {
     "skip_to_text": "Chuyển đến nội dung",
@@ -104,7 +141,17 @@
       "back_to_blog": "Quay lại blog",
       "share": "Chia sẻ bài viết này",
       "success": "Bạn đã gửi bình luận thành công! Xin cảm ơn!",
-      "success_moderated": "Bạn đã gửi bình luận thành công. Chúng tôi sẽ đăng bình luận sau chốc lát, khi blog của chúng tôi được kiểm duyệt."
+      "success_moderated": "Bạn đã gửi bình luận thành công. Chúng tôi sẽ đăng bình luận sau chốc lát, khi blog của chúng tôi được kiểm duyệt.",
+      "top_blog": {
+        "view": "Xem",
+        "all_posts": "Tất cả bài viết"
+      },
+      "title_blog": "Bài viết mới",
+      "title_blog_about": "Về công ty",
+      "title_blog_categories": "Danh mục blog",
+      "tags": "Thẻ phổ biến",
+      "tags_2": "Thẻ:",
+      "comment_des": "Email của bạn sẽ không hiển thị. Các mục bắt buộc được đánh dấu *"
     }
   },
   "onboarding": {
@@ -159,7 +206,18 @@
       "include_taxes": "Đã bao gồm thuế.",
       "shipping_policy_html": "<a href=\"{{ link }}\">Phí vận chuyển</a> được tính khi thanh toán.",
       "choose_options": "Chọn các tùy chọn",
-      "choose_product_options": "Chọn tùy chọn cho {{ product_name }}"
+      "choose_product_options": "Chọn tùy chọn cho {{ product_name }}",
+      "tags": "Thẻ: ",
+      "categories": "Danh mục: ",
+      "quickview": "Xem nhanh",
+      "wishlist": "Thêm vào yêu thích",
+      "compare": "So sánh",
+      "on_sale_off": "GIẢM",
+      "payment": "Phương thức thanh toán",
+      "in_stock": "Còn hàng",
+      "out_stock": "Hết hàng",
+      "hurry_up": "Nhanh tay! Ưu đãi kết thúc sau:",
+      "new": "Mới"
     },
     "modal": {
       "label": "Thư viện phương tiện"
@@ -209,7 +267,8 @@
       "results_with_count_and_term": {
         "one": "Tìm thấy {{ count }} kết quả cho “{{ terms }}”",
         "other": "Tìm thấy {{ count }} kết quả cho “{{ terms }}”"
-      }
+      },
+      "main_title": "Kết quả cho"
     },
     "cart": {
       "cart": "Giỏ hàng"
@@ -223,12 +282,15 @@
         "send": "Gửi",
         "post_success": "Cảm ơn đã liên hệ với chúng tôi. Chúng tôi sẽ liên hệ lại với bạn trong thời gian sớm nhất.",
         "error_heading": "Vui lòng điều chỉnh các mục sau:",
-        "title": "Biểu mẫu liên hệ"
+        "title": "Biểu mẫu liên hệ",
+        "comment_2": "Hãy cho chúng tôi biết bạn cần gì.",
+        "send_message": "Gửi tin nhắn"
       }
     },
     "404": {
       "title": "Không tìm thấy trang",
-      "subtext": "404"
+      "subtext": "404",
+      "button": "Tiếp tục mua sắm"
     }
   },
   "sections": {
@@ -238,6 +300,12 @@
       "cart_count": {
         "one": "{{ count }} mặt hàng",
         "other": "{{ count }} mặt hàng"
+      },
+      "vertical": {
+        "title": "Tất cả danh mục"
+      },
+      "categories": {
+        "title": "Tất cả danh mục"
       }
     },
     "cart": {
@@ -432,6 +500,14 @@
       "expired": "Đã hết hạn",
       "copy_code_success": "Đã sao chép mã thành công",
       "print_gift_card": "In"
+    }
+  },
+  "collections": {
+    "general": {
+      "item": "Sản phẩm",
+      "items": "Sản phẩm",
+      "products": "sản phẩm",
+      "product": "sản phẩm"
     }
   }
 }

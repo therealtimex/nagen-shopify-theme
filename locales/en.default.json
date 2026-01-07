@@ -140,7 +140,10 @@
         "one": "{{ count }} comment",
         "other": "{{ count }} comments"
       },
-      "top_blog": { "view": "View", "all_posts": "All posts" },
+      "top_blog": {
+        "view": "View",
+        "all_posts": "All posts"
+      },
       "title_blog": "Recent Posts",
       "title_blog_about": "About Company",
       "title_blog_categories": "Blog Categories",
@@ -224,7 +227,9 @@
       "include_taxes": "Tax included.",
       "shipping_policy_html": "<a href=\"{{ link }}\">Shipping</a> calculated at checkout."
     },
-    "modal": { "label": "Media gallery" },
+    "modal": {
+      "label": "Media gallery"
+    },
     "facets": {
       "apply": "Apply",
       "clear": "Clear",
@@ -273,7 +278,9 @@
       "title": "Search results",
       "search_for": "Search for “{{ terms }}”"
     },
-    "cart": { "cart": "Cart" },
+    "cart": {
+      "cart": "Cart"
+    },
     "contact": {
       "form": {
         "title": "Contact form",
@@ -298,9 +305,16 @@
     "header": {
       "announcement": "Announcement",
       "menu": "Menu",
-      "cart_count": { "one": "{{ count }} item", "other": "{{ count }} items" },
-      "vertical": { "title": "All Categories" },
-      "categories": { "title": "All Categories" }
+      "cart_count": {
+        "one": "{{ count }} item",
+        "other": "{{ count }} items"
+      },
+      "vertical": {
+        "title": "All Categories"
+      },
+      "categories": {
+        "title": "All Categories"
+      }
     },
     "cart": {
       "title": "Your cart",
@@ -330,7 +344,9 @@
         "paragraph_html": "<a href=\"{{ link }}\" class=\"link underlined-link\">Log in</a> to check out faster."
       }
     },
-    "footer": { "payment": "Payment methods" },
+    "footer": {
+      "payment": "Payment methods"
+    },
     "featured_blog": {
       "view_all": "View all",
       "onboarding_title": "Blog post",
@@ -340,13 +356,17 @@
       "view_all": "View all",
       "view_all_label": "View all products in the {{ collection_name }} collection"
     },
-    "collection_list": { "view_all": "View all" },
+    "collection_list": {
+      "view_all": "View all"
+    },
     "collection_template": {
       "empty": "No products found",
       "title": "Collection",
       "use_fewer_filters_html": "Use fewer filters or <a class=\"{{ class }}\" href=\"{{ link }}\">remove all</a>"
     },
-    "video": { "load_video": "Load video: {{ description }}" },
+    "video": {
+      "load_video": "Load video: {{ description }}"
+    },
     "slideshow": {
       "load_slide": "Load slide",
       "previous_slideshow": "Previous",
@@ -356,7 +376,9 @@
       "carousel": "Carousel",
       "slide": "Slide"
     },
-    "page": { "title": "Page title" }
+    "page": {
+      "title": "Page title"
+    }
   },
   "localization": {
     "country_label": "Country/region",
