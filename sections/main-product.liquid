@@ -562,16 +562,16 @@
                       {%- when 'wishlist-compare' -%}
                         <div class="single_variation_wrap">
                           <ap-wishlistbutton class="btn-variation btn-wishlist"
-                            data-action="add" data-id="{{ product.id }}" alt="Add to wishlist">
+                            data-action="add" data-id="{{ product.id }}" alt="{{ 'products.product.wishlist' | t }}">
                             {% render 'icon-wishlist' %}
                             <span class="text-name">
-                              Add to wishlist
+                              {{ 'products.product.wishlist' | t }}
                             </span>
                           </ap-wishlistbutton>
-                          <ap-comparebutton class="btn-variation btn-compare" data-action="add" data-id="{{ product.id }}" alt="Add to comparebutton">
+                          <ap-comparebutton class="btn-variation btn-compare" data-action="add" data-id="{{ product.id }}" alt="{{ 'products.product.compare' | t }}">
                             {% render 'icon-compare' %}
                             <span class="text-name">
-                                Add to compare
+                                {{ 'products.product.compare' | t }}
                             </span>
                           </ap-comparebutton>
                         </div>
@@ -838,7 +838,7 @@
 
       <div class="pswp__ui pswp__ui--hidden">
         <div class="pswp__top-bar">
-          <button class="pswp__button pswp__button--close ap-nextap-buttonprev" data-action="pswp-close" title="Close">
+          <button class="pswp__button pswp__button--close ap-nextap-buttonprev" data-action="pswp-close" title="{{ 'accessibility.close' | t }}">
             <svg focusable="false" width="14" height="14" class="icon icon--close   " viewBox="0 0 14 14">
               <path d="M13 13L1 1M13 1L1 13" stroke="currentColor" stroke-width="2" fill="none"></path>
             </svg>
@@ -846,12 +846,12 @@
         </div>
 
         <div class="pswp__prev-next-buttons hd-pocket">
-          <button class="pswp__button ap-nextap-buttonprev ap-nextap-buttonprev--prev" data-action="pswp-prev" title="Previous">
+          <button class="pswp__button ap-nextap-buttonprev ap-nextap-buttonprev--prev" data-action="pswp-prev" title="{{ 'general.slider.previous_slide' | t }}">
             <svg focusable="false" width="17" height="14" class="icon icon--nav-arrow-left  icon--direction-aware " viewBox="0 0 17 14">
               <path d="M17 7H2M8 1L2 7l6 6" stroke="currentColor" stroke-width="2" fill="none"></path>
             </svg>
           </button>
-          <button class="pswp__button ap-nextap-buttonprev ap-nextap-buttonprev--next" data-action="pswp-next" title="Next">
+          <button class="pswp__button ap-nextap-buttonprev ap-nextap-buttonprev--next" data-action="pswp-next" title="{{ 'general.slider.next_slide' | t }}">
             <svg focusable="false" width="17" height="14" class="icon icon--nav-arrow-right  icon--direction-aware " viewBox="0 0 17 14">
               <path d="M0 7h15M9 1l6 6-6 6" stroke="currentColor" stroke-width="2" fill="none"></path>
             </svg>
@@ -860,7 +860,7 @@
 
         <div class="pswp__dots-nav-wrapper hd-lap-and-up">
           <button class="tap-area tap-area--large" data-action="pswp-prev">
-            <span class="visually-hidden">Previous</span>
+            <span class="visually-hidden">{{ 'general.slider.previous_slide' | t }}</span>
             <svg focusable="false" width="17" height="14" class="icon icon--nav-arrow-left  icon--direction-aware " viewBox="0 0 17 14">
               <path d="M17 7H2M8 1L2 7l6 6" stroke="currentColor" stroke-width="2" fill="none"></path>
             </svg>
@@ -871,7 +871,7 @@
           </div>
 
           <button class="tap-area tap-area--large" data-action="pswp-next">
-            <span class="visually-hidden">Next</span>
+            <span class="visually-hidden">{{ 'general.slider.next_slide' | t }}</span>
             <svg focusable="false" width="17" height="14" class="icon icon--nav-arrow-right  icon--direction-aware " viewBox="0 0 17 14">
               <path d="M0 7h15M9 1l6 6-6 6" stroke="currentColor" stroke-width="2" fill="none"></path>
             </svg>
@@ -885,7 +885,7 @@
       <ap-contentmodal only-once="" id="popup-product-{{ section.id }}-{{ media.id }}" class="modal modal-full modal-video">
         <div class="modal__overlay"></div>
         <div class="modal__content">
-          <button type="button" class="modal__close-button tap-area" data-action="close" title="Close">
+          <button type="button" class="modal__close-button tap-area" data-action="close" title="{{ 'accessibility.close' | t }}">
             <svg focusable="false" width="14" height="14" class="icon icon--close   " viewBox="0 0 14 14">
               <path d="M13 13L1 1M13 1L1 13" stroke="currentColor" stroke-width="2" fill="none"></path>
             </svg>
