@@ -13,9 +13,6 @@
                 <a href="{{ routes.account_url }}" title="{{ 'general.users.my_account' | t }}">{{ 'general.users.my_account' | t }}</a>
             </li>
             <li>
-                <a href="{{ routes.account_logout_url }}" title="{{ 'general.users.logout' | t }}">{{ 'general.users.logout' | t }}</a>
-            </li>
-            <li>
                 <a href="{{ routes.cart_url }}" title="{{ 'general.users.check_out' | t }}">{{ 'general.users.check_out' | t }}</a>
             </li>
             <li>
@@ -27,6 +24,9 @@
                 <a href="/pages/compare" class="compare-link">
                     {{ 'general.users.compare' | t }} (<ap-comparecount id="comparecount"></ap-comparecount>)
                 </a>
+            </li>
+            <li>
+                <a href="{{ routes.account_logout_url }}" title="{{ 'general.users.logout' | t }}">{{ 'general.users.logout' | t }}</a>
             </li>
         </ul>
     </div>
