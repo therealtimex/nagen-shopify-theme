@@ -8260,6 +8260,18 @@ body.page\.contact {
     top: 0;
     left: -6px;
   }
+
+  .site-nav__dropdown--third-level {
+    min-width: 260px;
+    max-width: 320px;
+  }
+
+  .site-nav__dropdown--third-level .meganav__link {
+    display: block;
+    padding: 8px 24px;
+    line-height: 1.5;
+    white-space: normal;
+  }
 }
 
 .gift-card {
