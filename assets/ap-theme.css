@@ -13497,6 +13497,26 @@ button#close {
   text-align: center;
 }
 
+.mini-cart__drawer-footer .cart-button.button--outline,
+.mini-cart__order-note .form__submit--closer.button--outline,
+.mini-cart__order-coupon .form__submit--closer.button--outline {
+  --button-background: rgba(var(--root-primary-button-background), 0.08);
+  --button-text-color: var(--root-primary-button-background);
+  border-color: rgb(var(--root-primary-button-background));
+  background-image: none;
+}
+
+.mini-cart__drawer-footer .cart-button.button--outline:hover,
+.mini-cart__order-note .form__submit--closer.button--outline:hover,
+.mini-cart__order-coupon .form__submit--closer.button--outline:hover {
+  --button-background: rgba(var(--root-primary-button-background), 0.16);
+  --button-text-color: var(--root-primary-button-background);
+  border-color: rgb(var(--root-primary-button-background));
+  background-color: rgba(var(--root-primary-button-background), 0.16);
+  color: rgb(var(--root-primary-button-background));
+  background-image: none;
+}
+
 .mini-cart-info-icon svg {
   font-size: 20px;
 }

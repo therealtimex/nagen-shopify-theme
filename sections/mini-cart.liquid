@@ -274,7 +274,7 @@
                 <button id="bt_checkout" form="mini-cart-form" type="submit" class="checkout-button button button--primary button--full" name="checkout">
                     {{ 'general.cart.checkout' | t }}
                 </button>
-                <a href="/cart" class="cart-button button button--primary button--full">
+                <a href="/cart" class="cart-button button button--outline button--full">
                      {{ 'general.cart.cart_text' | t }}
                 </a>
             </div>
@@ -305,7 +305,7 @@
             <span class="openable__overlay"></span>
             <label for="cart[note]" class="mini-cart__order-note-title heading heading--xsmall">{{ 'general.cart.add_note' | t }}</label>
             <textarea is="ap-cartnote" name="note" id="cart[note]" rows="3" ap-ariaowns="order-note-toggle" class="input__field input__field--textarea" placeholder="{{ 'general.cart.note_placeholder' | t }}"></textarea>
-            <button type="button" data-action="close" class="form__submit form__submit--closer button button--secondary">{{ 'general.cart.save' | t }}</button>
+            <button type="button" data-action="close" class="form__submit form__submit--closer button button--outline">{{ 'general.cart.save' | t }}</button>
         </ap-elementopen>
     {% endif %}
 </ap-cartdrawer>
@@ -318,4 +318,3 @@
   "class": "shopify-section--mini-cart"
 }
 {% endschema %}
-
