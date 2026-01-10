@@ -2,15 +2,15 @@
     <div class="show_login">
         
 
-        <a href="{{ routes.account_url }}" class="login-icon" aria-label="{{ 'general.users.my_account' | t }}">
+        <button type="button" class="login-icon" aria-label="{{ 'general.users.my_account' | t }}">
             {% render 'icon-user' %}
-        </a>
+        </button>
         <ul class="user-block">
             <li class="user-block__greeting">
                 {{ 'general.users.hello' | t }} {{ customer.first_name | default: customer.name }}
             </li>
             <li>
-                <a href="{{ routes.account_url }}" title="{{ 'general.users.my_account' | t }}">{{ 'general.users.my_account' | t }}</a>
+                <a href="{{ routes.account_url }}" title="{{ 'general.users.my_account' | t }}" target="_blank" rel="noopener">{{ 'general.users.my_account' | t }}</a>
             </li>
             <li>
                 <a href="{{ routes.cart_url }}" title="{{ 'general.users.check_out' | t }}">{{ 'general.users.check_out' | t }}</a>
@@ -32,14 +32,12 @@
     </div>
 {% else %}
     <div class="show_login">
-
-
-        <a class="login-icon" href="{{ routes.account_login_url }}" aria-label="{{ 'general.users.login' | t }}">
+        <button type="button" class="login-icon" aria-label="{{ 'general.users.login' | t }}">
             {% render 'icon-user' %}
-        </a>
+        </button>
         <ul class="user-block">
             <li>
-                <a href="{{ routes.account_login_url }}" class="header__icon-wrapper tap-area" aria-label="{{ 'general.users.login' | t }}">{{ 'general.users.login' | t }}</a>
+                <a href="{{ routes.storefront_login_url }}" class="header__icon-wrapper tap-area" aria-label="{{ 'general.users.login' | t }}">{{ 'general.users.login' | t }}</a>
             </li>
             <li>
                 <a href="{{ routes.account_register_url }}" title="{{ 'general.users.register' | t }}">{{ 'general.users.register' | t }}</a>

@@ -956,6 +956,14 @@ h6 {
   cursor: pointer;
 }
 
+button.login-icon {
+  background: none;
+  border: 0;
+  padding: 0;
+  color: inherit;
+  line-height: 0;
+}
+
 /* [dir="ltr"] .rte table td:first-child,
 [dir="ltr"] .rte table th:first-child,
 [dir="ltr"] .table td:first-child,
