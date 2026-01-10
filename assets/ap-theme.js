@@ -12287,16 +12287,32 @@ document.addEventListener("DOMContentLoaded", function () {
   let isCounting = false;
 
   function startCounting(element, countValue, duration) {
+    const counterElement = element.querySelector('.counter');
+
+    // Check if counter element exists before starting
+    if (!counterElement) {
+      console.warn('Counter element not found in:', element);
+      isCounting = false;
+      return;
+    }
+
     const increment = Math.ceil(countValue / (duration / 10));
     let count = 0;
     const interval = setInterval(function () {
+      // Check if element is still in the DOM
+      if (!document.body.contains(element) || !counterElement) {
+        clearInterval(interval);
+        isCounting = false;
+        return;
+      }
+
       count += increment;
       if (count >= countValue) {
         clearInterval(interval);
         count = countValue;
         isCounting = false;
       }
-      element.querySelector('.counter').textContent = count;
+      counterElement.textContent = count;
     }, (duration / countValue));
   }
 
