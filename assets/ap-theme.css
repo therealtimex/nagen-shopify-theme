@@ -8462,10 +8462,10 @@ body.page\.contact {
 }
 
 .header-icon .user-block a {
-  color: #000;
+  color: rgb(var(--color-body));
   text-decoration: none;
-  /* line-height: 1.2; */
-  font-size: var(--base-font-size);
+  font-size: 15px;
+  line-height: 24px;
 }
 
 .header-icon .user-block a:hover {
@@ -13903,14 +13903,18 @@ ul.user-block {
   margin: 0;
   z-index: 99;
   background-color: #fff;
-  padding: 20px;
-  border-radius: 5px;
-  /* box-shadow: rgba(0, 0, 0, 0.05) 0 6px 24px 0, rgba(0, 0, 0, 0.08) 0 0 0 1px; */
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
   opacity: 0;
   visibility: hidden;
   transition: 0.4s;
-  min-width: 150px;
+  min-width: 200px;
   text-align: left;
+}
+
+ul.user-block li + li {
+  margin-top: 8px;
 }
 
 ul.user-block::before {
@@ -13929,7 +13933,15 @@ ul.user-block::before {
 }
 
 .user-block a {
-  line-height: 30px;
+  display: block;
+  color: rgb(var(--color-body));
+  line-height: 24px;
+}
+
+.user-block__greeting {
+  color: rgba(var(--color-body), 0.7);
+  font-size: 14px;
+  line-height: 20px;
 }
 
 @media (min-width: 768px) {

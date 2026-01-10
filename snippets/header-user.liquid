@@ -2,21 +2,21 @@
     <div class="show_login">
         
 
-        <a href="#" class="login-icon" aria-label="My Account">
+        <a href="{{ routes.account_url }}" class="login-icon" aria-label="{{ 'general.users.my_account' | t }}">
             {% render 'icon-user' %}
         </a>
         <ul class="user-block">
-            <li>
-                <a href="/account" title="My Account">{{ 'general.users.hello' | t }} {{ customer.first_name }}</a>
+            <li class="user-block__greeting">
+                {{ 'general.users.hello' | t }} {{ customer.first_name | default: customer.name }}
             </li>
             <li>
-                <a href="/account/register" title="{{ 'general.users.register' | t }}">{{ 'general.users.register' | t }}</a>
+                <a href="{{ routes.account_url }}" title="{{ 'general.users.my_account' | t }}">{{ 'general.users.my_account' | t }}</a>
             </li>
             <li>
-                <a href="/account/logout" title="{{ 'general.users.logout' | t }}">{{ 'general.users.logout' | t }}</a>
+                <a href="{{ routes.account_logout_url }}" title="{{ 'general.users.logout' | t }}">{{ 'general.users.logout' | t }}</a>
             </li>
             <li>
-                <a href="/cart" title="{{ 'general.users.check_out' | t }}">{{ 'general.users.check_out' | t }}</a>
+                <a href="{{ routes.cart_url }}" title="{{ 'general.users.check_out' | t }}">{{ 'general.users.check_out' | t }}</a>
             </li>
             <li>
                 <a href="/pages/wishlist" class="compare-link">
@@ -34,18 +34,18 @@
     <div class="show_login">
 
 
-        <a class="login-icon" href="#" aria-label="Login">
+        <a class="login-icon" href="{{ routes.account_login_url }}" aria-label="{{ 'general.users.login' | t }}">
             {% render 'icon-user' %}
         </a>
         <ul class="user-block">
             <li>
-                <a href="/account/login" class="header__icon-wrapper tap-area" aria-label="{{ 'general.users.login' | t }}">{{ 'general.users.login' | t }}</a>
+                <a href="{{ routes.account_login_url }}" class="header__icon-wrapper tap-area" aria-label="{{ 'general.users.login' | t }}">{{ 'general.users.login' | t }}</a>
             </li>
             <li>
-                <a href="/account/register" title="{{ 'general.users.register' | t }}">{{ 'general.users.register' | t }}</a>
+                <a href="{{ routes.account_register_url }}" title="{{ 'general.users.register' | t }}">{{ 'general.users.register' | t }}</a>
             </li>
             <li>
-                <a href="/cart" title="{{ 'general.users.check_out' | t }}">{{ 'general.users.check_out' | t }}</a>
+                <a href="{{ routes.cart_url }}" title="{{ 'general.users.check_out' | t }}">{{ 'general.users.check_out' | t }}</a>
             </li>
             <li>
                 <a href="/pages/wishlist" class="compare-link">
