@@ -160,13 +160,13 @@
         "7cca183b-2a77-4cb3-a100-ae76a5e24b66": {
           "type": "product_description",
           "settings": {
-            "tab_name": "Description"
+            "tab_name": "Mô tả"
           }
         },
         "5d25217f-c0a7-454c-9bdf-2e9b6e9cfd03": {
           "type": "tab_custom",
           "settings": {
-            "tab_name": "Additional information",
+            "tab_name": "Thông tin bổ sung",
             "tab_custom_content": "<p>By changing our most important processes and <br/>products, we have already made a big leap forward. This ranges from the <br/>increased use of more sustainable fibers to the use of more <br/>environmentally friendly printing processes to the development of <br/>efficient waste management in our value chain.</p><p><br/><a href=\"https://ap-leotheme.myshopify.com/pages/sustainability\" title=\"Sustainability\">Learn more about sustainability</a><br/>                  </p>"
           }
         }
