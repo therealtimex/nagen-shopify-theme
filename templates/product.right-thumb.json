@@ -196,7 +196,7 @@
       "settings": {
         "full_width": false,
         "container_type": "container",
-        "heading": "Related Products",
+        "heading": "Sản phẩm liên quan",
         "heading_size": 4,
         "tab_description": "",
         "text_align": "center",
@@ -224,7 +224,7 @@
       "type": "product-recommendations",
       "settings": {
         "setwidthout": "container",
-        "heading": "You may also like",
+        "heading": "Có thể bạn sẽ thích",
         "heading_size": 4,
         "tab_description": "",
         "text_align": "center",
