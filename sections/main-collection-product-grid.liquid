@@ -358,11 +358,11 @@
         <path d="M0 4h16M0 12h16" fill="none" stroke="currentColor" stroke-width="2"></path>
         <circle cx="5" cy="4" r="2" fill="rgb(var(--background))" stroke="currentColor" stroke-width="2"></circle>
         <circle cx="11" cy="12" r="2" fill="rgb(var(--background))" stroke="currentColor" stroke-width="2"></circle>
-      </svg><span class="mobile-toolbar__item-label">Filters</span>
+      </svg><span class="mobile-toolbar__item-label">{{ 'products.facets.filter_button' | t }}</span>
           </button>
 
           <button is="toggle-button" class="mobile-toolbar__item mobile-toolbar__item--sort" ap-expanded-aria="false" ap-controlsaria="ap-sortbypopover">
-            <span class="mobile-toolbar__item-label">Sort by</span><svg focusable="false" width="12" height="8" class="icon icon--chevron   " viewBox="0 0 12 8">
+            <span class="mobile-toolbar__item-label">{{ 'products.facets.sort_button' | t }}</span><svg focusable="false" width="12" height="8" class="icon icon--chevron   " viewBox="0 0 12 8">
         <path fill="none" d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="2"></path>
       </svg></button>
         </div>
@@ -435,7 +435,7 @@
           <div class="wp-productfacet__meta">
             <div class="filter-toggle">
               {% render 'icon-filter-2' %}
-              <span>Filter</span>
+              <span>{{ 'products.facets.filter_button' | t }}</span>
             </div>
             <span class="ap-productfacet__meta-bar-item ap-productfacet__meta-bar-item--count" role="status">
               {%- liquid
@@ -449,7 +449,7 @@
                   assign products_count = 0
                 endif
               -%}
-              {{ products_count }} products
+              {{ 'products.facets.product_count_simple' | t: count: products_count }}
             </span>
           </div>
           {%- else -%}
@@ -460,11 +460,11 @@
               -%}
 
             
-              {{ products_count }} products
+              {{ 'products.facets.product_count_simple' | t: count: products_count }}
           </span>
           {%- endif -%}
           <div class="ap-productfacet__meta-bar-item ap-productfacet__meta-bar-item--sort">
-            <span class="ap-productfacet__sort-by-title text--subdued hd-pocket">Sort by</span>
+            <span class="ap-productfacet__sort-by-title text--subdued hd-pocket">{{ 'products.facets.sort_by_label' | t }}</span>
             <div class="popover-container">
               <button type="button" is="toggle-button" class="popover-button hd-pocket" ap-expanded-aria="false" ap-controlsaria="ap-sortbypopover">
                 <span id="sort-by-selected-value" style="pointer-events: none">
@@ -482,8 +482,8 @@
               <ap-sortbypopover id="ap-sortbypopover" class="popover">
                 <span class="popover__overlay"></span>
                 <header class="popover__header">
-                  <span class="popover__title heading h6">Sort by</span>
-                  <button type="button" class="popover__close-button tap-area tap-area--large" data-action="close" title="Close">
+                  <span class="popover__title heading h6">{{ 'products.facets.sort_by_label' | t }}</span>
+                  <button type="button" class="popover__close-button tap-area tap-area--large" data-action="close" title="{{ 'accessibility.close' | t }}">
                     <svg focusable="false" width="14" height="14" class="icon icon--close   " viewBox="0 0 14 14">
                       <path d="M13 13L1 1M13 1L1 13" stroke="currentColor" stroke-width="2" fill="none"></path>
                     </svg>
@@ -817,4 +817,3 @@
   ]
 }
 {% endschema %}
-

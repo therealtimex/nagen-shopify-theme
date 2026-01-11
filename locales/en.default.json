@@ -105,7 +105,8 @@
       "item": "Item",
       "items": "Items",
       "products": "products",
-      "product": "product"
+      "product": "product",
+      "price": "Price"
     }
   },
   "newsletter": {

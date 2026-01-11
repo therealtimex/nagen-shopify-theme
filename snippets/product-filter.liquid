@@ -64,7 +64,7 @@
 
     <ap-safesticky class="ap-productfacet__aside-inner" offset="30">
       <div class="ap-productfacet__filters-header hd-pocket">
-        <p class="heading h5">Filters</p>
+        <p class="heading h5">{{ 'products.facets.filter_button' | t }}</p>
       </div>
 
       
@@ -74,9 +74,9 @@
             <span class="drawer__overlay"></span>
               
             <header class="drawer__header hd-lap-and-up">
-                <p class="drawer__title heading h6">Filters<span class="ap-productfacet__active-count"></span></p>
-                <a class="drawer__header-action link text--subdued" data-action="clear-filters" href="{{ collection.url }}">Clear all</a>
-                <button type="button" class="drawer__close-button tap-area" data-action="close" title="Close">
+                <p class="drawer__title heading h6">{{ 'products.facets.filter_button' | t }}<span class="ap-productfacet__active-count"></span></p>
+                <a class="drawer__header-action link text--subdued" data-action="clear-filters" href="{{ collection.url }}">{{ 'products.facets.clear_all' | t }}</a>
+                <button type="button" class="drawer__close-button tap-area" data-action="close" title="{{ 'accessibility.close' | t }}">
                     <svg focusable="false" width="14" height="14" class="icon icon--close   " viewBox="0 0 14 14">
                         <path d="M13 13L1 1M13 1L1 13" stroke="currentColor" stroke-width="2" fill="none"></path>
                     </svg>
@@ -95,7 +95,7 @@
 
                             {%- for value in filter.active_values -%}
                                 <div class="tag">
-                                    <a href="{{ value.url_to_remove }}" data-action="clear-filters" class="tag__icon tap-area" aria-label="Delete">
+                                    <a href="{{ value.url_to_remove }}" data-action="clear-filters" class="tag__icon tap-area" aria-label="{{ 'products.facets.clear_filter' | t }}">
                                         <svg focusable="false" width="10" height="10" class="icon icon--close   " viewBox="0 0 14 14">
                                             <path d="M13 13L1 1M13 1L1 13" stroke="currentColor" stroke-width="2" fill="none"></path>
                                         </svg>
@@ -108,7 +108,7 @@
                             {% if filter.type == "price_range" %}
                                 {%- if filter.min_value.value != nil or filter.max_value.value != nil -%}
                                     <div class="tag">
-                                        <a href="{{ filter.url_to_remove }}" data-action="" class="tag__icon tap-area" aria-label="Delete">
+                                        <a href="{{ filter.url_to_remove }}" data-action="" class="tag__icon tap-area" aria-label="{{ 'products.facets.clear_filter' | t }}">
                                             <svg focusable="false" width="10" height="10" class="icon icon--close   " viewBox="0 0 14 14">
                                                 <path d="M13 13L1 1M13 1L1 13" stroke="currentColor" stroke-width="2" fill="none"></path>
                                             </svg>
@@ -122,11 +122,11 @@
 
                         {%- if template contains 'search' -%}
                             {% if remove_all_status == 1 %}
-                                <a id="clear-all" href="" data-action="" class="tag-link link text--subdued">Clear all</a>
+                                <a id="clear-all" href="" data-action="" class="tag-link link text--subdued">{{ 'products.facets.clear_all' | t }}</a>
                             {% endif %}
                         {% else %}
                             {% if remove_all_status == 1 %}
-                                <a href="{{ collection.url }}?sort_by={{ sort_by }}" data-action="" class="tag-link link text--subdued">Clear all</a>
+                                <a href="{{ collection.url }}?sort_by={{ sort_by }}" data-action="" class="tag-link link text--subdued">{{ 'products.facets.clear_all' | t }}</a>
                             {% endif %}
                         {% endif %}
            
@@ -136,7 +136,11 @@
                         {%- for filter in collection.filters -%}
                             <div class="ap-productfacet__filter-item">
                                 <button type="button" is="toggle-button" class="collapsible-toggle text--strong" ap-controlsaria="{{ filter.param_name }}" ap-expanded-aria="true">
-                                    {{ filter.label | escape | capitalize }}
+                                    {%- if filter.type == "price_range" -%}
+                                      {{ 'collections.general.price' | t }}
+                                    {%- else -%}
+                                      {{ filter.label | escape | capitalize }}
+                                    {%- endif -%}
                                     {% comment %} <svg aria-hidden="true" focusable="false" role="presentation" width="8" height="6" viewBox="0 0 8 6" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-chevron-down">
                                         <path class="icon-chevron-down-left" d="M4 4.5L7 1.5" stroke="currentColor" stroke-width="1.25" stroke-linecap="square"></path>
                                         <path class="icon-chevron-down-right" d="M4 4.5L1 1.5" stroke="currentColor" stroke-width="1.25" stroke-linecap="square"></path>

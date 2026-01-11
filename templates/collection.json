@@ -72,7 +72,7 @@
         "padding_desktop": "0",
         "padding_tablet": "",
         "padding_mobile": "",
-        "title_categories": "Product categories",
+        "title_categories": "Danh mục sản phẩm",
         "collection": "accessories",
         "collection2": "hand-sanitizer",
         "collection3": "health-medicine",
@@ -91,7 +91,7 @@
       "settings": {
         "full_width": false,
         "container_type": "container",
-        "heading": "Recently viewed products",
+        "heading": "Sản phẩm đã xem gần đây",
         "heading_size": 4,
         "tab_description": "",
         "text_align": "center",
@@ -119,7 +119,7 @@
       "type": "product-recommendations",
       "settings": {
         "setwidthout": "container",
-        "heading": "You may also like",
+        "heading": "Có thể bạn sẽ thích",
         "heading_size": 4,
         "tab_description": "",
         "text_align": "center",

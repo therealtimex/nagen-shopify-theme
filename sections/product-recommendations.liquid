@@ -33,7 +33,7 @@
 
   <ap-productrecommendations section-id="{{ section.id }}" product-id="{{ id_product }}" use-automaticrecommendations recommendations-count="{{ section.settings.limit }}" class="section section--flush productrecommendations">
     
-    {%- if recommendations.products.size > 0 -%}
+    {%- if recommendations != blank and recommendations.products_count > 0 -%}
   <div class="{{ section.settings.setwidthout }} container--medium vertical-breather vertical-breather--tight vertical-breather--margin">
     {% if section.settings.heading != blank %}
       <header class="section__header text-{{ section.settings.text_align }}">
