@@ -7,59 +7,71 @@
 
 <div class="ap-productfacet__aside">
 
-    <div class="ap-productfacet_aside__categories hd-pocket">
-        <div class="collapsible-toggle ap-productfacet_aside__categories-title heading h5 ap-productfacet__filters-header">{{ section.settings.title_categories }}</div>
-        <div class="ap-productfacet_aside__categories-list">
-            {% if section.settings.collection != blank %}
-            <a href="{{ section.settings.collection }}">
-                {{- section.settings.collection.title | escape -}}
-                <span class="count">
-                    ({{ section.settings.collection.products_count }})
-                </span>
-            </a>
-            {% endif %}
-            {% if section.settings.collection2 != blank %}
-            <a href="{{ section.settings.collection2 }}">
-                {{- section.settings.collection2.title | escape -}}
-                <span class="count">
-                    ({{ section.settings.collection2.products_count }})
-                </span>
-            </a>
-            {% endif %}
-            {% if section.settings.collection3 != blank %}
-            <a href="{{ section.settings.collection3 }}">
-                {{- section.settings.collection3.title | escape -}}
-                <span class="count">
-                    ({{ section.settings.collection3.products_count }})
-                </span>
-            </a>
-            {% endif %}
-            {% if section.settings.collection4 != blank %}
-            <a href="{{ section.settings.collection4 }}">
-                {{- section.settings.collection4.title | escape -}}
-                <span class="count">
-                    ({{ section.settings.collection4.products_count }})
-                </span>
-            </a>
-            {% endif %}
-            {% if section.settings.collection5 != blank %}
-            <a href="{{ section.settings.collection5 }}">
-                {{- section.settings.collection5.title | escape -}}
-                <span class="count">
-                    ({{ section.settings.collection5.products_count }})
-                </span>
-            </a>
-            {% endif %}
-            {% if section.settings.collection6 != blank %}
-            <a href="{{ section.settings.collection6 }}">
-                {{- section.settings.collection6.title | escape -}}
-                <span class="count">
-                    ({{ section.settings.collection6.products_count }})
-                </span>
-            </a>
-            {% endif %}
-        </div>
-    </div>
+    {%- assign has_collections = false -%}
+    {%- if section.settings.collection != blank
+      or section.settings.collection2 != blank
+      or section.settings.collection3 != blank
+      or section.settings.collection4 != blank
+      or section.settings.collection5 != blank
+      or section.settings.collection6 != blank -%}
+      {%- assign has_collections = true -%}
+    {%- endif -%}
+
+    {%- if has_collections -%}
+      <div class="ap-productfacet_aside__categories hd-pocket">
+          <div class="collapsible-toggle ap-productfacet_aside__categories-title heading h5 ap-productfacet__filters-header">{{ section.settings.title_categories }}</div>
+          <div class="ap-productfacet_aside__categories-list">
+              {% if section.settings.collection != blank %}
+              <a href="{{ section.settings.collection }}">
+                  {{- section.settings.collection.title | escape -}}
+                  <span class="count">
+                      ({{ section.settings.collection.products_count }})
+                  </span>
+              </a>
+              {% endif %}
+              {% if section.settings.collection2 != blank %}
+              <a href="{{ section.settings.collection2 }}">
+                  {{- section.settings.collection2.title | escape -}}
+                  <span class="count">
+                      ({{ section.settings.collection2.products_count }})
+                  </span>
+              </a>
+              {% endif %}
+              {% if section.settings.collection3 != blank %}
+              <a href="{{ section.settings.collection3 }}">
+                  {{- section.settings.collection3.title | escape -}}
+                  <span class="count">
+                      ({{ section.settings.collection3.products_count }})
+                  </span>
+              </a>
+              {% endif %}
+              {% if section.settings.collection4 != blank %}
+              <a href="{{ section.settings.collection4 }}">
+                  {{- section.settings.collection4.title | escape -}}
+                  <span class="count">
+                      ({{ section.settings.collection4.products_count }})
+                  </span>
+              </a>
+              {% endif %}
+              {% if section.settings.collection5 != blank %}
+              <a href="{{ section.settings.collection5 }}">
+                  {{- section.settings.collection5.title | escape -}}
+                  <span class="count">
+                      ({{ section.settings.collection5.products_count }})
+                  </span>
+              </a>
+              {% endif %}
+              {% if section.settings.collection6 != blank %}
+              <a href="{{ section.settings.collection6 }}">
+                  {{- section.settings.collection6.title | escape -}}
+                  <span class="count">
+                      ({{ section.settings.collection6.products_count }})
+                  </span>
+              </a>
+              {% endif %}
+          </div>
+      </div>
+    {%- endif -%}
     
 
     <ap-safesticky class="ap-productfacet__aside-inner" offset="30">
