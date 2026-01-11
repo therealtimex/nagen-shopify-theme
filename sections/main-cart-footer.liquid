@@ -6,6 +6,15 @@
     visibility: visible;
     margin: 0 0 30px;
   }
+  .cart__recap {
+    border: 1px solid rgb(var(--border-color));
+    border-radius: 16px;
+    padding: 24px;
+    background: #faf8f8;
+  }
+  .cart__recap .ajaxcart_terms_conditions {
+    margin: 16px 0 20px;
+  }
   .shipping-cart .heading {
     margin-bottom: 20px;
   }
@@ -27,23 +36,23 @@
         {%- if settings.show_cart_note or 1 -%}
         <ap-elementopen id="mini-ap-cartnote" class="mini-cart__order-note">
             <span class="openable__overlay"></span>
-            <label for="cart[note]" class="mini-cart__order-note-title heading heading--xsmall">Add Note</label>
-            <textarea is="ap-cartnote" name="note" id="cart[note]" rows="3" ap-ariaowns="order-note-toggle" class="input__field input__field--textarea" placeholder="Add Note"></textarea>
-            <button type="button" data-action="close" class="d-none form__submit form__submit--closer button button--secondary">Save</button>
+            <label for="cart[note]" class="mini-cart__order-note-title heading heading--xsmall">{{ 'general.cart.add_note' | t }}</label>
+            <textarea is="ap-cartnote" name="note" id="cart[note]" rows="3" ap-ariaowns="order-note-toggle" class="input__field input__field--textarea" placeholder="{{ 'general.cart.note_placeholder' | t }}"></textarea>
+            <button type="button" data-action="close" class="d-none form__submit form__submit--closer button button--secondary">{{ 'general.cart.save' | t }}</button>
         </ap-elementopen>
         {%- endif -%}
         {% if settings.cart_shipping_enable %}
           <div class="shipping-cart">
-            <label for="Cart-note" class="heading--xsmall heading">Get shipping estimates</label>
+            <label for="Cart-note" class="heading--xsmall heading">{{ 'general.cart.ship_estimates' | t }}</label>
             {% render "shipping-calculator" %}
           </div>
         {%- endif -%}
         {% if settings.cart_coupon_enable %}
           <div class="coupon-cart">
-              <label for="discount">Discount code</label>
-              <div class="mini-cart__order-note-title" style="text-transform: none;font-weight: normal;font-size: 13px;">* Discount will be calculated and applied at checkout</div>
+              <label for="discount">{{ 'general.cart.discount_code' | t }}</label>
+              <div class="mini-cart__order-note-title" style="text-transform: none;font-weight: normal;font-size: 13px;">* {{ 'general.cart.discount_note' | t }}</div>
               <div>
-	              <input class="discount_code_input" autocomplete="off" type="text" name="discount" value="" />
+	              <input class="discount_code_input" autocomplete="off" type="text" name="discount" placeholder="{{ 'general.cart.discount_placeholder' | t }}" />
               </div>
           </div>
       {% endif %}
@@ -93,11 +102,11 @@
             <p class="ajaxcart_terms_conditions">
               <input style="float:none; vertical-align: middle;" type="checkbox" class="agree_terms_conditions" id="agree_terms_conditions">
               <label style="display:inline; float:none" for="agree">
-                  I agree with the <a href="#">terms and conditions</a>
+                  {{ 'general.cart.agree' | t }} <a href="#">{{ 'general.cart.conditions' | t }}</a>
               </label>
             </p>
             <button id="bt_checkout" type="submit" class="cart__checkout-button checkout-button button button--primary button--full" name="checkout" disabled>
-              Checkout
+              {{ 'sections.cart.checkout' | t }}
             </button>
           </div>
           {%- if additional_checkout_buttons -%}

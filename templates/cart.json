@@ -13,16 +13,23 @@
       "type": "main-page",
       "name": "Breadcrumb",
       "settings": {
+        "layout_style": "compact",
+        "compact_padding": 16,
+        "compact_background": "#faf8f8",
+        "compact_border_color": "#e5e5e5",
+        "compact_alignment": "center",
+        "compact_font_size": 13,
+        "compact_text_color": "#666666",
         "setwidthout": "full",
         "enable_title": true,
-        "padding_top": 30,
-        "padding_bottom": 30,
+        "padding_top": 0,
+        "padding_bottom": 0,
         "height": 360,
         "height_tablet": 300,
         "height_mobile": 250,
-        "margin_desktop": "0 20px 0",
-        "margin_tablet": "",
-        "margin_mobile": "0 0 0",
+        "margin_desktop": "0 0 30px",
+        "margin_tablet": "0 0 30px",
+        "margin_mobile": "0 0 30px",
         "bg_img": "shopify://shop_images/breadcrumb_2.jpg",
         "background_gradient": "",
         "background_color": "#282828",
@@ -43,8 +50,8 @@
     "cart-footer": {
       "type": "main-cart-footer",
       "settings": {
-        "enable_payment_methods": true,
-        "payment_methods_label": "We accept",
+        "enable_payment_methods": false,
+        "payment_methods_label": "Chúng tôi chấp nhận",
         "payment_methods_image": "shopify://shop_images/payment.png"
       }
     },
@@ -52,7 +59,7 @@
       "type": "product-recommendations",
       "settings": {
         "setwidthout": "container",
-        "heading": "You may also like",
+        "heading": "Có thể bạn sẽ thích",
         "heading_size": 4,
         "tab_description": "",
         "text_align": "center",

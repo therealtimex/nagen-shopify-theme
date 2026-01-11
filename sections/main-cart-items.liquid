@@ -2,6 +2,9 @@
   .main-cart__item .product-item-meta {
     padding: 0;
   }
+  .main-cart__item .page-header__text-wrapper {
+    margin: 20px auto 24px;
+  }
   .mini-cart__order-note {
     padding: 0;
   }
@@ -10,6 +13,9 @@
   }
   
   @media (max-width: 767px) {
+    .main-cart__item .page-header__text-wrapper {
+      margin: 16px auto 20px;
+    }
     .line-item-table .line-item {
       display: flex;
     }
@@ -168,7 +174,7 @@
                             </svg>
                         </a>
                       </div>
-                      <a href="{{ item.url_to_remove }}&quantity=0" class="line-item__remove-button link text--subdued text--xxsmall" data-no-instant="">Remove</a>
+                      <a href="{{ item.url_to_remove }}&quantity=0" class="line-item__remove-button link text--subdued text--xxsmall" data-no-instant="">{{ 'general.cart.remove' | t }}</a>
                     </line-item-quantity>
                   </td>
                   <td class="line-item__price-list-container text--right">
