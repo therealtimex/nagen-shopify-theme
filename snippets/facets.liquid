@@ -198,6 +198,10 @@
                   if currencies_using_comma_decimals contains cart.currency.iso_code
                     assign uses_comma_decimals = true
                   endif
+                  assign currency_symbol = cart.currency.symbol
+                  if localization != blank and localization.country != blank and localization.country.currency != blank and localization.country.currency.symbol != blank
+                    assign currency_symbol = localization.country.currency.symbol
+                  endif
                 %}
                 <details id="Details-{{ forloop.index }}-{{ section.id }}" class="{% if filter_type == 'horizontal' %}disclosure-has-popup facets__disclosure{% else %} facets__disclosure-vertical{% endif %} js-filter" data-index="{{ forloop.index }}"{% if filter_type == 'vertical' and  forloop.index == 1 %} open{% endif %}>
                   <summary class="facets__summary caption-large focus-offset">
@@ -219,7 +223,7 @@
                       {%- endif -%}
                     </div>
                     <ap-pricerange class="facets__price">
-                      <span class="field-currency">{{ cart.currency.symbol }}</span>
+                      <span class="field-currency">{{ currency_symbol }}</span>
                       <div class="field">
                         <input class="field__input"
                           name="{{ filter.min_value.param_name }}"
@@ -235,7 +239,7 @@
                         <label class="field__label" for="Filter-{{ filter.label | escape }}-GTE">{{ 'products.facets.from' | t }}</label>
                       </div>
                       {%- if filter_type != 'vertical' -%}
-                        <span class="field-currency">{{ cart.currency.symbol }}</span>
+                        <span class="field-currency">{{ currency_symbol }}</span>
                       {%- endif -%}
                       <div class="field">
                         <input class="field__input"
@@ -512,8 +516,12 @@
                         {%- assign max_price_amount = filter.range_max | money | strip_html | escape -%}
                         <p class="mobile-facets__info">{{ "products.facets.max_price" | t: price: max_price_amount }}</p>
 
+                        {%- assign currency_symbol = cart.currency.symbol -%}
+                        {%- if localization != blank and localization.country != blank and localization.country.currency != blank and localization.country.currency.symbol != blank -%}
+                          {%- assign currency_symbol = localization.country.currency.symbol -%}
+                        {%- endif -%}
                         <ap-pricerange class="facets__price">
-                          <span class="field-currency">{{ cart.currency.symbol }}</span>
+                          <span class="field-currency">{{ currency_symbol }}</span>
                           <div class="field">
                             <input class="field__input"
                               name="{{ filter.min_value.param_name }}"
@@ -530,7 +538,7 @@
                             <label class="field__label" for="Mobile-Filter-{{ filter.label | escape }}-GTE">{{ 'products.facets.from' | t }}</label>
                           </div>
 
-                          <span class="field-currency">{{ cart.currency.symbol }}</span>
+                          <span class="field-currency">{{ currency_symbol }}</span>
                           <div class="field">
                             <input class="field__input"
                               name="{{ filter.max_value.param_name }}"
