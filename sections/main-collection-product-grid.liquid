@@ -158,6 +158,52 @@
   .ap-productfacet_aside__categories-list a:hover:before {
     background: var(--primary_hover);
   }
+
+  #shopify-section-{{ section.id }} #ap-sortbypopover .popover__choice-list {
+    white-space: normal;
+    display: grid;
+    gap: 6px;
+    padding: 4px 0;
+  }
+
+  #shopify-section-{{ section.id }} #ap-sortbypopover .popover__choice-item {
+    text-align: left;
+    margin-top: 0;
+  }
+
+  #shopify-section-{{ section.id }} #ap-sortbypopover .popover__choice-label {
+    position: relative;
+    display: block;
+    width: 100%;
+    padding: 8px 34px 8px 12px;
+    border-radius: 10px;
+    color: rgba(var(--color-body), 0.85);
+    font-size: 14px;
+    line-height: 20px;
+    border: 1px solid transparent;
+    margin: 0;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  }
+
+  #shopify-section-{{ section.id }} #ap-sortbypopover .popover__choice-label:hover {
+    background: rgba(var(--root-primary-button-background), 0.06);
+    color: rgb(var(--heading-color));
+  }
+
+  #shopify-section-{{ section.id }} #ap-sortbypopover input:checked + .popover__choice-label {
+    background: rgba(var(--root-primary-button-background), 0.12);
+    color: rgb(var(--heading-color));
+    font-weight: 600;
+    border-color: rgba(var(--root-primary-button-background), 0.2);
+  }
+
+  #shopify-section-{{ section.id }} #ap-sortbypopover {
+    min-width: 260px;
+    max-width: 320px;
+  }
+  #shopify-section-{{ section.id }} #ap-sortbypopover .popover__choice-label::after {
+    content: none;
+  }
   .banner {
     flex-direction: column;
     padding: 0;
