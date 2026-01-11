@@ -12,6 +12,13 @@
     "main_page_mJHyTV": {
       "type": "main-page",
       "settings": {
+        "layout_style": "compact",
+        "compact_padding": 16,
+        "compact_background": "#faf8f8",
+        "compact_border_color": "#e5e5e5",
+        "compact_alignment": "center",
+        "compact_font_size": 13,
+        "compact_text_color": "#666666",
         "setwidthout": "full",
         "enable_title": true,
         "padding_top": 0,
@@ -27,14 +34,7 @@
         "background_color": "#282828",
         "color_title": "#ffffff",
         "color_breadcrumb": "#ffffff",
-        "breadcrumb_rounded": 0,
-        "layout_style": "compact",
-        "compact_padding": 16,
-        "compact_background": "#faf8f8",
-        "compact_border_color": "#e5e5e5",
-        "compact_alignment": "center",
-        "compact_font_size": 13,
-        "compact_text_color": "#666666"
+        "breadcrumb_rounded": 0
       }
     },
     "main": {
@@ -52,10 +52,6 @@
           "settings": {
             "custom_liquid": "{%- render 'product-stock', product: product -%}"
           }
-        },
-        "judge_me_reviews_preview_badge_Kiextm": {
-          "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
-          "settings": {}
         },
         "title": {
           "type": "title",
@@ -128,7 +124,6 @@
       "block_order": [
         "vendor",
         "custom_liquid_WcYabj",
-        "judge_me_reviews_preview_badge_Kiextm",
         "title",
         "1393b77e-a8c0-433b-89a8-43bc490e6816",
         "price",
@@ -173,16 +168,11 @@
             "tab_name": "Additional information",
             "tab_custom_content": "<p>By changing our most important processes and <br/>products, we have already made a big leap forward. This ranges from the <br/>increased use of more sustainable fibers to the use of more <br/>environmentally friendly printing processes to the development of <br/>efficient waste management in our value chain.</p><p><br/><a href=\"https://ap-leotheme.myshopify.com/pages/sustainability\" title=\"Sustainability\">Learn more about sustainability</a><br/>                  </p>"
           }
-        },
-        "judge_me_reviews_review_widget_fFGAKd": {
-          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
-          "settings": {}
         }
       },
       "block_order": [
         "7cca183b-2a77-4cb3-a100-ae76a5e24b66",
-        "5d25217f-c0a7-454c-9bdf-2e9b6e9cfd03",
-        "judge_me_reviews_review_widget_fFGAKd"
+        "5d25217f-c0a7-454c-9bdf-2e9b6e9cfd03"
       ],
       "settings": {
         "enable_guide": true,
