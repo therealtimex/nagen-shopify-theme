@@ -2404,13 +2404,13 @@
         "type": "text",
         "id": "free_shipping_free_label",
         "label": "Content when free shipping",
-        "default": "You are eligible for free shipping!"
+        "default": "Bạn đủ điều kiện nhận miễn phí vận chuyển!"
       },
       {
         "type": "text",
         "id": "free_shipping_label",
         "label": "Content when not free shipping",
-        "default": "Spend %% more and get free shipping!"
+        "default": "Mua thêm %% để được miễn phí vận chuyển!"
       }
     ]
   },

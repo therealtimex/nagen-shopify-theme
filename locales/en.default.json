@@ -85,7 +85,10 @@
       "note_placeholder": "How can we help you?",
       "save": "Save",
       "ship_estimates": "Get shipping estimates",
-      "policy": "Taxes and shipping calculated at checkout"
+      "policy": "Taxes and shipping calculated at checkout",
+      "discount_note": "Discount will be calculated and applied at checkout",
+      "discount_code": "Discount code",
+      "discount_placeholder": "Enter discount code here"
     },
     "share": {
       "close": "Close share",

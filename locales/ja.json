@@ -75,7 +75,10 @@
       "note_placeholder": "どのようにお手伝いしましょうか？",
       "save": "保存",
       "ship_estimates": "配送見積もりを取得する",
-      "policy": "税金と送料はチェックアウト時に計算されます"
+      "policy": "税金と送料はチェックアウト時に計算されます",
+      "discount_note": "Discount will be calculated and applied at checkout",
+      "discount_code": "Discount code",
+      "discount_placeholder": "Enter discount code here"
     },
     "share": {
       "copy_to_clipboard": "リンクをコピー",

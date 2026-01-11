@@ -195,9 +195,9 @@
 
         {% else %}
             <div class="cart__empty">
-                <p>Your cart is empty</p>
+                <p>{{ 'sections.cart.empty' | t }}</p>
                 <div class="button-wrapper">
-                <a href="/collections/all" class="button button--primary">Start shopping</a>
+                <a href="/collections/all" class="button button--primary">{{ 'general.continue_shopping' | t }}</a>
                 </div>
             </div>
         {% endif %}
@@ -284,11 +284,11 @@
     {% if settings.cart_coupon_enable %}
         <ap-elementopen id="mini-cart-coupon" class="mini-cart__order-coupon">
             <span class="openable__overlay"></span>
-            <label for="cart[coupon]" class="mini-cart__order-note-title heading heading--xsmall">* Discount will be calculated and applied at checkout</label>
+            <label for="cart[coupon]" class="mini-cart__order-note-title heading heading--xsmall">* {{ 'general.cart.discount_note' | t }}</label>
             <div class="discount_code">
-                <label for="discount">Discount code</label>
-                {% raw %}<input class="discount_code_input" autocomplete="off" type="text" name="discount" value="Enter discount code here" />{% endraw %}
-                <button type="button" data-action="close" class="form__submit form__submit--closer button button--secondary">Close</button>
+                <label for="discount">{{ 'general.cart.discount_code' | t }}</label>
+                <input class="discount_code_input" autocomplete="off" type="text" name="discount" placeholder="{{ 'general.cart.discount_placeholder' | t }}" />
+                <button type="button" data-action="close" class="form__submit form__submit--closer button button--secondary">{{ 'accessibility.close' | t }}</button>
             </div> 
             
         </ap-elementopen>

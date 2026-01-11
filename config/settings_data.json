@@ -197,6 +197,8 @@
     "minicart_content_display": "center",
     "enable_free_shipping": true,
     "min_total_cart": "1000",
+    "free_shipping_free_label": "Bạn đủ điều kiện nhận miễn phí vận chuyển!",
+    "free_shipping_label": "Mua thêm %% để được miễn phí vận chuyển!",
     "affiliate_tracking_enabled": true,
     "primary_btn_hover_bg": "#1A2F4D",
     "primary_btn_hover_color": "#FFFFFF",
