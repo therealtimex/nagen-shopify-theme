@@ -228,8 +228,8 @@
 
 .content-list__item--nested > .content-list {
   flex-basis: 100%;
-  margin-top: 8px !important;
-  margin-left: 22px !important;
+  margin-top: 4px !important;
+  margin-left: 16px !important;
   margin-bottom: 0 !important;
 }
 
