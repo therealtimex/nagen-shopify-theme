@@ -1,0 +1,425 @@
+{{ 'payment-methods.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | default: 40 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | default: 60 }}px;
+  }
+{%- endstyle -%}
+
+<section class="payment-methods section-{{ section.id }}-padding" id="payment-methods-{{ section.id }}">
+  <div class="container container--medium">
+    <header class="payment-methods__header">
+      {%- if section.settings.label_text != blank -%}
+        <div class="payment-methods__label">
+          {%- if section.settings.label_icon != blank -%}
+            <img
+              src="{{ section.settings.label_icon | image_url: width: 48 }}"
+              alt="{{ section.settings.label_text | escape }}"
+              loading="lazy"
+              width="24"
+              height="24"
+            >
+          {%- else -%}
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+              <path d="M14.1218 10.4792C13.7313 10.0886 13.0981 10.0886 12.7076 10.4792L12.0005 11.1863C11.2194 11.9673 9.95308 11.9673 9.17203 11.1863C8.39098 10.4052 8.39098 9.13888 9.17203 8.35783L14.8027 2.72568C16.9066 2.24973 19.2013 2.83075 20.8393 4.46875C23.2587 6.88811 23.3721 10.7402 21.1797 13.2939L19.0715 15.4289L14.1218 10.4792ZM3.16162 4.46875C5.33501 2.29536 8.6646 1.98283 11.1705 3.53116L7.75781 6.94362C6.19572 8.50572 6.19572 11.0384 7.75781 12.6005C9.27258 14.1152 11.7 14.1611 13.27 12.7382L13.4147 12.6005L17.6573 16.8431L13.4147 21.0858C12.6336 21.8668 11.3673 21.8668 10.5863 21.0858L3.16162 13.6611C0.62321 11.1227 0.62321 7.00715 3.16162 4.46875Z" fill="#EB1C25"/>
+            </svg>
+          {%- endif -%}
+          <span>{{ section.settings.label_text }}</span>
+        </div>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h1 class="payment-methods__title">{{ section.settings.heading }}</h1>
+      {%- endif -%}
+      {%- if section.settings.subheading != blank -%}
+        <p class="payment-methods__subtitle">{{ section.settings.subheading }}</p>
+      {%- endif -%}
+      {%- if section.settings.note != blank -%}
+        <p class="payment-methods__note">{{ section.settings.note }}</p>
+      {%- endif -%}
+    </header>
+
+    <div class="payment-tabs" role="tablist" aria-label="{{ section.settings.heading | escape }}">
+      {%- for block in section.blocks -%}
+        {%- assign is_active = forloop.first -%}
+        <button
+          type="button"
+          class="payment-tabs__item{% if is_active %} is-active{% endif %}"
+          role="tab"
+          aria-selected="{% if is_active %}true{% else %}false{% endif %}"
+          aria-controls="payment-panel-{{ block.id }}"
+          id="payment-tab-{{ block.id }}"
+          data-payment-tab
+          {% if block.settings.tab_bg != blank or block.settings.tab_active_bg != blank %}
+            style="
+              {% if block.settings.tab_bg != blank %}--tab-bg: {{ block.settings.tab_bg }};{% endif %}
+              {% if block.settings.tab_active_bg != blank %}--tab-active-bg: {{ block.settings.tab_active_bg }};{% endif %}
+            "
+          {% endif %}
+          {{ block.shopify_attributes }}
+        >
+          <span class="payment-tabs__icon">
+            {%- if block.settings.tab_icon != blank -%}
+              <img
+                src="{{ block.settings.tab_icon | image_url: width: 80 }}"
+                alt="{{ block.settings.tab_label | escape }}"
+                loading="lazy"
+                width="28"
+                height="28"
+              >
+            {%- else -%}
+              {%- case block.settings.tab_icon_type -%}
+                {%- when 'bank' -%}
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+                {%- when 'atm' -%}
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+                {%- when 'card' -%}
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+                {%- when 'office' -%}
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                {%- when 'wallet' -%}
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>
+                {%- else -%}
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+              {%- endcase -%}
+            {%- endif -%}
+          </span>
+          <span class="payment-tabs__label">{{ block.settings.tab_label }}</span>
+        </button>
+      {%- endfor -%}
+    </div>
+
+    <div class="payment-panels">
+      {%- for block in section.blocks -%}
+        {%- assign is_active = forloop.first -%}
+        <div
+          class="payment-panel"
+          id="payment-panel-{{ block.id }}"
+          role="tabpanel"
+          aria-labelledby="payment-tab-{{ block.id }}"
+          data-payment-panel
+          {% unless is_active %}hidden{% endunless %}
+        >
+          {%- if block.settings.panel_title != blank -%}
+            <h2 class="payment-panel__title" {% if block.settings.panel_title_color != blank %}style="color: {{ block.settings.panel_title_color }}"{% endif %}>
+              {{ block.settings.panel_title }}
+            </h2>
+          {%- endif -%}
+          {%- if block.settings.panel_subtitle != blank -%}
+            <p class="payment-panel__subtitle">{{ block.settings.panel_subtitle }}</p>
+          {%- endif -%}
+
+          {%- case block.settings.panel_layout -%}
+            {%- when 'card' -%}
+              {%- comment -%} Bank transfer card layout {%- endcomment -%}
+              <div class="payment-panel__content payment-panel__content--card">
+                <div class="payment-panel__bank-card">
+                  {%- if block.settings.panel_image != blank -%}
+                    <img
+                      src="{{ block.settings.panel_image | image_url: width: 400 }}"
+                      alt="{{ block.settings.panel_title | escape }}"
+                      loading="lazy"
+                    >
+                  {%- endif -%}
+                  {%- if block.settings.panel_body != blank -%}
+                    <div class="payment-panel__bank-details">
+                      {{ block.settings.panel_body }}
+                    </div>
+                  {%- endif -%}
+                </div>
+              </div>
+
+            {%- when 'logos' -%}
+              {%- comment -%} Card logos grid {%- endcomment -%}
+              {%- if block.settings.logos_html != blank -%}
+                <div class="payment-panel__logos">
+                  {{ block.settings.logos_html }}
+                </div>
+              {%- endif -%}
+              {%- if block.settings.panel_body != blank -%}
+                <div class="payment-panel__content payment-panel__content--single">
+                  <div class="payment-panel__body">
+                    {{ block.settings.panel_body }}
+                  </div>
+                </div>
+              {%- endif -%}
+
+            {%- when 'steps' -%}
+              {%- comment -%} Step-by-step instructions {%- endcomment -%}
+              {%- if block.settings.logos_html != blank -%}
+                <div class="payment-panel__logos">
+                  {{ block.settings.logos_html }}
+                </div>
+              {%- endif -%}
+              {%- if block.settings.steps_html != blank -%}
+                <div class="payment-panel__steps">
+                  {{ block.settings.steps_html }}
+                </div>
+              {%- endif -%}
+
+            {%- when 'locations' -%}
+              {%- comment -%} Office locations grid {%- endcomment -%}
+              {%- if block.settings.panel_body != blank -%}
+                <div style="text-align: center; margin-bottom: 16px; font-size: 14px; color: rgba(var(--color-body), 0.7);">
+                  {{ block.settings.panel_body }}
+                </div>
+              {%- endif -%}
+              {%- if block.settings.locations_html != blank -%}
+                <div class="payment-panel__locations{% if block.settings.locations_single %} payment-panel__locations--single{% endif %}">
+                  {{ block.settings.locations_html }}
+                </div>
+              {%- endif -%}
+
+            {%- else -%}
+              {%- comment -%} Default split layout (image + content) {%- endcomment -%}
+              {%- assign has_panel_image = false -%}
+              {%- if block.settings.panel_image != blank -%}
+                {%- assign has_panel_image = true -%}
+              {%- endif -%}
+              <div class="payment-panel__content{% unless has_panel_image %} payment-panel__content--single{% endunless %}">
+                {%- if has_panel_image -%}
+                  <div class="payment-panel__image">
+                    <img
+                      src="{{ block.settings.panel_image | image_url: width: 600 }}"
+                      alt="{{ block.settings.panel_title | escape }}"
+                      loading="lazy"
+                    >
+                  </div>
+                {%- endif -%}
+                {%- if block.settings.panel_body != blank -%}
+                  <div class="payment-panel__body">
+                    {{ block.settings.panel_body }}
+                  </div>
+                {%- endif -%}
+              </div>
+          {%- endcase -%}
+
+          {%- if block.settings.panel_note != blank -%}
+            <div class="payment-panel__note">
+              {{ block.settings.panel_note }}
+            </div>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+<script>
+  (function() {
+    var section = document.getElementById('payment-methods-{{ section.id }}');
+    if (!section) return;
+
+    var tabs = section.querySelectorAll('[data-payment-tab]');
+    var panels = section.querySelectorAll('[data-payment-panel]');
+
+    function activateTab(targetId) {
+      tabs.forEach(function(tab) {
+        var isActive = tab.getAttribute('aria-controls') === targetId;
+        tab.classList.toggle('is-active', isActive);
+        tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      });
+
+      panels.forEach(function(panel) {
+        panel.hidden = panel.id !== targetId;
+      });
+    }
+
+    tabs.forEach(function(tab) {
+      tab.addEventListener('click', function() {
+        activateTab(tab.getAttribute('aria-controls'));
+      });
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Payment methods page",
+  "class": "section payment-methods-page",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Các hình thức thanh toán"
+    },
+    {
+      "type": "text",
+      "id": "label_text",
+      "label": "Label text",
+      "default": "Phương thức thanh toán"
+    },
+    {
+      "type": "image_picker",
+      "id": "label_icon",
+      "label": "Label icon"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Bạn có thể đăng ký dịch vụ của NAGEN theo hình thức Offline hoặc Online"
+    },
+    {
+      "type": "text",
+      "id": "note",
+      "label": "Note",
+      "default": "Lưu ý: Dịch vụ chỉ được đăng ký/gia hạn khi nhận được thanh toán và thông tin chính xác đầy đủ."
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "payment_method",
+      "name": "Payment method",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Tab settings"
+        },
+        {
+          "type": "image_picker",
+          "id": "tab_icon",
+          "label": "Tab icon (image)"
+        },
+        {
+          "type": "select",
+          "id": "tab_icon_type",
+          "label": "Tab icon (fallback)",
+          "default": "bank",
+          "options": [
+            { "value": "bank", "label": "Bank transfer" },
+            { "value": "atm", "label": "ATM card" },
+            { "value": "card", "label": "Credit card" },
+            { "value": "office", "label": "Office/Location" },
+            { "value": "wallet", "label": "E-wallet" }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "tab_label",
+          "label": "Tab label",
+          "default": "Chuyển khoản ngân hàng"
+        },
+        {
+          "type": "color",
+          "id": "tab_bg",
+          "label": "Tab background"
+        },
+        {
+          "type": "color",
+          "id": "tab_active_bg",
+          "label": "Tab active background"
+        },
+        {
+          "type": "header",
+          "content": "Panel settings"
+        },
+        {
+          "type": "select",
+          "id": "panel_layout",
+          "label": "Panel layout",
+          "default": "split",
+          "options": [
+            { "value": "split", "label": "Image + content" },
+            { "value": "card", "label": "Centered card" },
+            { "value": "logos", "label": "Logos grid" },
+            { "value": "steps", "label": "Step-by-step" },
+            { "value": "locations", "label": "Locations grid" }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "panel_title",
+          "label": "Panel title",
+          "default": "Chuyển khoản ngân hàng"
+        },
+        {
+          "type": "color",
+          "id": "panel_title_color",
+          "label": "Panel title color"
+        },
+        {
+          "type": "text",
+          "id": "panel_subtitle",
+          "label": "Panel subtitle",
+          "default": "Thanh toán bằng hình thức"
+        },
+        {
+          "type": "image_picker",
+          "id": "panel_image",
+          "label": "Panel image"
+        },
+        {
+          "type": "richtext",
+          "id": "panel_body",
+          "label": "Panel body",
+          "default": "<p>Thông tin thanh toán và hướng dẫn chi tiết sẽ được hiển thị tại đây.</p>"
+        },
+        {
+          "type": "html",
+          "id": "logos_html",
+          "label": "Logos HTML (for logos/steps layout)"
+        },
+        {
+          "type": "html",
+          "id": "steps_html",
+          "label": "Steps HTML (for steps layout)"
+        },
+        {
+          "type": "html",
+          "id": "locations_html",
+          "label": "Locations HTML (for locations layout)"
+        },
+        {
+          "type": "checkbox",
+          "id": "locations_single",
+          "label": "Single location (centered)",
+          "default": false,
+          "info": "Enable if showing only one location to center it"
+        },
+        {
+          "type": "richtext",
+          "id": "panel_note",
+          "label": "Panel note"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Payment methods page",
+      "blocks": [
+        { "type": "payment_method" },
+        { "type": "payment_method" },
+        { "type": "payment_method" }
+      ]
+    }
+  ]
+}
+{% endschema %}

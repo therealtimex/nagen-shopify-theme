@@ -1,37 +1,124 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "main": {
       "type": "main-page",
       "settings": {
+        "layout_style": "compact",
+        "compact_padding": 16,
+        "compact_background": "#faf8f8",
+        "compact_border_color": "#e5e5e5",
+        "compact_alignment": "center",
+        "compact_font_size": 13,
+        "compact_text_color": "#666666",
         "setwidthout": "full",
         "enable_title": true,
-        "padding_top": 20,
-        "padding_bottom": 20,
-        "height": 360,
-        "height_tablet": 300,
-        "height_mobile": 250,
-        "margin_desktop": "0 20px 80px",
-        "margin_tablet": "0 20px 60px",
-        "margin_mobile": "0 0 50px",
-        "bg_img": "shopify://shop_images/breadcrumb.jpg",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "height": 150,
+        "height_tablet": 150,
+        "height_mobile": 150,
+        "margin_desktop": "0 0 30px",
+        "margin_tablet": "0 0 30px",
+        "margin_mobile": "0 0 30px",
         "background_gradient": "",
-        "background_color": "#ffffff",
+        "background_color": "#282828",
         "color_title": "#ffffff",
         "color_breadcrumb": "#ffffff",
-        "breadcrumb_rounded": 20
+        "breadcrumb_rounded": 0
+      }
+    },
+    "payment_methods": {
+      "type": "payment-methods-page",
+      "blocks": {
+        "method_bank": {
+          "type": "payment_method",
+          "settings": {
+            "tab_label": "Chuyển khoản ngân hàng",
+            "tab_icon_type": "bank",
+            "panel_layout": "card",
+            "panel_title": "Chuyển khoản ngân hàng",
+            "panel_title_color": "#eb1c25",
+            "panel_subtitle": "Thanh toán bằng hình thức",
+            "panel_body": "<p><strong>Tên tài khoản:</strong> CÔNG TY TNHH NAGEN</p><p><strong>Số tài khoản:</strong> 393196786</p><p><strong>Ngân hàng:</strong> Techcombank</p>",
+            "panel_note": "<p>QUÝ KHÁCH HÀNG CẦN LƯU Ý:</p><ul><li>Ghi rõ mã đơn hàng hoặc tên sản phẩm trong nội dung chuyển khoản.</li><li>Dịch vụ chỉ được xác nhận khi nhận được thanh toán và thông tin chính xác đầy đủ.</li></ul>"
+          }
+        },
+        "method_atm": {
+          "type": "payment_method",
+          "settings": {
+            "tab_label": "Thẻ ATM nội địa",
+            "tab_icon_type": "atm",
+            "panel_layout": "split",
+            "panel_title": "Thanh toán qua thẻ ATM nội địa",
+            "panel_title_color": "#eb1c25",
+            "panel_subtitle": "Chấp nhận thanh toán các loại thẻ sau",
+            "panel_body": "<ul><li>Thẻ nội địa: Thẻ thanh toán nội địa (Thẻ ATM) do các ngân hàng phát hành.</li><li>Thực hiện giao dịch thanh toán hoàn toàn trực tuyến, đơn giản thuận tiện cho khách hàng.</li><li>An toàn bảo mật cho khách hàng trong thanh toán.</li></ul>",
+            "panel_note": "<p>QUÝ KHÁCH HÀNG CẦN LƯU Ý:</p><ul><li>Để thanh toán bằng thẻ ATM, thẻ của Quý khách phải được đăng ký và kích hoạt chức năng thanh toán trực tuyến với ngân hàng trước khi sử dụng.</li><li>Quý khách cần điền đầy đủ thông tin bao gồm \"Tên chủ thẻ\", \"Số thẻ\", \"Ngày hiệu lực\".</li><li>Dịch vụ chỉ được đăng ký/gia hạn khi nhận được thanh toán và thông tin chính xác đầy đủ.</li></ul>"
+          }
+        },
+        "method_office": {
+          "type": "payment_method",
+          "settings": {
+            "tab_label": "Trực tiếp tại văn phòng",
+            "tab_icon_type": "office",
+            "panel_layout": "locations",
+            "panel_title": "Thanh toán trực tiếp tại văn phòng hoặc chi nhánh",
+            "panel_title_color": "#eb1c25",
+            "panel_subtitle": "Giờ làm việc: 8h - 17h30 (từ T2 đến T7)",
+            "panel_body": "",
+            "locations_html": "<div class=\"payment-panel__location\"><h3 class=\"payment-panel__location-title\">Văn phòng NAGEN</h3><div class=\"payment-panel__location-row\"><span class=\"payment-panel__location-icon\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z\"/><circle cx=\"12\" cy=\"10\" r=\"3\"/></svg></span><span>Liên hệ để biết địa chỉ chi tiết</span></div><div class=\"payment-panel__location-row\"><span class=\"payment-panel__location-icon\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z\"/></svg></span><span>Hotline: 1900 xxxx</span></div></div>",
+            "locations_single": true,
+            "panel_note": "<p>QUÝ KHÁCH HÀNG CẦN LƯU Ý:</p><ul><li>Kiểm tra cẩn thận các giao dịch và thông tin dịch vụ trước khi rời nơi giao dịch.</li><li>Dịch vụ chỉ được đăng ký/gia hạn khi nhận được thanh toán và thông tin chính xác đầy đủ.</li></ul>"
+          }
+        },
+        "method_card": {
+          "type": "payment_method",
+          "settings": {
+            "tab_label": "Thẻ tín dụng quốc tế",
+            "tab_icon_type": "card",
+            "panel_layout": "logos",
+            "panel_title": "Thanh toán qua thẻ tín dụng quốc tế",
+            "panel_title_color": "#eb1c25",
+            "panel_subtitle": "Chấp nhận thanh toán các loại thẻ sau",
+            "logos_html": "<img src=\"https://cdn.shopify.com/s/files/1/0608/0084/6798/files/visa-logo.png?v=1705000000\" alt=\"Visa\"><img src=\"https://cdn.shopify.com/s/files/1/0608/0084/6798/files/mastercard-logo.png?v=1705000000\" alt=\"Mastercard\"><img src=\"https://cdn.shopify.com/s/files/1/0608/0084/6798/files/jcb-logo.png?v=1705000000\" alt=\"JCB\">",
+            "panel_body": "",
+            "panel_note": "<p>QUÝ KHÁCH HÀNG CẦN LƯU Ý:</p><ul><li>Thẻ của Quý khách phải đăng ký chức năng thanh toán trên Internet với ngân hàng.</li><li>Các thông tin thẻ của Quý khách sẽ được bảo mật, đảm bảo an toàn khi thanh toán.</li><li>Quý khách cần điền các thông tin thẻ: Số thẻ, Ngày hết hạn, Số VCC/CVV.</li><li>Dịch vụ được kích hoạt ngay khi thanh toán.</li></ul>"
+          }
+        },
+        "method_ewallet": {
+          "type": "payment_method",
+          "settings": {
+            "tab_label": "Ví điện tử",
+            "tab_icon_type": "wallet",
+            "panel_layout": "steps",
+            "panel_title": "Thanh toán qua ví điện tử",
+            "panel_title_color": "#eb1c25",
+            "panel_subtitle": "Hỗ trợ thanh toán qua VNPAY",
+            "logos_html": "<img src=\"https://cdn.shopify.com/s/files/1/0608/0084/6798/files/vnpay-logo.png?v=1705000000\" alt=\"VNPAY\">",
+            "steps_html": "<div class=\"payment-panel__step\"><span class=\"payment-panel__step-number\">1</span><span class=\"payment-panel__step-text\">Tại màn hình chính hoặc trong tính năng \"Chuyển tiền\", chọn \"Chuyển tiền đến NH\"</span></div><div class=\"payment-panel__step\"><span class=\"payment-panel__step-number\">2</span><span class=\"payment-panel__step-text\">Chọn ngân hàng muốn chuyển</span></div><div class=\"payment-panel__step\"><span class=\"payment-panel__step-number\">3</span><span class=\"payment-panel__step-text\">Điền thông tin số tài khoản/số thẻ, số tiền chuyển và lời nhắn (không dấu)</span></div><div class=\"payment-panel__step\"><span class=\"payment-panel__step-number\">4</span><span class=\"payment-panel__step-text\">Chọn \"Nguồn tiền\" và \"Xác nhận\" để hoàn tất chuyển tiền</span></div>",
+            "panel_note": "<p>QUÝ KHÁCH HÀNG CẦN LƯU Ý:</p><ul><li>Khi thanh toán bằng các hình thức này, Quý khách cần tạo tài khoản tương ứng và số dư đảm bảo để thanh toán.</li><li>Thực hiện giao dịch thanh toán hoàn toàn trực tuyến, đơn giản thuận tiện cho khách hàng.</li><li>An toàn bảo mật cho khách hàng trong thanh toán.</li><li>Dịch vụ chỉ được đăng ký/gia hạn ngay khi nhận được thanh toán và thông tin chính xác đầy đủ.</li></ul>"
+          }
+        }
+      },
+      "block_order": [
+        "method_bank",
+        "method_atm",
+        "method_office",
+        "method_card",
+        "method_ewallet"
+      ],
+      "settings": {
+        "heading": "Các hình thức thanh toán",
+        "subheading": "Bạn có thể thanh toán theo hình thức Offline hoặc Online",
+        "note": "Lưu ý: Dịch vụ chỉ được xác nhận khi nhận được thanh toán và thông tin chính xác đầy đủ.",
+        "padding_top": 20,
+        "padding_bottom": 60,
+        "label_text": "Phương thức thanh toán"
       }
     }
   },
   "order": [
-    "main"
+    "main",
+    "payment_methods"
   ]
 }
