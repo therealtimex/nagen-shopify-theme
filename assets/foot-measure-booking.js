@@ -158,6 +158,7 @@
 
     function collectFormData(form) {
       const locationType = form.querySelector('[name="locationType"]:checked');
+      const affiliateRef = getAffiliateRef();
       
       const data = {
         event: 'dochan',
@@ -170,6 +171,7 @@
         address: '',
         source_url: window.location.href,
         ctv: getUrlParam('ctv') || '',
+        ref: affiliateRef || '',
       };
       
       if (locationType) {
@@ -244,6 +246,14 @@
     function getUrlParam(param) {
       const urlParams = new URLSearchParams(window.location.search);
       return urlParams.get(param);
+    }
+
+    function getAffiliateRef() {
+      if (window.affiliateTracker && typeof window.affiliateTracker.getAffiliateRef === 'function') {
+        return window.affiliateTracker.getAffiliateRef();
+      }
+
+      return getUrlParam('ref');
     }
   }
 })();
