@@ -199,10 +199,6 @@
   min-width: 0;
 }
 
-.content-list li > .content-list {
-  flex: 1;
-  width: 100%;
-}
 
 @media (min-width: 768px) {
   .content-list li {
@@ -226,13 +222,18 @@
 }
 
 /* Nested lists */
-.content-list .content-list {
+.content-list__item--nested {
+  flex-wrap: wrap;
+}
+
+.content-list__item--nested > .content-list {
+  flex-basis: 100%;
   margin-top: 8px !important;
   margin-left: 22px !important;
   margin-bottom: 0 !important;
 }
 
-.content-list .content-list li {
+.content-list__item--nested > .content-list li {
   font-size: inherit;
 }
 
