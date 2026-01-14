@@ -275,14 +275,21 @@ class AffiliateTracker {
   }
 
   /**
-   * Inject hidden affiliate attribute inputs into product forms
-   * This ensures Buy Now / dynamic checkout buttons include affiliate data
+   * Inject hidden affiliate property inputs into product forms
+   * Uses LINE ITEM PROPERTIES (not cart attributes) because:
+   * - Dynamic checkout/Buy Now buttons bypass cart attributes
+   * - Line item properties are reliably carried through all checkout flows
+   * - rtCloud can extract affiliate data from line_items[].properties
    */
   injectAffiliateInputsToForms() {
     const attr = this.getStoredAttribution();
     if (!this.isValidAttribution(attr)) {
       return;
     }
+
+    // Property keys for line item properties (prefixed with underscore to hide from customer)
+    const propRefKey = '_rt_aff_ref';
+    const propTsKey = '_rt_aff_ts';
 
     // Find all product forms (Shopify uses various form selectors)
     const formSelectors = [
@@ -297,20 +304,20 @@ class AffiliateTracker {
     
     forms.forEach((form) => {
       // Check if inputs already exist (avoid duplicates)
-      if (form.querySelector(`input[name="attributes[${this.cartAttrKey}]"]`)) {
+      if (form.querySelector(`input[name="properties[${propRefKey}]"]`)) {
         return;
       }
 
-      // Create hidden inputs for affiliate attributes
+      // Create hidden inputs for affiliate line item properties
       const refInput = document.createElement('input');
       refInput.type = 'hidden';
-      refInput.name = `attributes[${this.cartAttrKey}]`;
+      refInput.name = `properties[${propRefKey}]`;
       refInput.value = attr.ref;
       form.appendChild(refInput);
 
       const tsInput = document.createElement('input');
       tsInput.type = 'hidden';
-      tsInput.name = `attributes[${this.cartAttrTsKey}]`;
+      tsInput.name = `properties[${propTsKey}]`;
       tsInput.value = String(attr.ts);
       form.appendChild(tsInput);
     });
