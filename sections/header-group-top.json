@@ -196,7 +196,7 @@
         "border_color": "#e2e2e2",
         "sticky_header": true,
         "transparent_header": false,
-        "logo": "shopify://shop_images/header_logo.png",
+        "logo": "shopify://shop_images/nagen-logo.png",
         "logo_width": 200,
         "menu": "main-menu",
         "menu_vertical": "main-menu",
