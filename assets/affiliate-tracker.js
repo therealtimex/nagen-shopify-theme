@@ -14,6 +14,7 @@ class AffiliateTracker {
     this.paramName = config.paramName || 'ref';
     this.ttlDays = config.ttlDays || 7;
     this.decorateLinks = config.decorateLinks !== false;
+    this.injectFormInputs = config.injectFormInputs === true;
     this.dealerRefCode = config.dealerRefCode || null; // Dealer's own ref_code (takes priority for sharing)
     this.cookieName = 'rt_aff';
     this.storageKey = 'rt_aff';
@@ -49,6 +50,11 @@ class AffiliateTracker {
     // Decorate share links
     if (this.decorateLinks) {
       this.decorateShareLinks();
+    }
+
+    // Inject hidden inputs into product forms for Buy Now / dynamic checkout support
+    if (this.injectFormInputs) {
+      this.injectAffiliateInputsToForms();
     }
   }
 
@@ -266,6 +272,48 @@ class AffiliateTracker {
   getAffiliateRef() {
     const attr = this.getStoredAttribution();
     return this.isValidAttribution(attr) ? attr.ref : null;
+  }
+
+  /**
+   * Inject hidden affiliate attribute inputs into product forms
+   * This ensures Buy Now / dynamic checkout buttons include affiliate data
+   */
+  injectAffiliateInputsToForms() {
+    const attr = this.getStoredAttribution();
+    if (!this.isValidAttribution(attr)) {
+      return;
+    }
+
+    // Find all product forms (Shopify uses various form selectors)
+    const formSelectors = [
+      'form[action*="/cart/add"]',
+      'form[data-type="add-to-cart-form"]',
+      'form.shopify-product-form',
+      'form.product-form',
+      '.shopify-ap-productform'
+    ];
+    
+    const forms = document.querySelectorAll(formSelectors.join(', '));
+    
+    forms.forEach((form) => {
+      // Check if inputs already exist (avoid duplicates)
+      if (form.querySelector(`input[name="attributes[${this.cartAttrKey}]"]`)) {
+        return;
+      }
+
+      // Create hidden inputs for affiliate attributes
+      const refInput = document.createElement('input');
+      refInput.type = 'hidden';
+      refInput.name = `attributes[${this.cartAttrKey}]`;
+      refInput.value = attr.ref;
+      form.appendChild(refInput);
+
+      const tsInput = document.createElement('input');
+      tsInput.type = 'hidden';
+      tsInput.name = `attributes[${this.cartAttrTsKey}]`;
+      tsInput.value = String(attr.ts);
+      form.appendChild(tsInput);
+    });
   }
 }
 

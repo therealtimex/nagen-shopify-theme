@@ -21,7 +21,8 @@
         paramName: {{ settings.affiliate_param_name | default: 'ref' | json }},
         ttlDays: {{ settings.affiliate_ttl_days | default: 7 }},
         decorateLinks: {{ settings.affiliate_link_decoration_enabled | json }},
-        dealerRefCode: {{ dealer_ref_code | json }}
+        dealerRefCode: {{ dealer_ref_code | json }},
+        injectFormInputs: true
       });
       window.affiliateTracker.init();
     }
