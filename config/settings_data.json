@@ -1084,13 +1084,6 @@
         "settings": {}
       }
     },
-    "content_for_index": [],
-    "blocks": {
-      "3138269044488530766": {
-        "type": "shopify://apps/uppromote-affiliate/blocks/core-script/64c32457-930d-4cb9-9641-e24c0d9cf1f4",
-        "disabled": true,
-        "settings": {}
-      }
-    }
+    "content_for_index": []
   }
 }
