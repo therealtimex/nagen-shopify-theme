@@ -129,7 +129,7 @@
             "tooltip": "",
             "link": "",
             "page_link": "",
-            "ai_chat_sdk": "<script>\n(function(d,t) {\n  var BASE_URL=\"https://rtchat.rtworkspace.com\";\n  var g=d.createElement(t),s=d.getElementsByTagName(t)[0];\n  g.src=BASE_URL+\"/packs/js/sdk.js\";\n  g.defer = true;\n  g.async = true;\n  s.parentNode.insertBefore(g,s);\n  g.onload=function(){\n    window.chatwootSDK.run({\n      websiteToken: 'Xgft1pQhMTqqf4us17Vj9jhr',\n      baseUrl: BASE_URL,\n      position: 'left',\n      type: 'standard',\n    })\n  }\n})(document,\"script\");\n</script>",
+            "ai_chat_sdk": "<script>\nwindow.chatwootSettings = {\n  \"locale\": \"vi\",\n};\n(function(d,t) {\n  var BASE_URL=\"https://rtchat.rtworkspace.com\";\n  var g=d.createElement(t),s=d.getElementsByTagName(t)[0];\n  g.src=BASE_URL+\"/packs/js/sdk.js\";\n  g.defer = true;\n  g.async = true;\n  s.parentNode.insertBefore(g,s);\n  g.onload=function(){\n    window.chatwootSDK.run({\n      websiteToken: \"Xgft1pQhMTqqf4us17Vj9jhr\",\n      baseUrl: BASE_URL,\n      position: \"left\",\n      type: \"standard\",\n    })\n  }\n})(document,\"script\");\n</script>",
             "open_new_tab": true,
             "bg_color": "",
             "icon_color": "#ffffff",
