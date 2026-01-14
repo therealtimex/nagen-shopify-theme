@@ -18,8 +18,9 @@ class AffiliateTracker {
     this.dealerRefCode = config.dealerRefCode || null; // Dealer's own ref_code (takes priority for sharing)
     this.cookieName = 'rt_aff';
     this.storageKey = 'rt_aff';
-    this.cartAttrKey = 'rt_aff_ref';
-    this.cartAttrTsKey = 'rt_aff_ts';
+    // Unified key names with underscore prefix (hidden from customer in cart UI)
+    this.attrRefKey = '_rt_aff_ref';
+    this.attrTsKey = '_rt_aff_ts';
 
     // Cache for cart check
     this._cartAttributesCache = null;
@@ -150,8 +151,8 @@ class AffiliateTracker {
       const cart = await response.json();
 
       // Check if cart is missing attribution OR has different ref OR missing/stale timestamp
-      const cartRef = cart.attributes ? cart.attributes[this.cartAttrKey] : null;
-      const cartTs = cart.attributes ? cart.attributes[this.cartAttrTsKey] : null;
+      const cartRef = cart.attributes ? cart.attributes[this.attrRefKey] : null;
+      const cartTs = cart.attributes ? cart.attributes[this.attrTsKey] : null;
       
       if (!cartRef || cartRef !== attr.ref || !cartTs || cartTs !== String(attr.ts)) {
         this.syncToCart(attr);
@@ -172,8 +173,8 @@ class AffiliateTracker {
 
     try {
       const attributes = {};
-      attributes[this.cartAttrKey] = attribution.ref;
-      attributes[this.cartAttrTsKey] = String(attribution.ts);
+      attributes[this.attrRefKey] = attribution.ref;
+      attributes[this.attrTsKey] = String(attribution.ts);
 
       await fetch('/cart/update.js', {
         method: 'POST',
@@ -287,10 +288,6 @@ class AffiliateTracker {
       return;
     }
 
-    // Property keys for line item properties (prefixed with underscore to hide from customer)
-    const propRefKey = '_rt_aff_ref';
-    const propTsKey = '_rt_aff_ts';
-
     // Find all product forms (Shopify uses various form selectors)
     const formSelectors = [
       'form[action*="/cart/add"]',
@@ -304,20 +301,20 @@ class AffiliateTracker {
     
     forms.forEach((form) => {
       // Check if inputs already exist (avoid duplicates)
-      if (form.querySelector(`input[name="properties[${propRefKey}]"]`)) {
+      if (form.querySelector(`input[name="properties[${this.attrRefKey}]"]`)) {
         return;
       }
 
       // Create hidden inputs for affiliate line item properties
       const refInput = document.createElement('input');
       refInput.type = 'hidden';
-      refInput.name = `properties[${propRefKey}]`;
+      refInput.name = `properties[${this.attrRefKey}]`;
       refInput.value = attr.ref;
       form.appendChild(refInput);
 
       const tsInput = document.createElement('input');
       tsInput.type = 'hidden';
-      tsInput.name = `properties[${propTsKey}]`;
+      tsInput.name = `properties[${this.attrTsKey}]`;
       tsInput.value = String(attr.ts);
       form.appendChild(tsInput);
     });
