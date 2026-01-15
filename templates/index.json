@@ -1502,8 +1502,8 @@
           "type": "text",
           "name": "Text",
           "settings": {
-            "width_desktop": 50,
-            "width_tablet": 50,
+            "width_desktop": 40,
+            "width_tablet": 40,
             "width_tablet_small": 100,
             "width_mobile_big": 100,
             "width_mobile": 100,
@@ -1618,8 +1618,8 @@
           "type": "text",
           "name": "Video",
           "settings": {
-            "width_desktop": 50,
-            "width_tablet": 50,
+            "width_desktop": 60,
+            "width_tablet": 60,
             "width_tablet_small": 100,
             "width_mobile_big": 100,
             "width_mobile": 100,
