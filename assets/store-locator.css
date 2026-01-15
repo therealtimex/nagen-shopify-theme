@@ -172,6 +172,12 @@
   padding: 0 2px;
 }
 
+@media (max-width: 991px) {
+  .store-locator__list-header {
+    padding: 0 15px;
+  }
+}
+
 .store-locator__list-title {
   font-size: 14px;
   line-height: 20px;
@@ -201,21 +207,37 @@
     overflow-x: auto;
     overflow-y: visible;
     max-height: none;
-    padding-bottom: 8px;
+    padding: 0 15px 12px;
+    margin: 0 -15px;
     gap: 12px;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Hide scrollbar for Firefox */
+  }
+
+  .store-locator__list::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for Chrome/Safari */
   }
   
   .store-locator__card {
     flex: 0 0 280px;
-    scroll-snap-align: start;
+    scroll-snap-align: center;
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+  }
+
+  .store-locator__card.active {
+    background: #fff;
+    border-color: var(--sl-primary);
+    border-width: 2px;
+    padding: 15px; /* Adjust for border width change */
   }
 }
 
 @media (max-width: 575px) {
   .store-locator__card {
-    flex: 0 0 260px;
+    flex: 0 0 85%;
   }
 }
 
@@ -296,6 +318,13 @@
   margin: 0 0 10px 38px;
 }
 
+@media (max-width: 991px) {
+  .store-locator__card-address {
+    margin-left: 0;
+    margin-top: 8px;
+  }
+}
+
 .store-locator__card-distance {
   font-size: 13px;
   line-height: 20px;
@@ -305,10 +334,23 @@
   margin-bottom: 10px;
 }
 
+@media (max-width: 991px) {
+  .store-locator__card-distance {
+    margin-left: 0;
+  }
+}
+
 .store-locator__card-actions {
   display: flex;
   gap: 8px;
   margin-left: 38px;
+}
+
+@media (max-width: 991px) {
+  .store-locator__card-actions {
+    margin-left: 0;
+    margin-top: auto;
+  }
 }
 
 .store-locator__card-btn {

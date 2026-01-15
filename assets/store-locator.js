@@ -404,7 +404,7 @@ class StoreLocator {
     // Scroll card into view on mobile
     const activeCard = this.container.querySelector(`.store-locator__card[data-store-id="${storeId}"]`);
     if (activeCard && window.innerWidth <= 991) {
-      activeCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      activeCard.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
     }
   }
 
