@@ -191,7 +191,7 @@
     "apollo_search_enabled": true,
     "apollo_search_show_vendor": false,
     "apollo_search_show_price": true,
-    "favicon": "shopify://shop_images/favicon.webp",
+    "favicon": "shopify://shop_images/favicon.png",
     "meta_description": "NAGEN Việt Nam cung cấp tấm lót hỗ trợ vòm bàn chân cao cấp, giúp cải thiện dáng đi, giảm đau và nuôi dưỡng sức khỏe từng bước chân.",
     "currency_code_enabled": true,
     "show_gift_card": false,
