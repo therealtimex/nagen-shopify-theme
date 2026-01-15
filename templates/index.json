@@ -1718,7 +1718,7 @@
             "service_label_color": "",
             "service_text_color": "",
             "service_content_width": 200,
-            "custom_html": "<video src=\"https://cdn.shopify.com/videos/c/o/v/7f37aa0fc6654003a3b7586a02e56ea4.mp4\" controls autoplay loop muted playsinline style=\"width:100%;height:100%;min-height:400px;object-fit:cover;border-radius:16px;background:#000;\"></video>",
+            "custom_html": "<video src=\"https://cdn.shopify.com/videos/c/o/v/d0967b0b9d72429aa9ba095bcb140c9e.mp4\" controls autoplay loop muted playsinline style=\"width:100%;height:100%;min-height:400px;object-fit:cover;border-radius:16px;background:#000;\"></video>",
             "content_full_width": true,
             "content_max_width": 500,
             "text_position": "start",
