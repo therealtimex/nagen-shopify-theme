@@ -5,20 +5,19 @@
 
 .payment-methods__header {
   text-align: center;
-  margin-bottom: 8px;
+  margin-bottom: 20px;
 }
 
 .payment-methods__label {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  margin-bottom: 12px;
   font-size: 14px;
-  line-height: 22px;
   font-weight: 600;
-  color: rgba(var(--heading-color), 0.75);
   text-transform: capitalize;
+  margin-bottom: 12px;
+  color: rgba(var(--heading-color), 0.75);
 }
 
 .payment-methods__label img,
@@ -32,7 +31,7 @@
   font-size: 24px;
   color: rgb(var(--heading-color));
   margin-bottom: 10px;
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1.4;
 }
 
@@ -49,9 +48,9 @@
 }
 
 .payment-methods__subtitle {
-  color: rgba(var(--color-body), 0.7);
+  color: rgba(var(--color-body), 0.75);
   font-size: 15px;
-  margin-bottom: 0;
+  margin-bottom: 6px;
   line-height: 1.75;
 }
 
@@ -65,7 +64,7 @@
   color: rgba(var(--color-body), 0.6);
   font-size: 14px;
   font-style: italic;
-  margin-top: 8px;
+  margin-top: 6px;
 }
 
 /* Tab Navigation */
@@ -73,7 +72,7 @@
   display: grid;
   gap: 12px;
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  margin: 20px 0 24px;
+  margin: 16px 0 24px;
 }
 
 .payment-tabs__item {
@@ -97,12 +96,12 @@
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
-/* Active tab uses theme primary-2 color (navy/blue) */
+/* Active tab uses lighter navy tone */
 .payment-tabs__item.is-active {
-  background: var(--tab-active-bg, var(--primary_hover, #1A2F4D));
-  border-color: var(--tab-active-bg, var(--primary_hover, #1A2F4D));
-  color: var(--tab-active-color, #fff);
-  box-shadow: 0 6px 20px rgba(33, 57, 93, 0.25);
+  background: var(--tab-active-bg, rgba(var(--heading-color), 0.08));
+  border-color: var(--tab-active-bg, rgba(var(--heading-color), 0.2));
+  color: var(--tab-active-color, rgb(var(--heading-color)));
+  box-shadow: 0 6px 20px rgba(33, 57, 93, 0.18);
 }
 
 .payment-tabs__icon {
@@ -117,7 +116,7 @@
 }
 
 .payment-tabs__item.is-active .payment-tabs__icon {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(var(--heading-color), 0.08);
 }
 
 .payment-tabs__icon img,
@@ -137,14 +136,8 @@
 .payment-panel {
   background: #faf8f8;
   border-radius: 18px;
-  padding: 28px;
+  padding: 24px;
   border: 1px solid rgb(var(--border-color));
-}
-
-/* Panel header - subtitle first, then title */
-.payment-panel__header {
-  text-align: center;
-  margin-bottom: 24px;
 }
 
 .payment-panel__subtitle {
@@ -152,13 +145,13 @@
   color: var(--sub-heading-color);
   font-size: 14px;
   font-weight: 600;
-  margin: 6px 0;
+  margin: 6px 0 4px;
 }
 
 .payment-panel__title {
   text-align: center;
   font-size: 24px;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
   color: rgb(var(--heading-color));
   font-weight: 600;
   text-transform: uppercase;
@@ -576,7 +569,7 @@
   }
 
   .payment-panel {
-    padding: 40px;
+    padding: 36px;
   }
 
   .payment-panel__content {
