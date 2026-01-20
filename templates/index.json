@@ -1182,7 +1182,7 @@
             "time_picker": "",
             "date_picker": "",
             "button_content": "Giới thiệu sản phẩm",
-            "button_url": "",
+            "button_url": "shopify://pages/ve-san-pham",
             "button_color": "#ffffff",
             "button_bg_color": "#eb1c25",
             "button_color_hover": "#ffffff",
