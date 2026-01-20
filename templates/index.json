@@ -133,7 +133,7 @@
         "color_btn_arrow": "#222222",
         "autoplay_duration": 5,
         "background_color": "rgba(0,0,0,0)",
-        "slideshow_height": 550,
+        "slideshow_height": 700,
         "slideshow_height_tablet": 500,
         "slideshow_height_mobile": 400,
         "auto_play": false,
