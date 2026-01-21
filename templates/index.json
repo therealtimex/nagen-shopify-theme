@@ -433,6 +433,7 @@
           "type": "carousel-item",
           "name": "Đau gót chân",
           "settings": {
+            "image": "shopify://shop_images/dau_got_chan.jpg",
             "url": "shopify://pages/test",
             "heading": "Đau gót chân",
             "heading_color": "#000000",
