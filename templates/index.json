@@ -536,6 +536,7 @@
           "type": "carousel-item",
           "name": "Đau nhức cột sống",
           "settings": {
+            "image": "shopify://shop_images/dau_nhuc_cot_song.jpg",
             "url": "shopify://pages/test",
             "heading": "Đau nhức cột sống",
             "heading_color": "#000000",
