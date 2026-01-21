@@ -225,6 +225,7 @@
           "type": "carousel-item",
           "name": "Bàn chân bẹt",
           "settings": {
+            "image": "shopify://shop_images/Banchanbet.webp",
             "url": "shopify://pages/test",
             "heading": "Bàn chân bẹt",
             "heading_color": "#000000",
