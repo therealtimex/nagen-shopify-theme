@@ -381,6 +381,7 @@
           "type": "carousel-item",
           "name": "Viêm cân gan bàn chân",
           "settings": {
+            "image": "shopify://shop_images/viem_can_gan_chan.jpg",
             "url": "shopify://pages/test",
             "heading": "Viêm cân gan bàn chân",
             "heading_color": "#000000",
