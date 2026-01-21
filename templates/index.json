@@ -485,6 +485,7 @@
           "type": "carousel-item",
           "name": "Gai gót chân",
           "settings": {
+            "image": "shopify://shop_images/gai_got_chan.jpg",
             "url": "shopify://pages/test",
             "heading": "Gai gót chân",
             "heading_color": "#000000",
