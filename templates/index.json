@@ -691,6 +691,7 @@
           "type": "carousel-item",
           "name": "U dây thần kinh Morton",
           "settings": {
+            "image": "shopify://shop_images/mauton.jpg",
             "url": "shopify://pages/test",
             "heading": "U dây thần kinh Morton",
             "heading_color": "#000000",
