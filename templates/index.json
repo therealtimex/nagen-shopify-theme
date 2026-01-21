@@ -639,6 +639,7 @@
           "type": "carousel-item",
           "name": "Hội chứng Marfan",
           "settings": {
+            "image": "shopify://shop_images/marfan.jpg",
             "url": "shopify://pages/test",
             "heading": "Hội chứng Marfan",
             "heading_color": "#000000",
