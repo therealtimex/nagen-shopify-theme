@@ -583,7 +583,7 @@
           "type": "carousel-item",
           "name": "Vẹo cột sống",
           "settings": {
-            "url": "shopify://pages/test",
+            "url": "shopify://pages/cong-veo-cot-song",
             "heading": "Vẹo cột sống",
             "heading_color": "#000000",
             "heading_font_size": 22,
