@@ -29,7 +29,6 @@
         "margin_desktop": "0 0 30px",
         "margin_tablet": "0 0 30px",
         "margin_mobile": "0 0 30px",
-        "bg_img": "shopify://shop_images/breadcrumb.jpg",
         "background_gradient": "",
         "background_color": "#282828",
         "color_title": "#ffffff",
@@ -166,7 +165,7 @@
           "type": "tab_custom",
           "settings": {
             "tab_name": "Thông tin bổ sung",
-            "tab_custom_content": "<p>By changing our most important processes and <br/>products, we have already made a big leap forward. This ranges from the <br/>increased use of more sustainable fibers to the use of more <br/>environmentally friendly printing processes to the development of <br/>efficient waste management in our value chain.</p><p><br/><a href=\"https://ap-leotheme.myshopify.com/pages/sustainability\" title=\"Sustainability\">Learn more about sustainability</a><br/>                  </p>"
+            "tab_custom_content": "<p></p><p><br/><a href=\"https://ap-leotheme.myshopify.com/pages/sustainability\" title=\"Sustainability\">Learn more about sustainability</a><br/>                  </p>"
           }
         }
       },
