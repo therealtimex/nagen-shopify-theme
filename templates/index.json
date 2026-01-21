@@ -328,7 +328,7 @@
           "type": "carousel-item",
           "name": "Chân chữ x,o",
           "settings": {
-            "url": "shopify://pages/test",
+            "url": "shopify://pages/chan-chu-x",
             "heading": "Chân chữ x,o",
             "heading_color": "#000000",
             "heading_font_size": 22,
