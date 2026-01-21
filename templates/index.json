@@ -329,6 +329,7 @@
           "type": "carousel-item",
           "name": "Chân chữ x,o",
           "settings": {
+            "image": "shopify://shop_images/ban_chan_x.jpg",
             "url": "shopify://pages/chan-chu-x",
             "heading": "Chân chữ x,o",
             "heading_color": "#000000",
