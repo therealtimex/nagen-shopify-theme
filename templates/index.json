@@ -277,6 +277,7 @@
           "type": "carousel-item",
           "name": "Bàn chân vòm cao",
           "settings": {
+            "image": "shopify://shop_images/ban_chan_vom_cao.jpg",
             "url": "shopify://pages/test",
             "heading": "Bàn chân vòm cao",
             "heading_color": "#000000",
