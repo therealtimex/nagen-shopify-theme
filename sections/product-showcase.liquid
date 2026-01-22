@@ -26,6 +26,7 @@
     display: flex;
     flex-direction: column;
     gap: 24px;
+    --ps-desc-lines: {{ section.settings.description_lines | default: 4 }};
   }
 
   /* Featured Block */
@@ -109,9 +110,13 @@
     color: #4a5568;
     margin: 0;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: var(--ps-desc-lines, 4);
     -webkit-box-orient: vertical;
     overflow: hidden;
+  }
+
+  {{ section_selector }} .product-showcase__description--preserve {
+    white-space: pre-line;
   }
 
   {{ section_selector }} .product-showcase__cta {
@@ -323,8 +328,15 @@
           {%- if first_product -%}
             <h3 class="product-showcase__title">{{ first_product.title }}</h3>
             {%- if first_product.description != blank -%}
-              <p class="product-showcase__description">
-                {{ first_product.description | strip_html | truncatewords: 20 }}
+              {%- assign featured_description = first_product.description
+                | replace: '</p>', '\n'
+                | replace: '<br />', '\n'
+                | replace: '<br>', '\n'
+                | strip_html
+                | strip
+                | truncatewords: section.settings.description_words | default: 50 -%}
+              <p class="product-showcase__description{% if section.settings.preserve_line_breaks %} product-showcase__description--preserve{% endif %}">
+                {{ featured_description }}
               </p>
             {%- endif -%}
             <a class="product-showcase__cta" href="{{ first_product.url | default: '#' }}">
@@ -376,7 +388,7 @@
                       data-product-title="{{ product.title | escape }}"
                       data-product-price="{{ product.price | money }}"
                       data-product-compare="{% if product.compare_at_price and product.compare_at_price > product.price %}{{ product.compare_at_price | money }}{% endif %}"
-                      data-product-description="{{ product.description | strip_html | truncatewords: 20 | escape }}"
+                      data-product-description="{{ product.description | strip_html | truncatewords: section.settings.description_words | default: 50 | escape }}"
                       data-product-url="{{ product.url }}"
                       data-product-image="{% if product.featured_image %}{{ product.featured_image | image_url: width: 600 }}{% endif %}"
                     >
@@ -387,6 +399,14 @@
                           {{ 'product-1' | placeholder_svg_tag }}
                         {%- endif -%}
                       </div>
+                      {%- assign item_description = product.description
+                        | replace: '</p>', '\n'
+                        | replace: '<br />', '\n'
+                        | replace: '<br>', '\n'
+                        | strip_html
+                        | strip
+                        | truncatewords: section.settings.description_words | default: 50 -%}
+                      <span class="product-showcase__description-data" data-ps-description hidden>{{ item_description }}</span>
                       <div class="product-showcase__meta">
                         <p class="product-showcase__item-title">{{ product.title }}</p>
                       </div>
@@ -404,6 +424,7 @@
                       <div class="product-showcase__thumb">
                         {{ 'product-' | append: i | placeholder_svg_tag }}
                       </div>
+                      <span class="product-showcase__description-data" data-ps-description hidden>Sample product description</span>
                       <div class="product-showcase__meta">
                         <p class="product-showcase__item-title">Sample product {{ i }}</p>
                       </div>
@@ -447,6 +468,7 @@
     const showPrice = {{ section.settings.show_price | default: true | json }};
     const eyebrow = {{ section.settings.eyebrow | default: 'Product spotlight' | json }};
     const buttonText = {{ section.settings.button_text | default: 'View More' | json }};
+    const preserveLineBreaks = {{ section.settings.preserve_line_breaks | default: false | json }};
 
     const eyebrowIcon = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.1218 10.4792C13.7313 10.0886 13.0981 10.0886 12.7076 10.4792L12.0005 11.1863C11.2194 11.9673 9.95308 11.9673 9.17203 11.1863C8.39098 10.4052 8.39098 9.13888 9.17203 8.35783L14.8027 2.72568C16.9066 2.24973 19.2013 2.83075 20.8393 4.46875C23.2587 6.88811 23.3721 10.7402 21.1797 13.2939L19.0715 15.4289L14.1218 10.4792ZM3.16162 4.46875C5.33501 2.29536 8.6646 1.98283 11.1705 3.53116L7.75781 6.94362C6.19572 8.50572 6.19572 11.0384 7.75781 12.6005C9.27258 14.1152 11.7 14.1611 13.27 12.7382L13.4147 12.6005L17.6573 16.8431L13.4147 21.0858C12.6336 21.8668 11.3673 21.8668 10.5863 21.0858L3.16162 13.6611C0.62321 11.1227 0.62321 7.00715 3.16162 4.46875Z" fill="currentColor"/></svg>`;
 
@@ -463,7 +485,8 @@
         const title = btn.dataset.productTitle;
         const price = btn.dataset.productPrice;
         const compare = btn.dataset.productCompare;
-        const description = btn.dataset.productDescription;
+        const descriptionNode = btn.querySelector('[data-ps-description]');
+        const description = descriptionNode ? descriptionNode.textContent : btn.dataset.productDescription;
         const url = btn.dataset.productUrl || '#';
         const image = btn.dataset.productImage;
 
@@ -474,9 +497,12 @@
 
         // Update featured content
         if (featuredContent) {
+          const descriptionClass = preserveLineBreaks
+            ? 'product-showcase__description product-showcase__description--preserve'
+            : 'product-showcase__description';
           featuredContent.innerHTML = `
             <h3 class="product-showcase__title">${title}</h3>
-            ${description ? `<p class="product-showcase__description">${description}</p>` : ''}
+            ${description ? `<p class="${descriptionClass}">${description}</p>` : ''}
             <a class="product-showcase__cta" href="${url}">${buttonText}<span class="icon-button">{% render 'icon-arrow' %}</span></a>
           `;
         }
@@ -677,6 +703,30 @@
       "id": "button_text",
       "label": "Button text",
       "default": "View More"
+    },
+    {
+      "type": "range",
+      "id": "description_words",
+      "label": "Description word count",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "description_lines",
+      "label": "Description line clamp",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "checkbox",
+      "id": "preserve_line_breaks",
+      "label": "Preserve line breaks in description",
+      "default": false
     },
     {
       "type": "checkbox",
