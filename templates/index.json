@@ -1393,10 +1393,10 @@
         "testimonial_3": {
           "type": "testimonial-item",
           "settings": {
-            "content": "Giá cả hợp lý, chất lượng tốt. Sẽ tiếp tục ủng hộ cửa hàng trong thời gian tới.",
+            "content": "Tôi đã cảm nhận được “Nuôi dưỡng từng bước chân” ngay cái chạm đầu tiên với SUNGEN",
             "rating": 4,
-            "image": "shopify://shop_images/avatar-placeholder.png",
-            "name": "Lê Hoàng Cường",
+            "image": "shopify://shop_images/Nguy_n_C_nh_Thi.webp",
+            "name": "Nguyễn Cảnh Thi",
             "job": "Khách hàng",
             "icon_child": "<svg width=\"48\" height=\"48\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M6 17h3l2-4V7H5v6h3l-2 4zm8 0h3l2-4V7h-6v6h3l-2 4z\" fill=\"#21395D\"/></svg>"
           }
