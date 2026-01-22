@@ -973,7 +973,7 @@
             "card_radius": 16,
             "card_bg": "#ffffff",
             "card_border": "#e6e6e6",
-            "icon_size": 64,
+            "icon_size": 100,
             "icon_bg": "#e7ecf5",
             "icon_color": "#21395d",
             "service_icon_1": "shopify://shop_images/1q.webp",
