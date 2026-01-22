@@ -970,7 +970,7 @@
             "mobile_columns": 1,
             "card_gap": 24,
             "card_padding": "24px",
-            "card_radius": 16,
+            "card_radius": 20,
             "card_bg": "#ffffff",
             "card_border": "#e6e6e6",
             "icon_size": 100,
