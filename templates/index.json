@@ -885,7 +885,7 @@
             "icon_box_size": 50,
             "icon_space": 10,
             "icon_box_title": "",
-            "icon_box_title_font_size": 16,
+            "icon_box_title_font_size": 20,
             "icon_box_title_line_height": 24,
             "icon_box_title_font_weight": "400",
             "icon_box_title_color": "#000000",
