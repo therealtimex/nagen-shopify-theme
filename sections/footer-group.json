@@ -347,7 +347,7 @@
         "content_width": 1350,
         "section_class": "",
         "background_color": "#eb1c25",
-        "background_gradient": "linear-gradient(135deg, rgba(240, 244, 248, 1), rgba(250, 245, 245, 1) 50%, rgba(248, 244, 240, 1) 100%)",
+        "background_gradient": "",
         "background_repeat": false,
         "background_size": "default",
         "background_size_custom": 100,
