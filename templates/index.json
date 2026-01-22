@@ -1394,10 +1394,10 @@
           "type": "testimonial-item",
           "settings": {
             "content": "Tôi đã cảm nhận được “Nuôi dưỡng từng bước chân” ngay cái chạm đầu tiên với SUNGEN",
-            "rating": 4,
+            "rating": 5,
             "image": "shopify://shop_images/Nguy_n_C_nh_Thi.webp",
             "name": "Nguyễn Cảnh Thi",
-            "job": "Khách hàng",
+            "job": "Chủ tịch HĐTV Công ty RUNA",
             "icon_child": "<svg width=\"48\" height=\"48\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M6 17h3l2-4V7H5v6h3l-2 4zm8 0h3l2-4V7h-6v6h3l-2 4z\" fill=\"#21395D\"/></svg>"
           }
         }
