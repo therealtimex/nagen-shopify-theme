@@ -1373,8 +1373,8 @@
           "settings": {
             "content": "Sản phẩm chất lượng tuyệt vời, giao hàng nhanh chóng. Tôi rất hài lòng với dịch vụ của cửa hàng!",
             "rating": 5,
-            "image": "shopify://shop_images/avatar-placeholder.png",
-            "name": "Nguyễn Văn An",
+            "image": "shopify://shop_images/Y_n_Nguy_n.webp",
+            "name": "Yến Nguyễn",
             "job": "Khách hàng thân thiết",
             "icon_child": "<svg width=\"48\" height=\"48\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M6 17h3l2-4V7H5v6h3l-2 4zm8 0h3l2-4V7h-6v6h3l-2 4z\" fill=\"#21395D\"/></svg>"
           }
