@@ -969,7 +969,7 @@
             "tablet_columns": 2,
             "mobile_columns": 1,
             "card_gap": 24,
-            "card_padding": "24px",
+            "card_padding": "36px",
             "card_radius": 16,
             "card_bg": "#ffffff",
             "card_border": "#21395d",
