@@ -114,13 +114,17 @@
     -webkit-line-clamp: var(--ps-desc-lines, 4);
     -webkit-box-orient: vertical;
     overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   {{ section_selector }} .product-showcase__description--preserve {
-    display: block;
+    display: -webkit-box;
     white-space: pre-line;
+    -webkit-line-clamp: var(--ps-desc-lines, 4);
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
     max-height: calc(var(--ps-desc-lines, 4) * 1.6 * 1em);
-    -webkit-line-clamp: unset;
   }
 
   {{ section_selector }} .product-showcase__cta {
