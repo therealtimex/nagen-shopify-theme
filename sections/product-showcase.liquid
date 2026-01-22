@@ -333,30 +333,41 @@
           {%- endif -%}
         </div>
         <div class="product-showcase__details" data-featured-content>
-          {%- if first_product -%}
+            {%- if first_product -%}
             <h3 class="product-showcase__title">{{ first_product.title }}</h3>
-            {%- if first_product.description != blank -%}
-              {%- assign featured_description_plain = first_product.description
-                | strip_html
-                | strip
-                | truncatewords: section.settings.description_words | default: 50 -%}
-              {%- assign featured_description_html = first_product.description
-                | replace: '</p>', '<br><br>'
-                | replace: '<p>', ''
-                | replace: '<br />', '<br>'
-                | replace: '<br/>', '<br>'
-                | replace: '<br><br><br><br>', '<br><br>'
-                | replace: '<br><br><br>', '<br><br>'
-                | strip
-                | remove_first: '<br><br>'
-                | remove_last: '<br><br>'
-                | remove_last: '<br>' -%}
+            {%- assign raw_description = first_product.metafields.custom.summary | default: first_product.description -%}
+            {%- if raw_description != blank -%}
+              {%- if section.settings.preserve_line_breaks -%}
+                {%- assign featured_description_html = raw_description
+                  | replace: '<meta charset=\"utf-8\">', ''
+                  | replace: '<meta charset="utf-8">', ''
+                  | replace: '<meta charset=\"utf-8\" />', ''
+                  | replace: '<meta charset="utf-8" />', ''
+                  | replace: '<p dir=\"ltr\">', ''
+                  | replace: '<p dir="ltr">', ''
+                  | replace: '<p>', ''
+                  | replace: '</p>', '<br><br>'
+                  | replace: '<span>', ''
+                  | replace: '</span>', ''
+                  | replace: '<b></b>', ''
+                  | replace: '<br />', '<br>'
+                  | replace: '<br/>', '<br>'
+                  | replace: '<br><br><br><br>', '<br><br>'
+                  | replace: '<br><br><br>', '<br><br>'
+                  | strip
+                  | remove_first: '<br><br>'
+                  | remove_last: '<br><br>'
+                  | remove_last: '<br>' -%}
+                {%- assign description_lines = section.settings.description_lines | default: 4 -%}
+                {%- assign featured_description = featured_description_html | split: '<br>' | slice: 0, description_lines | join: '<br>' -%}
+              {%- else -%}
+                {%- assign featured_description = raw_description
+                  | strip_html
+                  | strip
+                  | truncatewords: section.settings.description_words | default: 50 -%}
+              {%- endif -%}
               <p class="product-showcase__description{% if section.settings.preserve_line_breaks %} product-showcase__description--preserve{% endif %}">
-                {%- if section.settings.preserve_line_breaks -%}
-                  {{ featured_description_html }}
-                {%- else -%}
-                  {{ featured_description_plain }}
-                {%- endif -%}
+                {{ featured_description }}
               </p>
             {%- endif -%}
             <a class="product-showcase__cta" href="{{ first_product.url | default: '#' }}">
@@ -419,27 +430,38 @@
                           {{ 'product-1' | placeholder_svg_tag }}
                         {%- endif -%}
                       </div>
-                      {%- assign item_description_plain = product.description
-                        | strip_html
-                        | strip
-                        | truncatewords: section.settings.description_words | default: 50 -%}
-                      {%- assign item_description_html = product.description
-                        | replace: '</p>', '<br><br>'
-                        | replace: '<p>', ''
-                        | replace: '<br />', '<br>'
-                        | replace: '<br/>', '<br>'
-                        | replace: '<br><br><br><br>', '<br><br>'
-                        | replace: '<br><br><br>', '<br><br>'
-                        | strip
-                        | remove_first: '<br><br>'
-                        | remove_last: '<br><br>'
-                        | remove_last: '<br>' -%}
+                      {%- assign item_raw_description = product.metafields.custom.summary | default: product.description -%}
+                      {%- if section.settings.preserve_line_breaks -%}
+                        {%- assign item_description_html = item_raw_description
+                          | replace: '<meta charset=\"utf-8\">', ''
+                          | replace: '<meta charset="utf-8">', ''
+                          | replace: '<meta charset=\"utf-8\" />', ''
+                          | replace: '<meta charset="utf-8" />', ''
+                          | replace: '<p dir=\"ltr\">', ''
+                          | replace: '<p dir="ltr">', ''
+                          | replace: '<p>', ''
+                          | replace: '</p>', '<br><br>'
+                          | replace: '<span>', ''
+                          | replace: '</span>', ''
+                          | replace: '<b></b>', ''
+                          | replace: '<br />', '<br>'
+                          | replace: '<br/>', '<br>'
+                          | replace: '<br><br><br><br>', '<br><br>'
+                          | replace: '<br><br><br>', '<br><br>'
+                          | strip
+                          | remove_first: '<br><br>'
+                          | remove_last: '<br><br>'
+                          | remove_last: '<br>' -%}
+                        {%- assign description_lines = section.settings.description_lines | default: 4 -%}
+                        {%- assign item_description = item_description_html | split: '<br>' | slice: 0, description_lines | join: '<br>' -%}
+                      {%- else -%}
+                        {%- assign item_description = item_raw_description
+                          | strip_html
+                          | strip
+                          | truncatewords: section.settings.description_words | default: 50 -%}
+                      {%- endif -%}
                       <span class="product-showcase__description-data" data-ps-description hidden>
-                        {%- if section.settings.preserve_line_breaks -%}
-                          {{ item_description_html }}
-                        {%- else -%}
-                          {{ item_description_plain }}
-                        {%- endif -%}
+                        {{ item_description }}
                       </span>
                       <div class="product-showcase__meta">
                         <p class="product-showcase__item-title">{{ product.title }}</p>
