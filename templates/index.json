@@ -1430,7 +1430,7 @@
         "rows": 1,
         "space": "24",
         "space_desktop": "30",
-        "time": "0",
+        "time": "4000",
         "centeredSlides": false,
         "overflow": "hidden",
         "data_aos_text": "fade-up",

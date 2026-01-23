@@ -237,6 +237,10 @@
         <div class="testimonial col" >
           
           <div class="testimonial-swiper">
+              {%- assign autoplay_time = section.settings.time | default: '0' -%}
+              {%- if autoplay_time == blank or autoplay_time == '0' -%}
+                {%- assign autoplay_time = '4000' -%}
+              {%- endif -%}
               <div id="swiper-{{ section.id }}" class="ap-swiper swiper"
               data-desktop-item="{{ section.settings.desktop_item }}"
               data-tablet-item="{{ section.settings.tablet_item }}"
@@ -249,7 +253,7 @@
               data-pagination="{{ section.settings.pagination }}"
               data-space="{{ section.settings.space }}"
               data-space-desktop="{{ section.settings.space_desktop }}"
-              data-time="{{ section.settings.time }}" data-center="{{ section.settings.centeredSlides }}">
+              data-time="{{ autoplay_time }}" data-center="{{ section.settings.centeredSlides }}">
                 <div class="swiper-wrapper">
                   {% for block in section.blocks %}
                     <div class="swiper-slide">
