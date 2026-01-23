@@ -820,7 +820,7 @@
         "rows": 1,
         "space": "30",
         "space_desktop": "30",
-        "time": "0",
+        "time": "4000",
         "swiper_effect": "default",
         "swiper_align": "start",
         "custom_html": ""
