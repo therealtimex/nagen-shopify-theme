@@ -58,6 +58,30 @@
         color: {{ block.settings.heading_color }};
         margin-bottom: {{ block.settings.heading_space | append: 'px' }};
       }
+      {%- if block.settings.address_color != blank -%}
+        #block-{{ block.id }} .footer__item-address {
+          color: {{ block.settings.address_color }};
+        }
+      {%- endif -%}
+      {%- if block.settings.phone_color != blank -%}
+        #block-{{ block.id }} .footer__item-phone {
+          color: {{ block.settings.phone_color }};
+        }
+        #block-{{ block.id }} .footer__item-phone:hover {
+          color: {{ block.settings.phone_color }};
+        }
+      {%- endif -%}
+      {%- if block.settings.email_color != blank -%}
+        #block-{{ block.id }} .footer__item-email {
+          color: {{ block.settings.email_color }};
+        }
+        #block-{{ block.id }} .footer__item-email:hover {
+          color: {{ block.settings.email_color }};
+        }
+      {%- endif -%}
+      #block-{{ block.id }} .footer__item-link .footer__item-icon svg {
+        color: currentColor;
+      }
       #block-{{ block.id }} .footer__title {
         font-size: {{ block.settings.title_font_size | append: 'px' }};
         line-height: {{ block.settings.title_line_height | append: 'px' }};
@@ -74,6 +98,55 @@
       #block-{{ block.id }} .linklist__item a:hover {
         color: {{ block.settings.menu_item_color_hover }};
       }
+
+      {%- if block.type == 'footer_contact' -%}
+        #block-{{ block.id }} .footer__item-link {
+          font-size: {{ block.settings.phone_font_size | append: 'px' }};
+          line-height: {{ block.settings.phone_line_height }};
+          gap: {{ block.settings.icon_spacing | append: 'px' }};
+        }
+
+        #block-{{ block.id }} .footer__item-phone {
+          margin-bottom: {{ block.settings.phone_spacing | append: 'px' }};
+        }
+
+        #block-{{ block.id }} .footer__item-email {
+          font-size: {{ block.settings.email_font_size | append: 'px' }};
+          line-height: {{ block.settings.email_line_height }};
+          margin-bottom: 0;
+        }
+
+        #block-{{ block.id }} .footer__item-link span:not(.footer__item-icon) {
+          display: inline;
+          margin: 0;
+          font-size: inherit;
+          font-weight: 500;
+          line-height: inherit;
+        }
+
+        #block-{{ block.id }} .footer__item-link .footer__item-icon {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          margin: 0;
+          line-height: 1;
+        }
+
+        #block-{{ block.id }} .footer__item-address {
+          font-size: {{ block.settings.address_font_size | append: 'px' }};
+          line-height: {{ block.settings.address_line_height }};
+          margin-top: {{ block.settings.address_spacing | append: 'px' }};
+        }
+
+        #block-{{ block.id }} .footer__item-address strong {
+          display: block;
+          margin: {{ block.settings.address_spacing | append: 'px' }} 0 4px;
+        }
+
+        #block-{{ block.id }} .footer__item-address strong:first-child {
+          margin-top: 0;
+        }
+      {%- endif -%}
 
       @media (max-width: 1199px) and (min-width: 992px) {
         
@@ -421,11 +494,6 @@
                       <h6 class="footer__item-title">{{ block.settings.heading }}</h6>
                     {% endif %}
                     <div class="footer__item-content">
-                      {% if block.settings.address != blank %}
-                        <p class="footer__item-address">
-                          {{ block.settings.address }}
-                        </p>
-                      {% endif %}
                       {% if block.settings.phone != blank %}
                         {%- assign phone_clean = block.settings.phone | remove: ' ' | remove: '-' | remove: '.' | remove: '(' | remove: ')' -%}
                         <a href="tel:{{ phone_clean }}" class="footer__item-phone footer__item-link">
@@ -439,6 +507,11 @@
                           <span class="footer__item-icon">{{ block.settings.email_icon }}</span>
                           <span>{{ block.settings.email }}</span>
                         </a>
+                      {% endif %}
+                      {% if block.settings.address != blank %}
+                        <p class="footer__item-address">
+                          {{ block.settings.address }}
+                        </p>
                       {% endif %}
                     </div>
                   </div>

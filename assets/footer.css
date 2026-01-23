@@ -139,6 +139,24 @@
   color: rgb(var(--color-body));
 }
 
+.footer__item-address {
+  font-size: 15px;
+  line-height: 1.7;
+  margin: 0;
+  color: inherit;
+}
+
+.footer__item-address strong {
+  display: inline-block;
+  color: rgb(var(--heading-color));
+  font-weight: 600;
+  margin: 10px 0 4px;
+}
+
+.footer__item-address strong:first-child {
+  margin-top: 0;
+}
+
 /* Footer contact links */
 .footer__item-link {
   display: flex;
@@ -447,8 +465,6 @@
     width: 100%;
   }
 }
-
-
 
 
 
