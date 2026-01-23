@@ -312,8 +312,44 @@
       font-size: 18px;
     }
     {{ section_selector }} .swiper-arrow {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: absolute;
+      top: 45%;
       left: -10px;
       right: -10px;
+      width: auto;
+      z-index: 20;
+      pointer-events: none;
+      transform: translateY(-50%);
+    }
+
+    {{ section_selector }} .swiper-button-prev,
+    {{ section_selector }} .swiper-button-next {
+      /* Structural overrides to reset desktop absolute positioning */
+      position: relative !important;
+      left: auto !important;
+      right: auto !important;
+      transform: none !important;
+      margin: 0;
+
+      /* Mobile specific dimensions and visuals */
+      width: 32px;
+      height: 32px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      pointer-events: auto;
+      
+      /* Ensure visibility */
+      visibility: visible;
+      opacity: 1;
+    }
+
+    /* Disabled state */
+    {{ section_selector }} .swiper-button-prev.swiper-button-disabled,
+    {{ section_selector }} .swiper-button-next.swiper-button-disabled {
+      opacity: 0.35;
+      pointer-events: none;
     }
   }
 {% endstyle %}
@@ -401,7 +437,7 @@
           data-rows="1"
           data-direction="horizontal"
           data-navigation="true"
-          data-pagination="false"
+          data-pagination="true"
           data-space="{{ section.settings.item_gap | default: 12 }}"
           data-space-desktop="{{ section.settings.item_gap | default: 12 }}"
           data-time="0"
@@ -419,7 +455,6 @@
                       data-product-title="{{ product.title | escape }}"
                       data-product-price="{{ product.price | money }}"
                       data-product-compare="{% if product.compare_at_price and product.compare_at_price > product.price %}{{ product.compare_at_price | money }}{% endif %}"
-                      data-product-description="{{ product.description | strip_html | truncatewords: section.settings.description_words | default: 50 | escape }}"
                       data-product-url="{{ product.url }}"
                       data-product-image="{% if product.featured_image %}{{ product.featured_image | image_url: width: 600 }}{% endif %}"
                     >
@@ -476,7 +511,7 @@
               {%- for i in (1..5) -%}
                 <div class="swiper-slide">
                   <div class="product-showcase__item {% if forloop.first %}is-active{% endif %}" data-ps-item>
-                    <button type="button" data-product-title="Sample product {{ i }}" data-product-price="{{ 1999 | money }}" data-product-description="Sample product description" data-product-url="#" data-product-image="">
+                    <button type="button" data-product-title="Sample product {{ i }}" data-product-price="{{ 1999 | money }}" data-product-url="#" data-product-image="">
                       <div class="product-showcase__thumb">
                         {{ 'product-' | append: i | placeholder_svg_tag }}
                       </div>
@@ -490,6 +525,7 @@
               {%- endfor -%}
             {%- endif -%}
           </div>
+          <div class="swiper-pagination swiper-pagination_{{ section.id }}"></div>
         </div>
 
         {%- if section.settings.show_navigation -%}
@@ -542,7 +578,7 @@
         const price = btn.dataset.productPrice;
         const compare = btn.dataset.productCompare;
         const descriptionNode = btn.querySelector('[data-ps-description]');
-        const description = descriptionNode ? descriptionNode.textContent : btn.dataset.productDescription;
+        const description = descriptionNode ? descriptionNode.innerHTML : btn.dataset.productDescription;
         const url = btn.dataset.productUrl || '#';
         const image = btn.dataset.productImage;
 
