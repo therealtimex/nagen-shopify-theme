@@ -105,7 +105,7 @@
         "footer_logo_3Jqpr4": {
           "type": "footer-logo",
           "settings": {
-            "width_desktop": "23",
+            "width_desktop": "18",
             "width_tablet": "50",
             "width_mobile_big": "50",
             "width_mobile": "100",
@@ -141,12 +141,12 @@
         "footer_contact_4RgcQj": {
           "type": "footer_contact",
           "settings": {
-            "extra_large_column": 6,
+            "extra_large_column": 4,
             "large_column": 6,
             "medium_column": 6,
-            "small_column": 6,
+            "small_column": 12,
             "heading": "Công ty TNHH NAGEN",
-            "address": "<strong>Trụ sở chính:</strong>Tầng 7, Tòa VP-1, Sunsquare Complex,<br>Số 21 Lê Đức Thọ, Mỹ Đình 2,<br>Nam Từ Liêm, Hà Nội<br><strong>Chi nhánh Nghệ An:</strong>Địa chỉ: 25 Phan Đăng Lưu, Phường Trường Vinh, Tỉnh Nghệ An<br><strong>Chi nhánh Hồ Chí Minh:</strong>161B Luỹ Bán Bích, Phường Phú Thạnh, TP. Hồ Chí Minh",
+            "address": "<span class=\"footer__address-group\"><strong>Trụ sở chính:</strong>Tầng 7, Tòa VP-1, Sunsquare Complex,<br>Số 21 Lê Đức Thọ, Mỹ Đình 2,<br>Nam Từ Liêm, Hà Nội</span><span class=\"footer__address-group\"><strong>Chi nhánh Nghệ An:</strong>Địa chỉ: 25 Phan Đăng Lưu, Phường Trường Vinh, Tỉnh Nghệ An</span><span class=\"footer__address-group\"><strong>Chi nhánh Hồ Chí Minh:</strong>161B Luỹ Bán Bích, Phường Phú Thạnh, TP. Hồ Chí Minh</span>",
             "phone_icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z\"></path></svg>",
             "phone": "Điện thoại: 0966.578.000",
             "email_icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z\"></path><polyline points=\"22,6 12,13 2,6\"></polyline></svg>",
@@ -173,9 +173,9 @@
         "footer_item_hDD7hi": {
           "type": "footer_item",
           "settings": {
-            "width_desktop": "",
-            "width_tablet": "",
-            "width_mobile_big": "50",
+            "width_desktop": "18",
+            "width_tablet": "50",
+            "width_mobile_big": "100",
             "width_mobile": "100",
             "block_content_max_width": 0,
             "block_margin_desktop": "",
@@ -203,9 +203,9 @@
         "footer_item_xMGFDE": {
           "type": "footer_item",
           "settings": {
-            "width_desktop": "",
-            "width_tablet": "",
-            "width_mobile_big": "50",
+            "width_desktop": "10",
+            "width_tablet": "50",
+            "width_mobile_big": "100",
             "width_mobile": "100",
             "block_content_max_width": 0,
             "block_margin_desktop": "",
@@ -233,9 +233,9 @@
         "footer_item_AFwNRJ": {
           "type": "footer_item",
           "settings": {
-            "width_desktop": "",
-            "width_tablet": "",
-            "width_mobile_big": "50",
+            "width_desktop": "18",
+            "width_tablet": "50",
+            "width_mobile_big": "100",
             "width_mobile": "100",
             "block_content_max_width": 0,
             "block_margin_desktop": "",
@@ -277,13 +277,13 @@
             "heading_font_size": 20,
             "heading_line_height": 30,
             "heading_font_weight": "500",
-            "heading_color": "#ffffff",
+            "heading_color": "#555555",
             "heading_space": 0,
-            "footer_text": "© 2025. Bản quyền thuộc về <span style=\"color: #FFFFFF\">Công ty TNHH Nagen</span>",
+            "footer_text": "© 2025. Bản quyền thuộc về <span style=\"color: #1a2f4d\">Công ty TNHH Nagen</span>",
             "text_font_size": 14,
             "text_line_height": 22,
             "text_font_weight": "500",
-            "color_text": "#ffffff",
+            "color_text": "#555555",
             "text_space": 0,
             "button_content": "",
             "button_url": "",

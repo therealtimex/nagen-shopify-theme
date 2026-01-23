@@ -139,6 +139,14 @@
   color: rgb(var(--color-body));
 }
 
+.footer__contact-grid {
+  display: block;
+}
+
+.footer__contact-meta {
+  margin-bottom: 12px;
+}
+
 .footer__item-address {
   font-size: 15px;
   line-height: 1.7;
@@ -155,6 +163,15 @@
 
 .footer__item-address strong:first-child {
   margin-top: 0;
+}
+
+.footer__item-address .footer__address-group {
+  display: block;
+  margin-bottom: 12px;
+}
+
+.footer__item-address .footer__address-group:last-child {
+  margin-bottom: 0;
 }
 
 /* Footer contact links */
@@ -426,9 +443,17 @@
   .newletter__block {
     flex-wrap: wrap;
   }
+
+  .footer__inner .row {
+    row-gap: 28px;
+  }
 }
 
 @media (max-width: 767px) {
+  .footer__inner .row {
+    row-gap: 24px;
+  }
+
   .footer__item-content {
     padding: 0;
   }
@@ -465,8 +490,4 @@
     width: 100%;
   }
 }
-
-
-
-
 
