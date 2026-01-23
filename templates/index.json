@@ -15,6 +15,7 @@
         "slide_7jHxke": {
           "type": "slide",
           "settings": {
+            "image_1": "shopify://shop_images/web.webp",
             "image1_width": 100,
             "image1_width_tablet": 100,
             "image1_width_mobile": 100,
@@ -173,6 +174,7 @@
           "type": "carousel-item",
           "name": "Bàn chân bẹt",
           "settings": {
+            "image": "shopify://shop_images/Ban_chan_b_t.jpg",
             "url": "shopify://pages/ban-chan-bet",
             "heading": "Bàn chân bẹt",
             "heading_color": "#000000",
@@ -224,6 +226,7 @@
           "type": "carousel-item",
           "name": "Bàn chân vòm cao",
           "settings": {
+            "image": "shopify://shop_images/ban_chan_vom_cao.jpg",
             "url": "shopify://pages/test",
             "heading": "Bàn chân vòm cao",
             "heading_color": "#000000",
@@ -275,6 +278,7 @@
           "type": "carousel-item",
           "name": "Chân chữ x,o",
           "settings": {
+            "image": "shopify://shop_images/ban_chan_x.jpg",
             "url": "shopify://pages/chan-chu-x",
             "heading": "Chân chữ x,o",
             "heading_color": "#000000",
@@ -326,6 +330,7 @@
           "type": "carousel-item",
           "name": "Viêm cân gan bàn chân",
           "settings": {
+            "image": "shopify://shop_images/viem_can_gan_chan.jpg",
             "url": "shopify://pages/test",
             "heading": "Viêm cân gan bàn chân",
             "heading_color": "#000000",
@@ -377,6 +382,7 @@
           "type": "carousel-item",
           "name": "Đau gót chân",
           "settings": {
+            "image": "shopify://shop_images/dau_got_chan.jpg",
             "url": "shopify://pages/test",
             "heading": "Đau gót chân",
             "heading_color": "#000000",
@@ -428,6 +434,7 @@
           "type": "carousel-item",
           "name": "Gai gót chân",
           "settings": {
+            "image": "shopify://shop_images/gai_got_chan.jpg",
             "url": "shopify://pages/test",
             "heading": "Gai gót chân",
             "heading_color": "#000000",
@@ -479,6 +486,7 @@
           "type": "carousel-item",
           "name": "Đau nhức cột sống",
           "settings": {
+            "image": "shopify://shop_images/dau_nhuc_cot_song.jpg",
             "url": "shopify://pages/test",
             "heading": "Đau nhức cột sống",
             "heading_color": "#000000",
@@ -530,6 +538,7 @@
           "type": "carousel-item",
           "name": "Vẹo cột sống",
           "settings": {
+            "image": "shopify://shop_images/v_o_c_t_song.jpg",
             "url": "shopify://pages/cong-veo-cot-song",
             "heading": "Vẹo cột sống",
             "heading_color": "#000000",
@@ -581,6 +590,7 @@
           "type": "carousel-item",
           "name": "Hội chứng Marfan",
           "settings": {
+            "image": "shopify://shop_images/marfan.jpg",
             "url": "shopify://pages/test",
             "heading": "Hội chứng Marfan",
             "heading_color": "#000000",
@@ -632,6 +642,7 @@
           "type": "carousel-item",
           "name": "U dây thần kinh Morton",
           "settings": {
+            "image": "shopify://shop_images/mauton.jpg",
             "url": "shopify://pages/test",
             "heading": "U dây thần kinh Morton",
             "heading_color": "#000000",
@@ -914,12 +925,16 @@
             "icon_size": 100,
             "icon_bg": "#21395d",
             "icon_color": "#eb1c25",
+            "service_icon_1": "shopify://shop_images/1q.webp",
             "service_title_1": "Tái tạo & điều chỉnh vòm bàn chân",
             "service_text_1": "Hỗ trợ tái tạo vòm bàn chân sinh lý, điều chỉnh bàn chân hoạt động không bình thường, cải thiện nền tảng vận động và tư thế đi đứng.",
+            "service_icon_2": "shopify://shop_images/2q.webp",
             "service_title_2": "Căn chỉnh toàn diện hệ cơ – xương",
             "service_text_2": "Giúp căn chỉnh chính xác xương, cơ, dây chằng và gân; duy trì chức năng cơ sinh học của bàn chân thông qua hỗ trợ 4 vòm.",
+            "service_icon_3": "shopify://shop_images/3q.webp",
             "service_title_3": "Giảm áp lực & cải thiện đau",
             "service_text_3": "Phân bổ lực hợp lý khi di chuyển, giảm áp lực lên bàn chân và xương khớp; hỗ trợ cải thiện đau chân, đau gối, đau lưng và đau hông.",
+            "service_icon_4": "shopify://shop_images/4q.webp",
             "service_title_4": "Cân bằng – tuần hoàn – cảm giác bàn chân",
             "service_text_4": "Massage bàn chân, tăng lưu thông máu huyết; cải thiện cảm giác bàn chân, giúp não bộ kiểm soát thăng bằng tốt hơn, giảm nguy cơ té ngã.",
             "service_title_5": "",
@@ -1020,6 +1035,7 @@
             "item_text_2": "",
             "item_button_text_2": "",
             "item_button_url_2": "",
+            "item_image_3": "shopify://shop_images/300x690.webp",
             "item_title_3": "",
             "item_text_3": "",
             "item_button_text_3": "",
@@ -1309,6 +1325,7 @@
           "settings": {
             "content": "Sản phẩm chất lượng tuyệt vời, giao hàng nhanh chóng. Tôi rất hài lòng với dịch vụ của công ty!",
             "rating": 5,
+            "image": "shopify://shop_images/Y_n_Nguy_n.webp",
             "name": "Yến Nguyễn",
             "job": "Khách hàng thân thiết",
             "icon_child": "<svg width=\"48\" height=\"48\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M6 17h3l2-4V7H5v6h3l-2 4zm8 0h3l2-4V7h-6v6h3l-2 4z\" fill=\"#21395D\"/></svg>"
@@ -1319,6 +1336,7 @@
           "settings": {
             "content": "Sản phẩm đã giúp tôi đi lại vững chãi hơn và không còn cảm giác đau mỏi đầu gối nữa",
             "rating": 5,
+            "image": "shopify://shop_images/Ng_c_Han.webp",
             "name": "Ngọc Hân",
             "job": "Khách hàng mới",
             "icon_child": "<svg width=\"48\" height=\"48\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M6 17h3l2-4V7H5v6h3l-2 4zm8 0h3l2-4V7h-6v6h3l-2 4z\" fill=\"#21395D\"/></svg>"
@@ -1329,6 +1347,7 @@
           "settings": {
             "content": "Tôi đã cảm nhận được “Nuôi dưỡng từng bước chân” ngay cái chạm đầu tiên với SUNGEN",
             "rating": 5,
+            "image": "shopify://shop_images/Nguy_n_C_nh_Thi.webp",
             "name": "Nguyễn Cảnh Thi",
             "job": "Chủ tịch HĐTV Công ty RUNA",
             "icon_child": "<svg width=\"48\" height=\"48\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M6 17h3l2-4V7H5v6h3l-2 4zm8 0h3l2-4V7h-6v6h3l-2 4z\" fill=\"#21395D\"/></svg>"
