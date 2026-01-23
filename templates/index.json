@@ -871,7 +871,7 @@
             "time_picker": "",
             "date_picker": "",
             "button_content": "Liên hệ với chúng tôi",
-            "button_url": "",
+            "button_url": "shopify://pages/dat-lich-do-chan",
             "button_color": "#ffffff",
             "button_bg_color": "#eb1c25",
             "button_color_hover": "#ffffff",
