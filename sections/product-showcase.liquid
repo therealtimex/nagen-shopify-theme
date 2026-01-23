@@ -372,6 +372,7 @@
             {%- if first_product -%}
             <h3 class="product-showcase__title">{{ first_product.title }}</h3>
             {%- assign raw_description = first_product.metafields.custom.summary | default: first_product.description -%}
+            {%- assign featured_description = '' -%}
             {%- if raw_description != blank -%}
               {%- if section.settings.preserve_line_breaks -%}
                 {%- assign featured_description_html = raw_description
@@ -402,10 +403,10 @@
                   | strip
                   | truncatewords: section.settings.description_words | default: 50 -%}
               {%- endif -%}
-              <p class="product-showcase__description{% if section.settings.preserve_line_breaks %} product-showcase__description--preserve{% endif %}">
-                {{ featured_description }}
-              </p>
             {%- endif -%}
+            <p class="product-showcase__description{% if section.settings.preserve_line_breaks %} product-showcase__description--preserve{% endif %}" {% if raw_description == blank %}hidden{% endif %}>
+              {{ featured_description }}
+            </p>
             <a class="product-showcase__cta" href="{{ first_product.url | default: '#' }}">
               {{ section.settings.button_text | default: 'View More' }}
               <span class="icon-button">{% render 'icon-arrow' %}</span>
@@ -584,19 +585,44 @@
 
         // Update featured image
         if (image && featuredMedia) {
-          featuredMedia.innerHTML = `<img src="${image}" alt="${title}" loading="lazy">`;
+          const existingImg = featuredMedia.querySelector('img');
+          if (existingImg) {
+            existingImg.src = image;
+            existingImg.alt = title;
+            existingImg.removeAttribute('srcset'); // Remove srcset to ensure src is used
+          } else {
+            featuredMedia.innerHTML = `<img src="${image}" alt="${title}">`;
+          }
         }
 
         // Update featured content
         if (featuredContent) {
-          const descriptionClass = preserveLineBreaks
-            ? 'product-showcase__description product-showcase__description--preserve'
-            : 'product-showcase__description';
-          featuredContent.innerHTML = `
-            <h3 class="product-showcase__title">${title}</h3>
-            ${description ? `<p class="${descriptionClass}">${description}</p>` : ''}
-            <a class="product-showcase__cta" href="${url}">${buttonText}<span class="icon-button">{% render 'icon-arrow' %}</span></a>
-          `;
+          const titleEl = featuredContent.querySelector('.product-showcase__title');
+          const descEl = featuredContent.querySelector('.product-showcase__description');
+          const ctaEl = featuredContent.querySelector('.product-showcase__cta');
+
+          if (titleEl) titleEl.textContent = title;
+          
+          if (descEl) {
+            if (description) {
+              descEl.innerHTML = description;
+              descEl.hidden = false;
+              // Update class for line breaks if needed
+              if (preserveLineBreaks) {
+                descEl.classList.add('product-showcase__description--preserve');
+              } else {
+                descEl.classList.remove('product-showcase__description--preserve');
+              }
+            } else {
+              descEl.hidden = true;
+            }
+          }
+
+          if (ctaEl) {
+            ctaEl.href = url;
+            // Keep the icon, just update text if needed, but buttonText is constant from settings
+            // So we don't need to touch innerHTML of CTA if text doesn't change based on product
+          }
         }
       });
     });
