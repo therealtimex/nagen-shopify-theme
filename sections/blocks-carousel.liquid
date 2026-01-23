@@ -203,6 +203,104 @@
 
  
 
+    /* Navigation Arrows */
+    {{ section_selector }} .swiper-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: -15px;
+      right: -15px;
+      display: flex;
+      justify-content: space-between;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    {{ section_selector }} .swiper-button-prev,
+    {{ section_selector }} .swiper-button-next {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1px solid #d7dde6;
+      background: #fff;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+      pointer-events: auto;
+      color: #333;
+    }
+
+    {{ section_selector }} .swiper-button-prev:hover,
+    {{ section_selector }} .swiper-button-next:hover {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    {{ section_selector }} .swiper-button-prev::after,
+    {{ section_selector }} .swiper-button-next::after {
+      display: none;
+    }
+
+    {{ section_selector }} .swiper-button-disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    @media (max-width: 767px) {
+      {{ id }} .swiper-arrow {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: absolute;
+        top: 45%;
+        left: -10px;
+        right: -10px;
+        width: auto;
+        z-index: 20;
+        pointer-events: none;
+        transform: translateY(-50%);
+      }
+
+      {{ id }} .swiper-button-prev,
+      {{ id }} .swiper-button-next {
+        position: relative !important;
+        left: auto !important;
+        right: auto !important;
+        transform: none !important;
+        margin: 0;
+        width: 32px;
+        height: 32px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        pointer-events: auto;
+        visibility: visible;
+        opacity: 1;
+        background: #fff;
+        color: #1d2a38;
+        border-radius: 50%;
+        border: 1px solid #d7dde6;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+      }
+
+      {{ id }} .swiper-button-prev:hover,
+      {{ id }} .swiper-button-next:hover {
+        background: #21395d;
+        color: #fff;
+        border-color: #21395d;
+      }
+
+      {{ id }} .swiper-button-prev.swiper-button-disabled,
+      {{ id }} .swiper-button-next.swiper-button-disabled {
+        opacity: 0.35;
+        pointer-events: none;
+        border-color: #d7dde6;
+      }
+    }
+
 {% endstyle %}
 
 <div class="blocks__carousel {% if section.settings.class != blank %}{{ section.settings.class }}{% endif %}">
