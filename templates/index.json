@@ -1703,7 +1703,7 @@
         "legend_store": "Chi nhánh, đối tác",
         "legend_user": "Vị trí của bạn",
         "enable_geolocation": true,
-        "geo_title": "Tìm cửa hàng gần bạn",
+        "geo_title": "Tìm đại lý gần bạn",
         "geo_button_text": "Xác định vị trí của tôi",
         "list_title": "Danh sách cửa hàng",
         "show_popup_image": true,
