@@ -1709,7 +1709,7 @@
         "show_popup_image": true,
         "directions_text": "Chỉ đường",
         "booking_text": "Đặt lịch",
-        "booking_url": "",
+        "booking_url": "shopify://pages/dat-lich-do-chan",
         "show_instructions": true,
         "instructions_text": "Click vào marker trên bản đồ để xem thông tin cửa hàng",
         "show_mobile_support": true,
