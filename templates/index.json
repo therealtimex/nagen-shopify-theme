@@ -226,7 +226,7 @@
           "type": "carousel-item",
           "name": "Vận động",
           "settings": {
-            "image": "shopify://shop_images/ban_chan_vom_cao.jpg",
+            "image": "shopify://shop_images/van-dong.webp",
             "url": "shopify://pages/van-dong",
             "heading": "Vận động",
             "heading_color": "#000000",
