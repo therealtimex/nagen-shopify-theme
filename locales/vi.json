@@ -70,6 +70,7 @@
       "checkout": "Thanh toán",
       "agree": "Tôi đồng ý với",
       "conditions": "điều khoản và điều kiện",
+      "agree_terms_html": "Tôi đồng ý với <a href=\"{{ link }}\">Điều kiện giao dịch chung</a>",
       "marquee": "Mọi khoản phí được tính bằng USD. Dù giỏ hàng đang hiển thị VND, thanh toán sẽ sử dụng USD theo tỷ giá cập nhật nhất.",
       "add_note": "Thêm ghi chú cho đơn hàng",
       "note_placeholder": "Bạn cần hỗ trợ gì?",

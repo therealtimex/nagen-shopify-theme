@@ -80,6 +80,7 @@
       "checkout": "Checkout",
       "agree": "I agree with the",
       "conditions": "terms and conditions",
+      "agree_terms_html": "I agree to the <a href=\"{{ link }}\">terms and conditions</a>",
       "marquee": "All charges are billed in USD. While the content of your cart is currently displayed in VND, the checkout will use USD at the most current exchange rate.",
       "add_note": "Add order note",
       "note_placeholder": "How can we help you?",

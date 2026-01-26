@@ -1,0 +1,119 @@
+{%- comment -%}
+  Renders a terms and conditions checkbox for the cart or mini-cart.
+  
+  Accepts:
+  - id: {String} Unique ID for the checkbox (optional)
+  - button_id: {String} ID of the checkout button to enable/disable (optional)
+
+  Usage:
+  {% render 'cart-terms-conditions', id: 'agree_terms_conditions_drawer', button_id: 'mini_bt_checkout' %}
+{%- endcomment -%}
+
+{%- if settings.cart_terms_conditions_enable -%}
+  <style>
+    .cart-terms-conditions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 15px 0;
+      font-size: 14px;
+    }
+    .cart-terms-conditions__input {
+      margin: 0;
+      cursor: pointer;
+      flex-shrink: 0;
+      width: 16px;
+      height: 16px;
+    }
+    .cart-terms-conditions__label {
+      cursor: pointer;
+      line-height: 1.4;
+      user-select: none;
+    }
+    .cart-terms-conditions__label a {
+      text-decoration: underline;
+    }
+    /* Ensure disabled buttons look and act disabled */
+    .checkout-button:disabled,
+    .checkout-button[disabled] {
+      opacity: 0.5 !important;
+      cursor: not-allowed !important;
+      pointer-events: none !important;
+      filter: grayscale(1);
+    }
+  </style>
+
+  <div class="cart-terms-conditions ajaxcart_terms_conditions">
+    <input 
+      type="checkbox" 
+      id="{{ id | default: 'agree_terms_conditions' }}" 
+      class="cart-terms-conditions__input agree_terms_conditions" 
+      data-terms-checkbox
+      data-target-button="{{ button_id | default: 'bt_checkout' }}"
+    >
+    <label for="{{ id | default: 'agree_terms_conditions' }}" class="cart-terms-conditions__label">
+      {%- capture terms_link -%}{{ settings.cart_terms_conditions_page }}{%- endcapture -%}
+      {%- if terms_link != blank -%}
+        {{ 'general.cart.agree_terms_html' | t: link: terms_link | replace: '<a ', '<a target="_blank" rel="noopener" ' }}
+      {%- else -%}
+        {{ 'general.cart.agree' | t }} {{ 'general.cart.conditions' | t }}
+      {%- endif -%}
+    </label>
+  </div>
+
+  <script>
+    if (!window.cartTermsInitialized) {
+      window.cartTermsInitialized = true;
+      
+      // Global event delegation for checkbox changes
+      document.addEventListener('change', (e) => {
+        if (e.target.hasAttribute('data-terms-checkbox')) {
+          const btnId = e.target.getAttribute('data-target-button');
+          const btn = document.getElementById(btnId);
+          if (btn) {
+            btn.disabled = !e.target.checked;
+            // Also toggle a class for extra CSS targeting if needed
+            btn.classList.toggle('is-disabled', !e.target.checked);
+          }
+        }
+      });
+
+      // Prevent any clicks on disabled checkout buttons (safeguard)
+      document.addEventListener('click', (e) => {
+        const btn = e.target.closest('.checkout-button');
+        if (btn && btn.disabled) {
+          e.preventDefault();
+          e.stopPropagation();
+          return false;
+        }
+      }, true); // Use capture phase to intercept before other listeners
+
+      // Function to sync all terms checkboxes with their target buttons
+      const syncTerms = () => {
+        document.querySelectorAll('[data-terms-checkbox]').forEach(checkbox => {
+          const btnId = checkbox.getAttribute('data-target-button');
+          const btn = document.getElementById(btnId);
+          if (btn) {
+            btn.disabled = !checkbox.checked;
+            btn.classList.toggle('is-disabled', !checkbox.checked);
+          }
+        });
+      };
+
+      // Watch for dynamic cart updates (AJAX)
+      const observer = new MutationObserver((mutations) => {
+        const hasRelevantChanges = mutations.some(m => m.addedNodes.length > 0);
+        if (hasRelevantChanges) syncTerms();
+      });
+      
+      observer.observe(document.body, { childList: true, subtree: true });
+      
+      // Initial sync
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', syncTerms);
+      } else {
+        syncTerms();
+      }
+    }
+  </script>
+{%- endif -%}

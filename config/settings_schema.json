@@ -2366,6 +2366,17 @@
         "default": true
       },
       {
+        "type": "checkbox",
+        "id": "cart_terms_conditions_enable",
+        "label": "Enable Terms & Conditions checkbox",
+        "default": true
+      },
+      {
+        "type": "url",
+        "id": "cart_terms_conditions_page",
+        "label": "Terms & Conditions page"
+      },
+      {
         "type": "header",
         "content": "Mini cart"
       },

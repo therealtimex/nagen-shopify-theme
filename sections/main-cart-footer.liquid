@@ -99,12 +99,7 @@
 
           </div>
           <div>
-            <p class="ajaxcart_terms_conditions">
-              <input style="float:none; vertical-align: middle;" type="checkbox" class="agree_terms_conditions" id="agree_terms_conditions">
-              <label style="display:inline; float:none" for="agree">
-                  {{ 'general.cart.agree' | t }} <a href="#">{{ 'general.cart.conditions' | t }}</a>
-              </label>
-            </p>
+            {% render 'cart-terms-conditions', id: 'agree_terms_conditions', button_id: 'bt_checkout' %}
             <button id="bt_checkout" type="submit" class="cart__checkout-button checkout-button button button--primary button--full" name="checkout" disabled>
               {{ 'sections.cart.checkout' | t }}
             </button>
@@ -131,8 +126,9 @@
 
 <script>
   document.getElementById('bt_checkout').addEventListener('click', function(event) {
-    document.getElementById('form_cart').submit();
-    
+    if (!this.disabled) {
+      document.getElementById('form_cart').submit();
+    }
   });
 </script>
 
