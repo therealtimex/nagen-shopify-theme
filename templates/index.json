@@ -1705,7 +1705,7 @@
         "enable_geolocation": true,
         "geo_title": "Tìm đại lý gần bạn",
         "geo_button_text": "Xác định vị trí của tôi",
-        "list_title": "Danh sách cửa hàng",
+        "list_title": "Danh sách chi nhánh, đại lý",
         "show_popup_image": true,
         "directions_text": "Chỉ đường",
         "booking_text": "Đặt lịch",
