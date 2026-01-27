@@ -191,17 +191,7 @@ class AffiliateTracker {
    * Priority: dealer's own ref_code > visitor's stored attribution
    */
   decorateShareLinks() {
-    // Dealer priority: use dealer's ref_code if logged in, otherwise use visitor attribution
-    let refToUse = this.dealerRefCode;
-    
-    if (!refToUse) {
-      const attr = this.getStoredAttribution();
-      if (!this.isValidAttribution(attr)) {
-        return;
-      }
-      refToUse = attr.ref;
-    }
-    
+    const refToUse = this.getSharingRef();
     if (!refToUse) return;
 
     // Find all elements with data-share-url attribute
@@ -249,7 +239,7 @@ class AffiliateTracker {
    * Append affiliate parameter to a URL
    */
   decorateUrl(url, ref) {
-    const refToUse = ref || (this.getStoredAttribution() || {}).ref;
+    const refToUse = ref || this.getSharingRef();
     if (!refToUse) {
       return url;
     }
@@ -268,11 +258,30 @@ class AffiliateTracker {
   }
 
   /**
-   * Get current affiliate reference (for external use)
+   * Get current affiliate reference for ATTRIBUTION (visitor's ref).
+   * 
+   * This returns the reference code of the person who REFERRED the current visitor.
+   * Use this for: Form submissions, order attributes, and lead tracking.
+   * 
+   * @returns {string|null} The visitor's attribution reference code.
    */
   getAffiliateRef() {
     const attr = this.getStoredAttribution();
     return this.isValidAttribution(attr) ? attr.ref : null;
+  }
+
+  /**
+   * Get current affiliate reference for SHARING (dealer's ref > visitor's ref).
+   * 
+   * This prioritizes the logged-in dealer's own code so they can spread their own referral link.
+   * If not a dealer, it falls back to the visitor's attribution code (allowing them to re-share).
+   * Use this for: Social share buttons, "Copy Link" features, and generating referral URLs.
+   * 
+   * @returns {string|null} The reference code to be used in shared links.
+   */
+  getSharingRef() {
+    if (this.dealerRefCode) return this.dealerRefCode;
+    return this.getAffiliateRef();
   }
 
   /**

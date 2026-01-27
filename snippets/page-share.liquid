@@ -69,18 +69,8 @@
     let url = window.location.href;
     
     // Append affiliate code if available
-    if (window.affiliateTracker && typeof window.affiliateTracker.getAffiliateRef === 'function') {
-      const ref = window.affiliateTracker.getAffiliateRef();
-      if (ref) {
-        // Use the tracker's decorateUrl method if available, or manual append
-        if (typeof window.affiliateTracker.decorateUrl === 'function') {
-          url = window.affiliateTracker.decorateUrl(url, ref);
-        } else {
-          const separator = url.includes('?') ? '&' : '?';
-          const paramName = window.affiliateTracker.paramName || 'ref';
-          url = `${url}${separator}${paramName}=${encodeURIComponent(ref)}`;
-        }
-      }
+    if (window.affiliateTracker && typeof window.affiliateTracker.decorateUrl === 'function') {
+      url = window.affiliateTracker.decorateUrl(url);
     }
 
     navigator.clipboard.writeText(url).then(() => {
