@@ -32,7 +32,8 @@
 {%- endif -%}
 
 {%- if settings.social_twitter_link != blank -%}
-  <meta name="twitter:site" content="{{ settings.social_twitter_link | split: 'twitter.com/' | last | prepend: '@' }}">
+  {%- assign twitter_handle = settings.social_twitter_link | split: 'twitter.com/' | last | split: 'x.com/' | last -%}
+  <meta name="twitter:site" content="{{ twitter_handle | prepend: '@' }}">
 {%- endif -%}
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{{ og_title | escape }}">
