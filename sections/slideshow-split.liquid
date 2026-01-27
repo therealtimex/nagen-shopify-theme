@@ -36,7 +36,7 @@
     position: relative;
     border-radius: var(--border-radius);
     overflow: hidden;
-    height: auto !important;
+    height: 100%;
   }
 
   .slideshow-split__image-link {
@@ -73,7 +73,7 @@
     transform: translateX(-50%);
     width: auto !important;
     z-index: 10;
-    display: flex;
+    display: flex !important;
     gap: 8px;
   }
 
@@ -86,6 +86,7 @@
     transition: all 0.3s ease;
     border-radius: 50%;
     cursor: pointer;
+    display: block !important;
   }
 
   .slideshow-split .swiper-pagination-bullet-active {
@@ -118,7 +119,7 @@
   @media (max-width: 991px) {
     .slideshow-split__main,
     .slideshow-split__static {
-      height: auto;
+      height: auto !important;
     }
     .slideshow-split__container {
       flex-direction: column;
@@ -135,7 +136,6 @@
     }
     .slideshow-split__static-item {
       aspect-ratio: 16 / 8;
-      height: auto;
     }
     .slideshow-split .swiper-pagination {
       bottom: 10px !important;
@@ -151,25 +151,18 @@
 
 {% render 'section-style' %}
 
-<section class="section section--flush slideshow-split {{ section.settings.class }}" data-section-id="{{ section.id }}">
+<section class="section section--flush shopify-section--slideshow slideshow-split {{ section.settings.class }}" data-section-id="{{ section.id }}">
   <div class="shopify-container">
     <div class="slideshow-split__container">
       
       {%- assign slide_blocks = section.blocks | where: 'type', 'slide' -%}
       {%- if slide_blocks.size > 0 -%}
         <div class="slideshow-split__main">
-          <div id="swiper-{{ section.id }}" class="ap-swiper swiper ap-object-loaded" 
-            data-desktop-item="1"
-            data-laptop-item="1"
-            data-tablet-item="1"
-            data-mobile-item="1"
-            data-loop="true"
+          <div id="swiper-{{ section.id }}" class="slideshow swiper ap-object-loaded" 
+            data-autoplay="{{ section.settings.autoplay }}"
+            data-speed="{{ section.settings.autoplay_speed | times: 1000 }}"
             data-navigation="{{ section.settings.show_navigation }}"
-            data-pagination="{{ section.settings.show_pagination }}"
-            data-space="0"
-            data-space-desktop="0"
-            data-rows="1"
-            data-time="{% if section.settings.autoplay %}{{ section.settings.autoplay_speed | times: 1000 }}{% else %}0{% endif %}">
+            data-pagination="{{ section.settings.show_pagination }}">
             
             <div class="swiper-wrapper">
               {%- for block in slide_blocks -%}
@@ -237,6 +230,44 @@
     </div>
   </div>
 </section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const initSwiperSplit = () => {
+      const el = document.querySelector('#swiper-{{ section.id }}');
+      if (el && window.Swiper && !el.classList.contains('swiper-initialized')) {
+        const autoplay = el.dataset.autoplay === 'true';
+        const speed = parseInt(el.dataset.speed) || 5000;
+        const showNav = el.dataset.navigation === 'true';
+        const showPag = el.dataset.pagination === 'true';
+
+        new Swiper(el, {
+          slidesPerView: 1,
+          loop: true,
+          autoplay: autoplay ? { delay: speed, disableOnInteraction: false } : false,
+          navigation: showNav ? {
+            nextEl: '.swiper-button-next_{{ section.id }}',
+            prevEl: '.swiper-button-prev_{{ section.id }}',
+          } : false,
+          pagination: showPag ? {
+            el: '.swiper-pagination_{{ section.id }}',
+            clickable: true,
+            bulletClass: 'swiper-pagination-bullet',
+            bulletActiveClass: 'swiper-pagination-bullet-active',
+          } : false,
+          on: {
+            init: function() {
+              el.classList.add('ap-object-loaded');
+            }
+          }
+        });
+      }
+    };
+
+    initSwiperSplit();
+    document.addEventListener('shopify:section:load', initSwiperSplit);
+  });
+</script>
 
 {% schema %}
 {
