@@ -47,6 +47,7 @@
         "static_banner_ttG7bQ",
         "static_banner_Nwz6cM"
       ],
+      "disabled": true,
       "name": "Slideshow Split",
       "settings": {
         "full_width": true,
