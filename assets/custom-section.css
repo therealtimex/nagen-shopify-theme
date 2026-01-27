@@ -622,3 +622,31 @@ margin-bottom: 40px;
     grid-template-columns: repeat(var(--grid-columns-mobile, 1), minmax(0, 1fr));
   }
 }
+
+/* Carousel Wide Styles */
+.custom__section.carousel-wide .carousel-card {
+  min-height: 0;
+  max-height: none;
+  padding: 0;
+  background: transparent;
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.custom__section.carousel-wide .carousel-card__image {
+  width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+}
+.custom__section.carousel-wide .carousel-card__image img {
+  aspect-ratio: auto;
+  width: 100%;
+  height: auto;
+  display: block;
+}
+@media (max-width: 767px) { 
+  .custom__section.carousel-wide .carousel-card { 
+    margin-bottom: 30px; 
+  } 
+}

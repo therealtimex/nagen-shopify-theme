@@ -916,8 +916,8 @@
             "width_tablet_small": 50,
             "width_mobile_big": 100,
             "width_mobile": 100,
-            "card_radius": 16,
-            "card_background": "#ffffff",
+            "card_radius": 0,
+            "card_background": "transparent",
             "title_color": "#000000",
             "text_color": "#444444",
             "items_count": 4,
@@ -950,7 +950,7 @@
             "mobile_item": 1,
             "loop": false,
             "navigation": false,
-            "pagination": true,
+            "pagination": false,
             "space": "24",
             "space_desktop": "24",
             "time": "0",
@@ -1079,12 +1079,7 @@
         "custom_carousel_GcmVeB",
         "text_FHzBr3"
       ],
-      "custom_css": [
-        ".custom__section.carousel-wide .carousel-card {max-height: 320px; padding: 18px 20px;}",
-        ".custom__section.carousel-wide .swiper-slide {height: auto;}",
-        ".custom__section.carousel-wide .carousel-card__image img {aspect-ratio: 16 / 7; object-fit: cover;}",
-        "@media (max-width: 767px) {.custom__section.carousel-wide .carousel-card {max-height: none; } .custom__section.carousel-wide .carousel-card__image img {aspect-ratio: 16 / 9; }}"
-      ],
+      "custom_css": [],
       "name": "Product Development Timeline",
       "settings": {
         "full_width": false,
