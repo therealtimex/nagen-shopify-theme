@@ -9,6 +9,66 @@
  */
 {
   "sections": {
+    "slideshow_split_apeMXD": {
+      "type": "slideshow-split",
+      "blocks": {
+        "slide_EGXYLT": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/banner-split-1.jpg",
+            "link": ""
+          }
+        },
+        "slide_9pz3N8": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/banner-split-2.jpg",
+            "link": ""
+          }
+        },
+        "static_banner_ttG7bQ": {
+          "type": "static_banner",
+          "settings": {
+            "image": "shopify://shop_images/home_slide1_item2.webp",
+            "link": ""
+          }
+        },
+        "static_banner_Nwz6cM": {
+          "type": "static_banner",
+          "settings": {
+            "image": "shopify://shop_images/home_slide2_item2.webp",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "slide_EGXYLT",
+        "slide_9pz3N8",
+        "static_banner_ttG7bQ",
+        "static_banner_Nwz6cM"
+      ],
+      "name": "Slideshow Split",
+      "settings": {
+        "full_width": true,
+        "content_width": 1800,
+        "background_color": "",
+        "class": "",
+        "desktop_height": 450,
+        "slideshow_width": 65,
+        "gap": 16,
+        "border_radius": 8,
+        "autoplay": true,
+        "autoplay_speed": 5,
+        "show_navigation": true,
+        "show_pagination": true,
+        "margin_desktop": "0 20px 0",
+        "margin_tablet": "",
+        "margin_mobile": "0 15px 0",
+        "padding_desktop": "",
+        "padding_tablet": "",
+        "padding_mobile": ""
+      }
+    },
     "6fe8fbaa-5a22-4c15-86c6-9ad636d793b6": {
       "type": "slideshow",
       "blocks": {
@@ -917,7 +977,7 @@
             "width_mobile_big": 100,
             "width_mobile": 100,
             "card_radius": 0,
-            "card_background": "transparent",
+            "card_background": "rgba(0,0,0,0)",
             "title_color": "#000000",
             "text_color": "#444444",
             "items_count": 4,
@@ -1716,6 +1776,7 @@
     }
   },
   "order": [
+    "slideshow_split_apeMXD",
     "6fe8fbaa-5a22-4c15-86c6-9ad636d793b6",
     "custom_section_cmqMPP",
     "blocks_carousel_PdPbK3",
