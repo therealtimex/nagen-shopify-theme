@@ -23,7 +23,14 @@
           "type": "slide",
           "settings": {
             "image": "shopify://shop_images/2.jpg",
-            "link": ""
+            "link": "shopify://blogs/tin-tuc/ra-mat-trung-tam-nghien-cuu-can-bang-cau-truc"
+          }
+        },
+        "slide_bgUYeD": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/Nagen_Ngh_An.webp",
+            "link": "shopify://blogs/tin-tuc/ra-mat-nagen-mien-trung"
           }
         },
         "static_banner_ttG7bQ": {
@@ -44,6 +51,7 @@
       "block_order": [
         "slide_EGXYLT",
         "slide_9pz3N8",
+        "slide_bgUYeD",
         "static_banner_ttG7bQ",
         "static_banner_Nwz6cM"
       ],
