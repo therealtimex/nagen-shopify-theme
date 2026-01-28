@@ -15,14 +15,14 @@
         "slide_EGXYLT": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/banner-split-1.jpg",
+            "image": "shopify://shop_images/web.webp",
             "link": ""
           }
         },
         "slide_9pz3N8": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/banner-split-2.jpg",
+            "image": "shopify://shop_images/2.jpg",
             "link": ""
           }
         },
@@ -47,7 +47,6 @@
         "static_banner_ttG7bQ",
         "static_banner_Nwz6cM"
       ],
-      "disabled": true,
       "name": "Slideshow Split",
       "settings": {
         "full_width": true,
@@ -126,6 +125,7 @@
       "block_order": [
         "slide_7jHxke"
       ],
+      "disabled": true,
       "custom_css": [
         "@media (max-width: 1199px) {.sl-lable {opacity: 0; }}",
         ".slideshow__text-wrapper {max-width: 1600px;}",
