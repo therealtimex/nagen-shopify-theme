@@ -36,14 +36,14 @@
         "static_banner_ttG7bQ": {
           "type": "static_banner",
           "settings": {
-            "image": "shopify://shop_images/home_slide1_item2.webp",
+            "image": "shopify://shop_images/300x690.webp",
             "link": ""
           }
         },
         "static_banner_Nwz6cM": {
           "type": "static_banner",
           "settings": {
-            "image": "shopify://shop_images/home_slide2_item2.webp",
+            "image": "shopify://shop_images/nagen-opengraph.png",
             "link": ""
           }
         }
