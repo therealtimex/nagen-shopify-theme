@@ -72,7 +72,7 @@
         "border_radius": 8,
         "right_mode": "carousel",
         "right_slide_direction": "vertical",
-        "mobile_aspect_ratio": "1 / 1",
+        "mobile_aspect_ratio": "16 / 9",
         "autoplay": true,
         "autoplay_video": false,
         "autoplay_speed": 5,
