@@ -395,7 +395,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // ===========================
   // CONFIGURATION
   // ===========================
-  const DEBUG = false;
+  const DEBUG = true;
   const log = (...args) => DEBUG && console.log('[VideoSlideshow]', ...args);
 
   const SECTION_ID = '{{ section.id }}';
@@ -475,20 +475,28 @@ document.addEventListener('DOMContentLoaded', function() {
      * Force pause all videos. Called during slide transitions.
      */
     pauseAll() {
-      log('Pausing all videos');
+      log('=== PAUSE ALL VIDEOS ===');
+      log(`YouTube players registered: ${this.ytPlayers.size}`);
+      log(`HTML5 videos registered: ${this.html5Videos.size}`);
+      
+      let pausedCount = 0;
       
       // Pause all YouTube players
       this.ytPlayers.forEach((player, id) => {
-        this._safeYTPause(player, id);
+        const paused = this._safeYTPause(player, id);
+        if (paused) pausedCount++;
       });
       
       // Pause all HTML5 videos
       this.html5Videos.forEach(video => {
         if (!video.paused) {
           video.pause();
+          log(`Paused HTML5 video`);
+          pausedCount++;
         }
       });
       
+      log(`=== PAUSED ${pausedCount} videos ===`);
       this.currentlyPlaying = null;
     }
 
@@ -515,24 +523,41 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // --- Query ---
+    /**
+     * Check if ANY video is currently playing in the ENTIRE section.
+     * Uses direct DOM queries for reliability (not just tracked state).
+     * CRITICAL: Must check entire section, not just current slide.
+     */
     isAnyVideoPlaying() {
-      // Check HTML5 videos
-      for (const video of this.html5Videos) {
+      // Check ALL HTML5 videos in entire section
+      const html5Videos = root.querySelectorAll('video');
+      for (const video of html5Videos) {
         if (!video.paused) {
+          log(`isAnyVideoPlaying: YES (HTML5 video playing)`);
           return true;
         }
       }
       
-      // Check YouTube players
-      if (this.ytApiReady) {
-        for (const [id, player] of this.ytPlayers) {
-          const state = this._safeYTGetState(player, id);
+      // Check ALL YouTube iframes in entire section
+      const ytIframes = root.querySelectorAll('iframe[src*="youtube"][id]');
+      for (const iframe of ytIframes) {
+        const player = this.ytPlayers.get(iframe.id);
+        if (player) {
+          const state = this._safeYTGetState(player, iframe.id);
           if (state === YT.PlayerState.PLAYING || state === YT.PlayerState.BUFFERING) {
+            log(`isAnyVideoPlaying: YES (YouTube ${iframe.id} state=${state})`);
             return true;
           }
         }
       }
       
+      // Also check tracked state as fallback (in case API hasn't updated yet)
+      if (this.currentlyPlaying) {
+        log(`isAnyVideoPlaying: YES (tracked: ${this.currentlyPlaying.type}/${this.currentlyPlaying.id})`);
+        return true;
+      }
+      
+      log('isAnyVideoPlaying: NO');
       return false;
     }
 
@@ -584,14 +609,17 @@ document.addEventListener('DOMContentLoaded', function() {
     _safeYTPause(player, id) {
       try {
         if (typeof player?.pauseVideo === 'function') {
-          const state = this._safeYTGetState(player, id);
-          if (state === YT.PlayerState.PLAYING || state === YT.PlayerState.BUFFERING) {
-            player.pauseVideo();
-            log(`Paused YouTube: ${id}`);
-          }
+          // Always attempt to pause - don't rely on state check which may fail
+          player.pauseVideo();
+          log(`Paused YouTube: ${id}`);
+          return true;
+        } else {
+          log(`Cannot pause ${id}: pauseVideo not available`);
+          return false;
         }
       } catch (e) {
         log(`Failed to pause ${id}:`, e.message);
+        return false;
       }
     }
   }
@@ -615,22 +643,88 @@ document.addEventListener('DOMContentLoaded', function() {
     const iframes = root.querySelectorAll(YT_IFRAME_SELECTOR);
     log(`Found ${iframes.length} YouTube iframe(s)`);
     
+    if (iframes.length === 0) return;
+    
+    // CRITICAL: Stop carousel autoplay during YouTube initialization
+    // to prevent auto-advance before we can control videos
+    videoManager.pauseCarousels();
+    log('Paused carousels during YouTube init');
+    
+    let readyCount = 0;
+    const totalPlayers = iframes.length;
+    
     iframes.forEach(iframe => {
-      if (!iframe.id || videoManager.ytPlayers.has(iframe.id)) return;
+      if (!iframe.id) return;
+      if (videoManager.ytPlayers.has(iframe.id)) {
+        log(`Player ${iframe.id} already exists`);
+        return;
+      }
       
       try {
-        const player = new YT.Player(iframe.id, {
+        // Create a temporary reference that we'll update on ready
+        let playerInstance = null;
+        
+        playerInstance = new YT.Player(iframe.id, {
           events: {
             onReady: (e) => {
-              log(`YouTube ready: ${iframe.id}`);
-              videoManager.registerYouTubePlayer(iframe.id, e.target);
+              log(`YouTube READY: ${iframe.id}`);
+              // Update the map with the fully-ready player
+              videoManager.ytPlayers.set(iframe.id, e.target);
+              iframe.dataset.ytReady = 'true';
+              
+              readyCount++;
+              log(`Ready count: ${readyCount}/${totalPlayers}`);
+              
+              // Resume carousels only after ALL players are ready AND no video is playing
+              if (readyCount === totalPlayers) {
+                log('All YouTube players ready');
+                if (!videoManager.isAnyVideoPlaying()) {
+                  videoManager.resumeCarousels();
+                }
+              }
             },
             onStateChange: (e) => {
               const state = e.data;
-              log(`YouTube ${iframe.id} state: ${state}`);
+              const stateNames = {
+                [-1]: 'UNSTARTED', [0]: 'ENDED', [1]: 'PLAYING',
+                [2]: 'PAUSED', [3]: 'BUFFERING', [5]: 'CUED'
+              };
+              log(`YouTube ${iframe.id} state: ${stateNames[state] || state}`);
               
               if (state === YT.PlayerState.PLAYING || state === YT.PlayerState.BUFFERING) {
-                videoManager.onVideoPlay('youtube', iframe.id);
+                // CRITICAL: Stop ALL carousel autoplay IMMEDIATELY
+                // This must happen BEFORE any async callbacks
+                const mainSwiper = videoManager.swipers.main;
+                const rightSwiper = videoManager.swipers.right;
+                
+                if (mainSwiper?.autoplay?.running) {
+                  mainSwiper.autoplay.stop();
+                  log(`MAIN carousel stopped for ${iframe.id}`);
+                }
+                if (rightSwiper?.autoplay?.running) {
+                  rightSwiper.autoplay.stop();
+                  log(`RIGHT carousel stopped for ${iframe.id}`);
+                }
+                
+                // Stop ALL other videos in section
+                // YouTube videos
+                videoManager.ytPlayers.forEach((player, otherId) => {
+                  if (otherId !== iframe.id) {
+                    videoManager._safeYTPause(player, otherId);
+                  }
+                });
+                // HTML5 videos
+                root.querySelectorAll('video').forEach(video => {
+                  if (!video.paused) {
+                    video.pause();
+                    log(`HTML5 video paused for ${iframe.id}`);
+                  }
+                });
+                
+                // Update VideoManager state
+                videoManager.ytPlayers.set(iframe.id, e.target);
+                videoManager.currentlyPlaying = { type: 'youtube', id: iframe.id };
+                
               } else if (state === YT.PlayerState.PAUSED || state === YT.PlayerState.ENDED) {
                 videoManager.onVideoStop('youtube', iframe.id);
               }
@@ -640,6 +734,12 @@ document.addEventListener('DOMContentLoaded', function() {
             }
           }
         });
+        
+        // Register immediately with the created player instance
+        // This ensures we have a reference even before onReady
+        videoManager.ytPlayers.set(iframe.id, playerInstance);
+        log(`Pre-registered YouTube player: ${iframe.id}`);
+        
       } catch (e) {
         console.error(`Failed to init YouTube player ${iframe.id}:`, e);
       }
@@ -722,14 +822,15 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         slideChangeTransitionStart: function() {
           // Stop all videos when navigating
+          log(`Slide change START in ${name}`);
           videoManager.pauseAll();
         },
         slideChangeTransitionEnd: function() {
           // Resume carousel only if no videos are playing
+          log(`Slide change END in ${name}`);
           if (autoplay && !videoManager.isAnyVideoPlaying()) {
-            if (!this.autoplay.running) {
-              this.autoplay.start();
-            }
+            // Use VideoManager for consistent control
+            videoManager.resumeCarousels();
           }
         }
       }
