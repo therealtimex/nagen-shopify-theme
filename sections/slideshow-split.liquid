@@ -276,7 +276,7 @@
                   {%- elsif block.settings.video_url != blank -%}
                     <div class="slideshow-split__video-container">
                       {%- if block.settings.video_url.type == 'youtube' -%}
-                        <iframe id="yt-player-{{ block.id }}" src="https://www.youtube.com/embed/{{ block.settings.video_url.id }}?enablejsapi=1&autoplay={% if section.settings.autoplay_video %}1{% else %}0{% endif %}&mute={% if section.settings.autoplay_video %}1{% else %}0{% endif %}&loop={% if section.settings.autoplay_video %}1{% else %}0{% endif %}&playlist={{ block.settings.video_url.id }}&controls=1&playsinline=1&rel=0&origin={{ shop.url | url_escape }}" class="slideshow-split__video" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+                        <iframe id="yt-player-{{ block.id }}" src="https://www.youtube.com/embed/{{ block.settings.video_url.id }}?enablejsapi=1&autoplay=0&mute=0&controls=1&playsinline=1&rel=0&modestbranding=1&origin={{ shop.url | url_escape }}" class="slideshow-split__video" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
                       {%- elsif block.settings.video_url.type == 'vimeo' -%}
                          <iframe src="https://player.vimeo.com/video/{{ block.settings.video_url.id }}?autoplay={% if section.settings.autoplay_video %}1{% else %}0{% endif %}&muted={% if section.settings.autoplay_video %}1{% else %}0{% endif %}&loop={% if section.settings.autoplay_video %}1{% else %}0{% endif %}&background=0" class="slideshow-split__video" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
                       {%- endif -%}
@@ -391,164 +391,429 @@
 {%- endcapture -%}
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    let mainSwiper, rightSwiper;
+document.addEventListener('DOMContentLoaded', function() {
+  // ===========================
+  // CONFIGURATION
+  // ===========================
+  const DEBUG = false;
+  const log = (...args) => DEBUG && console.log('[VideoSlideshow]', ...args);
 
-    // YouTube API Integration
-    const tag = document.createElement('script');
-    tag.src = "https://www.youtube.com/iframe_api";
-    const firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+  const SECTION_ID = '{{ section.id }}';
+  const root = document.querySelector(`#shopify-section-${SECTION_ID}`);
+  if (!root) return;
 
-    window.slideshowVideoPlayers = {};
+  // ===========================
+  // VIDEO MANAGER CLASS
+  // ===========================
+  /**
+   * Centralized video controller for the slideshow.
+   * Enforces single-video policy and manages carousel autoplay.
+   */
+  class VideoManager {
+    constructor() {
+      this.swipers = { main: null, right: null };
+      this.ytPlayers = new Map();        // id -> YT.Player
+      this.html5Videos = new Set();       // Set of video elements
+      this.currentlyPlaying = null;       // { type: 'youtube'|'html5', id: string }
+      this.ytApiReady = false;
+    }
 
-    window.onYouTubeIframeAPIReady = function() {
-      document.querySelectorAll('iframe[src*="youtube"]').forEach(iframe => {
-        const id = iframe.id;
-        if (id) {
-          window.slideshowVideoPlayers[id] = new YT.Player(id, {
-            events: {
-              'onStateChange': onPlayerStateChange
-            }
-          });
-        }
-      });
-    };
+    // --- Registration ---
+    registerSwiper(name, instance) {
+      this.swipers[name] = instance;
+      log(`Registered swiper: ${name}`);
+    }
 
-    function onPlayerStateChange(event) {
-      // Find the Swiper instance related to this video
-      const iframe = event.target.getIframe();
-      const swiperSlide = iframe.closest('.swiper-slide');
-      const swiperContainer = iframe.closest('.swiper');
+    registerYouTubePlayer(id, player) {
+      this.ytPlayers.set(id, player);
+      log(`Registered YouTube player: ${id}`);
+    }
+
+    registerHTML5Video(video) {
+      this.html5Videos.add(video);
+      this._attachHTML5Listeners(video);
+      log(`Registered HTML5 video: ${video.src?.slice(-30) || 'unknown'}`);
+    }
+
+    // --- Playback Control ---
+    /**
+     * Notify that a video started playing.
+     * Immediately pauses all other videos and stops carousel autoplay.
+     */
+    onVideoPlay(type, id) {
+      log(`Video playing: ${type}/${id}`);
       
-      if (swiperContainer && swiperContainer.swiper) {
-        if (event.data === YT.PlayerState.PLAYING) {
-          if (swiperContainer.swiper.autoplay.running) {
-            swiperContainer.swiper.autoplay.stop();
-            console.log('Swiper paused for YouTube');
-          }
-        } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
-          // Only resume if original autoplay setting was true (checked by data-attr)
-          if (swiperContainer.dataset.autoplay === 'true') {
-            swiperContainer.swiper.autoplay.start();
-            console.log('Swiper resumed from YouTube');
-          }
-        }
+      // Pause all OTHER videos immediately
+      this._pauseAllExcept(type, id);
+      
+      // Update current state
+      this.currentlyPlaying = { type, id };
+      
+      // Stop all carousel autoplay
+      this.pauseCarousels();
+    }
+
+    /**
+     * Notify that a video stopped playing.
+     * Resumes carousel if nothing else is playing.
+     */
+    onVideoStop(type, id) {
+      log(`Video stopped: ${type}/${id}`);
+      
+      // Clear current if it matches
+      if (this.currentlyPlaying?.type === type && this.currentlyPlaying?.id === id) {
+        this.currentlyPlaying = null;
+      }
+      
+      // Check if anything else is still playing
+      if (!this.isAnyVideoPlaying()) {
+        this.resumeCarousels();
       }
     }
 
-    const initSwiperSplit = () => {
-      // 1. Initialize Main Swiper (Left)
-      const elMain = document.querySelector('#swiper-{{ section.id }}');
-      if (elMain && window.Swiper && !elMain.classList.contains('swiper-initialized')) {
-        mainSwiper = initSingleSwiper(elMain, '{{ section.id }}');
-      }
+    /**
+     * Force pause all videos. Called during slide transitions.
+     */
+    pauseAll() {
+      log('Pausing all videos');
+      
+      // Pause all YouTube players
+      this.ytPlayers.forEach((player, id) => {
+        this._safeYTPause(player, id);
+      });
+      
+      // Pause all HTML5 videos
+      this.html5Videos.forEach(video => {
+        if (!video.paused) {
+          video.pause();
+        }
+      });
+      
+      this.currentlyPlaying = null;
+    }
 
-      // 2. Initialize Right Swiper (if in Carousel Mode)
-      const elRight = document.querySelector('#swiper-right-{{ section.id }}');
-      if (elRight && window.Swiper && !elRight.classList.contains('swiper-initialized')) {
-        rightSwiper = initSingleSwiper(elRight, 'right_{{ section.id }}');
-      }
-    };
-
-    const initSingleSwiper = (el, uniqueKey) => {
-      const autoplay = el.dataset.autoplay === 'true';
-      const speed = parseInt(el.dataset.speed) || 5000;
-      const showNav = el.dataset.navigation === 'true';
-      const showPag = el.dataset.pagination === 'true';
-      let direction = el.dataset.direction || 'horizontal';
-
-      // Force horizontal on mobile to prevent scroll hijacking
-      if (window.innerWidth < 992) {
-        direction = 'horizontal';
-      }
-
-      let nextEl, prevEl, pagEl;
-
-      if (uniqueKey.startsWith('right_')) {
-        nextEl = `.swiper-button-next-${uniqueKey}`;
-        prevEl = `.swiper-button-prev-${uniqueKey}`;
-        pagEl = `.swiper-pagination-${uniqueKey}`;
-      } else {
-        nextEl = `.swiper-button-next_${uniqueKey}`;
-        prevEl = `.swiper-button-prev_${uniqueKey}`;
-        pagEl = `.swiper-pagination_${uniqueKey}`;
-      }
-
-      return new Swiper(el, {
-        slidesPerView: 1,
-        loop: true,
-        direction: direction,
-        autoplay: autoplay ? { delay: speed, disableOnInteraction: false } : false,
-        navigation: showNav ? {
-          nextEl: nextEl,
-          prevEl: prevEl,
-        } : false,
-        pagination: showPag ? {
-          el: pagEl,
-          clickable: true,
-          bulletClass: 'swiper-pagination-bullet',
-          bulletActiveClass: 'swiper-pagination-bullet-active',
-        } : false,
-        on: {
-          init: function() {
-            el.classList.add('ap-object-loaded');
-            
-            // Auto-Pause Logic for HTML5 Videos
-            const swiperInstance = this;
-            const videos = el.querySelectorAll('video');
-            
-            videos.forEach(video => {
-              video.addEventListener('play', () => {
-                if (swiperInstance.autoplay.running) {
-                  swiperInstance.autoplay.stop();
-                  console.log('Swiper paused for video');
-                }
-              });
-              
-              video.addEventListener('pause', () => {
-                // Only resume if it was supposed to be autoplaying
-                if (autoplay) {
-                  swiperInstance.autoplay.start();
-                  console.log('Swiper resumed after video pause');
-                }
-              });
-              
-              video.addEventListener('ended', () => {
-                if (autoplay) {
-                  swiperInstance.autoplay.start();
-                }
-              });
-            });
-          }
+    // --- Carousel Control ---
+    pauseCarousels() {
+      Object.values(this.swipers).forEach(swiper => {
+        if (swiper?.autoplay?.running) {
+          swiper.autoplay.stop();
+          log('Carousel autoplay stopped');
         }
       });
     }
 
-    initSwiperSplit();
-    document.addEventListener('shopify:section:load', initSwiperSplit);
+    resumeCarousels() {
+      Object.entries(this.swipers).forEach(([name, swiper]) => {
+        if (!swiper) return;
+        
+        const shouldAutoplay = swiper.el?.dataset?.autoplay === 'true';
+        if (shouldAutoplay && !swiper.autoplay.running) {
+          swiper.autoplay.start();
+          log(`Carousel ${name} autoplay resumed`);
+        }
+      });
+    }
 
-    // Re-check direction on resize
-    let lastWidth = window.innerWidth;
-    window.addEventListener('resize', () => {
-       const newWidth = window.innerWidth;
-       const breakpoint = 992;
-       
-       // Reload instances if crossing breakpoint (Vertical <-> Horizontal switch)
-       if ((lastWidth < breakpoint && newWidth >= breakpoint) || 
-           (lastWidth >= breakpoint && newWidth < breakpoint)) {
-         
-         if (mainSwiper) mainSwiper.destroy(true, true);
-         if (rightSwiper) rightSwiper.destroy(true, true);
-         
-         // Cleanup classes
-         document.querySelectorAll('.slideshow-split .swiper').forEach(el => el.classList.remove('swiper-initialized', 'ap-object-loaded'));
-         
-         initSwiperSplit();
-       }
-       lastWidth = newWidth;
+    // --- Query ---
+    isAnyVideoPlaying() {
+      // Check HTML5 videos
+      for (const video of this.html5Videos) {
+        if (!video.paused) {
+          return true;
+        }
+      }
+      
+      // Check YouTube players
+      if (this.ytApiReady) {
+        for (const [id, player] of this.ytPlayers) {
+          const state = this._safeYTGetState(player, id);
+          if (state === YT.PlayerState.PLAYING || state === YT.PlayerState.BUFFERING) {
+            return true;
+          }
+        }
+      }
+      
+      return false;
+    }
+
+    // --- Private Helpers ---
+    _pauseAllExcept(exceptType, exceptId) {
+      // Pause all YouTube except the one playing
+      this.ytPlayers.forEach((player, id) => {
+        if (exceptType === 'youtube' && id === exceptId) return;
+        this._safeYTPause(player, id);
+      });
+      
+      // Pause all HTML5 except the one playing
+      this.html5Videos.forEach(video => {
+        const videoId = video.dataset.videoId || video.src;
+        if (exceptType === 'html5' && videoId === exceptId) return;
+        if (!video.paused) {
+          video.pause();
+        }
+      });
+    }
+
+    _attachHTML5Listeners(video) {
+      const videoId = video.dataset.videoId || video.src || `html5-${this.html5Videos.size}`;
+      
+      video.addEventListener('play', () => {
+        this.onVideoPlay('html5', videoId);
+      });
+      
+      video.addEventListener('pause', () => {
+        this.onVideoStop('html5', videoId);
+      });
+      
+      video.addEventListener('ended', () => {
+        this.onVideoStop('html5', videoId);
+      });
+    }
+
+    _safeYTGetState(player, id) {
+      try {
+        if (typeof player?.getPlayerState === 'function') {
+          return player.getPlayerState();
+        }
+      } catch (e) {
+        log(`Failed to get state for ${id}:`, e.message);
+      }
+      return null;
+    }
+
+    _safeYTPause(player, id) {
+      try {
+        if (typeof player?.pauseVideo === 'function') {
+          const state = this._safeYTGetState(player, id);
+          if (state === YT.PlayerState.PLAYING || state === YT.PlayerState.BUFFERING) {
+            player.pauseVideo();
+            log(`Paused YouTube: ${id}`);
+          }
+        }
+      } catch (e) {
+        log(`Failed to pause ${id}:`, e.message);
+      }
+    }
+  }
+
+  // Create singleton instance for this section
+  const videoManager = new VideoManager();
+
+  // ===========================
+  // YOUTUBE API SETUP
+  // ===========================
+  const YT_IFRAME_SELECTOR = 'iframe[src*="youtube"][id]';
+
+  function initYouTubePlayers() {
+    if (!window.YT?.Player) {
+      log('YT API not ready');
+      return;
+    }
+    
+    videoManager.ytApiReady = true;
+    
+    const iframes = root.querySelectorAll(YT_IFRAME_SELECTOR);
+    log(`Found ${iframes.length} YouTube iframe(s)`);
+    
+    iframes.forEach(iframe => {
+      if (!iframe.id || videoManager.ytPlayers.has(iframe.id)) return;
+      
+      try {
+        const player = new YT.Player(iframe.id, {
+          events: {
+            onReady: (e) => {
+              log(`YouTube ready: ${iframe.id}`);
+              videoManager.registerYouTubePlayer(iframe.id, e.target);
+            },
+            onStateChange: (e) => {
+              const state = e.data;
+              log(`YouTube ${iframe.id} state: ${state}`);
+              
+              if (state === YT.PlayerState.PLAYING || state === YT.PlayerState.BUFFERING) {
+                videoManager.onVideoPlay('youtube', iframe.id);
+              } else if (state === YT.PlayerState.PAUSED || state === YT.PlayerState.ENDED) {
+                videoManager.onVideoStop('youtube', iframe.id);
+              }
+            },
+            onError: (e) => {
+              console.error(`YouTube error (${iframe.id}):`, e.data);
+            }
+          }
+        });
+      } catch (e) {
+        console.error(`Failed to init YouTube player ${iframe.id}:`, e);
+      }
     });
+  }
+
+  // Load YouTube API if needed
+  function loadYouTubeAPI() {
+    const iframes = root.querySelectorAll(YT_IFRAME_SELECTOR);
+    if (iframes.length === 0) return;
+    
+    // Already loaded
+    if (window.YT?.Player) {
+      initYouTubePlayers();
+      return;
+    }
+    
+    // Already loading
+    if (window._ytApiLoading) {
+      window._ytApiCallbacks = window._ytApiCallbacks || [];
+      window._ytApiCallbacks.push(initYouTubePlayers);
+      return;
+    }
+    
+    // Start loading
+    window._ytApiLoading = true;
+    window._ytApiCallbacks = [initYouTubePlayers];
+    
+    const prevCallback = window.onYouTubeIframeAPIReady;
+    window.onYouTubeIframeAPIReady = function() {
+      if (prevCallback) prevCallback();
+      window._ytApiCallbacks.forEach(cb => cb());
+    };
+    
+    const script = document.createElement('script');
+    script.src = 'https://www.youtube.com/iframe_api';
+    script.async = true;
+    document.head.appendChild(script);
+  }
+
+  // ===========================
+  // SWIPER INITIALIZATION
+  // ===========================
+  function initSwiper(el, name) {
+    if (!el || !window.Swiper || el.classList.contains('swiper-initialized')) return null;
+    
+    const autoplay = el.dataset.autoplay === 'true';
+    const speed = parseInt(el.dataset.speed) || 5000;
+    const showNav = el.dataset.navigation === 'true';
+    const showPag = el.dataset.pagination === 'true';
+    let direction = el.dataset.direction || 'horizontal';
+    
+    // Force horizontal on mobile
+    if (window.innerWidth < 992) {
+      direction = 'horizontal';
+    }
+    
+    // Build selectors based on swiper name
+    const isRight = name === 'right';
+    const suffix = isRight ? `-right_${SECTION_ID}` : `_${SECTION_ID}`;
+    
+    const config = {
+      slidesPerView: 1,
+      loop: false,
+      direction,
+      autoplay: autoplay ? { delay: speed, disableOnInteraction: false } : false,
+      navigation: showNav ? {
+        nextEl: `.swiper-button-next${suffix}`,
+        prevEl: `.swiper-button-prev${suffix}`,
+      } : false,
+      pagination: showPag ? {
+        el: `.swiper-pagination${isRight ? '-right' : ''}_${SECTION_ID}`,
+        clickable: true,
+      } : false,
+      on: {
+        init: function() {
+          el.classList.add('ap-object-loaded');
+          registerVideosInSwiper(this);
+          log(`Swiper ${name} initialized`);
+        },
+        slideChangeTransitionStart: function() {
+          // Stop all videos when navigating
+          videoManager.pauseAll();
+        },
+        slideChangeTransitionEnd: function() {
+          // Resume carousel only if no videos are playing
+          if (autoplay && !videoManager.isAnyVideoPlaying()) {
+            if (!this.autoplay.running) {
+              this.autoplay.start();
+            }
+          }
+        }
+      }
+    };
+    
+    const swiper = new Swiper(el, config);
+    videoManager.registerSwiper(name, swiper);
+    
+    return swiper;
+  }
+
+  function registerVideosInSwiper(swiperInstance) {
+    // Register all HTML5 videos
+    const videos = swiperInstance.el.querySelectorAll('video');
+    videos.forEach(video => {
+      videoManager.registerHTML5Video(video);
+    });
+  }
+
+  // ===========================
+  // MAIN INITIALIZATION
+  // ===========================
+  function init() {
+    // Initialize main (left) swiper
+    const mainEl = document.querySelector(`#swiper-${SECTION_ID}`);
+    if (mainEl) {
+      initSwiper(mainEl, 'main');
+    }
+    
+    // Initialize right swiper (if carousel mode)
+    const rightEl = document.querySelector(`#swiper-right-${SECTION_ID}`);
+    if (rightEl) {
+      initSwiper(rightEl, 'right');
+    }
+    
+    // Load YouTube API after Swiper init
+    loadYouTubeAPI();
+    
+    log('Slideshow initialized');
+  }
+
+  init();
+
+  // ===========================
+  // LIFECYCLE HANDLERS
+  // ===========================
+  
+  // Handle Shopify theme editor reload
+  document.addEventListener('shopify:section:load', (e) => {
+    if (e.detail.sectionId === SECTION_ID) {
+      log('Section reloaded');
+      init();
+    }
   });
+
+  // Handle responsive breakpoint changes
+  let lastWidth = window.innerWidth;
+  window.addEventListener('resize', () => {
+    const newWidth = window.innerWidth;
+    const breakpoint = 992;
+    
+    if ((lastWidth < breakpoint && newWidth >= breakpoint) ||
+        (lastWidth >= breakpoint && newWidth < breakpoint)) {
+      
+      log('Breakpoint crossed, reinitializing');
+      
+      // Destroy existing swipers
+      Object.values(videoManager.swipers).forEach(swiper => {
+        if (swiper) swiper.destroy(true, true);
+      });
+      videoManager.swipers = { main: null, right: null };
+      
+      // Clear initialization state
+      root.querySelectorAll('.swiper').forEach(el => {
+        el.classList.remove('swiper-initialized', 'ap-object-loaded');
+      });
+      
+      // Reinitialize
+      init();
+    }
+    
+    lastWidth = newWidth;
+  });
+});
 </script>
 
 {% schema %}
