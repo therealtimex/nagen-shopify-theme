@@ -107,32 +107,61 @@
     border-radius: 5px !important;
   }
 
+  .slideshow-split .swiper-arrow {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    transform: none;
+    z-index: 60;
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+  }
+
+  /* Show arrows only when hovering the active carousel area */
+  .slideshow-split__main:hover .swiper-arrow,
+  .slideshow-split__static:hover .swiper-arrow {
+    opacity: 1;
+    visibility: visible;
+  }
+
   .slideshow-split .swiper-button-next,
   .slideshow-split .swiper-button-prev {
     color: #fff;
-    background: rgba(0,0,0,0.3); /* Slightly darker for visibility */
+    background: rgba(0,0,0,0.3);
     width: 44px;
-    height: 44px; /* Larger touch target */
+    height: 44px;
     border-radius: 50%;
     transition: all 0.3s ease;
-    display: flex; /* Ensure always visible if enabled */
+    display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 20;
-  }
-
-  .slideshow-split .swiper-button-next:hover,
-  .slideshow-split .swiper-button-prev:hover {
+    pointer-events: auto;
+    position: static; /* Reset absolute positioning since parent handles it */
+    margin: 0; /* Reset margins */
     background: rgba(0,0,0,0.6);
-    transform: scale(1.1); /* Visual cue on hover */
   }
 
   .slideshow-split .swiper-button-next:after,
   .slideshow-split .swiper-button-prev:after {
-    font-size: 18px;
+    display: none; /* Hide default Swiper font icons */
+    content: none;
   }
 
   @media (max-width: 991px) {
+    .slideshow-split .swiper-arrow {
+      opacity: 1;
+      visibility: visible;
+      padding: 0 12px;
+    }
+
     .slideshow-split__main,
     .slideshow-split__static {
       height: auto !important;
@@ -286,8 +315,14 @@
             {%- endif -%}
 
             {%- if section.settings.show_navigation -%}
-              <div class="swiper-button-prev swiper-button-prev_{{ section.id }}"></div>
-              <div class="swiper-button-next swiper-button-next_{{ section.id }}"></div>
+              <div class="swiper-arrow">
+                <div class="swiper-button-prev swiper-button-prev_{{ section.id }}">
+                  <svg width="11" height="10" viewBox="0 0 11 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.757812 5.34375L4.32031 9.09375C4.50781 9.28125 4.73438 9.375 5 9.375C5.25 9.375 5.46875 9.28906 5.65625 9.11719C5.84375 8.94531 5.9375 8.72656 5.9375 8.46094C5.9375 8.19531 5.85156 7.96875 5.67969 7.78125L3.61719 5.625H10.0625C10.3281 5.625 10.5547 5.53906 10.7422 5.36719C10.9141 5.17969 11 4.95312 11 4.6875C11 4.42188 10.9141 4.20312 10.7422 4.03125C10.5547 3.84375 10.3281 3.75 10.0625 3.75H3.61719L5.67969 1.59375C5.85156 1.40625 5.9375 1.17969 5.9375 0.914062C5.9375 0.648438 5.84375 0.429688 5.65625 0.257812C5.46875 0.0859375 5.24219 0 4.97656 0C4.71094 0 4.49219 0.09375 4.32031 0.28125L0.757812 4.03125C0.585938 4.21875 0.5 4.4375 0.5 4.6875C0.5 4.9375 0.585938 5.15625 0.757812 5.34375Z" fill="currentColor" /></svg>
+                </div>
+                <div class="swiper-button-next swiper-button-next_{{ section.id }}">
+                  <svg width="11" height="10" viewBox="0 0 11 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10.2422 5.34375L6.67969 9.09375C6.49219 9.28125 6.26562 9.375 6 9.375C5.75 9.375 5.53125 9.28906 5.34375 9.11719C5.15625 8.94531 5.0625 8.72656 5.0625 8.46094C5.0625 8.19531 5.14844 7.96875 5.32031 7.78125L7.38281 5.625H0.9375C0.671875 5.625 0.445312 5.53906 0.257812 5.36719C0.0859375 5.17969 0 4.95312 0 4.6875C0 4.42188 0.0859375 4.20312 0.257812 4.03125C0.445312 3.84375 0.671875 3.75 0.9375 3.75H7.38281L5.32031 1.59375C5.14844 1.40625 5.0625 1.17969 5.0625 0.914062C5.0625 0.648438 5.15625 0.429688 5.34375 0.257812C5.53125 0.0859375 5.75781 0 6.02344 0C6.28906 0 6.50781 0.09375 6.67969 0.28125L10.2422 4.03125C10.4141 4.21875 10.5 4.4375 10.5 4.6875C10.5 4.9375 10.4141 5.15625 10.2422 5.34375Z" fill="currentColor"/></svg>
+                </div>
+              </div>
             {%- endif -%}
           </div>
         </div>
@@ -325,8 +360,14 @@
               {%- endif -%}
 
               {%- if section.settings.show_navigation -%}
-                <div class="swiper-button-prev swiper-button-prev-right_{{ section.id }}"></div>
-                <div class="swiper-button-next swiper-button-next-right_{{ section.id }}"></div>
+                <div class="swiper-arrow">
+                  <div class="swiper-button-prev swiper-button-prev-right_{{ section.id }}">
+                    <svg width="11" height="10" viewBox="0 0 11 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.757812 5.34375L4.32031 9.09375C4.50781 9.28125 4.73438 9.375 5 9.375C5.25 9.375 5.46875 9.28906 5.65625 9.11719C5.84375 8.94531 5.9375 8.72656 5.9375 8.46094C5.9375 8.19531 5.85156 7.96875 5.67969 7.78125L3.61719 5.625H10.0625C10.3281 5.625 10.5547 5.53906 10.7422 5.36719C10.9141 5.17969 11 4.95312 11 4.6875C11 4.42188 10.9141 4.20312 10.7422 4.03125C10.5547 3.84375 10.3281 3.75 10.0625 3.75H3.61719L5.67969 1.59375C5.85156 1.40625 5.9375 1.17969 5.9375 0.914062C5.9375 0.648438 5.84375 0.429688 5.65625 0.257812C5.46875 0.0859375 5.24219 0 4.97656 0C4.71094 0 4.49219 0.09375 4.32031 0.28125L0.757812 4.03125C0.585938 4.21875 0.5 4.4375 0.5 4.6875C0.5 4.9375 0.585938 5.15625 0.757812 5.34375Z" fill="currentColor" /></svg>
+                  </div>
+                  <div class="swiper-button-next swiper-button-next-right_{{ section.id }}">
+                    <svg width="11" height="10" viewBox="0 0 11 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10.2422 5.34375L6.67969 9.09375C6.49219 9.28125 6.26562 9.375 6 9.375C5.75 9.375 5.53125 9.28906 5.34375 9.11719C5.15625 8.94531 5.0625 8.72656 5.0625 8.46094C5.0625 8.19531 5.14844 7.96875 5.32031 7.78125L7.38281 5.625H0.9375C0.671875 5.625 0.445312 5.53906 0.257812 5.36719C0.0859375 5.17969 0 4.95312 0 4.6875C0 4.42188 0.0859375 4.20312 0.257812 4.03125C0.445312 3.84375 0.671875 3.75 0.9375 3.75H7.38281L5.32031 1.59375C5.14844 1.40625 5.0625 1.17969 5.0625 0.914062C5.0625 0.648438 5.15625 0.429688 5.34375 0.257812C5.53125 0.0859375 5.75781 0 6.02344 0C6.28906 0 6.50781 0.09375 6.67969 0.28125L10.2422 4.03125C10.4141 4.21875 10.5 4.4375 10.5 4.6875C10.5 4.9375 10.4141 5.15625 10.2422 5.34375Z" fill="currentColor"/></svg>
+                  </div>
+                </div>
               {%- endif -%}
             </div>
 
