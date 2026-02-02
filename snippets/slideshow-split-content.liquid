@@ -24,9 +24,9 @@
 {%- elsif block.settings.video_url != blank -%}
   <div class="slideshow-split__video-container">
     {%- if block.settings.video_url.type == 'youtube' -%}
-      <iframe id="yt-player-{{ block.id }}" src="https://www.youtube.com/embed/{{ block.settings.video_url.id }}?enablejsapi=1&autoplay={% if autoplay_video %}1{% else %}0{% endif %}&mute={% if autoplay_video %}1{% else %}0{% endif %}&loop={% if autoplay_video %}1{% else %}0{% endif %}&playlist={{ block.settings.video_url.id }}&controls={{ block.settings.show_controls | default: 0 }}&playsinline=1&rel=0" class="slideshow-split__video {% unless autoplay_video %}slideshow-split__video--controls{% endunless %}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      <iframe id="yt-player-{{ block.id }}" src="https://www.youtube.com/embed/{{ block.settings.video_url.id }}?enablejsapi=1&autoplay={% if autoplay_video %}1{% else %}0{% endif %}&mute={% if autoplay_video %}1{% else %}0{% endif %}&loop={% if autoplay_video %}1{% else %}0{% endif %}&playlist={{ block.settings.video_url.id }}&controls=1&playsinline=1&rel=0&origin={{ shop.url | url_escape }}" class="slideshow-split__video" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
     {%- elsif block.settings.video_url.type == 'vimeo' -%}
-      <iframe src="https://player.vimeo.com/video/{{ block.settings.video_url.id }}?autoplay={% if autoplay_video %}1{% else %}0{% endif %}&muted={% if autoplay_video %}1{% else %}0{% endif %}&loop={% if autoplay_video %}1{% else %}0{% endif %}&background=1" class="slideshow-split__video {% unless autoplay_video %}slideshow-split__video--controls{% endunless %}" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+      <iframe src="https://player.vimeo.com/video/{{ block.settings.video_url.id }}?autoplay={% if autoplay_video %}1{% else %}0{% endif %}&muted={% if autoplay_video %}1{% else %}0{% endif %}&loop={% if autoplay_video %}1{% else %}0{% endif %}&background=0" class="slideshow-split__video" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
     {%- endif -%}
   </div>
 {%- else -%}
