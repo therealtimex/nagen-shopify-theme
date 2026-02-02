@@ -1,0 +1,314 @@
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    --expert-grid-gap: {{ section.settings.grid_gap }}px;
+    --expert-caption-color: {{ section.settings.caption_color }};
+    --expert-heading-color: {{ section.settings.heading_color }};
+    --expert-title-color: {{ section.settings.title_color }};
+    --expert-item-width: {{ section.settings.carousel_item_width }}px;
+  }
+
+  #shopify-section-{{ section.id }} .expert-videos__outer {
+    max-width: {{ section.settings.content_width }}px;
+    margin: 0 auto;
+    padding: {{ section.settings.padding_desktop }};
+  }
+
+  #shopify-section-{{ section.id }} {
+    margin: {{ section.settings.margin_desktop }};
+  }
+
+  #shopify-section-{{ section.id }} .expert-videos {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--expert-grid-gap);
+  }
+
+  #shopify-section-{{ section.id }} .expert-videos.is-carousel {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: var(--expert-grid-gap);
+    padding-bottom: 8px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  #shopify-section-{{ section.id }} .expert-videos.is-carousel .expert-videos__item {
+    flex: 0 0 var(--expert-item-width);
+    scroll-snap-align: start;
+  }
+
+  #shopify-section-{{ section.id }} .expert-videos__frame {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%;
+    border: 1px solid rgba(33, 57, 93, 0.15);
+    border-radius: 16px;
+    overflow: hidden;
+    background: #f7f9fc;
+    box-shadow: 0 6px 16px rgba(33, 57, 93, 0.06);
+  }
+
+  #shopify-section-{{ section.id }} .expert-videos__frame iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  #shopify-section-{{ section.id }} .expert-videos__caption {
+    margin-top: 12px;
+    font-size: 16px;
+    line-height: 24px;
+    color: var(--expert-caption-color);
+    font-weight: 500;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .expert-videos__item {
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .expert-videos__heading {
+    text-align: center;
+    margin: 0 0 30px;
+  }
+
+  #shopify-section-{{ section.id }} .expert-videos__title {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--expert-title-color);
+    text-transform: capitalize;
+    margin-bottom: 10px;
+  }
+
+  #shopify-section-{{ section.id }} .expert-videos__heading-text {
+    font-size: 40px;
+    line-height: 1.2;
+    font-weight: 500;
+    color: var(--expert-heading-color);
+    margin: 0;
+  }
+
+  @media (max-width: 991px) {
+    #shopify-section-{{ section.id }} {
+      margin: {{ section.settings.margin_tablet }};
+    }
+
+    #shopify-section-{{ section.id }} .expert-videos__outer {
+      padding: {{ section.settings.padding_tablet }};
+    }
+
+    #shopify-section-{{ section.id }} .expert-videos {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 575px) {
+    #shopify-section-{{ section.id }} {
+      margin: {{ section.settings.margin_mobile }};
+    }
+
+    #shopify-section-{{ section.id }} .expert-videos__outer {
+      padding: {{ section.settings.padding_mobile }};
+    }
+
+    #shopify-section-{{ section.id }} .expert-videos {
+      grid-template-columns: 1fr;
+    }
+
+    #shopify-section-{{ section.id }} .expert-videos.is-carousel .expert-videos__item {
+      flex: 0 0 78%;
+    }
+
+    #shopify-section-{{ section.id }} .expert-videos__heading-text {
+      font-size: 28px;
+    }
+  }
+{%- endstyle -%}
+
+<section class="section" data-section-id="{{ section.id }}">
+  <div class="shopify-container">
+    <div class="expert-videos__outer">
+      <div class="expert-videos__heading">
+      {%- if section.settings.title != blank -%}
+        <div class="expert-videos__title">
+          {{ section.settings.title }}
+        </div>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="expert-videos__heading-text">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+      </div>
+
+      <div class="expert-videos{% if section.settings.enable_carousel %} is-carousel{% endif %}">
+        {%- for block in section.blocks -%}
+          <div class="expert-videos__item" {{ block.shopify_attributes }}>
+            {%- if block.settings.video_url != blank and block.settings.video_url.type == 'youtube' -%}
+              <div class="expert-videos__frame">
+                <iframe src="https://www.youtube.com/embed/{{ block.settings.video_url.id }}?rel=0&modestbranding=1" title="{{ block.settings.caption | escape }}" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+              </div>
+            {%- elsif block.settings.video_url != blank and block.settings.video_url.type == 'vimeo' -%}
+              <div class="expert-videos__frame">
+                <iframe src="https://player.vimeo.com/video/{{ block.settings.video_url.id }}" title="{{ block.settings.caption | escape }}" allow="autoplay; fullscreen" allowfullscreen></iframe>
+              </div>
+            {%- else -%}
+              <div class="expert-videos__frame"></div>
+            {%- endif -%}
+            {%- if block.settings.caption != blank -%}
+              <div class="expert-videos__caption">{{ block.settings.caption }}</div>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Expert videos grid",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Chuyên gia"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Chuyên gia nói gì về chúng tôi"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#eb1c25"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#21395d"
+    },
+    {
+      "type": "color",
+      "id": "caption_color",
+      "label": "Caption color",
+      "default": "#21395d"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_carousel",
+      "label": "Enable carousel (horizontal scroll)",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "carousel_item_width",
+      "label": "Carousel item width",
+      "min": 220,
+      "max": 520,
+      "step": 10,
+      "default": 320
+    },
+    {
+      "type": "number",
+      "id": "content_width",
+      "label": "Content width",
+      "default": 1350
+    },
+    {
+      "type": "text",
+      "id": "margin_desktop",
+      "label": "Margin desktop",
+      "default": "60px 0 120px"
+    },
+    {
+      "type": "text",
+      "id": "margin_tablet",
+      "label": "Margin tablet",
+      "default": "50px 0 90px"
+    },
+    {
+      "type": "text",
+      "id": "margin_mobile",
+      "label": "Margin mobile",
+      "default": "40px 0 60px"
+    },
+    {
+      "type": "text",
+      "id": "padding_desktop",
+      "label": "Padding desktop",
+      "default": "0 30px"
+    },
+    {
+      "type": "text",
+      "id": "padding_tablet",
+      "label": "Padding tablet",
+      "default": "0 24px"
+    },
+    {
+      "type": "text",
+      "id": "padding_mobile",
+      "label": "Padding mobile",
+      "default": "0 20px"
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "label": "Grid gap",
+      "min": 8,
+      "max": 40,
+      "step": 2,
+      "default": 24
+    }
+  ],
+  "blocks": [
+    {
+      "type": "video_item",
+      "name": "Video",
+      "settings": [
+        {
+          "type": "video_url",
+          "id": "video_url",
+          "label": "YouTube or Vimeo URL",
+          "accept": ["youtube", "vimeo"]
+        },
+        {
+          "type": "text",
+          "id": "caption",
+          "label": "Caption",
+          "default": "TS. BS Đoàn Quốc Anh"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Expert videos grid",
+      "blocks": [
+        {
+          "type": "video_item"
+        },
+        {
+          "type": "video_item"
+        },
+        {
+          "type": "video_item"
+        },
+        {
+          "type": "video_item"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

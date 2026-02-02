@@ -1564,6 +1564,53 @@
         "data_aos_item": "fade-up"
       }
     },
+    "expert_video_grid": {
+      "type": "expert-video-grid",
+      "blocks": {
+        "expert_video_1": {
+          "type": "video_item",
+          "settings": {
+            "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "caption": "TS. BS Đoàn Quốc Anh"
+          }
+        },
+        "expert_video_2": {
+          "type": "video_item",
+          "settings": {
+            "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "caption": "Chuyên gia 2"
+          }
+        },
+        "expert_video_3": {
+          "type": "video_item",
+          "settings": {
+            "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "caption": "Chuyên gia 3"
+          }
+        },
+        "expert_video_4": {
+          "type": "video_item",
+          "settings": {
+            "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "caption": "Chuyên gia 4"
+          }
+        }
+      },
+      "block_order": [
+        "expert_video_1",
+        "expert_video_2",
+        "expert_video_3",
+        "expert_video_4"
+      ],
+      "settings": {
+        "title": "",
+        "heading": "Chuyên gia nói gì về chúng tôi",
+        "title_color": "#eb1c25",
+        "heading_color": "#21395d",
+        "caption_color": "#21395d",
+        "grid_gap": 24
+      }
+    },
     "foot_consultation_service": {
       "type": "custom-section",
       "blocks": {
@@ -1943,6 +1990,7 @@
     "custom_section_TP8b7q",
     "product_showcase_main",
     "testimonial_main",
+    "expert_video_grid",
     "foot_consultation_service",
     "store_locator_section"
   ]
