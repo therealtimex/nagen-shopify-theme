@@ -16,6 +16,8 @@
           "type": "slide",
           "settings": {
             "image": "shopify://shop_images/web.webp",
+            "video_url": "",
+            "show_controls": false,
             "link": ""
           }
         },
@@ -23,6 +25,8 @@
           "type": "slide",
           "settings": {
             "image": "shopify://shop_images/2.jpg",
+            "video_url": "",
+            "show_controls": false,
             "link": "shopify://blogs/tin-tuc/ra-mat-trung-tam-nghien-cuu-can-bang-cau-truc"
           }
         },
@@ -30,6 +34,8 @@
           "type": "slide",
           "settings": {
             "image": "shopify://shop_images/Nagen_Ngh_An.webp",
+            "video_url": "",
+            "show_controls": false,
             "link": "shopify://blogs/tin-tuc/ra-mat-nagen-mien-trung"
           }
         },
@@ -37,13 +43,16 @@
           "type": "static_banner",
           "settings": {
             "image": "shopify://shop_images/Youtube_3.png",
+            "video_url": "https://youtu.be/EVi-UydudFk?si=niI6U0g-7Hi6B9p9",
+            "show_controls": true,
             "link": "https://youtu.be/EVi-UydudFk?si=niI6U0g-7Hi6B9p9"
           }
         },
         "static_banner_Nwz6cM": {
           "type": "static_banner",
           "settings": {
-            "image": "shopify://shop_images/test.webp",
+            "video_url": "https://youtu.be/CFkdkR9OQdk?si=wVk7g3-t3QYyCFtf",
+            "show_controls": false,
             "link": "https://youtu.be/CFkdkR9OQdk?si=wVk7g3-t3QYyCFtf"
           }
         }
@@ -65,7 +74,11 @@
         "slideshow_width": 65,
         "gap": 16,
         "border_radius": 8,
+        "right_mode": "carousel",
+        "right_slide_direction": "vertical",
+        "mobile_aspect_ratio": "1 / 1",
         "autoplay": true,
+        "autoplay_video": false,
         "autoplay_speed": 5,
         "show_navigation": true,
         "show_pagination": true,
