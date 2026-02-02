@@ -30,6 +30,8 @@
     gap: var(--gap);
     flex-grow: 1;
     height: var(--desktop-height) !important;
+    border-radius: var(--border-radius);
+    overflow: hidden;
   }
 
   .slideshow-split__static-item {
@@ -58,6 +60,7 @@
     width: 100% !important;
     height: 100% !important;
     position: relative;
+    border-radius: inherit;
   }
 
   .slideshow-split .swiper-wrapper {
@@ -66,16 +69,21 @@
 
   .slideshow-split .swiper-slide {
     height: 100% !important;
+    border-radius: inherit;
+    overflow: hidden;
   }
 
   .slideshow-split .swiper-pagination {
     bottom: 20px !important;
-    left: 50% !important;
-    transform: translateX(-50%);
-    width: auto !important;
-    z-index: 10;
+    left: 0 !important;
+    width: 100% !important;
+    z-index: 20;
     display: flex !important;
+    justify-content: center !important;
     gap: 8px;
+    transform: none !important; /* Remove translate centering */
+    pointer-events: none; /* Let clicks pass through if not on dots */
+    position: absolute !important; /* Force absolute positioning on Desktop too */
   }
 
   .slideshow-split .swiper-pagination-bullet {
@@ -88,6 +96,8 @@
     border-radius: 50%;
     cursor: pointer;
     display: block !important;
+    pointer-events: auto; /* Re-enable clicks */
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3); /* Add shadow for visibility on light bg */
   }
 
   .slideshow-split .swiper-pagination-bullet-active {
@@ -149,6 +159,7 @@
     .slideshow-split .swiper-slide {
       height: auto !important; /* Allow slides to grow on mobile */
     }
+
     /* Mobile Video Fix: Force square/portrait ratio to prevent collapse */
     .slideshow-split__static-item--video {
       aspect-ratio: var(--mobile-aspect-ratio) !important;
@@ -157,14 +168,23 @@
       display: block;
       width: 100%;
       object-fit: cover;
+      border-radius: var(--border-radius); /* Apply radius */
+      overflow: hidden; /* Clip corners */
+      isolation: isolate; /* Force stacking context for Safari radius */
+      transform: translateZ(0); /* Force radius hardware accel */
     }
     /* Ensure video facade respects the new aspect ratio logic */
      .slideshow-split__video-container {
       height: 100% !important;
+      border-radius: inherit; /* Inherit from item */
+      overflow: hidden;
+      isolation: isolate;
     }
     
     .slideshow-split .swiper-pagination {
-      bottom: 10px !important;
+      bottom: 15px !important; /* safe spacing */
+      z-index: 50 !important; /* Ensure on top of everything */
+      position: absolute !important;
     }
   }
 
@@ -190,16 +210,9 @@
   }
 
   .slideshow-split__video--controls {
-    pointer-events: auto; /* Enable controls if requested */
+    pointer-events: auto !important; /* Enable controls if requested */
   }
 
-  .slideshow-split__video iframe {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
 {%- endstyle -%}
 
 {% render 'section-style' %}
@@ -222,21 +235,27 @@
                 <div class="swiper-slide" {{ block.shopify_attributes }}>
                   {%- if block.settings.video != blank -%}
                     <div class="slideshow-split__video-container">
+                      {%- liquid
+                        assign video_class = 'slideshow-split__video'
+                        if section.settings.autoplay_video == false
+                          assign video_class = video_class | append: ' slideshow-split__video--controls'
+                        endif
+                      -%}
                       {{ block.settings.video | video_tag: 
                         image_size: '2000x', 
                         autoplay: section.settings.autoplay_video, 
                         loop: section.settings.autoplay_video, 
                         muted: section.settings.autoplay_video, 
                         controls: block.settings.show_controls,
-                        class: 'slideshow-split__video' 
+                        class: video_class
                       }}
                     </div>
                   {%- elsif block.settings.video_url != blank -%}
                     <div class="slideshow-split__video-container">
                       {%- if block.settings.video_url.type == 'youtube' -%}
-                        <iframe src="https://www.youtube.com/embed/{{ block.settings.video_url.id }}?autoplay={% if section.settings.autoplay_video %}1{% else %}0{% endif %}&mute={% if section.settings.autoplay_video %}1{% else %}0{% endif %}&loop={% if section.settings.autoplay_video %}1{% else %}0{% endif %}&playlist={{ block.settings.video_url.id }}&controls={{ block.settings.show_controls | default: 0 }}&playsinline=1&rel=0" class="slideshow-split__video" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                        <iframe id="yt-player-{{ block.id }}" src="https://www.youtube.com/embed/{{ block.settings.video_url.id }}?enablejsapi=1&autoplay={% if section.settings.autoplay_video %}1{% else %}0{% endif %}&mute={% if section.settings.autoplay_video %}1{% else %}0{% endif %}&loop={% if section.settings.autoplay_video %}1{% else %}0{% endif %}&playlist={{ block.settings.video_url.id }}&controls={{ block.settings.show_controls | default: 0 }}&playsinline=1&rel=0" class="slideshow-split__video {% unless section.settings.autoplay_video %}slideshow-split__video--controls{% endunless %}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
                       {%- elsif block.settings.video_url.type == 'vimeo' -%}
-                         <iframe src="https://player.vimeo.com/video/{{ block.settings.video_url.id }}?autoplay={% if section.settings.autoplay_video %}1{% else %}0{% endif %}&muted={% if section.settings.autoplay_video %}1{% else %}0{% endif %}&loop={% if section.settings.autoplay_video %}1{% else %}0{% endif %}&background=1" class="slideshow-split__video" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+                         <iframe src="https://player.vimeo.com/video/{{ block.settings.video_url.id }}?autoplay={% if section.settings.autoplay_video %}1{% else %}0{% endif %}&muted={% if section.settings.autoplay_video %}1{% else %}0{% endif %}&loop={% if section.settings.autoplay_video %}1{% else %}0{% endif %}&background=1" class="slideshow-split__video {% unless section.settings.autoplay_video %}slideshow-split__video--controls{% endunless %}" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
                       {%- endif -%}
                     </div>
                   {%- else -%}
@@ -340,6 +359,49 @@
   document.addEventListener('DOMContentLoaded', function() {
     let mainSwiper, rightSwiper;
 
+    // YouTube API Integration
+    const tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    const firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    window.slideshowVideoPlayers = {};
+
+    window.onYouTubeIframeAPIReady = function() {
+      document.querySelectorAll('iframe[src*="youtube"]').forEach(iframe => {
+        const id = iframe.id;
+        if (id) {
+          window.slideshowVideoPlayers[id] = new YT.Player(id, {
+            events: {
+              'onStateChange': onPlayerStateChange
+            }
+          });
+        }
+      });
+    };
+
+    function onPlayerStateChange(event) {
+      // Find the Swiper instance related to this video
+      const iframe = event.target.getIframe();
+      const swiperSlide = iframe.closest('.swiper-slide');
+      const swiperContainer = iframe.closest('.swiper');
+      
+      if (swiperContainer && swiperContainer.swiper) {
+        if (event.data === YT.PlayerState.PLAYING) {
+          if (swiperContainer.swiper.autoplay.running) {
+            swiperContainer.swiper.autoplay.stop();
+            console.log('Swiper paused for YouTube');
+          }
+        } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
+          // Only resume if original autoplay setting was true (checked by data-attr)
+          if (swiperContainer.dataset.autoplay === 'true') {
+            swiperContainer.swiper.autoplay.start();
+            console.log('Swiper resumed from YouTube');
+          }
+        }
+      }
+    }
+
     const initSwiperSplit = () => {
       // 1. Initialize Main Swiper (Left)
       const elMain = document.querySelector('#swiper-{{ section.id }}');
@@ -396,6 +458,33 @@
         on: {
           init: function() {
             el.classList.add('ap-object-loaded');
+            
+            // Auto-Pause Logic for HTML5 Videos
+            const swiperInstance = this;
+            const videos = el.querySelectorAll('video');
+            
+            videos.forEach(video => {
+              video.addEventListener('play', () => {
+                if (swiperInstance.autoplay.running) {
+                  swiperInstance.autoplay.stop();
+                  console.log('Swiper paused for video');
+                }
+              });
+              
+              video.addEventListener('pause', () => {
+                // Only resume if it was supposed to be autoplaying
+                if (autoplay) {
+                  swiperInstance.autoplay.start();
+                  console.log('Swiper resumed after video pause');
+                }
+              });
+              
+              video.addEventListener('ended', () => {
+                if (autoplay) {
+                  swiperInstance.autoplay.start();
+                }
+              });
+            });
           }
         }
       });
