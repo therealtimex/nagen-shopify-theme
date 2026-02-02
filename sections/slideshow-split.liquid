@@ -109,15 +109,13 @@
 
   .slideshow-split .swiper-arrow {
     position: absolute;
-    top: 0;
-    bottom: 0;
+    top: 50%;
     left: 0;
     width: 100%;
-    transform: none;
+    transform: translateY(-50%);
     z-index: 60;
-    pointer-events: auto;
+    pointer-events: none;
     display: flex;
-    align-items: center;
     justify-content: space-between;
     padding: 0 20px;
     opacity: 0;
@@ -147,6 +145,7 @@
     position: static; /* Reset absolute positioning since parent handles it */
     margin: 0; /* Reset margins */
     background: rgba(0,0,0,0.6);
+    pointer-events: auto;
   }
 
   .slideshow-split .swiper-button-next:after,
@@ -235,11 +234,6 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    pointer-events: none; /* Default: no interaction for bg video */
-  }
-
-  .slideshow-split__video--controls {
-    pointer-events: auto !important; /* Enable controls if requested */
   }
 
 {%- endstyle -%}
@@ -282,9 +276,9 @@
                   {%- elsif block.settings.video_url != blank -%}
                     <div class="slideshow-split__video-container">
                       {%- if block.settings.video_url.type == 'youtube' -%}
-                        <iframe id="yt-player-{{ block.id }}" src="https://www.youtube.com/embed/{{ block.settings.video_url.id }}?enablejsapi=1&autoplay={% if section.settings.autoplay_video %}1{% else %}0{% endif %}&mute={% if section.settings.autoplay_video %}1{% else %}0{% endif %}&loop={% if section.settings.autoplay_video %}1{% else %}0{% endif %}&playlist={{ block.settings.video_url.id }}&controls={{ block.settings.show_controls | default: 0 }}&playsinline=1&rel=0" class="slideshow-split__video {% unless section.settings.autoplay_video %}slideshow-split__video--controls{% endunless %}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                        <iframe id="yt-player-{{ block.id }}" src="https://www.youtube.com/embed/{{ block.settings.video_url.id }}?enablejsapi=1&autoplay={% if section.settings.autoplay_video %}1{% else %}0{% endif %}&mute={% if section.settings.autoplay_video %}1{% else %}0{% endif %}&loop={% if section.settings.autoplay_video %}1{% else %}0{% endif %}&playlist={{ block.settings.video_url.id }}&controls=1&playsinline=1&rel=0&origin={{ shop.url | url_escape }}" class="slideshow-split__video" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
                       {%- elsif block.settings.video_url.type == 'vimeo' -%}
-                         <iframe src="https://player.vimeo.com/video/{{ block.settings.video_url.id }}?autoplay={% if section.settings.autoplay_video %}1{% else %}0{% endif %}&muted={% if section.settings.autoplay_video %}1{% else %}0{% endif %}&loop={% if section.settings.autoplay_video %}1{% else %}0{% endif %}&background=1" class="slideshow-split__video {% unless section.settings.autoplay_video %}slideshow-split__video--controls{% endunless %}" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+                         <iframe src="https://player.vimeo.com/video/{{ block.settings.video_url.id }}?autoplay={% if section.settings.autoplay_video %}1{% else %}0{% endif %}&muted={% if section.settings.autoplay_video %}1{% else %}0{% endif %}&loop={% if section.settings.autoplay_video %}1{% else %}0{% endif %}&background=0" class="slideshow-split__video" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
                       {%- endif -%}
                     </div>
                   {%- else -%}
