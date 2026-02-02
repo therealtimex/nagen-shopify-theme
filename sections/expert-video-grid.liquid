@@ -86,6 +86,12 @@
     margin-bottom: 10px;
   }
 
+  #shopify-section-{{ section.id }} .expert-videos__title svg {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+  }
+
   #shopify-section-{{ section.id }} .expert-videos__heading-text {
     font-size: 40px;
     line-height: 1.2;
@@ -134,10 +140,15 @@
 <section class="section" data-section-id="{{ section.id }}">
   <div class="shopify-container">
     <div class="expert-videos__outer">
-      <div class="expert-videos__heading">
-      {%- if section.settings.title != blank -%}
+    <div class="expert-videos__heading">
+      {%- if section.settings.title != blank or section.settings.title_icon_svg != blank -%}
         <div class="expert-videos__title">
-          {{ section.settings.title }}
+          {%- if section.settings.title_icon_svg != blank -%}
+            {{ section.settings.title_icon_svg }}
+          {%- endif -%}
+          {%- if section.settings.title != blank -%}
+            <span>{{ section.settings.title }}</span>
+          {%- endif -%}
         </div>
       {%- endif -%}
       {%- if section.settings.heading != blank -%}
@@ -178,6 +189,12 @@
       "id": "title",
       "label": "Title",
       "default": "Chuyên gia"
+    },
+    {
+      "type": "textarea",
+      "id": "title_icon_svg",
+      "label": "Title icon SVG",
+      "default": "<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M14.1218 10.4787C13.7313 10.0881 13.0981 10.0881 12.7076 10.4787L12.0005 11.1858C11.2194 11.9668 9.95308 11.9668 9.17203 11.1858C8.39098 10.4047 8.39098 9.13839 9.17203 8.35734L14.8027 2.72519C16.9066 2.24924 19.2013 2.83026 20.8393 4.46826C23.2587 6.88762 23.3721 10.7397 21.1797 13.2934L19.0715 15.4284L14.1218 10.4787ZM3.16162 4.46826C5.33501 2.29487 8.6646 1.98234 11.1705 3.53067L7.75781 6.94313C6.19572 8.50523 6.19572 11.0379 7.75781 12.6C9.27258 14.1147 11.7 14.1606 13.27 12.7377L13.4147 12.6L17.6573 16.8426L13.4147 21.0853C12.6336 21.8663 11.3673 21.8663 10.5863 21.0853L3.16162 13.6606C0.62321 11.1222 0.62321 7.00666 3.16162 4.46826Z\" fill=\"#EB1C25\"/></svg>"
     },
     {
       "type": "text",
