@@ -4,6 +4,7 @@
     --gap: {{ section.settings.gap }}px;
     --border-radius: {{ section.settings.border_radius }}px;
     --desktop-height: {{ section.settings.desktop_height }}px;
+    --mobile-aspect-ratio: {{ section.settings.mobile_aspect_ratio }};
   }
 
   .slideshow-split__container {
@@ -99,16 +100,21 @@
   .slideshow-split .swiper-button-next,
   .slideshow-split .swiper-button-prev {
     color: #fff;
-    background: rgba(0,0,0,0.2);
-    width: 40px;
-    height: 40px;
+    background: rgba(0,0,0,0.3); /* Slightly darker for visibility */
+    width: 44px;
+    height: 44px; /* Larger touch target */
     border-radius: 50%;
     transition: all 0.3s ease;
+    display: flex; /* Ensure always visible if enabled */
+    align-items: center;
+    justify-content: center;
+    z-index: 20;
   }
 
   .slideshow-split .swiper-button-next:hover,
   .slideshow-split .swiper-button-prev:hover {
-    background: rgba(0,0,0,0.5);
+    background: rgba(0,0,0,0.6);
+    transform: scale(1.1); /* Visual cue on hover */
   }
 
   .slideshow-split .swiper-button-next:after,
@@ -134,9 +140,29 @@
     .slideshow-split__main {
       aspect-ratio: 16 / 8;
     }
+    /* Fix mobile height for static side - allow vertical growth */
     .slideshow-split__static-item {
-      aspect-ratio: 16 / 8;
+      aspect-ratio: auto;
+      min-aspect-ratio: 16 / 8;
+      height: auto !important;
     }
+    .slideshow-split .swiper-slide {
+      height: auto !important; /* Allow slides to grow on mobile */
+    }
+    /* Mobile Video Fix: Force square/portrait ratio to prevent collapse */
+    .slideshow-split__static-item--video {
+      aspect-ratio: var(--mobile-aspect-ratio) !important;
+      min-height: 0;
+      height: auto !important;
+      display: block;
+      width: 100%;
+      object-fit: cover;
+    }
+    /* Ensure video facade respects the new aspect ratio logic */
+     .slideshow-split__video-container {
+      height: 100% !important;
+    }
+    
     .slideshow-split .swiper-pagination {
       bottom: 10px !important;
     }
@@ -198,9 +224,9 @@
                     <div class="slideshow-split__video-container">
                       {{ block.settings.video | video_tag: 
                         image_size: '2000x', 
-                        autoplay: true, 
-                        loop: true, 
-                        muted: true, 
+                        autoplay: section.settings.autoplay_video, 
+                        loop: section.settings.autoplay_video, 
+                        muted: section.settings.autoplay_video, 
                         controls: block.settings.show_controls,
                         class: 'slideshow-split__video' 
                       }}
@@ -208,9 +234,9 @@
                   {%- elsif block.settings.video_url != blank -%}
                     <div class="slideshow-split__video-container">
                       {%- if block.settings.video_url.type == 'youtube' -%}
-                        <iframe src="https://www.youtube.com/embed/{{ block.settings.video_url.id }}?autoplay=1&mute=1&loop=1&playlist={{ block.settings.video_url.id }}&controls={{ block.settings.show_controls | default: 0 }}&playsinline=1&rel=0" class="slideshow-split__video" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                        <iframe src="https://www.youtube.com/embed/{{ block.settings.video_url.id }}?autoplay={% if section.settings.autoplay_video %}1{% else %}0{% endif %}&mute={% if section.settings.autoplay_video %}1{% else %}0{% endif %}&loop={% if section.settings.autoplay_video %}1{% else %}0{% endif %}&playlist={{ block.settings.video_url.id }}&controls={{ block.settings.show_controls | default: 0 }}&playsinline=1&rel=0" class="slideshow-split__video" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
                       {%- elsif block.settings.video_url.type == 'vimeo' -%}
-                        <iframe src="https://player.vimeo.com/video/{{ block.settings.video_url.id }}?autoplay=1&muted=1&loop=1&background=1" class="slideshow-split__video" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+                         <iframe src="https://player.vimeo.com/video/{{ block.settings.video_url.id }}?autoplay={% if section.settings.autoplay_video %}1{% else %}0{% endif %}&muted={% if section.settings.autoplay_video %}1{% else %}0{% endif %}&loop={% if section.settings.autoplay_video %}1{% else %}0{% endif %}&background=1" class="slideshow-split__video" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
                       {%- endif -%}
                     </div>
                   {%- else -%}
@@ -251,48 +277,55 @@
       {%- assign static_blocks = section.blocks | where: 'type', 'static_banner' -%}
       {%- if static_blocks.size > 0 -%}
         <div class="slideshow-split__static">
-          {%- for block in static_blocks limit: 2 -%}
-            <div class="slideshow-split__static-item" {{ block.shopify_attributes }}>
-              {%- if block.settings.video != blank -%}
-                <div class="slideshow-split__video-container">
-                    {{ block.settings.video | video_tag: 
-                      image_size: '1200x', 
-                      autoplay: true, 
-                      loop: true, 
-                      muted: true, 
-                      controls: block.settings.show_controls, 
-                      class: 'slideshow-split__video' 
-                    }}
-                </div>
-              {%- elsif block.settings.video_url != blank -%}
-                <div class="slideshow-split__video-container">
-                  {%- if block.settings.video_url.type == 'youtube' -%}
-                    <iframe src="https://www.youtube.com/embed/{{ block.settings.video_url.id }}?autoplay=1&mute=1&loop=1&playlist={{ block.settings.video_url.id }}&controls={{ block.settings.show_controls | default: 0 }}&playsinline=1&rel=0" class="slideshow-split__video" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                  {%- elsif block.settings.video_url.type == 'vimeo' -%}
-                    <iframe src="https://player.vimeo.com/video/{{ block.settings.video_url.id }}?autoplay=1&muted=1&loop=1&background=1" class="slideshow-split__video" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
-                  {%- endif -%}
-                </div>
-              {%- else -%}
-                {%- if block.settings.link != blank -%}
-                  <a href="{{ block.settings.link }}" class="slideshow-split__image-link">
-                {%- else -%}
-                  <div class="slideshow-split__image-link">
-                {%- endif -%}
-
-                  {%- if block.settings.image != blank -%}
-                    {{ block.settings.image | image_url: width: 1200 | image_tag: loading: 'lazy', class: 'slideshow-split__image' }}
-                  {%- else -%}
-                    {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
-                  {%- endif -%}
-
-                {%- if block.settings.link != blank -%}
-                  </a>
-                {%- else -%}
+          
+          {%- if section.settings.right_mode == 'carousel' -%}
+            <!-- Carousel Mode (Right Side) -->
+            <div id="swiper-right-{{ section.id }}" class="slideshow swiper ap-object-loaded" 
+              data-autoplay="{{ section.settings.autoplay }}"
+              data-speed="{{ section.settings.autoplay_speed | times: 1000 }}"
+              data-navigation="{{ section.settings.show_navigation }}"
+              data-pagination="{{ section.settings.show_pagination }}"
+              data-direction="{{ section.settings.right_slide_direction }}">
+              
+              <div class="swiper-wrapper">
+                {%- for block in static_blocks -%}
+                  {%- liquid
+                    assign has_video = false
+                    if block.settings.video != blank or block.settings.video_url != blank
+                      assign has_video = true
+                    endif
+                  -%}
+                  <div class="swiper-slide {% if has_video %}slideshow-split__static-item--video{% endif %}" {{ block.shopify_attributes }}>
+                    {%- render 'slideshow-split-content', block: block, autoplay_video: section.settings.autoplay_video -%}
                   </div>
-                {%- endif -%}
+                {%- endfor -%}
+              </div>
+
+              {%- if section.settings.show_pagination -%}
+                <div class="swiper-pagination swiper-pagination-right_{{ section.id }}"></div>
+              {%- endif -%}
+
+              {%- if section.settings.show_navigation -%}
+                <div class="swiper-button-prev swiper-button-prev-right_{{ section.id }}"></div>
+                <div class="swiper-button-next swiper-button-next-right_{{ section.id }}"></div>
               {%- endif -%}
             </div>
-          {%- endfor -%}
+
+          {%- else -%}
+            <!-- Stacked Mode (Legacy 2 items) -->
+            {%- for block in static_blocks limit: 2 -%}
+              {%- liquid
+                assign has_video = false
+                if block.settings.video != blank or block.settings.video_url != blank
+                  assign has_video = true
+                endif
+              -%}
+              <div class="slideshow-split__static-item {% if has_video %}slideshow-split__static-item--video{% endif %}" {{ block.shopify_attributes }}>
+                {%- render 'slideshow-split-content', block: block, autoplay_video: section.settings.autoplay_video -%}
+              </div>
+            {%- endfor -%}
+          {%- endif -%}
+
         </div>
       {%- endif -%}
 
@@ -300,41 +333,97 @@
   </div>
 </section>
 
+{%- capture content_snippet -%}
+{%- endcapture -%}
+
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    const initSwiperSplit = () => {
-      const el = document.querySelector('#swiper-{{ section.id }}');
-      if (el && window.Swiper && !el.classList.contains('swiper-initialized')) {
-        const autoplay = el.dataset.autoplay === 'true';
-        const speed = parseInt(el.dataset.speed) || 5000;
-        const showNav = el.dataset.navigation === 'true';
-        const showPag = el.dataset.pagination === 'true';
+    let mainSwiper, rightSwiper;
 
-        new Swiper(el, {
-          slidesPerView: 1,
-          loop: true,
-          autoplay: autoplay ? { delay: speed, disableOnInteraction: false } : false,
-          navigation: showNav ? {
-            nextEl: '.swiper-button-next_{{ section.id }}',
-            prevEl: '.swiper-button-prev_{{ section.id }}',
-          } : false,
-          pagination: showPag ? {
-            el: '.swiper-pagination_{{ section.id }}',
-            clickable: true,
-            bulletClass: 'swiper-pagination-bullet',
-            bulletActiveClass: 'swiper-pagination-bullet-active',
-          } : false,
-          on: {
-            init: function() {
-              el.classList.add('ap-object-loaded');
-            }
-          }
-        });
+    const initSwiperSplit = () => {
+      // 1. Initialize Main Swiper (Left)
+      const elMain = document.querySelector('#swiper-{{ section.id }}');
+      if (elMain && window.Swiper && !elMain.classList.contains('swiper-initialized')) {
+        mainSwiper = initSingleSwiper(elMain, '{{ section.id }}');
+      }
+
+      // 2. Initialize Right Swiper (if in Carousel Mode)
+      const elRight = document.querySelector('#swiper-right-{{ section.id }}');
+      if (elRight && window.Swiper && !elRight.classList.contains('swiper-initialized')) {
+        rightSwiper = initSingleSwiper(elRight, 'right_{{ section.id }}');
       }
     };
 
+    const initSingleSwiper = (el, uniqueKey) => {
+      const autoplay = el.dataset.autoplay === 'true';
+      const speed = parseInt(el.dataset.speed) || 5000;
+      const showNav = el.dataset.navigation === 'true';
+      const showPag = el.dataset.pagination === 'true';
+      let direction = el.dataset.direction || 'horizontal';
+
+      // Force horizontal on mobile to prevent scroll hijacking
+      if (window.innerWidth < 992) {
+        direction = 'horizontal';
+      }
+
+      let nextEl, prevEl, pagEl;
+
+      if (uniqueKey.startsWith('right_')) {
+        nextEl = `.swiper-button-next-${uniqueKey}`;
+        prevEl = `.swiper-button-prev-${uniqueKey}`;
+        pagEl = `.swiper-pagination-${uniqueKey}`;
+      } else {
+        nextEl = `.swiper-button-next_${uniqueKey}`;
+        prevEl = `.swiper-button-prev_${uniqueKey}`;
+        pagEl = `.swiper-pagination_${uniqueKey}`;
+      }
+
+      return new Swiper(el, {
+        slidesPerView: 1,
+        loop: true,
+        direction: direction,
+        autoplay: autoplay ? { delay: speed, disableOnInteraction: false } : false,
+        navigation: showNav ? {
+          nextEl: nextEl,
+          prevEl: prevEl,
+        } : false,
+        pagination: showPag ? {
+          el: pagEl,
+          clickable: true,
+          bulletClass: 'swiper-pagination-bullet',
+          bulletActiveClass: 'swiper-pagination-bullet-active',
+        } : false,
+        on: {
+          init: function() {
+            el.classList.add('ap-object-loaded');
+          }
+        }
+      });
+    }
+
     initSwiperSplit();
     document.addEventListener('shopify:section:load', initSwiperSplit);
+
+    // Re-check direction on resize
+    let lastWidth = window.innerWidth;
+    window.addEventListener('resize', () => {
+       const newWidth = window.innerWidth;
+       const breakpoint = 992;
+       
+       // Reload instances if crossing breakpoint (Vertical <-> Horizontal switch)
+       if ((lastWidth < breakpoint && newWidth >= breakpoint) || 
+           (lastWidth >= breakpoint && newWidth < breakpoint)) {
+         
+         if (mainSwiper) mainSwiper.destroy(true, true);
+         if (rightSwiper) rightSwiper.destroy(true, true);
+         
+         // Cleanup classes
+         document.querySelectorAll('.slideshow-split .swiper').forEach(el => el.classList.remove('swiper-initialized', 'ap-object-loaded'));
+         
+         initSwiperSplit();
+       }
+       lastWidth = newWidth;
+    });
   });
 </script>
 
@@ -415,14 +504,69 @@
       "default": 8
     },
     {
+      "type": "select",
+      "id": "right_mode",
+      "label": "Right Side Layout",
+      "options": [
+        {
+          "value": "stacked",
+          "label": "Stacked (2 Static Items)"
+        },
+        {
+          "value": "carousel",
+          "label": "Carousel (Slider)"
+        }
+      ],
+      "default": "stacked",
+      "info": "Choose 'Stacked' for 2 fixed banners, or 'Carousel' to slide multiple items."
+    },
+    {
+      "type": "select",
+      "id": "right_slide_direction",
+      "label": "Right Slide Direction (Desktop)",
+      "options": [
+        {
+          "value": "horizontal",
+          "label": "Horizontal"
+        },
+        {
+          "value": "vertical",
+          "label": "Vertical"
+        }
+      ],
+      "default": "horizontal",
+      "info": "Vertical sliding is forced to Horizontal on mobile to prevent scroll issues."
+    },
+    {
+      "type": "select",
+      "id": "mobile_aspect_ratio",
+      "label": "Mobile Video Aspect Ratio",
+      "options": [
+        { "value": "auto", "label": "Auto (Natural)" },
+        { "value": "16 / 9", "label": "Landscape (16:9)" },
+        { "value": "1 / 1", "label": "Square (1:1)" },
+        { "value": "4 / 5", "label": "Portrait (4:5)" },
+        { "value": "9 / 16", "label": "Full Portrait (9:16)" }
+      ],
+      "default": "1 / 1",
+      "info": "Controls the shape of video slides on mobile."
+    },
+    {
       "type": "header",
       "content": "Slideshow Settings"
     },
     {
       "type": "checkbox",
       "id": "autoplay",
-      "label": "Enable Autoplay",
+      "label": "Enable Slideshow Autoplay",
       "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay_video",
+      "label": "Auto-Play Videos",
+      "default": true,
+      "info": "If enabled, videos play automatically (muted). If disabled, controls are shown."
     },
     {
       "type": "range",
@@ -487,7 +631,7 @@
   "blocks": [
     {
       "type": "slide",
-      "name": "Slide",
+      "name": "Left Slide (Main)",
       "settings": [
         {
           "type": "image_picker",
@@ -523,8 +667,7 @@
     },
     {
       "type": "static_banner",
-      "name": "Static Banner",
-      "limit": 2,
+      "name": "Right Slide (Side)",
       "settings": [
         {
           "type": "image_picker",

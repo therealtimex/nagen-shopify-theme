@@ -1,0 +1,44 @@
+{%- liquid
+  if autoplay_video == nil
+    assign autoplay_video = true
+  endif
+-%}
+
+{%- if block.settings.video != blank -%}
+  <div class="slideshow-split__video-container">
+      {{ block.settings.video | video_tag: 
+        image_size: '1200x', 
+        autoplay: autoplay_video, 
+        loop: autoplay_video, 
+        muted: autoplay_video, 
+        controls: block.settings.show_controls, 
+        class: 'slideshow-split__video' 
+      }}
+  </div>
+{%- elsif block.settings.video_url != blank -%}
+  <div class="slideshow-split__video-container">
+    {%- if block.settings.video_url.type == 'youtube' -%}
+      <iframe src="https://www.youtube.com/embed/{{ block.settings.video_url.id }}?autoplay={% if autoplay_video %}1{% else %}0{% endif %}&mute={% if autoplay_video %}1{% else %}0{% endif %}&loop={% if autoplay_video %}1{% else %}0{% endif %}&playlist={{ block.settings.video_url.id }}&controls={{ block.settings.show_controls | default: 0 }}&playsinline=1&rel=0" class="slideshow-split__video" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    {%- elsif block.settings.video_url.type == 'vimeo' -%}
+      <iframe src="https://player.vimeo.com/video/{{ block.settings.video_url.id }}?autoplay={% if autoplay_video %}1{% else %}0{% endif %}&muted={% if autoplay_video %}1{% else %}0{% endif %}&loop={% if autoplay_video %}1{% else %}0{% endif %}&background=1" class="slideshow-split__video" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+    {%- endif -%}
+  </div>
+{%- else -%}
+  {%- if block.settings.link != blank -%}
+    <a href="{{ block.settings.link }}" class="slideshow-split__image-link">
+  {%- else -%}
+    <div class="slideshow-split__image-link">
+  {%- endif -%}
+
+    {%- if block.settings.image != blank -%}
+      {{ block.settings.image | image_url: width: 1200 | image_tag: loading: 'lazy', class: 'slideshow-split__image' }}
+    {%- else -%}
+      {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
+    {%- endif -%}
+
+  {%- if block.settings.link != blank -%}
+    </a>
+  {%- else -%}
+    </div>
+  {%- endif -%}
+{%- endif -%}
