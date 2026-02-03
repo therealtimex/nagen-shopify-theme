@@ -15,6 +15,7 @@
         "slide_EGXYLT": {
           "type": "slide",
           "settings": {
+            "image": "shopify://shop_images/2.jpg",
             "video_url": "",
             "show_controls": false,
             "link": ""
