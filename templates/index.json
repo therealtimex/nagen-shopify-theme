@@ -1431,6 +1431,7 @@
           "settings": {
             "content": "Sản phẩm đã giúp tôi đi lại vững chãi hơn và không còn cảm giác đau mỏi đầu gối nữa",
             "rating": 5,
+            "image": "shopify://shop_images/Ng_c_Han.webp",
             "name": "Ngọc Hân",
             "job": "Khách hàng mới",
             "icon_child": "<svg width=\"48\" height=\"48\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M6 17h3l2-4V7H5v6h3l-2 4zm8 0h3l2-4V7h-6v6h3l-2 4z\" fill=\"#21395D\"/></svg>"
