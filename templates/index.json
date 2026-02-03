@@ -1570,6 +1570,7 @@
         },
         "expert_video_3": {
           "type": "video_item",
+          "disabled": true,
           "settings": {
             "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
             "caption": "Chuyên gia 3"
@@ -1577,6 +1578,7 @@
         },
         "expert_video_4": {
           "type": "video_item",
+          "disabled": true,
           "settings": {
             "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
             "caption": "Chuyên gia 4"
