@@ -267,6 +267,9 @@
     }
   },
   "templates": {
+    "wishlist": {
+      "empty": "No products in your wishlist"
+    },
     "search": {
       "main_title": "Results for",
       "no_results": "No results found for “{{ terms }}”. Check the spelling or use a different word or phrase.",
