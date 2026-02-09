@@ -297,7 +297,8 @@
     "404": {
       "title": "Không tìm thấy trang",
       "subtext": "404",
-      "button": "Tiếp tục mua sắm"
+      "description": "Trang bạn đang tìm kiếm có thể đã bị xóa, đổi tên hoặc hiện không còn công khai. Vui lòng kiểm tra lại đường dẫn.",
+      "button": "Trở về trang chủ"
     }
   },
   "sections": {

@@ -304,9 +304,10 @@
       }
     },
     "404": {
-      "title": "We can’t find the page your are looking for ",
+      "title": "We can't find the page you are looking for",
       "subtext": "404",
-      "button": "Continue shopping"
+      "description": "The page you are looking for may have been removed, had its name changed, or is temporarily unavailable. Please check the URL.",
+      "button": "Return to homepage"
     }
   },
   "sections": {
