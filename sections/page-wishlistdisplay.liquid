@@ -4,7 +4,10 @@
     display: none;
   }
   #no-wishlistdisplay.active{
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 160px;
     text-align: center;
   }
   #ap-wishlistdisplay .ap-productlist__inner {
@@ -14,8 +17,11 @@
     gap: 30px;
   }
   .wishlist {
-    padding-top: 60px;
+    padding-top: 0;
     padding-bottom: 60px;
+  }
+  .wishlist.wishlist--empty {
+    padding-top: 0;
   }
   @media (max-width: 991px) {
     #ap-wishlistdisplay .ap-productlist__inner {

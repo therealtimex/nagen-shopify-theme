@@ -6390,6 +6390,24 @@ body.page\.contact {
   color: var(--primary);
 }
 
+.btn-service.btn-wishlist {
+  --wishlist-like-color: #EB1C25;
+  background-color: #ffffff;
+  border: 1px solid var(--color-border-line);
+}
+
+.product-item-wrapper .btn-service.btn-wishlist:hover {
+  background-color: rgba(235, 28, 37, 0.1);
+  border-color: rgba(235, 28, 37, 0.3);
+  color: var(--wishlist-like-color);
+}
+
+.btn-service.btn-wishlist.active {
+  background-color: rgba(235, 28, 37, 0.12);
+  border-color: rgba(235, 28, 37, 0.35);
+  color: var(--wishlist-like-color);
+}
+
 .product-item-wrapper .btn-service:hover {
   background-color: var(--background-service-hover);
   border-color: var(--background-service-hover);
@@ -6533,9 +6551,57 @@ body.page\.contact {
   color: var(--color-svg-hover);
 }
 
-.btn-compare.active .icon-product svg,
-.btn-wishlist.active .icon-product svg {
+.btn-service.btn-wishlist:hover svg,
+.btn-service.btn-wishlist.active svg {
+  color: var(--wishlist-like-color);
+}
+
+.btn-compare.active .icon-product svg {
   color: var(--primary);
+}
+
+.btn-wishlist .icon-heart-filled {
+  display: none;
+}
+
+.btn-wishlist.active {
+  color: var(--wishlist-like-color, #EB1C25);
+}
+
+.btn-wishlist.active .icon-product svg {
+  color: var(--wishlist-like-color, #EB1C25);
+}
+
+.btn-wishlist.active .icon-heart-outline {
+  display: none;
+}
+
+.btn-wishlist.active .icon-heart-filled {
+  display: block;
+}
+
+.btn-variation.btn-wishlist:hover,
+.btn-variation.btn-wishlist.active {
+  color: var(--wishlist-like-color, #EB1C25);
+}
+
+body.page\.wishlist .service-product {
+  opacity: 1;
+  visibility: visible;
+  right: 15px;
+}
+
+body.page\.wishlist .service-product > div[title="Add to Compare"],
+body.page\.wishlist .service-product > div[title="Quickview"] {
+  display: none;
+}
+
+body.page\.wishlist .service-product .text-name {
+  display: none;
+}
+
+.single_variation_wrap ap-wishlistbutton {
+  pointer-events: auto;
 }
 
 .btn-addcart .icon-product svg {

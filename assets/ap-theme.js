@@ -4060,6 +4060,10 @@
             "alt",
             window.themeVariables.strings.removeWishlist
           );
+          this.setAttribute(
+            "aria-label",
+            window.themeVariables.strings.removeWishlist
+          );
         }
       }
     }
@@ -4079,6 +4083,10 @@
       this.classList.add("active");
       this.setAttribute("data-action", "remove");
       this.setAttribute("alt", window.themeVariables.strings.removeWishlist);
+      this.setAttribute(
+        "aria-label",
+        window.themeVariables.strings.removeWishlist
+      );
 
       if (document.querySelector("ap-wishlistcount")) {
         document.querySelector("ap-wishlistcount").innerHTML =
@@ -4098,6 +4106,10 @@
         this.classList.remove("active");
         this.setAttribute("data-action", "add");
         this.setAttribute("alt", window.themeVariables.strings.addToWishlist);
+        this.setAttribute(
+          "aria-label",
+          window.themeVariables.strings.addToWishlist
+        );
 
         if (document.querySelector("ap-wishlistcount")) {
           document.querySelector("ap-wishlistcount").innerHTML =
@@ -4108,8 +4120,35 @@
           document.querySelector("ap-wishlistcount").innerHTML = 0;
         }
       }
-      if (document.querySelector("body").classList.contains("page.wishlist")) {
-        document.getElementById("product-item-" + id).remove();
+      const isWishlistPage =
+        window.location.pathname.includes("/pages/wishlist") ||
+        document.body.classList.contains("page.wishlist");
+      if (isWishlistPage) {
+        const productItem = document.getElementById("product-item-" + id);
+        if (productItem) {
+          productItem.remove();
+        }
+
+        const wishlistDisplay = document.getElementById("ap-wishlistdisplay");
+        const emptyStateElement = document.getElementById("no-wishlistdisplay");
+        const wishlistWrapper = wishlistDisplay
+          ? wishlistDisplay.closest(".wishlist")
+          : null;
+        const hasItems =
+          wishlistDisplay &&
+          wishlistDisplay.querySelector('[id^="product-item-"]');
+
+        if (!hasItems) {
+          if (emptyStateElement) {
+            emptyStateElement.classList = "active";
+          }
+          if (wishlistDisplay) {
+            wishlistDisplay.setAttribute("hidden", "");
+          }
+          if (wishlistWrapper) {
+            wishlistWrapper.classList.add("wishlist--empty");
+          }
+        }
       }
     }
     _setCookie(cname, cvalue, exdays) {
@@ -4137,8 +4176,29 @@
 
   var ApWishlistDisplay = class extends HTMLElement {
     async connectedCallback() {
+      const emptyStateElement = document.getElementById("no-wishlistdisplay");
+      const wishlistWrapper = this.closest(".wishlist");
+      const showEmptyState = () => {
+        if (emptyStateElement) {
+          emptyStateElement.classList = "active";
+        }
+        if (wishlistWrapper) {
+          wishlistWrapper.classList.add("wishlist--empty");
+        }
+        this.setAttribute("hidden", "");
+      };
+      const showProductsState = () => {
+        if (emptyStateElement) {
+          emptyStateElement.classList.remove("active");
+        }
+        if (wishlistWrapper) {
+          wishlistWrapper.classList.remove("wishlist--empty");
+        }
+        this.removeAttribute("hidden");
+      };
+
       if (this.searchQueryString === "") {
-        document.getElementById("no-wishlistdisplay").classList = "active";
+        showEmptyState();
         return;
       }
       const response = await fetch(
@@ -4148,8 +4208,14 @@
       div.innerHTML = await response.text();
       const recentlyViewedProductsElement =
         div.querySelector("ap-wishlistdisplay");
-      if (recentlyViewedProductsElement.hasChildNodes()) {
+      const products = recentlyViewedProductsElement
+        ? recentlyViewedProductsElement.querySelectorAll('[id^="product-item-"]')
+        : [];
+      if (products.length) {
         this.innerHTML = recentlyViewedProductsElement.innerHTML;
+        showProductsState();
+      } else {
+        showEmptyState();
       }
     }
 
