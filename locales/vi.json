@@ -261,6 +261,9 @@
     "wishlist": {
       "empty": "Chưa có sản phẩm trong danh sách yêu thích"
     },
+    "compare": {
+      "empty": "Chưa có sản phẩm trong danh sách so sánh"
+    },
     "search": {
       "no_results": "Không tìm thấy kết quả cho \"{{ terms }}\". Kiểm tra chính tả hoặc sử dụng một từ hoặc cụm từ khác.",
       "results_with_count": {

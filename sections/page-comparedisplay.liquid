@@ -3,9 +3,11 @@
     display: none;
   }
   #no-comparedisplay.active{
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 160px;
     text-align: center;
-    font-size: 18px;
   }
   #ap-comparedisplay .ap-productlist__inner {
     --ap-productlist-column-gap: 0;
@@ -14,8 +16,8 @@
     gap: 30px;
   }
   .compare {
-    padding-bottom: 60px;   
-    padding-top: 60px;
+    padding-top: 0;
+    padding-bottom: 60px;
   }
   @media (max-width: 991px) {
     #ap-comparedisplay .ap-productlist__inner {
@@ -41,7 +43,7 @@
     </ap-comparedisplay>
     
     <div id="no-comparedisplay">
-      Don't have product in Compare
+      {{ 'templates.compare.empty' | t }}
     </div>
   </div>
 </div>
