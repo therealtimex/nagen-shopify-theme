@@ -253,7 +253,9 @@
                 <span class="ajaxcart__subtotal-name">{{ 'general.cart.subtotal' | t }}</span>
                 <span class="ajaxcart__subtotal">{{ cart.total_price | money_with_currency }}</span>
             </div>
-            <p class="ajaxcart__policies">{{ 'general.cart.policy' | t }}</p>
+            {% if settings.show_checkout_policy_notice %}
+              <p class="ajaxcart__policies">{{ 'general.cart.policy' | t }}</p>
+            {% endif %}
             <div class="mini-cart__actions" style="display: flex; flex-direction: column; gap: 12px; margin-top: 15px;">
                 {% render 'cart-terms-conditions', id: 'agree_terms_conditions_drawer', button_id: 'mini_bt_checkout' %}
                 

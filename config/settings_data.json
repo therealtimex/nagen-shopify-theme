@@ -197,6 +197,7 @@
     "show_gift_card": false,
     "cart_coupon_enable": false,
     "cart_shipping_enable": false,
+    "show_checkout_policy_notice": false,
     "cart_terms_conditions_page": "shopify://pages/dieu-kien-giao-dich-chung",
     "minicart_content_display": "center",
     "enable_free_shipping": true,
