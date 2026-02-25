@@ -566,6 +566,7 @@
           "type": "carousel-item",
           "name": "Cân nặng, béo phì",
           "settings": {
+            "image": "shopify://shop_images/Can-N_ng-Beo-Phi_232abaab-eeab-4cd5-9bef-11a930168c8c.webp",
             "url": "shopify://pages/can-nang-beo-phi",
             "heading": "Cân nặng, béo phì",
             "heading_color": "#000000",
