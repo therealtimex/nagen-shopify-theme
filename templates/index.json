@@ -254,6 +254,7 @@
           "type": "carousel-item",
           "name": "Đau nhức xương khớp",
           "settings": {
+            "image": "shopify://shop_images/Dau-Nh_c-X_ng-KH_p.webp",
             "url": "shopify://pages/dau-nhuc-xuong-khop",
             "heading": "Đau nhức xương khớp",
             "heading_color": "#000000",
