@@ -462,6 +462,7 @@
           "type": "carousel-item",
           "name": "Mất cân bằng cấu trúc cơ thể",
           "settings": {
+            "image": "shopify://shop_images/M_t-can-b_ng-c_u-truc-c_-th.webp",
             "url": "shopify://pages/mat-can-bang-cau-truc-co-the",
             "heading": "Mất cân bằng cấu trúc cơ thể",
             "heading_color": "#000000",
