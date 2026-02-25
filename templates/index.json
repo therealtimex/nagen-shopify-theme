@@ -358,6 +358,7 @@
           "type": "carousel-item",
           "name": "Mất cân bằng vòm bàn chân",
           "settings": {
+            "image": "shopify://shop_images/M_t-Can-B_ng-VOm-Ban-CHan.webp",
             "url": "shopify://pages/mat-can-bang-vom-ban-chan",
             "heading": "Mất cân bằng vòm bàn chân",
             "heading_color": "#000000",
