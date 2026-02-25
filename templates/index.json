@@ -410,6 +410,7 @@
           "type": "carousel-item",
           "name": "Người vận động nhiều, chơi thể thao",
           "settings": {
+            "image": "shopify://shop_images/Ng_i-V_n-D_ng-Nhi_u-ch_i-tH_-THAO.webp",
             "url": "shopify://pages/nguoi-choi-the-thao",
             "heading": "Người vận động nhiều, chơi thể thao",
             "heading_color": "#000000",
