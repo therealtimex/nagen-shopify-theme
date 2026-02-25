@@ -1581,10 +1581,9 @@
         },
         "expert_video_3": {
           "type": "video_item",
-          "disabled": true,
           "settings": {
-            "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
-            "caption": "Chuyên gia 3"
+            "video_url": "https://youtu.be/zi8NyQ3ZbE4",
+            "caption": "Phó Viện Trưởng Tạ Duy Quy"
           }
         },
         "expert_video_4": {
