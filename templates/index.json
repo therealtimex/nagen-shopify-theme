@@ -306,6 +306,7 @@
           "type": "carousel-item",
           "name": "Vận động",
           "settings": {
+            "image": "shopify://shop_images/V_n-D_ng.webp",
             "url": "shopify://pages/van-dong",
             "heading": "Vận động",
             "heading_color": "#000000",
