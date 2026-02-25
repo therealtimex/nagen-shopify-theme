@@ -309,30 +309,27 @@
     font-family: var(--hd-font-family);
     color: rgb(var(--heading-color));
   }
-  .ap-productmeta__share-button-list svg {
-    width: 16px;
-    height: 16px;
+  .ap-productmeta__share .page-share--product {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: 0;
+    align-items: flex-start;
+    gap: 10px;
   }
-  .ap-productmeta__share-button-item {
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff !important;
+  .ap-productmeta__share .page-share--product .page-share__list {
+    justify-content: flex-start;
   }
-  .ap-productmeta__share-button-item--twitter {
-    background-color: #333;
+  .ap-productmeta__share .page-share--product .page-share__label {
+    font-size: 16px;
+    line-height: 1.5;
+    font-weight: 700;
+    text-transform: none;
+    letter-spacing: 0;
+    color: rgb(var(--heading-color));
   }
-  .ap-productmeta__share-button-item--facebook {
-    background-color: #3B5998;
-  }
-  .ap-productmeta__share-button-item--pinterest {
-    background-color: #E60023;
-  }
-  .ap-productmeta__share-button-item--linkedin {
-    background-color: #0077B5;
+  .ap-productmeta__share .page-share--product .page-share__status {
+    width: 100%;
+    text-align: left;
   }
   @media screen and (min-width: 1000px) {
     :root {

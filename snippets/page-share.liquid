@@ -10,16 +10,23 @@
 {{ 'page-share.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'page-share.js' | asset_url }}" defer></script>
 
-{%- assign share_url = canonical_url | default: request.origin -%}
-{%- assign share_title = page_title | default: page.title | strip_html | strip -%}
+{%- assign page_share_url = share_url | default: canonical_url | default: request.origin -%}
+{%- assign page_share_title = share_title | default: page_title | default: page.title | strip_html | strip -%}
+{%- if share_label != blank -%}
+  {%- assign page_share_label = share_label -%}
+{%- else -%}
+  {%- assign page_share_label = 'general.share.share_url' | t | default: 'Chia sẻ' -%}
+{%- endif -%}
+{%- assign page_share_copy_label = 'general.share.copy_to_clipboard' | t -%}
+{%- assign page_share_copy_success_label = 'general.share.success_message' | t -%}
 
-<div class="page-share" data-share-url="{{ share_url }}" data-share-title="{{ share_title | escape }}">
-  <div class="page-share__label">{{ 'general.share.share_url' | t | default: 'Chia sẻ' }}</div>
+<div class="page-share{% if share_class != blank %} {{ share_class }}{% endif %}" data-share-url="{{ page_share_url }}" data-share-title="{{ page_share_title | escape }}">
+  <div class="page-share__label">{{ page_share_label }}</div>
 
   <div class="page-share__list">
     <a
       class="page-share__item page-share__item--facebook"
-      href="https://www.facebook.com/sharer/sharer.php?u={{ share_url | url_param_escape }}"
+      href="https://www.facebook.com/sharer/sharer.php?u={{ page_share_url | url_param_escape }}"
       target="_blank"
       rel="noopener"
       aria-label="Share on Facebook"
@@ -30,7 +37,7 @@
 
     <a
       class="page-share__item page-share__item--x"
-      href="https://twitter.com/intent/tweet?text={{ share_title | url_param_escape }}&url={{ share_url | url_param_escape }}"
+      href="https://twitter.com/intent/tweet?text={{ page_share_title | url_param_escape }}&url={{ page_share_url | url_param_escape }}"
       target="_blank"
       rel="noopener"
       aria-label="Share on X"
@@ -41,7 +48,7 @@
 
     <a
       class="page-share__item page-share__item--email"
-      href="mailto:?subject={{ share_title | url_param_escape }}&body={{ share_url | url_param_escape }}"
+      href="mailto:?subject={{ page_share_title | url_param_escape }}&body={{ page_share_url | url_param_escape }}"
       aria-label="Share by email"
       data-platform="email"
     >
@@ -51,12 +58,12 @@
     <button
       class="page-share__item page-share__item--copy"
       type="button"
-      aria-label="Copy link"
-      title="Copy link"
+      aria-label="{{ page_share_copy_label }}"
+      title="{{ page_share_copy_label }}"
       data-share-copy
     >
       {% render 'icon-clipboard' %}
-      <span class="page-share__tooltip">Đã sao chép!</span>
+      <span class="page-share__tooltip">{{ page_share_copy_success_label }}</span>
     </button>
   </div>
 </div>
