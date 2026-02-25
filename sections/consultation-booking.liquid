@@ -1,0 +1,546 @@
+{{ 'consultation-booking.css' | asset_url | stylesheet_tag }}
+{% render 'section-style' %}
+
+{%- assign id = '#shopify-section-' | append: section.id -%}
+
+<style>
+  {{ id }} .cfb-form__input,
+  {{ id }} .cfb-form__textarea {
+    border-color: {{ section.settings.input_border_color }};
+    background-color: {{ section.settings.input_bg_color }};
+  }
+
+  {{ id }} .cfb-form__input:focus,
+  {{ id }} .cfb-form__textarea:focus {
+    border-color: {{ section.settings.primary_color }};
+  }
+
+  {{ id }} .cfb-form__label {
+    color: {{ section.settings.label_color }};
+  }
+
+  {{ id }} .cfb-form__required {
+    color: {{ section.settings.required_color }};
+  }
+
+  {{ id }} .cfb-form__option-content {
+    border-color: {{ section.settings.option_border_color }};
+    background-color: {{ section.settings.option_bg_color }};
+  }
+
+  {{ id }} .cfb-form__option-input:checked + .cfb-form__option-content {
+    border-color: {{ section.settings.primary_color }};
+    box-shadow: 0 0 0 3px rgba(33, 57, 93, 0.08);
+  }
+
+  {{ id }} .cfb-form__info {
+    background-color: {{ section.settings.info_bg_color }};
+    color: {{ section.settings.info_text_color }};
+    border-left-color: {{ section.settings.primary_color }};
+  }
+
+  {{ id }} .cfb-form__submit {
+    background-color: {{ section.settings.button_bg_color }};
+    color: {{ section.settings.button_text_color }};
+  }
+
+  {{ id }} .cfb-form__submit:hover {
+    background-color: {{ section.settings.button_bg_hover }};
+  }
+
+  {{ id }} .cfb-header__title {
+    font-size: {{ section.settings.title_font_size }}px;
+    color: {{ section.settings.title_color }};
+  }
+
+  {{ id }} .cfb-header__heading {
+    font-size: {{ section.settings.heading_font_size }}px;
+    color: {{ section.settings.heading_color }};
+  }
+
+  {{ id }} .cfb-header__description {
+    font-size: {{ section.settings.description_font_size }}px;
+    color: {{ section.settings.description_color }};
+  }
+
+  @media (max-width: 991px) {
+    {{ id }} .cfb-header__heading {
+      font-size: {{ section.settings.heading_font_size_tablet }}px;
+    }
+  }
+
+  @media (max-width: 575px) {
+    {{ id }} .cfb-header__heading {
+      font-size: {{ section.settings.heading_font_size_mobile }}px;
+    }
+  }
+</style>
+
+<div class="shopify-container">
+  <div class="cfb-wrapper">
+    <div class="cfb-header" {% if section.settings.data_aos != 'none' %}data-aos="{{ section.settings.data_aos }}"{% endif %}>
+      {%- if section.settings.title_content != blank -%}
+        <div class="cfb-header__title">{{ section.settings.title_content }}</div>
+      {%- endif -%}
+
+      {%- if section.settings.heading_content != blank -%}
+        <h1 class="cfb-header__heading">{{ section.settings.heading_content }}</h1>
+      {%- endif -%}
+
+      {%- if section.settings.description_content != blank -%}
+        <p class="cfb-header__description">{{ section.settings.description_content }}</p>
+      {%- endif -%}
+    </div>
+
+    <div class="cfb-form-container" {% if section.settings.data_aos != 'none' %}data-aos="{{ section.settings.data_aos }}" data-aos-delay="100"{% endif %}>
+      <form class="cfb-form" id="consultation-booking-form-{{ section.id }}" data-section-id="{{ section.id }}">
+        <div class="cfb-form__success" style="display: none;">
+          <div class="cfb-form__success-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+          </div>
+          <h3 class="cfb-form__success-title">{{ section.settings.success_title | default: 'Cảm ơn bạn!' }}</h3>
+
+          <p class="cfb-form__success-message cfb-form__success-message--product" style="display: none;">
+            {{ section.settings.success_message_product | default: 'Cảm ơn bạn đã yêu cầu tư vấn sản phẩm với NAGEN. Chúng tôi sẽ liên hệ lại trong vòng 24 giờ.' }}
+          </p>
+
+          <div class="cfb-form__success-email-note" style="display: none;">
+            <p>
+              {{ section.settings.success_email_prefix | default: '📧 Email xác nhận đã được gửi đến:' }}
+              <strong class="cfb-form__success-email"></strong>
+            </p>
+          </div>
+
+          <p class="cfb-form__success-message cfb-form__success-message--dealer-line-1" style="display: none;">
+            {{ section.settings.success_message_dealer_line_1 | default: 'Chúng tôi đã nhận được yêu cầu tư vấn đại lý của bạn.' }}
+          </p>
+          <p class="cfb-form__success-message cfb-form__success-message--dealer-line-2" style="display: none;">
+            {{ section.settings.success_message_dealer_line_2 | default: 'Đội ngũ NAGEN sẽ liên hệ với bạn trong vòng 24 giờ để tư vấn chi tiết.' }}
+          </p>
+
+          <button type="button" class="cfb-form__success-reset btn-primary">
+            <span>{{ section.settings.reset_button_text | default: 'Gửi yêu cầu khác' }}</span>
+            <span class="icon-button">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 2v6h-6"></path>
+                <path d="M3 12a9 9 0 0 1 15.5-6.36L21 8"></path>
+                <path d="M3 22v-6h6"></path>
+                <path d="M21 12a9 9 0 0 1-15.5 6.36L3 16"></path>
+              </svg>
+            </span>
+          </button>
+        </div>
+
+        <div class="cfb-form__fields">
+          <div class="cfb-form__group">
+            <label class="cfb-form__label">
+              Nội dung cần tư vấn <span class="cfb-form__required">*</span>
+            </label>
+
+            <div class="cfb-form__options" data-field-wrap="consultationType">
+              <label class="cfb-form__option">
+                <input type="radio" class="cfb-form__option-input" name="consultationType" value="product">
+                <span class="cfb-form__option-content">
+                  <span class="cfb-form__option-title">{{ section.settings.product_option_title }}</span>
+                  <span class="cfb-form__option-description">{{ section.settings.product_option_desc }}</span>
+                </span>
+              </label>
+
+              <label class="cfb-form__option">
+                <input type="radio" class="cfb-form__option-input" name="consultationType" value="dealer">
+                <span class="cfb-form__option-content">
+                  <span class="cfb-form__option-title">{{ section.settings.dealer_option_title }}</span>
+                  <span class="cfb-form__option-description">{{ section.settings.dealer_option_desc }}</span>
+                </span>
+              </label>
+            </div>
+            <span class="cfb-form__error" data-field="consultationType"></span>
+          </div>
+
+          <div class="cfb-form__row">
+            <div class="cfb-form__group">
+              <label class="cfb-form__label" for="cfb-name-{{ section.id }}">
+                Họ và tên <span class="cfb-form__required">*</span>
+              </label>
+              <input type="text" class="cfb-form__input" id="cfb-name-{{ section.id }}" name="name" placeholder="Nhập họ và tên" required>
+              <span class="cfb-form__error" data-field="name"></span>
+            </div>
+
+            <div class="cfb-form__group">
+              <label class="cfb-form__label" for="cfb-phone-{{ section.id }}">
+                Số điện thoại <span class="cfb-form__required">*</span>
+              </label>
+              <input type="tel" class="cfb-form__input" id="cfb-phone-{{ section.id }}" name="phone" placeholder="Nhập số điện thoại" inputmode="numeric" required>
+              <span class="cfb-form__error" data-field="phone"></span>
+            </div>
+          </div>
+
+          <div class="cfb-form__group">
+            <label class="cfb-form__label" for="cfb-email-{{ section.id }}">Email</label>
+            <input type="email" class="cfb-form__input" id="cfb-email-{{ section.id }}" name="email" placeholder="Nhập địa chỉ email (không bắt buộc)">
+            <span class="cfb-form__error" data-field="email"></span>
+          </div>
+
+          <div class="cfb-form__group">
+            <label class="cfb-form__label" for="cfb-address-{{ section.id }}">Địa chỉ</label>
+            <input type="text" class="cfb-form__input" id="cfb-address-{{ section.id }}" name="address" placeholder="Nhập địa chỉ (không bắt buộc)">
+          </div>
+
+          <div class="cfb-form__info">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+            <span>{{ section.settings.info_message }}</span>
+          </div>
+
+          <div class="cfb-form__group cfb-form__group--submit">
+            <button type="submit" class="cfb-form__submit btn-primary">
+              <span class="cfb-form__submit-text">{{ section.settings.button_text | default: 'Gửi thông tin tư vấn' }}</span>
+              <span class="cfb-form__submit-loading" style="display: none;">
+                <svg class="cfb-form__spinner" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10" stroke-opacity="0.25"></circle>
+                  <path d="M12 2a10 10 0 0 1 10 10" stroke-linecap="round"></path>
+                </svg>
+                Đang gửi...
+              </span>
+              <span class="icon-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="22" y1="2" x2="11" y2="13"></line>
+                  <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+              </span>
+            </button>
+          </div>
+        </div>
+      </form>
+      {% render 'page-share' %}
+    </div>
+  </div>
+</div>
+
+<script src="{{ 'consultation-booking.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Consultation Booking",
+  "tag": "section",
+  "class": "shopify-section--consultation-booking spaced-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full width",
+      "default": false
+    },
+    {
+      "type": "number",
+      "id": "content_width",
+      "label": "Content width",
+      "default": 720
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color"
+    },
+    {
+      "type": "text",
+      "id": "margin_desktop",
+      "label": "Margin desktop",
+      "info": "Example: 60px 0",
+      "default": "60px 0"
+    },
+    {
+      "type": "text",
+      "id": "margin_tablet",
+      "label": "Margin tablet",
+      "info": "Example: 40px 0"
+    },
+    {
+      "type": "text",
+      "id": "margin_mobile",
+      "label": "Margin mobile",
+      "info": "Example: 30px 0"
+    },
+    {
+      "type": "text",
+      "id": "padding_desktop",
+      "label": "Padding desktop",
+      "info": "Example: 60px 0",
+      "default": "60px 40px"
+    },
+    {
+      "type": "text",
+      "id": "padding_tablet",
+      "label": "Padding tablet",
+      "info": "Example: 40px 0"
+    },
+    {
+      "type": "text",
+      "id": "padding_mobile",
+      "label": "Padding mobile",
+      "info": "Example: 30px 0",
+      "default": "40px 20px"
+    },
+    {
+      "type": "header",
+      "content": "Section header"
+    },
+    {
+      "type": "liquid",
+      "id": "title_content",
+      "label": "Title",
+      "default": "<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M4 4h16v12H5.17L4 17.17V4zm2 2v8.34L6.83 14H18V6H6z\" fill=\"#EB1C25\"/><circle cx=\"9\" cy=\"10\" r=\"1.5\" fill=\"#EB1C25\"/><circle cx=\"13\" cy=\"10\" r=\"1.5\" fill=\"#EB1C25\"/><circle cx=\"17\" cy=\"10\" r=\"1.5\" fill=\"#EB1C25\"/></svg> Tư vấn"
+    },
+    {
+      "type": "number",
+      "id": "title_font_size",
+      "label": "Title font size",
+      "default": 14
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#21395d"
+    },
+    {
+      "type": "text",
+      "id": "heading_content",
+      "label": "Heading",
+      "default": "Đăng ký tư vấn miễn phí cùng chuyên gia NAGEN"
+    },
+    {
+      "type": "number",
+      "id": "heading_font_size",
+      "label": "Heading font size",
+      "default": 32
+    },
+    {
+      "type": "number",
+      "id": "heading_font_size_tablet",
+      "label": "Heading font size tablet",
+      "default": 28
+    },
+    {
+      "type": "number",
+      "id": "heading_font_size_mobile",
+      "label": "Heading font size mobile",
+      "default": 24
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#000000"
+    },
+    {
+      "type": "textarea",
+      "id": "description_content",
+      "label": "Description",
+      "default": "Vui lòng điền thông tin bên dưới để nhận tư vấn sản phẩm hoặc tư vấn trở thành đại lý từ đội ngũ NAGEN."
+    },
+    {
+      "type": "number",
+      "id": "description_font_size",
+      "label": "Description font size",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Description color",
+      "default": "#555555"
+    },
+    {
+      "type": "header",
+      "content": "Consultation options"
+    },
+    {
+      "type": "text",
+      "id": "product_option_title",
+      "label": "Product option title",
+      "default": "Tư vấn sản phẩm"
+    },
+    {
+      "type": "text",
+      "id": "product_option_desc",
+      "label": "Product option description",
+      "default": "Nhận tư vấn miễn phí về sản phẩm phù hợp với bạn"
+    },
+    {
+      "type": "text",
+      "id": "dealer_option_title",
+      "label": "Dealer option title",
+      "default": "Tư vấn trở thành đại lý"
+    },
+    {
+      "type": "text",
+      "id": "dealer_option_desc",
+      "label": "Dealer option description",
+      "default": "Tham gia mạng lưới đại lý NAGEN trên toàn quốc"
+    },
+    {
+      "type": "header",
+      "content": "Form styling"
+    },
+    {
+      "type": "color",
+      "id": "primary_color",
+      "label": "Primary color",
+      "default": "#21395d"
+    },
+    {
+      "type": "color",
+      "id": "label_color",
+      "label": "Label color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "required_color",
+      "label": "Required asterisk color",
+      "default": "#eb1c25"
+    },
+    {
+      "type": "color",
+      "id": "input_border_color",
+      "label": "Input border color",
+      "default": "#e0e0e0"
+    },
+    {
+      "type": "color",
+      "id": "input_bg_color",
+      "label": "Input background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "option_border_color",
+      "label": "Option border color",
+      "default": "#e0e0e0"
+    },
+    {
+      "type": "color",
+      "id": "option_bg_color",
+      "label": "Option background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "info_bg_color",
+      "label": "Info box background",
+      "default": "#eef4ff"
+    },
+    {
+      "type": "color",
+      "id": "info_text_color",
+      "label": "Info box text color",
+      "default": "#21395d"
+    },
+    {
+      "type": "textarea",
+      "id": "info_message",
+      "label": "Info message",
+      "default": "Chúng tôi sẽ liên hệ lại trong vòng 24h để tư vấn miễn phí và đặt lịch hẹn phù hợp."
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Gửi thông tin tư vấn"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button background",
+      "default": "#21395d"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_hover",
+      "label": "Button hover background",
+      "default": "#1a2f4d"
+    },
+    {
+      "type": "header",
+      "content": "Success message"
+    },
+    {
+      "type": "text",
+      "id": "success_title",
+      "label": "Success title",
+      "default": "Cảm ơn bạn!"
+    },
+    {
+      "type": "textarea",
+      "id": "success_message_product",
+      "label": "Success message (product)",
+      "default": "Cảm ơn bạn đã yêu cầu tư vấn sản phẩm với NAGEN. Chúng tôi sẽ liên hệ lại trong vòng 24 giờ."
+    },
+    {
+      "type": "textarea",
+      "id": "success_message_dealer_line_1",
+      "label": "Success message dealer line 1",
+      "default": "Chúng tôi đã nhận được yêu cầu tư vấn đại lý của bạn."
+    },
+    {
+      "type": "textarea",
+      "id": "success_message_dealer_line_2",
+      "label": "Success message dealer line 2",
+      "default": "Đội ngũ NAGEN sẽ liên hệ với bạn trong vòng 24 giờ để tư vấn chi tiết."
+    },
+    {
+      "type": "text",
+      "id": "success_email_prefix",
+      "label": "Success email prefix",
+      "default": "📧 Email xác nhận đã được gửi đến:"
+    },
+    {
+      "type": "text",
+      "id": "reset_button_text",
+      "label": "Reset button text",
+      "default": "Gửi yêu cầu khác"
+    },
+    {
+      "type": "header",
+      "content": "Animation"
+    },
+    {
+      "type": "select",
+      "id": "data_aos",
+      "label": "Animation",
+      "default": "fade-up",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "fade-up", "label": "Fade Up" },
+        { "value": "fade-down", "label": "Fade Down" },
+        { "value": "zoom-in", "label": "Zoom In" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Consultation Booking"
+    }
+  ]
+}
+{% endschema %}

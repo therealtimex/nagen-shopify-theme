@@ -1,0 +1,384 @@
+/* Consultation Booking Section */
+.shopify-section--consultation-booking {
+  background-color: transparent;
+}
+
+.cfb-wrapper {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.cfb-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.cfb-header__title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: capitalize;
+  margin-bottom: 12px;
+}
+
+.cfb-header__title svg {
+  flex-shrink: 0;
+}
+
+.cfb-header__heading {
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 1.3;
+  margin: 0 0 12px;
+}
+
+.cfb-header__description {
+  font-size: 15px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.cfb-form-container {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 28px 32px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.cfb-form__fields {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.cfb-form__group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cfb-form__row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.cfb-form__label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333333;
+}
+
+.cfb-form__required {
+  color: #eb1c25;
+}
+
+.cfb-form__input,
+.cfb-form__textarea {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #333333;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.cfb-form__input {
+  height: 44px;
+}
+
+.cfb-form__textarea {
+  resize: vertical;
+  min-height: 84px;
+}
+
+.cfb-form__input::placeholder,
+.cfb-form__textarea::placeholder {
+  color: #999999;
+}
+
+.cfb-form__input:focus,
+.cfb-form__textarea:focus {
+  outline: none;
+  border-color: #21395d;
+  box-shadow: 0 0 0 3px rgba(33, 57, 93, 0.1);
+}
+
+.cfb-form__input.error,
+.cfb-form__textarea.error {
+  border-color: #eb1c25;
+}
+
+.cfb-form__options {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.cfb-form__options.error .cfb-form__option-content {
+  border-color: #eb1c25;
+}
+
+.cfb-form__option {
+  display: block;
+  cursor: pointer;
+}
+
+.cfb-form__option-input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.cfb-form__option-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  background-color: #ffffff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.cfb-form__option:hover .cfb-form__option-content {
+  border-color: #21395d;
+}
+
+.cfb-form__option-input:checked + .cfb-form__option-content {
+  border-color: #21395d;
+  box-shadow: 0 0 0 3px rgba(33, 57, 93, 0.08);
+  background-color: #f7f9fd;
+}
+
+.cfb-form__option-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.cfb-form__option-description {
+  font-size: 13px;
+  line-height: 1.5;
+  color: #555555;
+}
+
+.cfb-form__info {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  border-left: 4px solid #21395d;
+  background-color: #eef4ff;
+  color: #21395d;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.cfb-form__info svg {
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.cfb-form__error {
+  font-size: 13px;
+  color: #eb1c25;
+  min-height: 18px;
+  display: none;
+}
+
+.cfb-form__error.visible {
+  display: block;
+}
+
+.cfb-form__group--submit {
+  margin-top: 8px;
+}
+
+.cfb-form__submit {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 48px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: #21395d;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  padding: 12px 24px;
+}
+
+.cfb-form__submit:hover {
+  background-color: #1a2f4d;
+}
+
+.cfb-form__submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.cfb-form__submit .icon-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+}
+
+.cfb-form__submit .icon-button svg {
+  stroke: #ffffff;
+}
+
+.cfb-form__submit-loading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cfb-form__spinner {
+  animation: cfb-spin 1s linear infinite;
+}
+
+@keyframes cfb-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.cfb-form__success {
+  text-align: center;
+  padding: 36px 20px;
+}
+
+.cfb-form__success-icon {
+  color: #22c55e;
+  margin-bottom: 20px;
+}
+
+.cfb-form__success-icon svg {
+  width: 60px;
+  height: 60px;
+}
+
+.cfb-form__success-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #166534;
+  margin: 0 0 14px;
+}
+
+.cfb-form__success-message {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #555555;
+  margin: 0 0 10px;
+}
+
+.cfb-form__success-email-note {
+  margin: 0 0 14px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  border-left: 4px solid #22c55e;
+  background-color: #f7fff9;
+}
+
+.cfb-form__success-email-note p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #14532d;
+}
+
+.cfb-form__success-email {
+  word-break: break-word;
+}
+
+.cfb-form__success-reset {
+  margin: 12px auto 0;
+  min-width: 220px;
+  justify-content: center;
+}
+
+@media (max-width: 991px) {
+  .cfb-header__heading {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 767px) {
+  .cfb-header {
+    margin-bottom: 20px;
+  }
+
+  .cfb-header__heading {
+    font-size: 24px;
+  }
+
+  .cfb-header__description {
+    font-size: 14px;
+  }
+
+  .cfb-form-container {
+    padding: 24px;
+    border-radius: 12px;
+  }
+
+  .cfb-form__row {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .cfb-form__input {
+    height: 44px;
+    font-size: 14px;
+  }
+
+  .cfb-form__submit {
+    min-height: 48px;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 575px) {
+  .cfb-form-container {
+    padding: 20px 16px;
+  }
+
+  .cfb-form__option-content {
+    padding: 12px;
+  }
+
+  .cfb-form__success {
+    padding: 24px 4px;
+  }
+
+  .cfb-form__success-title {
+    font-size: 20px;
+  }
+
+  .cfb-form__success-message {
+    font-size: 14px;
+  }
+}
