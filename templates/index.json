@@ -618,6 +618,7 @@
           "type": "carousel-item",
           "name": "Phòng bị, hỗ trợ điều trị",
           "settings": {
+            "image": "shopify://shop_images/Phong-B_-Di_u-Tr_-H_-Tr.webp",
             "url": "shopify://pages/phong-bi-khong-chi-ho-tro-dieu-tri",
             "heading": "Phòng bị, hỗ trợ điều trị",
             "heading_color": "#000000",
