@@ -362,6 +362,9 @@
                     {%- if block.settings.footer_text != blank -%}
                       <div class="footer__text">{{ block.settings.footer_text }}</div>
                     {% endif %}
+                    {%- if block.settings.tax_code_text != blank -%}
+                      <div class="footer__text footer__tax-code">{{ block.settings.tax_code_text | escape }}</div>
+                    {%- endif -%}
 
                     {%- if block.settings.button_content != blank -%}
                       <a href="{{ block.settings.button_url |  default: "#" }}" class="{{ block.settings.button_style }}" style="--btn-color: {{ block.settings.button_color }}; --btn-bg: {{ block.settings.button_bg_color }}; --btn-color-hover: {{ block.settings.button_color_hover }}; --btn-bg-hover: {{ block.settings.button_bg_color_hover }};">
@@ -1662,6 +1665,11 @@
           "id": "footer_text",
           "label": "Footer text",
           "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        }, {
+          "type": "text",
+          "id": "tax_code_text",
+          "label": "Tax code text",
+          "default": "Mã số thuế: 0110674019"
         }, {
           "type": "number",
           "id": "text_font_size",

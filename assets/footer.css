@@ -264,6 +264,10 @@
   padding: 0;
 }
 
+.footer__tax-code {
+  margin-top: 8px;
+}
+
 /* NEWSLETTER */
 
 .footer .wp-newsletter-input {
@@ -490,4 +494,3 @@
     width: 100%;
   }
 }
-
