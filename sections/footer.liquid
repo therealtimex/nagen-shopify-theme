@@ -350,6 +350,17 @@
                         </ul>
                       </div>
                     {%- endif -%}
+                    {%- if block.settings.show_compliance_logo -%}
+                      <div class="footer__compliance footer__compliance--social">
+                        {%- if block.settings.compliance_logo_url != blank -%}
+                          <a href="{{ block.settings.compliance_logo_url }}" class="footer__compliance-link" target="_blank" rel="noopener noreferrer">
+                            <img src="{{ 'logo-da-thong-bao-bo-cong-thuong.webp' | asset_url }}" class="footer__compliance-image" loading="lazy" alt="Đã thông báo Bộ Công Thương">
+                          </a>
+                        {%- else -%}
+                          <img src="{{ 'logo-da-thong-bao-bo-cong-thuong.webp' | asset_url }}" class="footer__compliance-image" loading="lazy" alt="Đã thông báo Bộ Công Thương">
+                        {%- endif -%}
+                      </div>
+                    {%- endif -%}
                   </div>
   
                 {%- when 'footer_text' -%}
@@ -573,7 +584,6 @@
                         </ul>
                       {% endif %}
                     </div>
-                    
                   </div>
     
                 {%- when 'newsletter' -%}
@@ -1046,6 +1056,21 @@
           "type": "text",
           "id": "social_tiktok",
           "label": "TikTok"
+        },
+        {
+          "type": "header",
+          "content": "Compliance logo"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_compliance_logo",
+          "label": "Show Bộ Công Thương logo",
+          "default": true
+        },
+        {
+          "type": "url",
+          "id": "compliance_logo_url",
+          "label": "Bộ Công Thương logo link"
         }
         
       ]

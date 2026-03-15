@@ -268,6 +268,25 @@
   margin-top: 8px;
 }
 
+.footer__compliance {
+  margin-top: 12px;
+  line-height: 0;
+}
+
+.footer__compliance--social {
+  margin-top: 16px;
+}
+
+.footer__compliance-link {
+  display: inline-flex;
+  max-width: 100%;
+}
+
+.footer__compliance-image {
+  width: min(100%, 200px);
+  height: auto;
+}
+
 /* NEWSLETTER */
 
 .footer .wp-newsletter-input {

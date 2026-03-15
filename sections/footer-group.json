@@ -135,7 +135,9 @@
             "social_pinterest": "",
             "social_youtube": "https://www.youtube.com/@nagenvn",
             "social_linkedin": "",
-            "social_tiktok": "https://www.tiktok.com/@nagenvn"
+            "social_tiktok": "https://www.tiktok.com/@nagenvn",
+            "show_compliance_logo": true,
+            "compliance_logo_url": "http://online.gov.vn/Website/chi-tiet-140812"
           }
         },
         "footer_contact_4RgcQj": {
