@@ -278,13 +278,24 @@
 }
 
 .footer__compliance-link {
-  display: inline-flex;
-  max-width: 100%;
+  display: block;
+  width: min(100%, var(--footer-social-width, 156px));
 }
 
 .footer__compliance-image {
-  width: min(100%, 200px);
+  display: block;
+  width: 100%;
   height: auto;
+}
+
+@media (max-width: 575px) {
+  .footer__compliance--social {
+    margin-top: 14px;
+  }
+  .footer__compliance-link {
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 /* NEWSLETTER */

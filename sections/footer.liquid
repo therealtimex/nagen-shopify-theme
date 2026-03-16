@@ -261,26 +261,34 @@
 
                     {% liquid
                       assign _show_social = false
+                      assign _social_count = 0
                       if block.settings.social_facebook != blank
                         assign _show_social = true
+                        assign _social_count = _social_count | plus: 1
                       endif
                       if section.settings.social_tw != blank
                         assign _show_social = true
+                        assign _social_count = _social_count | plus: 1
                       endif
                       if block.settings.social_instagram != blank
                         assign _show_social = true
+                        assign _social_count = _social_count | plus: 1
                       endif
                       if block.settings.social_pinterest != blank
                         assign _show_social = true
+                        assign _social_count = _social_count | plus: 1
                       endif
                       if block.settings.social_youtube != blank
                         assign _show_social = true
+                        assign _social_count = _social_count | plus: 1
                       endif
                       if block.settings.social_linkedin != blank
                         assign _show_social = true
+                        assign _social_count = _social_count | plus: 1
                       endif
                       if block.settings.social_tiktok != blank
                         assign _show_social = true
+                        assign _social_count = _social_count | plus: 1
                       endif
                     %}
 
@@ -352,7 +360,17 @@
                     {%- endif -%}
                     {%- if block.settings.show_compliance_logo -%}
                       {%- assign compliance_logo_url = block.settings.compliance_logo_url | default: 'https://online.gov.vn' -%}
-                      <div class="footer__compliance footer__compliance--social">
+                      {%- assign _compliance_count = _social_count -%}
+                      {%- if _compliance_count == 0 -%}
+                        {%- assign _compliance_count = 3 -%}
+                      {%- endif -%}
+                      {%- assign _icon_size = 36 -%}
+                      {%- assign _social_gap = 24 -%}
+                      {%- assign _compliance_width = _compliance_count | times: _icon_size -%}
+                      {%- assign _compliance_gap_count = _compliance_count | minus: 1 -%}
+                      {%- assign _compliance_gap_width = _compliance_gap_count | times: _social_gap -%}
+                      {%- assign _compliance_width = _compliance_width | plus: _compliance_gap_width -%}
+                      <div class="footer__compliance footer__compliance--social" style="--footer-social-width: {{ _compliance_width }}px;">
                         <a href="{{ compliance_logo_url }}" class="footer__compliance-link" target="_blank" rel="noopener noreferrer">
                           <img src="{{ 'logo-da-thong-bao-bo-cong-thuong.webp' | asset_url }}" class="footer__compliance-image" loading="lazy" alt="Đã thông báo Bộ Công Thương">
                         </a>
