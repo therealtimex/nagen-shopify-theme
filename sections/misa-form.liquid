@@ -1,18 +1,18 @@
 <div style="width: 100%; max-width: 600px; margin: auto; padding: 20px;">
   <table style="width: 100%; max-width: 600px; background-color: white; color: #212121">
     <tr>
-      <td colspan="2" align="left" style="color: #212121; font-size: 13px; padding: 6px;"><strong>Thông tin khách hàng</strong></td>
+      <td colspan="2" style="font-size: 13px; padding: 6px;"><strong>Thông tin khách hàng</strong></td>
     </tr>
     <tr>
-      <td style="text-align: left; font-size: 14px; padding: 6px;">Họ và Tên<span style="color:red;">*</span></td>
+      <td style="font-size: 14px; padding: 6px;">Họ và Tên<span style="color:red;">*</span></td>
       <td style="padding: 6px;"><input id="misa_LastName" style="width:250px; padding:4px;" type="text"></td>
     </tr>
     <tr>
-      <td style="text-align: left; font-size: 14px; padding: 6px;">ĐT di động<span style="color:red;">*</span></td>
+      <td style="font-size: 14px; padding: 6px;">ĐT di động<span style="color:red;">*</span></td>
       <td style="padding: 6px;"><input id="misa_Mobile" style="width:250px; padding:4px;" type="text"></td>
     </tr>
     <tr>
-      <td style="text-align: left; font-size: 14px; padding: 6px;">Email cá nhân</td>
+      <td style="font-size: 14px; padding: 6px;">Email cá nhân</td>
       <td style="padding: 6px;"><input id="misa_Email" style="width:250px; padding:4px;" type="text"></td>
     </tr>
     <tr>
@@ -27,6 +27,23 @@
   </table>
 </div>
 
+<!-- Form ẩn để submit đúng cách -->
+<iframe name="misa_iframe" style="display:none;"></iframe>
+<form id="misa_hidden_form" 
+      action="https://amisapp.misa.vn/crm/gc/api/open/WebForm/savecollection" 
+      method="POST" 
+      target="misa_iframe"
+      accept-charset="UTF-8">
+  <input type="hidden" name="ID" value="e9a384c2-93f4-172a-18c6-627c3d86070f">
+  <input type="hidden" name="Companycode" value="x0efrfwr">
+  <input type="hidden" name="AllowURL" value="https://nagen.vn/pages/khach-hang">
+  <input type="hidden" name="FormKey" value="XkR8uUD0KjkDe4RiRGNicQbu209n+CRgr+baxM+GxQE=">
+  <input type="hidden" name="RedirectURL" value="https://nagen.vn">
+  <input type="hidden" id="hidden_LastName" name="LastName">
+  <input type="hidden" id="hidden_Mobile" name="Mobile">
+  <input type="hidden" id="hidden_Email" name="Email">
+</form>
+
 <script>
 function misaSubmit() {
   var lastName = document.getElementById('misa_LastName').value.trim();
@@ -37,36 +54,21 @@ function misaSubmit() {
   if (!lastName) { alert('Họ và Tên không được để trống.'); return; }
   if (!mobile) { alert('ĐT di động không được để trống.'); return; }
 
+  document.getElementById('hidden_LastName').value = lastName;
+  document.getElementById('hidden_Mobile').value = mobile;
+  document.getElementById('hidden_Email').value = email;
+
   document.getElementById('misa_submit').disabled = true;
-  msg.innerText = 'Đang gửi...';
+  document.getElementById('misa_hidden_form').submit();
 
-  var params = new URLSearchParams();
-  params.append('ID', 'e9a384c2-93f4-172a-18c6-627c3d86070f');
-  params.append('Companycode', 'x0efrfwr');
-  params.append('AllowURL', 'https://nagen.vn/pages/khach-hang');
-  params.append('FormKey', 'XkR8uUD0KjkDe4RiRGNicQbu209n+CRgr+baxM+GxQE=');
-  params.append('RedirectURL', 'https://nagen.vn');
-  params.append('LastName', lastName);
-  params.append('Mobile', mobile);
-  params.append('Email', email);
-
-  fetch('https://amisapp.misa.vn/crm/gc/api/open/WebForm/savecollection', {
-    method: 'POST',
-    mode: 'no-cors',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: params.toString()
-  }).then(function() {
+  setTimeout(function() {
     msg.style.color = 'green';
     msg.innerText = 'Gửi thông tin thành công! Cảm ơn bạn.';
     document.getElementById('misa_LastName').value = '';
     document.getElementById('misa_Mobile').value = '';
     document.getElementById('misa_Email').value = '';
     document.getElementById('misa_submit').disabled = false;
-  }).catch(function() {
-    msg.style.color = 'red';
-    msg.innerText = 'Có lỗi xảy ra. Vui lòng thử lại.';
-    document.getElementById('misa_submit').disabled = false;
-  });
+  }, 1500);
 }
 
 function misaReset() {
