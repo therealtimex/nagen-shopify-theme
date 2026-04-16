@@ -1,0 +1,85 @@
+<div style="width: 100%; max-width: 600px; margin: auto; padding: 20px;">
+  <table style="width: 100%; max-width: 600px; background-color: white; color: #212121">
+    <tr>
+      <td colspan="2" align="left" style="color: #212121; font-size: 13px; padding: 6px;"><strong>Thông tin khách hàng</strong></td>
+    </tr>
+    <tr>
+      <td style="text-align: left; font-size: 14px; padding: 6px;">Họ và Tên<span style="color:red;">*</span></td>
+      <td style="padding: 6px;"><input id="misa_LastName" style="width:250px; padding:4px;" type="text"></td>
+    </tr>
+    <tr>
+      <td style="text-align: left; font-size: 14px; padding: 6px;">ĐT di động<span style="color:red;">*</span></td>
+      <td style="padding: 6px;"><input id="misa_Mobile" style="width:250px; padding:4px;" type="text"></td>
+    </tr>
+    <tr>
+      <td style="text-align: left; font-size: 14px; padding: 6px;">Email cá nhân</td>
+      <td style="padding: 6px;"><input id="misa_Email" style="width:250px; padding:4px;" type="text"></td>
+    </tr>
+    <tr>
+      <td colspan="2" style="padding: 15px 6px 6px;">
+        <button id="misa_submit" onclick="misaSubmit()" style="font-size:13px; padding:6px 12px; cursor:pointer;">Gửi thông tin</button>
+        <button onclick="misaReset()" style="font-size:13px; padding:6px 12px; cursor:pointer; margin-left:8px;">Đặt lại</button>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" id="misa_msg" style="padding: 6px; font-size: 13px;"></td>
+    </tr>
+  </table>
+</div>
+
+<script>
+function misaSubmit() {
+  var lastName = document.getElementById('misa_LastName').value.trim();
+  var mobile = document.getElementById('misa_Mobile').value.trim();
+  var email = document.getElementById('misa_Email').value.trim();
+  var msg = document.getElementById('misa_msg');
+
+  if (!lastName) { alert('Họ và Tên không được để trống.'); return; }
+  if (!mobile) { alert('ĐT di động không được để trống.'); return; }
+
+  document.getElementById('misa_submit').disabled = true;
+  msg.innerText = 'Đang gửi...';
+
+  var params = new URLSearchParams();
+  params.append('ID', 'e9a384c2-93f4-172a-18c6-627c3d86070f');
+  params.append('Companycode', 'x0efrfwr');
+  params.append('AllowURL', 'https://nagen.vn/pages/khach-hang');
+  params.append('FormKey', 'XkR8uUD0KjkDe4RiRGNicQbu209n+CRgr+baxM+GxQE=');
+  params.append('RedirectURL', 'https://nagen.vn');
+  params.append('LastName', lastName);
+  params.append('Mobile', mobile);
+  params.append('Email', email);
+
+  fetch('https://amisapp.misa.vn/crm/gc/api/open/WebForm/savecollection', {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: params.toString()
+  }).then(function() {
+    msg.style.color = 'green';
+    msg.innerText = 'Gửi thông tin thành công! Cảm ơn bạn.';
+    document.getElementById('misa_LastName').value = '';
+    document.getElementById('misa_Mobile').value = '';
+    document.getElementById('misa_Email').value = '';
+    document.getElementById('misa_submit').disabled = false;
+  }).catch(function() {
+    msg.style.color = 'red';
+    msg.innerText = 'Có lỗi xảy ra. Vui lòng thử lại.';
+    document.getElementById('misa_submit').disabled = false;
+  });
+}
+
+function misaReset() {
+  document.getElementById('misa_LastName').value = '';
+  document.getElementById('misa_Mobile').value = '';
+  document.getElementById('misa_Email').value = '';
+  document.getElementById('misa_msg').innerText = '';
+}
+</script>
+
+{% schema %}
+{
+  "name": "MISA Form",
+  "settings": []
+}
+{% endschema %}
