@@ -35,9 +35,11 @@
         "color_breadcrumb": "#ffffff",
         "breadcrumb_rounded": 0
       }
+    },
+    "misa_form": {
+      "type": "misa-form",
+      "settings": {}
     }
   },
-  "order": [
-    "main"
-  ]
+  "order": ["main", "misa_form"]
 }
