@@ -12,15 +12,6 @@
     "slideshow_split_apeMXD": {
       "type": "slideshow-split",
       "blocks": {
-        "slide_6PGk6d": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/DAI_LY.png",
-            "video_url": "",
-            "show_controls": false,
-            "link": ""
-          }
-        },
         "slide_EGXYLT": {
           "type": "slide",
           "settings": {
@@ -66,7 +57,6 @@
         }
       },
       "block_order": [
-        "slide_6PGk6d",
         "slide_EGXYLT",
         "slide_9pz3N8",
         "slide_bgUYeD",
