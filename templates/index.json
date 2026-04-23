@@ -12,6 +12,15 @@
     "slideshow_split_apeMXD": {
       "type": "slideshow-split",
       "blocks": {
+        "slide_3KYwiU": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/hkl.png",
+            "video_url": "",
+            "show_controls": false,
+            "link": ""
+          }
+        },
         "slide_EGXYLT": {
           "type": "slide",
           "settings": {
@@ -57,6 +66,7 @@
         }
       },
       "block_order": [
+        "slide_3KYwiU",
         "slide_EGXYLT",
         "slide_9pz3N8",
         "slide_bgUYeD",
