@@ -105,13 +105,6 @@
         isValid = false;
       }
       
-      // Birth date validation - Optional
-      const birthDate = form.querySelector('[name="birthDate"]').value;
-      // if (!birthDate) {
-      //   showError('birthDate', 'Vui lòng chọn ngày sinh', form);
-      //   isValid = false;
-      // }
-      
       // Phone validation
       const phone = form.querySelector('[name="phone"]').value.trim();
       if (!phone) {
