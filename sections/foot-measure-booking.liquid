@@ -117,14 +117,13 @@
           {%- comment -%} Date of Birth Field {%- endcomment -%}
           <div class="fmb-form__group">
             <label class="fmb-form__label" for="fmb-birthdate-{{ section.id }}">
-              Ngày tháng năm sinh <span class="fmb-form__required">*</span>
+              Ngày tháng năm sinh
             </label>
             <input 
               type="date" 
               class="fmb-form__input" 
               id="fmb-birthdate-{{ section.id }}" 
               name="birthDate"
-              required
             >
             <span class="fmb-form__error" data-field="birthDate"></span>
           </div>
@@ -149,7 +148,7 @@
           {%- comment -%} Email Field {%- endcomment -%}
           <div class="fmb-form__group">
             <label class="fmb-form__label" for="fmb-email-{{ section.id }}">
-              Email <span class="fmb-form__required">*</span>
+              Email
             </label>
             <input 
               type="email" 
@@ -157,7 +156,6 @@
               id="fmb-email-{{ section.id }}" 
               name="email" 
               placeholder="Nhập địa chỉ email"
-              required
             >
             <span class="fmb-form__error" data-field="email"></span>
           </div>
