@@ -105,12 +105,12 @@
         isValid = false;
       }
       
-      // Birth date validation
+      // Birth date validation - Optional
       const birthDate = form.querySelector('[name="birthDate"]').value;
-      if (!birthDate) {
-        showError('birthDate', 'Vui lòng chọn ngày sinh', form);
-        isValid = false;
-      }
+      // if (!birthDate) {
+      //   showError('birthDate', 'Vui lòng chọn ngày sinh', form);
+      //   isValid = false;
+      // }
       
       // Phone validation
       const phone = form.querySelector('[name="phone"]').value.trim();
@@ -122,12 +122,9 @@
         isValid = false;
       }
       
-      // Email validation
+      // Email validation - Optional
       const email = form.querySelector('[name="email"]').value.trim();
-      if (!email) {
-        showError('email', 'Vui lòng nhập email', form);
-        isValid = false;
-      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
         showError('email', 'Email không hợp lệ', form);
         isValid = false;
       }
