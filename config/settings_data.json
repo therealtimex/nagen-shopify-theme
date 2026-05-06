@@ -198,7 +198,7 @@
     "cart_coupon_enable": false,
     "cart_shipping_enable": false,
     "show_checkout_policy_notice": false,
-    "cart_terms_conditions_page": "shopify://pages/dieu-kien-giao-dich-chung",
+    "cart_terms_conditions_page": "shopify://pages/chinh-sach-mua-hang",
     "minicart_content_display": "center",
     "enable_free_shipping": true,
     "min_total_cart": "1000",
